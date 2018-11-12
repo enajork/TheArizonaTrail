@@ -1,1 +1,2 @@
-# csc335-teamproject-thearizonatrail-dnajork-enajork-jaredgrady-jbridgewater
+# The Arizonan Trail
+Contents of README goes here...
