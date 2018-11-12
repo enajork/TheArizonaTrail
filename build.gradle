@@ -20,7 +20,7 @@ dependencies {
 sourceSets {
   test {
     java {
-      srcDirs = ["tests"]
+      srcDirs = ["src"]
     }
   }
 }
