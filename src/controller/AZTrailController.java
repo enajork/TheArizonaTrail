@@ -1,9 +1,10 @@
+package controller;
 import model.*;
 
-public class GameController {
+public class AZTrailController {
 
   // may not be void return
-  public void loadingMenu(int choice) {
+  public void splashMenu(int choice) {
     if (choice < 1 || choice > 6) {
       System.err.println("Invalid Menu Choice!");
       System.exit(1);
@@ -32,7 +33,7 @@ public class GameController {
   }
 
   // may not be void return
-  public profMenu(int choice) {
+  public void profMenu(int choice) {
     if (choice < 1 || choice > 4) {
       System.err.println("Invalid Profession Choice!");
       System.exit(1);
@@ -96,19 +97,19 @@ public class GameController {
     }
     switch (choice) {
       case 1:
-        //
+        // Oxen
         break;
       case 2:
-        //
+        // Food
         break;
       case 3:
-        //
+        // Clothing
         break;
       case 4:
-        //
+        // Ammunition
         break;
       case 5:
-        //
+        // Spare parts
         break;
     }
   }
@@ -118,6 +119,10 @@ public class GameController {
       //
     }
     // add quantity to order
+  }
+
+  public void addToCart(Item item) {
+    //
   }
 
   // public void

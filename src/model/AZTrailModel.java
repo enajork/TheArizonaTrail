@@ -1,10 +1,15 @@
-public class GameModel {
+package model;
+
+public class AZTrailModel {
   Party party;
+  // byte day;
   byte month;
+  // int year;
 
   public GameModel(Party party, byte month) {
     this.party = party;
     this.month = month;
+    // this.day = 1;
   }
 
   public Party.Profession getProf() {
