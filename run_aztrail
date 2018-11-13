@@ -1,0 +1,6 @@
+#!/bin/bash
+
+gradle
+cd src
+javac AZTrail.java
+java AZTrail
