@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gradle
 cd src
+gradle build
 javac AZTrail.java
 java AZTrail
