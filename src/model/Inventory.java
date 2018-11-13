@@ -1,3 +1,5 @@
+package model;
+
 public class Inventory {
   int money;
   int oxen;

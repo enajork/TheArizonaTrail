@@ -6,7 +6,7 @@ public class AZTrailModel {
   byte month;
   // int year;
 
-  public GameModel(Party party, byte month) {
+  public AZTrailModel(Party party, byte month) {
     this.party = party;
     this.month = month;
     // this.day = 1;

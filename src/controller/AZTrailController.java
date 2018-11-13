@@ -121,9 +121,9 @@ public class AZTrailController {
     // add quantity to order
   }
 
-  public void addToCart(Item item) {
-    //
-  }
+  // public void addToCart(Item item) {
+  //   //
+  // }
 
   // public void
 
