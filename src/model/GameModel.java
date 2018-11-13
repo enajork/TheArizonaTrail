@@ -122,6 +122,14 @@ public class GameModel {
     return this.month;
   }
 
+  // public void advanceDay() {
+  //
+  // }
+
+  // public void advanceMonth() {
+  //
+  // }
+
   public byte getMonth() {
     return this.month;
   }
