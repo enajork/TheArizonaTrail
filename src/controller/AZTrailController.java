@@ -1,10 +1,22 @@
 package controller;
 import model.*;
+import java.util.Random;
 
 public class AZTrailController {
+  private AZTrailModel model;
+  private static Random rand;
 
-  // may not be void return
-  public void splashMenu(int choice) {
+  public AZTrailController() {
+    this.model = new AZTrailModel();
+    this.rand = new Random(System.currentTimeMillis());
+  }
+
+  public AZTrailController(AZTrailModel model) {
+    this.model = model;
+    this.rand = new Random(System.currentTimeMillis());
+  }
+
+  public AZTrailControllerMessage splashMenu(int choice) {
     if (choice < 1 || choice > 6) {
       System.err.println("Invalid Menu Choice!");
       System.exit(1);
@@ -12,22 +24,23 @@ public class AZTrailController {
     switch (choice) {
       case 1:
         // Travel the trail
-        break;
+        return new AZTrailControllerMessage(0, null);
       case 2:
         // Learn about the trail
-        break;
+        return new AZTrailControllerMessage(1, "LEARN STUFF\nthere will need to be multiple panes for this\n and each pane's text will be separated by a newline or some other indicative char"); // call info or learn method
       case 3:
         // See the Arizona top 10
-        break;
+        return new AZTrailControllerMessage(2, "TOP TEN\n1. me\n2.you"); // call top ten method
       case 4:
         // turn sound off
-        break;
+        return new AZTrailControllerMessage(3, null); // STUBBED
       case 5:
         // choose management option
-        break;
+        return new AZTrailControllerMessage(4, null); // STUBBED
       case 6:
         // end
-        break;
+        System.exit(0);
+        // break;
     }
     // return;
   }
@@ -90,42 +103,40 @@ public class AZTrailController {
     }
   }
 
-  public void storeMenu(int choice) {
-    if (choice < 1 || choice > 5) {
-      System.err.println("Invalid Store Choice!");
-      System.exit(1);
-    }
-    switch (choice) {
-      case 1:
-        // Oxen
-        break;
-      case 2:
-        // Food
-        break;
-      case 3:
-        // Clothing
-        break;
-      case 4:
-        // Ammunition
-        break;
-      case 5:
-        // Spare parts
-        break;
-    }
-  }
+  // public void storeMenu(int choice) {
+  //   if (choice < 1 || choice > 5) {
+  //     System.err.println("Invalid Store Choice!");
+  //     System.exit(1);
+  //   }
+  //   switch (choice) {
+  //     case 1:
+  //       // Oxen
+  //       break;
+  //     case 2:
+  //       // Food
+  //       break;
+  //     case 3:
+  //       // Clothing
+  //       break;
+  //     case 4:
+  //       // Ammunition
+  //       break;
+  //     case 5:
+  //       // Spare parts
+  //       break;
+  //   }
+  // }
 
-  public void storeSubMenu(int quantity) {
-    if (quantity < 1 || quantity > 10) {
-      //
-    }
-    // add quantity to order
-  }
+  // public void storeSubMenu(int quantity) {
+  //   if (quantity < 1 || quantity > 10) {
+  //     //
+  //   }
+  //   // add quantity to order
+  // }
 
   // public void addToCart(Item item) {
   //   //
   // }
-
-  // public void
 
   public void learn() {
     //

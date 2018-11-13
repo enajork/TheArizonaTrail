@@ -6,6 +6,8 @@ public class AZTrailModel {
   byte month;
   // int year;
 
+  public AZTrailModel() {}
+
   public AZTrailModel(Party party, byte month) {
     this.party = party;
     this.month = month;
@@ -132,6 +134,10 @@ public class AZTrailModel {
   // }
 
   // public void advanceMonth() {
+  //
+  // }
+
+  // public void advanceSeason() {
   //
   // }
 
