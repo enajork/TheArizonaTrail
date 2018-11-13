@@ -1,2 +1,2 @@
-# The Arizonan Trail
+# The Arizona Trail
 Contents of README goes here...
