@@ -43,6 +43,7 @@ public class AZTrailController {
         // break;
     }
     // return;
+    return null;
   }
 
   // may not be void return
@@ -159,6 +160,4 @@ public class AZTrailController {
   public void end() {
     // may not need
   }
-
-
 }

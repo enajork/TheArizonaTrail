@@ -24,7 +24,6 @@ public class AZTrailView extends Application {
   protected static final int HEIGHT = 408;
   protected static final int WIDTH = 650;
 
-
   @Override
   public void start(Stage stage) throws Exception {
     stage.setTitle("Arizona Trail");
@@ -32,7 +31,8 @@ public class AZTrailView extends Application {
     stage.initStyle(StageStyle.UNDECORATED);
 
     // Show the splash menu
-    stage.setScene(SplashMenu.create(stage));
+    Scene splashMenu = new SplashMenu();
+    stage.setScene(splashMenu);
     stage.show();
   }
 

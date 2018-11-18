@@ -21,9 +21,13 @@ import javafx.scene.input.KeyCode;
 
 import controller.*;
 
-public class SplashMenu {
-  public static Scene create(Stage stage) {
-    BorderPane root = new BorderPane();
+public class SplashMenu extends Scene {
+  public SplashMenu() {
+    this(new BorderPane());
+  }
+
+  public SplashMenu(BorderPane root) {
+    super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
 
     // Create the tile image;
     Image img = new Image("file:view/assets/aztrail_splashtext.png");
@@ -54,18 +58,16 @@ public class SplashMenu {
     root.setTop(title);
     root.setCenter(tile);
 
-    Scene scene = new Scene(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
-    addEventHandlers(scene);
-    return scene;
+    addEventHandlers();
   }
 
-  private static ImageView menuAccent() {
+  private ImageView menuAccent() {
     return new ImageView(new Image("file:view/assets/menuaccent.png",
       620, 40, false, false));
   }
 
-  private static void addEventHandlers(Scene scene) {
-    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+  private void addEventHandlers() {
+    this.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent event) {
         switch (event.getCode()) {

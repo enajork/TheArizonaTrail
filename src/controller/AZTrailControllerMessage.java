@@ -1,4 +1,6 @@
-protected class AZTrailControllerMessage {
+package controller;
+
+public class AZTrailControllerMessage {
   private final int selection;
   private final String text;
 
