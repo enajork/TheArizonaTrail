@@ -51,7 +51,7 @@ public class AZTrailModel {
   }
 
   public int addBlankets(int amount) {
-    return party.addClothes(amount);
+    return party.addBlankets(amount);
   }
 
   public boolean removeBlankets(int amount) {
