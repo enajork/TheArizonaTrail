@@ -48,6 +48,8 @@ public class LearnView extends Scene {
 
   public LearnView() {
     this(new BorderPane());
+    getStylesheets().add(getClass().getResource("assets/style.css")
+      .toExternalForm());
   }
 
   private LearnView(BorderPane root) {
@@ -73,7 +75,7 @@ public class LearnView extends Scene {
 
   private void learnTextBlock() {
     Text body = new Text(text[curPage] + "\n\nPress SPACEBAR to continue...");
-    body.setFont(Font.font("file:view/assets/here-lies-mecc.tff", 20));
+    body.setStyle("-fx-font-family: Here Lies MECC;");
     body.setFill(Color.WHITE);
 
     BorderPane tile = new BorderPane();

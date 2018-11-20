@@ -1,9 +1,3 @@
 @font-face {
-  font-family: "Here Lies MECC Regular";
   src: url("assests/here-lies-mecc.ttf");
-}
-
-.font {
-  font-size: 20pt;
-  -fx-font-family: "Here Lies MECC Regular";
 }
