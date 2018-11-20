@@ -3,7 +3,7 @@ package model;
 import java.util.*;
 
 public class Party {
-  static enum Profession {
+  protected static enum Profession {
     BANKER, CARPENTER, FARMER;
   }
 

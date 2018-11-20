@@ -91,7 +91,7 @@ public class AZTrailModel {
   }
 
   public boolean removeWater(int amount) {
-    return pary.removeWater(amount);
+    return party.removeWater(amount);
   }
 
   public int getWater() {

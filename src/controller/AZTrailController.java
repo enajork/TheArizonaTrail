@@ -16,7 +16,7 @@ public class AZTrailController {
     this.rand = new Random(System.currentTimeMillis());
   }
 
-  public AZTrailControllerMessage splashMenu(int choice) {
+  public Scene splashMenu(int choice) {
     if (choice < 1 || choice > 6) {
       System.err.println("Invalid Menu Choice!");
       System.exit(1);
@@ -24,7 +24,7 @@ public class AZTrailController {
     switch (choice) {
       case 1:
         // Travel the trail
-        return new AZTrailControllerMessage(0, null);
+        return new AZTrailControllerMessage(0, null); // next menu's text
       case 2:
         // Learn about the trail
         return new AZTrailControllerMessage(1, "LEARN STUFF\nthere will need to be multiple panes for this\n and each pane's text will be separated by a newline or some other indicative char"); // call info or learn method

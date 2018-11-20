@@ -8,7 +8,6 @@ public class Inventory {
   int blankets;
   int bullets;
   // optional
-  int bullets;
   int wheels;
   int axles;
   int tongues;
@@ -131,9 +130,9 @@ public class Inventory {
     return false;
   }
 
-  protected int getWater() [
+  protected int getWater() {
     return this.water;
-  ]
+  }
 
   protected int addBullets(int amount) {
     if (amount >= 0) {
