@@ -50,16 +50,16 @@ public class AZTrailModel {
     return party.getOxen();
   }
 
-  public int addClothes(int amount) {
+  public int addBlankets(int amount) {
     return party.addClothes(amount);
   }
 
-  public boolean removeClothes(int amount) {
-    return party.removeClothes(amount);
+  public boolean removeBlankets(int amount) {
+    return party.removeBlankets(amount);
   }
 
-  public int getClothes() {
-    return party.getClothes();
+  public int getBlankets() {
+    return party.getBlankets();
   }
 
   public int addBullets(int amount) {
@@ -74,6 +74,30 @@ public class AZTrailModel {
     return party.getBullets();
   }
 
+  public int addFood(int amount) {
+    return party.addFood(amount);
+  }
+
+  public boolean removeFood(int amount) {
+    return party.removeFood(amount);
+  }
+
+  public int getFood() {
+    return party.getFood();
+  }
+
+  public int addWater(int amount) {
+    return party.addWater(amount);
+  }
+
+  public boolean removeWater(int amount) {
+    return pary.removeWater(amount);
+  }
+
+  public int getWater() {
+    return party.getWater();
+  }
+  // ---------- optional parts from here -------------- //
   public int addWheels(int amount) {
     return party.addWheels(amount);
   }
@@ -110,17 +134,6 @@ public class AZTrailModel {
     return party.getTongues();
   }
 
-  public int addFood(int amount) {
-    return party.addFood(amount);
-  }
-
-  public boolean removeFood(int amount) {
-    return party.removeFood(amount);
-  }
-
-  public int getFood() {
-    return party.getFood();
-  }
 
   public byte setMonth(byte month) {
     if (month > 0 && month <= 12) {
