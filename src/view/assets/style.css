@@ -3,6 +3,7 @@
   src: url("assests/here-lies-mecc.ttf");
 }
 
-.label {
+.text {
+  size: 20pt;
   -fx-font-family: "Here Lies MECC Regular";
 }

@@ -42,7 +42,6 @@ public class SplashMenu extends Scene {
       + "5. Choose Management Options\n\t"
       + "6. End\n\n"
       + "What is your choice? _");
-    body.setFont(Font.font("file:view/assets/here-lies-mecc.tff", 20));
     body.setFill(Color.WHITE);
 
     BorderPane tile = new BorderPane();

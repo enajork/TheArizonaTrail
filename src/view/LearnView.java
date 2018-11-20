@@ -60,7 +60,6 @@ public class LearnView extends Scene {
 
     // Create the text for the menu options
     Text body = new Text(text[0] + "\n\nPress SPACEBAR to continue...");
-    body.setFont(Font.font("file:view/assets/here-lies-mecc.tff", 20));
     body.setFill(Color.WHITE);
 
     // Style the view
