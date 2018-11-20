@@ -41,7 +41,7 @@ public class LearnView extends Scene {
     "You may turn the sound on or\noff during the program by\npressing "
     + "Control-S.", "You may want to quit in the\nmiddle of the program. If so,"
     + "\npress the Escape (Esc) key\ntwice whenever the computer is waiting for"
-    + " a response.", "\tThe software team responsible\nfor the creation of "
+    + " a response.", "The software team responsible\nfor the creation of "
     + "this product includes:\n\nJordan Bridgewater\nJared Grady\nDavid Najork"
     + "\nEric Najork"
   };
