@@ -105,9 +105,9 @@ public class SplashMenuView extends Scene {
             updateInputText(6);
             break;
 
-          case BACKSPACE:
-            input = input.substring(0, contents.length() - 1);
-            break;
+          // case BACKSPACE:
+          //   input = input.substring(0, contents.length() - 1);
+          //   break;
 
           case ENTER:
             System.out.println(input.substring(0, contents.length() - 1));
