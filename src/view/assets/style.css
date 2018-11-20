@@ -2,7 +2,17 @@
   src: url("here-lies-mecc.ttf");
 }
 
-#text {
+#text8 {
+  -fx-font-family: 'Here Lies MECC Regular';
+  -fx-font-size: 8pt;
+}
+
+#text10 {
   -fx-font-family: 'Here Lies MECC Regular';
   -fx-font-size: 10pt;
+}
+
+#text12 {
+  -fx-font-family: 'Here Lies MECC Regular';
+  -fx-font-size: 12pt;
 }

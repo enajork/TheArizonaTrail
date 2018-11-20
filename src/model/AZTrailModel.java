@@ -7,7 +7,11 @@ public class AZTrailModel {
   // int year;
   boolean sound;
 
-  public AZTrailModel() {}
+  public AZTrailModel() {
+    this.sound = true;
+    this.month = month;
+    this.party = new Party();
+  }
 
   /**
    * [AZTrailModel description]
@@ -16,8 +20,8 @@ public class AZTrailModel {
    */
   public AZTrailModel(Party party, byte month) {
     this.sound = true;
-    this.party = party;
     this.month = month;
+    this.party = party;
     // this.day = 1;
   }
 
@@ -25,8 +29,25 @@ public class AZTrailModel {
    * [getProf description]
    * @return [description]
    */
-  public Party.Profession getProf() {
-    return party.getProf();
+  public String getProf() {
+    switch(party.getProf()) {
+      case BANKER:
+        return "Banker";
+      case CARPENTER:
+        return "Carpenter";
+      case FARMER:
+        return "Farmer";
+      default:
+        throw new IllegalStateException();
+    }
+  }
+
+  /**
+   * [getProf description]
+   * @return [description]
+   */
+  public void setProf(String name) {
+    party.setProf(name);
   }
 
   /**

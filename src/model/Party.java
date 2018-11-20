@@ -3,13 +3,24 @@ package model;
 import java.util.*;
 
 public class Party {
-  protected static enum Profession {
+  public static enum Profession {
     BANKER, CARPENTER, FARMER;
   }
 
   HashMap<String, Integer> members;
   Profession prof;
   Inventory inv;
+
+  /**
+   * [Party description]
+   * @param prof [description]
+   */
+  public Party() {
+    this.members = new HashMap<String, Integer>();
+    this.prof = Profession.BANKER;
+    this.inv = new Inventory(prof);
+  }
+
 
   /**
    * [Party description]
@@ -25,15 +36,31 @@ public class Party {
    * [getProf description]
    * @return [description]
    */
-  protected Profession getProf() {
+  public Profession getProf() {
     return this.prof;
+  }
+
+  /**
+   * [getProf description]
+   * @return [description]
+   */
+  public void setProf(String name) {
+    if (name.toLowerCase().equals("banker")) {
+      this.prof = Profession.BANKER;
+    } else if (name.toLowerCase().equals("carpenter")) {
+      this.prof = Profession.CARPENTER;
+    } else if (name.toLowerCase().equals("farmer")) {
+      this.prof = Profession.FARMER;
+    } else {
+      throw new IllegalStateException();
+    }
   }
 
   /**
    * [getNames description]
    * @return [description]
    */
-  protected String[] getNames() {
+  public String[] getNames() {
     return members.keySet().toArray(new String[members.keySet().size()]);
   }
 
@@ -42,7 +69,7 @@ public class Party {
    * @param  name [description]
    * @return      [description]
    */
-  protected int getMember(String name) {
+  public int getMember(String name) {
     return members.get(name);
   }
 
@@ -51,7 +78,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addMoney(int amount) {
+  public int addMoney(int amount) {
     return inv.addMoney(amount);
   }
 
@@ -60,7 +87,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeMoney(int amount) {
+  public boolean removeMoney(int amount) {
     return inv.removeMoney(amount);
   }
 
@@ -68,7 +95,7 @@ public class Party {
    * [getMoney description]
    * @return [description]
    */
-  protected int getMoney() {
+  public int getMoney() {
     return inv.getMoney();
   }
 
@@ -77,7 +104,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addOxen(int amount) {
+  public int addOxen(int amount) {
     return inv.addOxen(amount);
   }
 
@@ -86,7 +113,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeOxen(int amount) {
+  public boolean removeOxen(int amount) {
     return inv.removeOxen(amount);
   }
 
@@ -94,7 +121,7 @@ public class Party {
    * [getOxen description]
    * @return [description]
    */
-  protected int getOxen() {
+  public int getOxen() {
     return inv.getOxen();
   }
 
@@ -103,7 +130,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addBlankets(int amount) {
+  public int addBlankets(int amount) {
     return inv.addBlankets(amount);
   }
 
@@ -112,7 +139,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeBlankets(int amount) {
+  public boolean removeBlankets(int amount) {
     return inv.removeBlankets(amount);
   }
 
@@ -120,7 +147,7 @@ public class Party {
    * [getBlankets description]
    * @return [description]
    */
-  protected int getBlankets() {
+  public int getBlankets() {
     return inv.getBlankets();
   }
 
@@ -129,7 +156,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addBullets(int amount) {
+  public int addBullets(int amount) {
     return inv.addBullets(amount);
   }
 
@@ -138,7 +165,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeBullets(int amount) {
+  public boolean removeBullets(int amount) {
     return inv.removeBullets(amount);
   }
 
@@ -146,7 +173,7 @@ public class Party {
    * [getBullets description]
    * @return [description]
    */
-  protected int getBullets() {
+  public int getBullets() {
     return inv.getBullets();
   }
 
@@ -155,7 +182,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addFood(int amount) {
+  public int addFood(int amount) {
     return inv.addFood(amount);
   }
 
@@ -164,7 +191,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeFood(int amount) {
+  public boolean removeFood(int amount) {
     return inv.removeFood(amount);
   }
 
@@ -172,7 +199,7 @@ public class Party {
    * [getFood description]
    * @return [description]
    */
-  protected int getFood() {
+  public int getFood() {
     return inv.getFood();
   }
 
@@ -181,7 +208,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addWater(int amount) {
+  public int addWater(int amount) {
     return inv.addWater(amount);
   }
 
@@ -190,7 +217,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeWater(int amount) {
+  public boolean removeWater(int amount) {
     return inv.removeWater(amount);
   }
 
@@ -198,7 +225,7 @@ public class Party {
    * [getWater description]
    * @return [description]
    */
-  protected int getWater() {
+  public int getWater() {
     return inv.getWater();
   }
   // ----------- START OF OPTIONAL SPARE PARTS ------------------
@@ -208,7 +235,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addWheels(int amount) {
+  public int addWheels(int amount) {
     return inv.addWheels(amount);
   }
 
@@ -217,7 +244,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeWheels(int amount) {
+  public boolean removeWheels(int amount) {
     return inv.removeWheels(amount);
   }
 
@@ -225,7 +252,7 @@ public class Party {
    * [getWheels description]
    * @return [description]
    */
-  protected int getWheels() {
+  public int getWheels() {
     return inv.getWheels();
   }
 
@@ -234,7 +261,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addAxles(int amount) {
+  public int addAxles(int amount) {
     return inv.addAxles(amount);
   }
 
@@ -243,7 +270,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeAxles(int amount) {
+  public boolean removeAxles(int amount) {
     return inv.removeAxles(amount);
   }
 
@@ -251,7 +278,7 @@ public class Party {
    * [getAxles description]
    * @return [description]
    */
-  protected int getAxles() {
+  public int getAxles() {
     return inv.getAxles();
   }
 
@@ -260,7 +287,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addTongues(int amount) {
+  public int addTongues(int amount) {
     return inv.addTongues(amount);
   }
 
@@ -269,7 +296,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeTongues(int amount) {
+  public boolean removeTongues(int amount) {
     return inv.removeTongues(amount);
   }
 
@@ -277,7 +304,7 @@ public class Party {
    * [getTongues description]
    * @return [description]
    */
-  protected int getTongues() {
+  public int getTongues() {
     return inv.getTongues();
   }
 

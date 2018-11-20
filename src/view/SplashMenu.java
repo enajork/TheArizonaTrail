@@ -21,9 +21,9 @@ import javafx.scene.input.KeyCode;
 
 import controller.*;
 
-public class SplashMenuView extends Scene {
+public class SplashMenu extends Scene {
   private Text body;
-  private String contents = "You can:\n\n\t"
+  private String contents = "You may:\n\n\t"
     + "1. Travel the Trail\n\t"
     + "2. Learn about the trail\n\t"
     + "3. See the Arizona Top Ten\n\t"
@@ -34,17 +34,19 @@ public class SplashMenuView extends Scene {
   private String input = "_";
 
   /**
-   * [SplashMenuView description]
+   * [SplashMenu description]
    */
-  public SplashMenuView() {
+  public SplashMenu() {
     this(new BorderPane());
+    getStylesheets().add(getClass()
+      .getResource("assets/style.css").toExternalForm());
   }
 
   /**
-   * [SplashMenuView description]
+   * [SplashMenu description]
    * @param root [description]
    */
-  private SplashMenuView(BorderPane root) {
+  private SplashMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
 
     // Create the tile image;
@@ -53,7 +55,7 @@ public class SplashMenuView extends Scene {
 
     // Create the text for the menu options
     body = new Text(contents + input);
-    body.setId("text");
+    body.setId("text12");
     body.setFill(Color.WHITE);
 
     BorderPane tile = new BorderPane();
@@ -164,21 +166,45 @@ public class SplashMenuView extends Scene {
     switch (choice) {
       case 1:
         // Travel the trail
-        return null;
+        return new ProfMenu();
         // return new ProfMenuView();
       case 2:
         // Learn about the trail
-        return new LearnView();
+        return new GenericInfoMenu(new SplashMenu(), 10, new String[]{
+          "Try taking a journey by covered wagon across\n200 miles of desert, "
+          + "mountains, and canyons.\nTry! In the desert, will you slosh your oxen"
+          + "\nthrough dirt and ruts or will you plod through\ndust six inches deep?",
+          "How will you cross the canyons?\nIf you have money, you might hire"
+          + "\na guide (if there is a guide) or\nyou can try and cross it yourself"
+          + "\nand hope you and your wagon aren't\nlost forever!",
+          "What about supplies? Well, if\nyou're low on food you can\nhunt. You might"
+          + " get an Elk...\nyou might. And there are bears\nin the mountains.",
+          "If for some reason you don't\nsurvive -- your wagon burns,\nor bandits "
+          + "steal your oxen, or\nyou run out of provisions, or\nyou die of "
+          + "dehydration -- don't\ngive up!\tTry again... and again...\n"
+          + "until your name is up with the\nothers on The Arizona Top Ten.",
+          "You may turn the sound on or\noff during the program by\npressing "
+          + "Control-S.", "You may want to quit in the\nmiddle of the program. If so,"
+          + "\npress the Escape (Esc) key\ntwice whenever the computer\nis waiting"
+          + " for a response.", "The software team responsible for the\ncreation of "
+          + "this product includes:\n\nJordan Bridgewater\nJared Grady\nDavid Najork"
+          + "\nEric Najork"
+        });
       case 3:
         // See the Arizona top 10
-        return null;
-        // return new TopTenView(this.model.getTopTen());
+        return new GenericInfoMenu(new SplashMenu(), new String[]{
+          "Not yet implemented..."
+        });
       case 4:
         // turn sound off
-        return new SoundMenuView();
+        return new GenericInfoMenu(new SplashMenu(), new String[]{
+          "The sound is now turned off. \n"
+            + "You may turn sound on or off\n"
+            + "during the program by pressing\nControl-S."
+        });
       case 5:
         // choose management option
-        return null;
+        return new OptionsMenu();
       case 6:
         // end
         System.exit(0);

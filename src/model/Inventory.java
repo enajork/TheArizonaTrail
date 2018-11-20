@@ -47,7 +47,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addMoney(int amount) {
+  public int addMoney(int amount) {
     if (amount >= 0) {
       return this.money += amount;
     }
@@ -59,7 +59,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeMoney(int amount) {
+  public boolean removeMoney(int amount) {
     if (amount >= 0 && this.money - amount >= 0) {
       this.money -= amount;
       return true;
@@ -71,7 +71,7 @@ public class Inventory {
    * [getMoney description]
    * @return [description]
    */
-  protected int getMoney() {
+  public int getMoney() {
     return this.money;
   }
 
@@ -80,7 +80,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addOxen(int amount) {
+  public int addOxen(int amount) {
     if (amount >= 0) {
       return this.oxen += amount;
     }
@@ -92,7 +92,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeOxen(int amount) {
+  public boolean removeOxen(int amount) {
     if (amount >= 0 && this.oxen - amount >= 0) {
       this.oxen -= amount;
       return true;
@@ -104,7 +104,7 @@ public class Inventory {
    * [getOxen description]
    * @return [description]
    */
-  protected int getOxen() {
+  public int getOxen() {
     return this.oxen;
   }
 
@@ -113,7 +113,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addBlankets(int amount) {
+  public int addBlankets(int amount) {
     if (amount >= 0) {
       return this.blankets += amount;
     }
@@ -125,7 +125,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeBlankets(int amount) {
+  public boolean removeBlankets(int amount) {
     if (amount >= 0 && this.blankets - amount >= 0) {
       this.blankets -= amount;
       return true;
@@ -137,7 +137,7 @@ public class Inventory {
    * [getBlankets description]
    * @return [description]
    */
-  protected int getBlankets() {
+  public int getBlankets() {
     return this.blankets;
   }
 
@@ -146,7 +146,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addFood(int amount) {
+  public int addFood(int amount) {
     if (amount >= 0) {
       return this.food += amount;
     }
@@ -158,7 +158,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeFood(int amount) {
+  public boolean removeFood(int amount) {
     if (amount >= 0 && this.food - amount >= 0) {
       this.food -= amount;
       return true;
@@ -170,7 +170,7 @@ public class Inventory {
    * [getFood description]
    * @return [description]
    */
-  protected int getFood() {
+  public int getFood() {
     return this.food;
   }
 
@@ -179,7 +179,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addWater(int amount) {
+  public int addWater(int amount) {
     if (amount >= 0) {
       return this.water += amount;
     }
@@ -191,7 +191,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeWater(int amount) {
+  public boolean removeWater(int amount) {
     if (amount >= 0 && this.water - amount >= 0) {
       this.water -= amount;
       return true;
@@ -203,7 +203,7 @@ public class Inventory {
    * [getWater description]
    * @return [description]
    */
-  protected int getWater() {
+  public int getWater() {
     return this.water;
   }
 
@@ -212,7 +212,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addBullets(int amount) {
+  public int addBullets(int amount) {
     if (amount >= 0) {
       return this.bullets += amount;
     }
@@ -224,7 +224,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeBullets(int amount) {
+  public boolean removeBullets(int amount) {
     if (amount >= 0 && this.bullets - amount >= 0) {
       this.bullets -= amount;
       return true;
@@ -236,7 +236,7 @@ public class Inventory {
    * [getBullets description]
    * @return [description]
    */
-  protected int getBullets() {
+  public int getBullets() {
     return this.bullets;
   }
   // ------------------- start of optional parts ----------------//
@@ -246,7 +246,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addWheels(int amount) {
+  public int addWheels(int amount) {
     if (amount >= 0) {
       return this.wheels += amount;
     }
@@ -258,7 +258,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeWheels(int amount) {
+  public boolean removeWheels(int amount) {
     if (amount >= 0 && this.wheels - amount >= 0) {
       this.wheels -= amount;
       return true;
@@ -270,7 +270,7 @@ public class Inventory {
    * [getWheels description]
    * @return [description]
    */
-  protected int getWheels() {
+  public int getWheels() {
     return this.wheels;
   }
 
@@ -279,7 +279,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addAxles(int amount) {
+  public int addAxles(int amount) {
     if (amount >= 0) {
       return this.axles += amount;
     }
@@ -291,7 +291,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeAxles(int amount) {
+  public boolean removeAxles(int amount) {
     if (amount >= 0 && this.axles - amount >= 0) {
       this.axles -= amount;
       return true;
@@ -303,7 +303,7 @@ public class Inventory {
    * [getAxles description]
    * @return [description]
    */
-  protected int getAxles() {
+  public int getAxles() {
     return this.axles;
   }
 
@@ -312,7 +312,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected int addTongues(int amount) {
+  public int addTongues(int amount) {
     if (amount >= 0) {
       return this.tongues += amount;
     }
@@ -324,7 +324,7 @@ public class Inventory {
    * @param  amount [description]
    * @return        [description]
    */
-  protected boolean removeTongues(int amount) {
+  public boolean removeTongues(int amount) {
     if (amount >= 0 && this.tongues - amount >= 0) {
       this.tongues -= amount;
       return true;
@@ -336,7 +336,7 @@ public class Inventory {
    * [getTongues description]
    * @return [description]
    */
-  protected int getTongues() {
+  public int getTongues() {
     return this.tongues;
   }
 }

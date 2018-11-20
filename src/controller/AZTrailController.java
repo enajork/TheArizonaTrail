@@ -36,19 +36,17 @@ public class AZTrailController {
     }
     switch (choice) {
       case 1:
-        // banker from ***Boston
+        model.setProf("banker");
         break;
       case 2:
-        // carpenter from ***Ohio
+        model.setProf("carpenter");
         break;
       case 3:
-        // farmer from ***Illinois
+        model.setProf("farmer");
         break;
-      case 4:
-        // find out the differences between these choices
-        break;
+      default:
+        throw new IllegalStateException();
     }
-    // return;
   }
 
   /**
