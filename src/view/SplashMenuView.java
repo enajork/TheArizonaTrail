@@ -21,11 +21,7 @@ import javafx.scene.input.KeyCode;
 
 import controller.*;
 
-<<<<<<< HEAD:src/view/SplashMenuView.java
 public class SplashMenuView extends Scene {
-  public SplashMenuView() {
-=======
-public class SplashMenu extends Scene {
   Text body;
   String contents = "You can:\n\n\t"
     + "1. Travel the Trail\n\t"
@@ -37,8 +33,7 @@ public class SplashMenu extends Scene {
     + "What is your choice? ";
   String input = "_";
 
-  public SplashMenu() {
->>>>>>> b5e0f9847eca1569bdbb81923dccb484b58d9814:src/view/SplashMenu.java
+  public SplashMenuView() {
     this(new BorderPane());
   }
 
