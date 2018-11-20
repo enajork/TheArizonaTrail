@@ -3,12 +3,16 @@ package model;
 public class Inventory {
   int money;
   int oxen;
-  int clothes;
+  int water;
+  int food;
+  int blankets;
+  int bullets;
+  // optional
   int bullets;
   int wheels;
   int axles;
   int tongues;
-  int food;
+
 
   public Inventory(Party.Profession prof) {
     switch (prof) {
@@ -26,12 +30,14 @@ public class Inventory {
     }
     this.money = 0;
     this.oxen = 0;
-    this.clothes = 0;
+    this.water = 0;
+    this.blankets = 0;
+    this.food = 0;
+    // optional
     this.bullets = 0;
     this.wheels = 0;
     this.axles = 0;
     this.tongues = 0;
-    this.food = 0;
   }
 
   protected int addMoney(int amount) {
@@ -72,24 +78,62 @@ public class Inventory {
     return this.oxen;
   }
 
-  protected int addClothes(int amount) {
+  protected int addBlankets(int amount) {
     if (amount >= 0) {
-      return this.clothes += amount;
+      return this.blankets += amount;
     }
-    return this.clothes;
+    return this.blankets;
   }
 
-  protected boolean removeClothes(int amount) {
-    if (amount >= 0 && this.clothes - amount >= 0) {
-      this.clothes -= amount;
+  protected boolean removeBlankets(int amount) {
+    if (amount >= 0 && this.blankets - amount >= 0) {
+      this.blankets -= amount;
       return true;
     }
     return false;
   }
 
-  protected int getClothes() {
-    return this.clothes;
+  protected int getBlankets() {
+    return this.blankets;
   }
+
+  protected int addFood(int amount) {
+    if (amount >= 0) {
+      return this.food += amount;
+    }
+    return this.food;
+  }
+
+  protected boolean removeFood(int amount) {
+    if (amount >= 0 && this.food - amount >= 0) {
+      this.food -= amount;
+      return true;
+    }
+    return false;
+  }
+
+  protected int getFood() {
+    return this.food;
+  }
+
+  protected int addWater(int amount) {
+    if (amount >= 0) {
+      return this.water += amount;
+    }
+    return this.water;
+  }
+
+  protected boolean removeWater(int amount) {
+    if (amount >= 0 && this.water - amount >= 0) {
+      this.water -= amount;
+      return true;
+    }
+    return false;
+  }
+
+  protected int getWater() [
+    return this.water;
+  ]
 
   protected int addBullets(int amount) {
     if (amount >= 0) {
@@ -109,7 +153,7 @@ public class Inventory {
   protected int getBullets() {
     return this.bullets;
   }
-
+  // ------------------- start of optional parts ----------------//
   protected int addWheels(int amount) {
     if (amount >= 0) {
       return this.wheels += amount;
@@ -167,22 +211,5 @@ public class Inventory {
     return this.tongues;
   }
 
-  protected int addFood(int amount) {
-    if (amount >= 0) {
-      return this.food += amount;
-    }
-    return this.food;
-  }
 
-  protected boolean removeFood(int amount) {
-    if (amount >= 0 && this.food - amount >= 0) {
-      this.food -= amount;
-      return true;
-    }
-    return false;
-  }
-
-  protected int getFood() {
-    return this.food;
-  }
 }

@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "Here Lies MECC Regular";
+  src: url("assests/here-lies-mecc.ttf");
+}
+
+.label {
+  -fx-font-family: "Here Lies MECC Regular";
+}

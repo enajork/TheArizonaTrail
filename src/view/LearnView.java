@@ -27,7 +27,7 @@ public class LearnView extends Scene {
 
   private static final String[] text = {
     "Try taking a journey by covered wagon \nacross 200 miles of desert, "
-    + "mountains, and canyons.\nTry! In the desert, wil you slosh your oxen "
+    + "mountains, and canyons.\nTry! In the desert, will you slosh your oxen "
     + "through dirt and ruts\nor will you plod through dust six inches deep?",
     "How will you cross the canyons?\nIf you have money, you might hire a "
     + "guide (if there is a guide).\nor you can try and cross it yourself\nand "
