@@ -15,6 +15,7 @@ import javafx.scene.*;
 import javafx.scene.text.Font;
 import javafx.event.*;
 import java.util.*;
+import java.net.*;
 import java.io.*;
 import javafx.scene.text.Text;
 
@@ -27,6 +28,7 @@ public class AZTrailView extends Application {
   protected static Stage stage;
   protected static final int HEIGHT = 408;
   protected static final int WIDTH = 650;
+  protected static String styleSheet;
 
   /**
    * Main entry point for the view
@@ -35,6 +37,13 @@ public class AZTrailView extends Application {
    */
   @Override
   public void start(Stage stage) throws Exception {
+    try {
+      URL url = new File("view/assets/style.css").toURI().toURL();
+      styleSheet = url.toExternalForm();
+    } catch (MalformedURLException e) {
+      System.err.println("Fatal error! Style sheet not loaded.");
+      System.exit(1);
+    }
     this.stage = stage;
     model = new AZTrailModel();
     controller = new AZTrailController(model);

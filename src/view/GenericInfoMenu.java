@@ -34,8 +34,7 @@ public class GenericInfoMenu extends Scene {
    */
   public GenericInfoMenu(Scene prevScene, String[] text) {
     this(new BorderPane(), text, 12);
-    getStylesheets().add(getClass().getResource("assets/style.css")
-      .toExternalForm());
+    getStylesheets().add(AZTrailView.styleSheet);
     this.prevScene = prevScene;
   }
 

@@ -37,8 +37,7 @@ public class ProfMenu extends Scene {
    */
   public ProfMenu() {
     this(new BorderPane());
-    getStylesheets().add(getClass()
-      .getResource("assets/style.css").toExternalForm());
+    getStylesheets().add(AZTrailView.styleSheet);
   }
 
   /**

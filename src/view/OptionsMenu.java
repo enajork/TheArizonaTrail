@@ -33,8 +33,7 @@ public class OptionsMenu extends Scene {
    */
   public OptionsMenu() {
     this(new BorderPane());
-    getStylesheets().add(getClass()
-      .getResource("assets/style.css").toExternalForm());
+    getStylesheets().add(AZTrailView.styleSheet);
   }
 
   /**

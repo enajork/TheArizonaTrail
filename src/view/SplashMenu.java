@@ -38,8 +38,7 @@ public class SplashMenu extends Scene {
    */
   public SplashMenu() {
     this(new BorderPane());
-    getStylesheets().add(getClass()
-      .getResource("assets/style.css").toExternalForm());
+    getStylesheets().add(AZTrailView.styleSheet);
   }
 
   /**
