@@ -5,6 +5,7 @@ public class AZTrailModel {
   // byte day;
   byte month;
   // int year;
+  boolean sound;
 
   public AZTrailModel() {}
 
@@ -14,6 +15,7 @@ public class AZTrailModel {
    * @param month [description]
    */
   public AZTrailModel(Party party, byte month) {
+    this.sound = true;
     this.party = party;
     this.month = month;
     // this.day = 1;
@@ -318,5 +320,13 @@ public class AZTrailModel {
   public String[] getTopTen() {
     String[] topTen = {"Me", "You", "Your brother", "Your mother", "Your father", "Your sister", "Your dog", "Owen Wilson", "player1", "guest"};
     return topTen;
+  }
+
+  public boolean getSound() {
+    return sound;
+  }
+
+  public void toggleSound() {
+    this.sound = !this.sound;
   }
 }
