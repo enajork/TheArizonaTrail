@@ -30,6 +30,10 @@ public class AZTrailController {
         // return new ProfMenuView();
       case 2:
         // Learn about the trail
+<<<<<<< HEAD
+=======
+        // return null;
+>>>>>>> b7e2184d5bbcf8996fed61fd2fc38c9cc52f450a
         return new LearnView();
       case 3:
         // See the Arizona top 10
@@ -38,7 +42,6 @@ public class AZTrailController {
       case 4:
         // turn sound off
         return new SoundMenuView();
-        // return new SoundMenuView();
       case 5:
         // choose management option
         return null;
