@@ -50,7 +50,7 @@ public class LearnView extends Scene {
     this(new BorderPane());
   }
 
-  public LearnView(BorderPane root) {
+  private LearnView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
     this.root = root;
 

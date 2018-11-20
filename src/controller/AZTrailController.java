@@ -1,4 +1,5 @@
 package controller;
+import javafx.scene.*;
 import model.*;
 import view.*;
 // import java.util.Random;
@@ -17,7 +18,7 @@ public class AZTrailController {
     // this.rand = new Random(System.currentTimeMillis());
   }
 
-  public Scene splashMenu(int choice) {
+  public Scene getSplashView(int choice) {
     if (choice < 1 || choice > 6) {
       System.err.println("Invalid Menu Choice!");
       System.exit(1);
@@ -29,7 +30,6 @@ public class AZTrailController {
         // return new ProfMenuView();
       case 2:
         // Learn about the trail
-        return null;
         return new LearnView();
       case 3:
         // See the Arizona top 10
@@ -37,7 +37,7 @@ public class AZTrailController {
         // return new TopTenView(this.model.getTopTen());
       case 4:
         // turn sound off
-        return null;
+        return new SoundMenuView();
         // return new SoundMenuView();
       case 5:
         // choose management option

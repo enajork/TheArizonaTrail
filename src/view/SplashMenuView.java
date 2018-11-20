@@ -22,8 +22,10 @@ import javafx.scene.input.KeyCode;
 import controller.*;
 
 public class SplashMenuView extends Scene {
-  Text body;
-  String contents = "You can:\n\n\t"
+  private AZTrailController controller;
+  private Stage stage;
+  private Text body;
+  private String contents = "You can:\n\n\t"
     + "1. Travel the Trail\n\t"
     + "2. Learn about the trail\n\t"
     + "3. See the Arizona Top Ten\n\t"
@@ -31,13 +33,15 @@ public class SplashMenuView extends Scene {
     + "5. Choose Management Options\n\t"
     + "6. End\n\n"
     + "What is your choice? ";
-  String input = "_";
+  private String input = "_";
 
-  public SplashMenuView() {
+  public SplashMenuView(AZTrailController controller, Stage stage) {
     this(new BorderPane());
+    this.controller = controller;
+    this.stage = stage;
   }
 
-  public SplashMenuView(BorderPane root) {
+  private SplashMenuView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
 
     // Create the tile image;
@@ -107,15 +111,15 @@ public class SplashMenuView extends Scene {
 
           case BACK_SPACE:
             if (input.length() >= 2) {
-              input = input.substring(0, input.length() - 1);
-              input = input.substring(0, input.length() - 1);
+              input = input.substring(0, input.length() - 2);
               input += "_";
             }
             body.setText(contents + input);
             break;
 
           case ENTER:
-            System.out.println(input.substring(0, input.length() - 1));
+            stage.setScene(controller.getSplashView(Integer.parseInt(input
+              .substring(0, 1))));
             break;
 
           default:

@@ -21,17 +21,19 @@ import javafx.scene.text.Text;
 import controller.*;
 
 public class AZTrailView extends Application {
+  private AZTrailController controller;
   protected static final int HEIGHT = 408;
   protected static final int WIDTH = 650;
 
   @Override
   public void start(Stage stage) throws Exception {
+    controller = new AZTrailController();
     stage.setTitle("Arizona Trail");
     stage.setResizable(false);
     //stage.initStyle(StageStyle.UNDECORATED);
 
     // Show the splash menu
-    Scene splashMenuView = new SplashMenuView();
+    Scene splashMenuView = new SplashMenuView(controller, stage);
     splashMenuView.getStylesheets().add(AZTrailView.class
       .getResource("assets/style.css").toExternalForm());
 

@@ -34,7 +34,7 @@ public class SoundMenuView extends Scene {
     this(new BorderPane());
   }
 
-  public SoundMenuView(BorderPane root) {
+  private SoundMenuView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
     this.root = root;
 
