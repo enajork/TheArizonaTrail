@@ -1,22 +1,23 @@
 package controller;
 import model.*;
-import java.util.Random;
+import view.*;
+// import java.util.Random;
 
 public class AZTrailController {
   private AZTrailModel model;
-  private static Random rand;
+  // private static Random rand;
 
   public AZTrailController() {
     this.model = new AZTrailModel();
-    this.rand = new Random(System.currentTimeMillis());
+    // this.rand = new Random(System.currentTimeMillis());
   }
 
   public AZTrailController(AZTrailModel model) {
     this.model = model;
-    this.rand = new Random(System.currentTimeMillis());
+    // this.rand = new Random(System.currentTimeMillis());
   }
 
-  public AZTrailControllerMessage splashMenu(int choice) {
+  public Scene splashMenu(int choice) {
     if (choice < 1 || choice > 6) {
       System.err.println("Invalid Menu Choice!");
       System.exit(1);
@@ -24,19 +25,23 @@ public class AZTrailController {
     switch (choice) {
       case 1:
         // Travel the trail
-        return new AZTrailControllerMessage(0, null);
+        return null;
+        // return new ProfMenuView();
       case 2:
         // Learn about the trail
-        return new AZTrailControllerMessage(1, "LEARN STUFF\nthere will need to be multiple panes for this\n and each pane's text will be separated by a newline or some other indicative char"); // call info or learn method
+        return null;
+        return new LearnView();
       case 3:
         // See the Arizona top 10
-        return new AZTrailControllerMessage(2, "TOP TEN\n1. me\n2.you"); // call top ten method
+        return null;
+        // return new TopTenView(this.model.getTopTen());
       case 4:
         // turn sound off
-        return new AZTrailControllerMessage(3, null); // STUBBED
+        return null;
+        // return new SoundMenuView();
       case 5:
         // choose management option
-        return new AZTrailControllerMessage(4, null); // STUBBED
+        return null;
       case 6:
         // end
         System.exit(0);

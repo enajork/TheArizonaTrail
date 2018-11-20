@@ -144,4 +144,9 @@ public class AZTrailModel {
   public byte getMonth() {
     return this.month;
   }
+
+  public String[] getTopTen() {
+    String[] topTen = {"Me", "You", "Your brother", "Your mother", "Your father", "Your sister", "Your dog", "Owen Wilson", "player1", "guest"};
+    return topTen;
+  }
 }
