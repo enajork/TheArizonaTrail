@@ -106,11 +106,11 @@ public class SplashMenuView extends Scene {
             break;
 
           // case BACKSPACE:
-          //   input = input.substring(0, contents.length() - 1);
+          //   input = input.substring(0, input.length() - 1);
           //   break;
 
           case ENTER:
-            System.out.println(input.substring(0, contents.length() - 1));
+            System.out.println(input.substring(0, input.length() - 1));
             break;
 
           default:
@@ -122,7 +122,7 @@ public class SplashMenuView extends Scene {
 
   private void updateInputText(int num) {
     if (input.length() == 1) {
-      input = input.substring(0, contents.length() - 1);
+      input = input.substring(0, input.length() - 1);
       input += num + "_";
       body.setText(contents + input);
     }
