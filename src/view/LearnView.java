@@ -105,6 +105,8 @@ public class LearnView extends Scene {
         if (event.getCode().equals(KeyCode.SPACE) && curPage < text.length - 1) {
           curPage++;
           learnTextBlock();
+        } else if (event.getCode().equals(KeyCode.SPACE) && curPage == text.length - 1) {
+          AZTrailView.stage.setScene(new SplashMenuView());
         }
       }
     });

@@ -18,38 +18,6 @@ public class AZTrailController {
     // this.rand = new Random(System.currentTimeMillis());
   }
 
-  public Scene getSplashView(int choice) {
-    if (choice < 1 || choice > 6) {
-      System.err.println("Invalid Menu Choice!");
-      System.exit(1);
-    }
-    switch (choice) {
-      case 1:
-        // Travel the trail
-        return null;
-        // return new ProfMenuView();
-      case 2:
-        // Learn about the trail
-        return new LearnView();
-      case 3:
-        // See the Arizona top 10
-        return null;
-        // return new TopTenView(this.model.getTopTen());
-      case 4:
-        // turn sound off
-        return new SoundMenuView();
-      case 5:
-        // choose management option
-        return null;
-      case 6:
-        // end
-        System.exit(0);
-        // break;
-    }
-    // return;
-    return null;
-  }
-
   // may not be void return
   public void profMenu(int choice) {
     if (choice < 1 || choice > 4) {

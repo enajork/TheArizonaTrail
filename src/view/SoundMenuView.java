@@ -47,6 +47,7 @@ public class SoundMenuView extends Scene {
     root.setStyle("-fx-background-color: black;");
     root.setTop(title);
     body();
+    addEventHandlers();
   }
 
   private void body() {
@@ -74,5 +75,16 @@ public class SoundMenuView extends Scene {
   private ImageView menuAccent() {
     return new ImageView(new Image("file:view/assets/menuaccent.png",
       620, 40, false, false));
+  }
+
+  private void addEventHandlers() {
+    this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.SPACE)) {
+          AZTrailView.stage.setScene(new SplashMenuView());
+        }
+      }
+    });
   }
 }

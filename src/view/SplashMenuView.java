@@ -22,8 +22,6 @@ import javafx.scene.input.KeyCode;
 import controller.*;
 
 public class SplashMenuView extends Scene {
-  private AZTrailController controller;
-  private Stage stage;
   private Text body;
   private String contents = "You can:\n\n\t"
     + "1. Travel the Trail\n\t"
@@ -35,10 +33,8 @@ public class SplashMenuView extends Scene {
     + "What is your choice? ";
   private String input = "_";
 
-  public SplashMenuView(AZTrailController controller, Stage stage) {
+  public SplashMenuView() {
     this(new BorderPane());
-    this.controller = controller;
-    this.stage = stage;
   }
 
   private SplashMenuView(BorderPane root) {
@@ -118,7 +114,7 @@ public class SplashMenuView extends Scene {
             break;
 
           case ENTER:
-            stage.setScene(controller.getSplashView(Integer.parseInt(input
+            AZTrailView.stage.setScene(getSplashView(Integer.parseInt(input
               .substring(0, 1))));
             break;
 
@@ -135,5 +131,35 @@ public class SplashMenuView extends Scene {
       input += num + "_";
       body.setText(contents + input);
     }
+  }
+
+  private Scene getSplashView(int choice) {
+    if (choice < 1 || choice > 6) {
+      throw new IllegalStateException();
+    }
+    switch (choice) {
+      case 1:
+        // Travel the trail
+        return null;
+        // return new ProfMenuView();
+      case 2:
+        // Learn about the trail
+        return new LearnView();
+      case 3:
+        // See the Arizona top 10
+        return null;
+        // return new TopTenView(this.model.getTopTen());
+      case 4:
+        // turn sound off
+        return new SoundMenuView();
+      case 5:
+        // choose management option
+        return null;
+      case 6:
+        // end
+        System.exit(0);
+    }
+    // return;
+    return null;
   }
 }
