@@ -28,7 +28,7 @@ public class AZTrailView extends Application {
   public void start(Stage stage) throws Exception {
     stage.setTitle("Arizona Trail");
     stage.setResizable(false);
-    stage.initStyle(StageStyle.UNDECORATED);
+    //stage.initStyle(StageStyle.UNDECORATED);
 
     // Show the splash menu
     Scene splashMenu = new SplashMenu();

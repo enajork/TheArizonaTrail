@@ -26,13 +26,24 @@ public class LearnView extends Scene {
   private int curPage = 0;
 
   private static final String[] text = {
-    "Try taking a journey by covered wagon \nacross 200 miles of desert, mountains, and canyons.\nTry! In the desert, wil you slosh your oxen through dirt and ruts\nor will you plod through dust six inches deep?",
-    "How will you cross the canyons?\nIf you have money, you might hire a guide (if there is a guide).\nor you can try and cross it yourself\nand hope you and your wagon aren't lost forever!",
-    "What about supplies? Well, if\nyou're low on food you can hunt.\nYou might get an Elk...\nyou might.\nAnd there are bear in the mountains.",
-    "If for some reason you don't\nsurvive -- your wagon burns,\nor bandits steal your oxen, or\nyou run out of provisions, or\nyou die of dehydration -- don't\ngive up!\tTry again...and\nagain...until your name is up\nwith the others on The Arizona\nTop Ten.",
-    "You may turn the sound on or\noff during the program by\npressing Control-S.",
-    "You may want to quit in the\nmiddle of the program. If so,\npress the Escape (Esc) key\ntwice whenever the computer is waiting for a response.",
-    "\tThe software team responsible\nfor the creation of this product includes:\n\nJordan Bridgewater\nJared Grady\nDavid Najork\nEric Najork"
+    "Try taking a journey by covered wagon \nacross 200 miles of desert, "
+    + "mountains, and canyons.\nTry! In the desert, wil you slosh your oxen "
+    + "through dirt and ruts\nor will you plod through dust six inches deep?",
+    "How will you cross the canyons?\nIf you have money, you might hire a "
+    + "guide (if there is a guide).\nor you can try and cross it yourself\nand "
+    + "hope you and your wagon aren't lost forever!",
+    "What about supplies? Well, if\nyou're low on food you can hunt.\nYou might"
+    + " get an Elk...\nyou might.\nAnd there are bear in the mountains.",
+    "If for some reason you don't\nsurvive -- your wagon burns,\nor bandits "
+    + "steal your oxen, or\nyou run out of provisions, or\nyou die of "
+    + "dehydration -- don't\ngive up!\tTry again...and\nagain...until your name"
+    + " is up\nwith the others on The Arizona\nTop Ten.",
+    "You may turn the sound on or\noff during the program by\npressing "
+    + "Control-S.", "You may want to quit in the\nmiddle of the program. If so,"
+    + "\npress the Escape (Esc) key\ntwice whenever the computer is waiting for"
+    + " a response.", "\tThe software team responsible\nfor the creation of "
+    + "this product includes:\n\nJordan Bridgewater\nJared Grady\nDavid Najork"
+    + "\nEric Najork"
   };
 
   public LearnView() {

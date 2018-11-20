@@ -53,16 +53,16 @@ public class Party {
     return inv.getOxen();
   }
 
-  protected int addClothes(int amount) {
-    return inv.addClothes(amount);
+  protected int addBlankets(int amount) {
+    return inv.addBlankets(amount);
   }
 
-  protected boolean removeClothes(int amount) {
-    return inv.removeClothes(amount);
+  protected boolean removeBlankets(int amount) {
+    return inv.removeBlankets(amount);
   }
 
-  protected int getClothes() {
-    return inv.getClothes();
+  protected int getBlankets() {
+    return inv.getBlankets();
   }
 
   protected int addBullets(int amount) {

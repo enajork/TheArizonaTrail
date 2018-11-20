@@ -34,7 +34,14 @@ public class SplashMenu extends Scene {
     ImageView title = new ImageView(img);
 
     // Create the text for the menu options
-    Text body = new Text("You can:\n\n\t1. Travel the Trail\n\t2. Learn about the trail\n\t3. See the Arizona Top Ten\n\t4. Turn sound off\n\t5. Choose Management Options\n\t6. End\n\nWhat is your choice?");
+    Text body = new Text("You can:\n\n\t"
+      + "1. Travel the Trail\n\t"
+      + "2. Learn about the trail\n\t"
+      + "3. See the Arizona Top Ten\n\t"
+      + "4. Turn sound off\n\t"
+      + "5. Choose Management Options\n\t"
+      + "6. End\n\n"
+      + "What is your choice? _");
     body.setFont(Font.font("file:view/assets/here-lies-mecc.tff", 20));
     body.setFill(Color.WHITE);
 
