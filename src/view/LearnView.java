@@ -46,10 +46,17 @@ public class LearnView extends Scene {
     + "\nEric Najork"
   };
 
+  /**
+   * [LearnView description]
+   */
   public LearnView() {
     this(new BorderPane());
   }
 
+  /**
+   * [LearnView description]
+   * @param root [description]
+   */
   private LearnView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
     this.root = root;
@@ -71,6 +78,9 @@ public class LearnView extends Scene {
     addEventHandlers();
   }
 
+  /**
+   * [learnTextBlock description]
+   */
   private void learnTextBlock() {
     Text body = new Text(text[curPage] + "\n\nPress SPACEBAR to continue...");
     body.setFont(Font.font("file:view/assets/here-lies-mecc.tff", 20));
@@ -93,11 +103,18 @@ public class LearnView extends Scene {
     this.root.setCenter(tile);
   }
 
+  /**
+   * [menuAccent description]
+   * @return [description]
+   */
   private ImageView menuAccent() {
     return new ImageView(new Image("file:view/assets/menuaccent.png",
       620, 40, false, false));
   }
 
+  /**
+   * [addEventHandlers description]
+   */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override

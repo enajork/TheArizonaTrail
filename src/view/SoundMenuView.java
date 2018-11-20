@@ -30,10 +30,17 @@ public class SoundMenuView extends Scene {
      "\tduring the program by pressing Control-S." +
      "\n\n\tPress SPACEBAR to continue...";
 
+  /**
+   * [SoundMenuView description]
+   */
   public SoundMenuView() {
     this(new BorderPane());
   }
 
+  /**
+   * [SoundMenuView description]
+   * @param root [description]
+   */
   private SoundMenuView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
     this.root = root;
@@ -50,6 +57,9 @@ public class SoundMenuView extends Scene {
     addEventHandlers();
   }
 
+  /**
+   * [body description]
+   */
   private void body() {
     Text body = new Text(text);
     body.setFont(Font.font("file:view/assets/here-lies-mecc.tff", 20));
@@ -72,11 +82,18 @@ public class SoundMenuView extends Scene {
     this.root.setCenter(tile);
   }
 
+  /**
+   * [menuAccent description]
+   * @return [description]
+   */
   private ImageView menuAccent() {
     return new ImageView(new Image("file:view/assets/menuaccent.png",
       620, 40, false, false));
   }
 
+  /**
+   * [addEventHandlers description]
+   */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override

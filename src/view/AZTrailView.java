@@ -26,10 +26,15 @@ public class AZTrailView extends Application {
   protected static final int HEIGHT = 408;
   protected static final int WIDTH = 650;
 
+  /**
+   * Main entry point for the view
+   * @param  stage     [description]
+   * @throws Exception [description]
+   */
   @Override
   public void start(Stage stage) throws Exception {
     this.stage = stage;
-    controller = new AZTrailController();
+    controller = new AZTrailController();``
     this.stage.setTitle("Arizona Trail");
     this.stage.setResizable(false);
     //stage.initStyle(StageStyle.UNDECORATED);
@@ -43,6 +48,10 @@ public class AZTrailView extends Application {
     this.stage.show();
   }
 
+  /**
+   * [profMenu description]
+   * @param choice [description]
+   */
   private void profMenu(int choice) {
     // banker from ***Boston
     // carpenter from ***Ohio
@@ -50,14 +59,26 @@ public class AZTrailView extends Application {
     // find out the differences between these choices
   }
 
+  /**
+   * [leaderNameMenu description]
+   * @param name [description]
+   */
   private void leaderNameMenu(String name) {
     //
   }
 
+  /**
+   * [partyNamesMenu description]
+   * @param names [description]
+   */
   private void partyNamesMenu(String[] names) {
     //
   }
 
+  /**
+   * [monthMenu description]
+   * @param choice [description]
+   */
   private void monthMenu(int choice) {
     // March
     // April
@@ -67,10 +88,18 @@ public class AZTrailView extends Application {
     // Ask for advice
   }
 
+  /**
+   * [storeMenu description]
+   * @param choice [description]
+   */
   private void storeMenu(int choice) {
     //
   }
 
+  /**
+   * [storeSubMenu description]
+   * @param quantity [description]
+   */
   private void storeSubMenu(int quantity) {
     //
   }
