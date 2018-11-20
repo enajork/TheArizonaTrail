@@ -93,8 +93,8 @@ public class Party {
     return inv.addWater(amount);
   }
 
-  protected int removeWater(int amount) {
-    return inv.addWater(amount);
+  protected boolean removeWater(int amount) {
+    return inv.removeWater(amount);
   }
 
   protected int getWater() {
