@@ -21,12 +21,12 @@ import javafx.scene.input.KeyCode;
 
 import controller.*;
 
-public class SplashMenu extends Scene {
-  public SplashMenu() {
+public class SplashMenuView extends Scene {
+  public SplashMenuView() {
     this(new BorderPane());
   }
 
-  public SplashMenu(BorderPane root) {
+  public SplashMenuView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
 
     // Create the tile image;
