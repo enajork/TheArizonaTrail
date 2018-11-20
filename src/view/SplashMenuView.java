@@ -120,7 +120,7 @@ public class SplashMenuView extends Scene {
     });
   }
 
-  private String updateInputText(int num) {
+  private void updateInputText(int num) {
     if (input.length() == 1) {
       input = input.substring(0, contents.length() - 1);
       input += num + "_";
