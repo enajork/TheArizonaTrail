@@ -41,17 +41,24 @@ public class LearnView extends Scene {
     "You may turn the sound on or\noff during the program by\npressing "
     + "Control-S.", "You may want to quit in the\nmiddle of the program. If so,"
     + "\npress the Escape (Esc) key\ntwice whenever the computer is waiting for"
-    + " a response.", "\tThe software team responsible\nfor the creation of "
+    + " a response.", "The software team responsible\nfor the creation of "
     + "this product includes:\n\nJordan Bridgewater\nJared Grady\nDavid Najork"
     + "\nEric Najork"
   };
 
+  /**
+   * [LearnView description]
+   */
   public LearnView() {
     this(new BorderPane());
     getStylesheets().add(getClass().getResource("assets/style.css")
       .toExternalForm());
   }
 
+  /**
+   * [LearnView description]
+   * @param root [description]
+   */
   private LearnView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
     this.root = root;
@@ -73,6 +80,9 @@ public class LearnView extends Scene {
     addEventHandlers();
   }
 
+  /**
+   * [learnTextBlock description]
+   */
   private void learnTextBlock() {
     Text body = new Text(text[curPage] + "\n\nPress SPACEBAR to continue...");
     body.setStyle("-fx-font-family: Here Lies MECC;");
@@ -95,11 +105,18 @@ public class LearnView extends Scene {
     this.root.setCenter(tile);
   }
 
+  /**
+   * [menuAccent description]
+   * @return [description]
+   */
   private ImageView menuAccent() {
     return new ImageView(new Image("file:view/assets/menuaccent.png",
       620, 40, false, false));
   }
 
+  /**
+   * [addEventHandlers description]
+   */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override

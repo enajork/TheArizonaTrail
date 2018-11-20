@@ -8,17 +8,27 @@ public class AZTrailController {
   private AZTrailModel model;
   // private static Random rand;
 
+  /**
+   * [AZTrailController description]
+   */
   public AZTrailController() {
     this.model = new AZTrailModel();
     // this.rand = new Random(System.currentTimeMillis());
   }
 
+  /**
+   * [AZTrailController description]
+   * @param model [description]
+   */
   public AZTrailController(AZTrailModel model) {
     this.model = model;
     // this.rand = new Random(System.currentTimeMillis());
   }
 
-  // may not be void return
+  /**
+   * [profMenu description]
+   * @param choice [description]
+   */
   public void profMenu(int choice) {
     if (choice < 1 || choice > 4) {
       System.err.println("Invalid Profession Choice!");
@@ -41,14 +51,26 @@ public class AZTrailController {
     // return;
   }
 
+  /**
+   * [leaderNameMenu description]
+   * @param name [description]
+   */
   public void leaderNameMenu(String name) {
     //
   }
 
+  /**
+   * [partyNamesMenu description]
+   * @param names [description]
+   */
   public void partyNamesMenu(String[] names) {
     //
   }
 
+  /**
+   * [monthMenu description]
+   * @param choice [description]
+   */
   public void monthMenu(int choice) {
     if (choice < 1 || choice > 6) {
       System.err.println("Invalid Month Choice!");
@@ -110,26 +132,4 @@ public class AZTrailController {
   // public void addToCart(Item item) {
   //   //
   // }
-
-  // public void
-
-  public void learn() {
-    //
-  }
-
-  public void topTen() {
-    //
-  }
-
-  public void sound() {
-    // turn on or turn off
-  }
-
-  public void manage() {
-    //
-  }
-
-  public void end() {
-    // may not need
-  }
 }

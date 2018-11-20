@@ -33,10 +33,17 @@ public class SplashMenuView extends Scene {
     + "What is your choice? ";
   private String input = "_";
 
+  /**
+   * [SplashMenuView description]
+   */
   public SplashMenuView() {
     this(new BorderPane());
   }
 
+  /**
+   * [SplashMenuView description]
+   * @param root [description]
+   */
   private SplashMenuView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
 
@@ -72,11 +79,18 @@ public class SplashMenuView extends Scene {
     addEventHandlers();
   }
 
+  /**
+   * [menuAccent description]
+   * @return [description]
+   */
   private ImageView menuAccent() {
     return new ImageView(new Image("file:view/assets/menuaccent.png",
       620, 40, false, false));
   }
 
+  /**
+   * [addEventHandlers description]
+   */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
@@ -126,6 +140,10 @@ public class SplashMenuView extends Scene {
     });
   }
 
+  /**
+   * [updateInputText description]
+   * @param num [description]
+   */
   private void updateInputText(int num) {
     if (input.length() == 1) {
       input = input.substring(0, input.length() - 1);
@@ -134,6 +152,11 @@ public class SplashMenuView extends Scene {
     }
   }
 
+  /**
+   * [getSplashView description]
+   * @param  choice [description]
+   * @return        [description]
+   */
   private Scene getSplashView(int choice) {
     if (choice < 1 || choice > 6) {
       throw new IllegalStateException();
