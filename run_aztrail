@@ -2,6 +2,15 @@
 
 cd src
 rm -rf *.class
+cd controller
+rm -rf *.class
+cd ../model
+rm -rf *.class
+cd ../tests
+rm -rf *.class
+cd ../view
+rm -rf *.class
+cd ..
 gradle build
 javac AZTrail.java
 java AZTrail
