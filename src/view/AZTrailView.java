@@ -34,7 +34,7 @@ public class AZTrailView extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     this.stage = stage;
-    controller = new AZTrailController();``
+    controller = new AZTrailController();
     this.stage.setTitle("Arizona Trail");
     this.stage.setResizable(false);
     //stage.initStyle(StageStyle.UNDECORATED);

@@ -53,7 +53,7 @@ public class SplashMenuView extends Scene {
 
     // Create the text for the menu options
     body = new Text(contents + input);
-    body.setStyle("-fx-font-family: Here Lies MECC;");
+    body.setId("text");
     body.setFill(Color.WHITE);
 
     BorderPane tile = new BorderPane();
