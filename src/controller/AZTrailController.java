@@ -29,7 +29,7 @@ public class AZTrailController {
         // return new ProfMenuView();
       case 2:
         // Learn about the trail
-        return null;
+        // return null;
         return new LearnView();
       case 3:
         // See the Arizona top 10
@@ -37,8 +37,8 @@ public class AZTrailController {
         // return new TopTenView(this.model.getTopTen());
       case 4:
         // turn sound off
-        return null;
-        // return new SoundMenuView();
+        // return null;
+        return new SoundMenuView();
       case 5:
         // choose management option
         return null;
