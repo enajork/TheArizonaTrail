@@ -31,8 +31,15 @@ public class AZTrailView extends Application {
     //stage.initStyle(StageStyle.UNDECORATED);
 
     // Show the splash menu
+<<<<<<< HEAD
     Scene splashMenuView = new SplashMenuView();
     stage.setScene(splashMenuView);
+=======
+    Scene splashMenu = new SplashMenu();
+    splashMenu.getStylesheets().add(AZTrailView.class
+      .getResource("assets/style.css").toExternalForm());
+    stage.setScene(splashMenu);
+>>>>>>> b5e0f9847eca1569bdbb81923dccb484b58d9814
     stage.show();
   }
 

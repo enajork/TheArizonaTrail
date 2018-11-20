@@ -21,8 +21,24 @@ import javafx.scene.input.KeyCode;
 
 import controller.*;
 
+<<<<<<< HEAD:src/view/SplashMenuView.java
 public class SplashMenuView extends Scene {
   public SplashMenuView() {
+=======
+public class SplashMenu extends Scene {
+  Text body;
+  String contents = "You can:\n\n\t"
+    + "1. Travel the Trail\n\t"
+    + "2. Learn about the trail\n\t"
+    + "3. See the Arizona Top Ten\n\t"
+    + "4. Turn sound off\n\t"
+    + "5. Choose Management Options\n\t"
+    + "6. End\n\n"
+    + "What is your choice? ";
+  String input = "_";
+
+  public SplashMenu() {
+>>>>>>> b5e0f9847eca1569bdbb81923dccb484b58d9814:src/view/SplashMenu.java
     this(new BorderPane());
   }
 
@@ -34,15 +50,7 @@ public class SplashMenuView extends Scene {
     ImageView title = new ImageView(img);
 
     // Create the text for the menu options
-    Text body = new Text("You can:\n\n\t"
-      + "1. Travel the Trail\n\t"
-      + "2. Learn about the trail\n\t"
-      + "3. See the Arizona Top Ten\n\t"
-      + "4. Turn sound off\n\t"
-      + "5. Choose Management Options\n\t"
-      + "6. End\n\n"
-      + "What is your choice? _");
-    body.setFont(Font.font("file:view/assets/here-lies-mecc.tff", 20));
+    body = new Text(contents + input);
     body.setFill(Color.WHITE);
 
     BorderPane tile = new BorderPane();
@@ -79,27 +87,35 @@ public class SplashMenuView extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case DIGIT1:
-            System.out.println(1);
+            updateInputText(1);
             break;
 
           case DIGIT2:
-            System.out.println(2);
+            updateInputText(2);
             break;
 
           case DIGIT3:
-            System.out.println(3);
+            updateInputText(3);
             break;
 
           case DIGIT4:
-            System.out.println(4);
+            updateInputText(4);
             break;
 
           case DIGIT5:
-            System.out.println(5);
+            updateInputText(5);
             break;
 
           case DIGIT6:
-            System.out.println(6);
+            updateInputText(6);
+            break;
+
+          case BACKSPACE:
+            input = input.substring(0, contents.length() - 1);
+            break;
+
+          case ENTER:
+            System.out.println(input.substring(0, contents.length() - 1));
             break;
 
           default:
@@ -107,5 +123,13 @@ public class SplashMenuView extends Scene {
         }
       }
     });
+  }
+
+  private String updateInputText(int num) {
+    if (input.length() == 1) {
+      input = input.substring(0, contents.length() - 1);
+      input += num + "_";
+      body.setText(contents + input);
+    }
   }
 }

@@ -3,7 +3,7 @@ package model;
 import java.util.*;
 
 public class Party {
-  static enum Profession {
+  protected static enum Profession {
     BANKER, CARPENTER, FARMER;
   }
 
@@ -77,6 +77,30 @@ public class Party {
     return inv.getBullets();
   }
 
+  protected int addFood(int amount) {
+    return inv.addFood(amount);
+  }
+
+  protected boolean removeFood(int amount) {
+    return inv.removeFood(amount);
+  }
+
+  protected int getFood() {
+    return inv.getFood();
+  }
+
+  protected int addWater(int amount) {
+    return inv.addWater(amount);
+  }
+
+  protected int removeWater(int amount) {
+    return inv.addWater(amount);
+  }
+
+  protected int getWater() {
+    return inv.getWater();
+  }
+  // ----------- START OF OPTIONAL SPARE PARTS ------------------
   protected int addWheels(int amount) {
     return inv.addWheels(amount);
   }
@@ -113,15 +137,4 @@ public class Party {
     return inv.getTongues();
   }
 
-  protected int addFood(int amount) {
-    return inv.addFood(amount);
-  }
-
-  protected boolean removeFood(int amount) {
-    return inv.removeFood(amount);
-  }
-
-  protected int getFood() {
-    return inv.getFood();
-  }
 }
