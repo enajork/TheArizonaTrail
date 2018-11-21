@@ -1,5 +1,5 @@
 echo "@font-face {
-  src: \"$(pwd)/view/assets/here-lies-mecc.ttf\";
+  src: url(\"file:///$(pwd)/view/assets/here-lies-mecc.ttf\");
 }
 
 #text8 {
@@ -15,4 +15,4 @@ echo "@font-face {
 #text12 {
   -fx-font-family: 'Here Lies MECC Regular';
   -fx-font-size: 12pt;
-}" > style.css
+}" > view/assets/style.css
