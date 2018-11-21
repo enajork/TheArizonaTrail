@@ -3,7 +3,6 @@
 cd src
 rm -rf *.class
 rm -rf */*.class
-./view/assets/stylescript
 gradle build
 javac AZTrail.java
 java AZTrail
