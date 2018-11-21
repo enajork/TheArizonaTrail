@@ -1,5 +1,5 @@
 echo "@font-face {
-  src: \"$(pwd)/view/assets/here-lies-mecc.ttf\";
+  src: url(\"file:///$(pwd)/view/assets/here-lies-mecc.ttf\");
 }
 
 #text8 {
