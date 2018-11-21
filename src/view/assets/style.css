@@ -1,5 +1,5 @@
-echo "@font-face {
-  src: \"$(pwd)/view/assets/here-lies-mecc.ttf\";
+@font-face {
+  src: "/mnt/c/Users/ericn/Google Drive/2018-2019/csc335/csc335-teamproject-thearizonatrail-dnajork-enajork-jaredgrady-jbridgewater/src/view/assets/here-lies-mecc.ttf";
 }
 
 #text8 {
@@ -15,4 +15,4 @@ echo "@font-face {
 #text12 {
   -fx-font-family: 'Here Lies MECC Regular';
   -fx-font-size: 12pt;
-}" > view/assets/style.css
+}
