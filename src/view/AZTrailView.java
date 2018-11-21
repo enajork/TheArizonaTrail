@@ -37,13 +37,8 @@ public class AZTrailView extends Application {
    */
   @Override
   public void start(Stage stage) throws Exception {
-    try {
-      URL url = new File("view/assets/style.css").toURI().toURL();
-      styleSheet = url.toExternalForm();
-    } catch (MalformedURLException e) {
-      System.err.println("Fatal error! Style sheet not loaded.");
-      System.exit(1);
-    }
+    styleSheet = getClass().getResource("assets/style.css").toExternalForm();
+
     this.stage = stage;
     model = new AZTrailModel();
     controller = new AZTrailController(model);
