@@ -17,8 +17,15 @@ public class AZTrailModel {
    * @param party [description]
    * @param month [description]
    */
-  public AZTrailModel(Party party, Calendar gameCal) {
+  public AZTrailModel(Party party, byte month) {
     this.sound = true;
+  }
+
+  public void setParty(Party gameParty) {
+    this.party = gameParty;
+  }
+
+  public void setCalendar(Calendar gameCal) {
     this.calendar = gameCal;
   }
 
