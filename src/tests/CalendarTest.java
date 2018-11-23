@@ -3,9 +3,9 @@ package tests;
 import model.Calendar;
 
 public class CalendarTest {
-  
+
   @test
-  public void testAdvanceCalendar() {
+  public void testAdvance() {
 
   }
 

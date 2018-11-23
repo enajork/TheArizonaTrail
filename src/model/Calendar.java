@@ -4,11 +4,11 @@ public class Calendar {
   private int year;
   private int monthNum;
   private int day;
-  private String[] months;
   private Map<String, Integer> daysInMonth;
 
+  private String[] months = {"January", "February", "March", "April", "May",    "June", "July", "August", "September", "October", "November", "December"};
+
   public Calendar(int startMonth) {
-    createMonthsArray();
     createDaysInMonthMap();
 
     year = 1848;
@@ -16,11 +16,23 @@ public class Calendar {
     day = 1;
   }
 
-  public getDateStr() {
+  public int getYear() {
+    return year;
+  }
+
+  public int getDay() {
+    return day;
+  }
+
+  public int getMonth() {
+    return monthNum;
+  }
+
+  public String getDateStr() {
     return months[monthNum] + " " + day + ", " + year;
   }
 
-  public void advanceCalendar() {
+  public void advance() {
     // advance day
     if (day + 1 <= daysInMonth.get(months[monthNum])) {
       day++;
@@ -63,21 +75,4 @@ public class Calendar {
     daysInMonth.put("November", 30);
     daysInMonth.put("Decemeber", 31);
   }
-
-  private void createMonthsArray() {
-    months = new Array[12];
-    months[0]  = "January";
-    months[1]  = "February";
-    months[2]  = "March";
-    months[3]  = "April";
-    months[4]  = "May";
-    months[5]  = "June";
-    months[6]  = "July";
-    months[7]  = "August";
-    months[8]  = "September";
-    months[9]  = "October";
-    months[10] = "November";
-    months[11] = "December";
-  }
-
 }

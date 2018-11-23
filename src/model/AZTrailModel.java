@@ -2,14 +2,13 @@ package model;
 
 public class AZTrailModel {
   Party party;
-  // byte day;
-  byte month;
-  // int year;
   boolean sound;
+
+  // NEW
+  Calendar calendar;
 
   public AZTrailModel() {
     this.sound = true;
-    this.month = month;
     this.party = new Party();
   }
 
@@ -18,11 +17,9 @@ public class AZTrailModel {
    * @param party [description]
    * @param month [description]
    */
-  public AZTrailModel(Party party, byte month) {
+  public AZTrailModel(Party party, Calendar gameCal) {
     this.sound = true;
-    this.month = month;
-    this.party = party;
-    // this.day = 1;
+    this.calendar = gameCal;
   }
 
   /**
@@ -302,37 +299,57 @@ public class AZTrailModel {
     return party.getTongues();
   }
 
+  // ---------------- NEW -------------------------
+
   /**
-   * [setMonth description]
-   * @param  month [description]
-   * @return       [description]
-   */
-  public byte setMonth(byte month) {
-    if (month > 0 && month <= 12) {
-      this.month = month;
-    }
-    return this.month;
+  * [advanceCalendar description]
+  * @return [description]
+  /
+  public void advanceCalendar() {
+    this.calendar.advance();
   }
 
-  // public void advanceDay() {
-  //
-  // }
-
-  // public void advanceMonth() {
-  //
-  // }
-
-  // public void advanceSeason() {
-  //
-  // }
+  /**
+   * [getDay description]
+   * @return [description]
+   */
+  public int getDay() {
+    return this.calendar.getDay();
+  }
 
   /**
    * [getMonth description]
    * @return [description]
    */
-  public byte getMonth() {
-    return this.month;
+  public int getMonth() {
+    return this.calendar.getMonth();
   }
+
+  /**
+   * [getYear description]
+   * @return [description]
+   */
+  public int getYear() {
+    return this.calendar.getYear();
+  }
+
+  /**
+   * [getSeason description]
+   * @return [description]
+   */
+  public String getSeason() {
+    return this.calendar.getSeason();
+  }
+
+  /**
+   * [getDateStr description]
+   * @return [description]
+   */
+  public String getDateStr() {
+    return this.calendar.getDateStr();
+  }
+
+  // -------------------- end new ----------------------------
 
   /**
    * [getTopTen description]
