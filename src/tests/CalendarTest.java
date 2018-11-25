@@ -1,18 +1,18 @@
 package tests;
 
 import model.Calendar;
+import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CalendarTest {
-
-  @test
+  @Test
   public void testAdvance() {
     // TEST: test one advance
     Calendar cal1 = new Calendar (3);
     cal1.advance();
     assertEquals(2, cal1.getDay());
     assertEquals(3, cal1.getMonth());
-    asssertEquals(1848, cal1.getYear());
+    assertEquals(1848, cal1.getYear());
 
     // TEST: advance a month
     Calendar cal2 = new Calendar(1);
@@ -21,7 +21,7 @@ public class CalendarTest {
     }
     assertEquals(1, cal2.getDay());
     assertEquals(2, cal2.getMonth());
-    assertEquals(1848, cal2.getMonth());
+    assertEquals(1848, cal2.getYear());
 
     // TEST: advance year
     Calendar cal3 = new Calendar(11);
@@ -31,18 +31,18 @@ public class CalendarTest {
     assertEquals(1, cal3.getDay());
     assertEquals(0, cal3.getMonth());
     assertEquals(1849, cal3.getYear());
-  }
+    }
 
-  @test
+  @Test
   public void testGetDateStr() {
     Calendar cal = new Calendar(4);
     for (int i = 0; i < 15; i++) {
       cal.advance();
     }
     assertEquals("May 16, 1848", cal.getDateStr());
-  }
+    }
 
-  @test
+  @Test
   public void testGetSeason() {
     // TEST: winter
     Calendar dec = new Calendar(11);
@@ -58,7 +58,7 @@ public class CalendarTest {
     Calendar apr = new Calendar(3);
     assertEquals("spring", apr.getSeason());
     Calendar may = new Calendar(4);
-    assertEquals("spring");
+    assertEquals("spring", may.getSeason());
 
     // TEST: summer
     Calendar jun = new Calendar(5);
@@ -75,5 +75,5 @@ public class CalendarTest {
     assertEquals("fall", oct.getSeason());
     Calendar nov = new Calendar(10);
     assertEquals("fall", nov.getSeason());
-  }
+    }
 }

@@ -8,7 +8,8 @@ public class Calendar {
   private int day;
   private Map<String, Integer> daysInMonth;
 
-  private String[] months = {"January", "February", "March", "April", "May",    "June", "July", "August", "September", "October", "November", "December"};
+  private String[] months = {"January", "February", "March", "April", "May",
+		  "June", "July", "August", "September", "October", "November", "December"};
 
   public Calendar(int startMonth) {
     createDaysInMonthMap();
@@ -43,19 +44,18 @@ public class Calendar {
       monthNum = (monthNum + 1) % 12;
       day = 1;
       // advance year
-      if (monthNum == 1) {
+      if (monthNum == 0) {
         year++;
       }
     }
   }
 
   public String getSeason() {
-    int season = (monthNum - 1) / 4;
-    if (season == 0) {
+    if ((0 <= monthNum && monthNum <= 1) || monthNum == 11) {
       return "winter";
-    } else if (season == 1) {
+    } else if (2 <= monthNum && monthNum <= 4) {
       return "spring";
-    } else if (season == 2) {
+    } else if (5 <= monthNum && monthNum <= 7) {
       return "summer";
     } else {
       return "fall";
@@ -75,6 +75,6 @@ public class Calendar {
     daysInMonth.put("September", 30);
     daysInMonth.put("October", 31);
     daysInMonth.put("November", 30);
-    daysInMonth.put("Decemeber", 31);
+    daysInMonth.put("December", 31);
   }
 }
