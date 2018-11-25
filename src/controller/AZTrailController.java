@@ -50,11 +50,27 @@ public class AZTrailController {
   }
 
   /**
+   * [getNames description]
+   * @return [description]
+   */
+  public String getName(int i) {
+    return model.getName(i);
+  }
+
+  /**
    * [leaderNameMenu description]
    * @param name [description]
    */
-  public void leaderNameMenu(String name) {
-    //
+  public void setName(String name) {
+    model.setName(name);
+  }
+
+  public int partySize() {
+    return model.partySize();
+  }
+
+  public void resetPartyNames() {
+    model.resetPartyNames();
   }
 
   /**

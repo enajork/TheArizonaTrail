@@ -22,6 +22,7 @@ import javafx.scene.input.KeyCode;
 import controller.*;
 
 public class OptionsMenu extends Scene {
+  private final int NUM_OPTS = 1;
   private Text body;
   private String contents = "You may:\n\n\t"
     + "1. Travel the Trail\n\n"
@@ -41,7 +42,7 @@ public class OptionsMenu extends Scene {
    * @param root [description]
    */
   private OptionsMenu(BorderPane root) {
-    super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
+    super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
 
     // Create the tile image;
     Image img = new Image("file:view/assets/aztrail_splashtext.png");
@@ -92,10 +93,6 @@ public class OptionsMenu extends Scene {
       @Override
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
-          case DIGIT1:
-            updateInputText(1);
-            break;
-
           case BACK_SPACE:
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
@@ -105,12 +102,17 @@ public class OptionsMenu extends Scene {
             break;
 
           case ENTER:
-            AZTrailView.stage.setScene(getSplashView(Integer.parseInt(input
-              .substring(0, 1))));
+            if (input.length() == 2) {
+              AZTrailView.stage.setScene(getSplashView(Integer.parseInt(input
+                .substring(0, 1))));
+            }
             break;
 
           default:
-            return;
+          if (event.getText().length() > 0
+              && Character.isDigit(event.getText().charAt(0))) {
+            updateInputText(Integer.parseInt(event.getText()));
+          }
         }
       }
     });
@@ -121,7 +123,7 @@ public class OptionsMenu extends Scene {
    * @param num [description]
    */
   private void updateInputText(int num) {
-    if (input.length() == 1) {
+    if (input.length() == 1 && num >= 1 && num <= NUM_OPTS) {
       input = input.substring(0, input.length() - 1);
       input += num + "_";
       body.setText(contents + input);

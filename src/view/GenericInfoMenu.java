@@ -53,7 +53,7 @@ public class GenericInfoMenu extends Scene {
    * @param root [description]
    */
   private GenericInfoMenu(BorderPane root, String[] text, int size) {
-    super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
+    super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     this.root = root;
     this.text = text;
     this.size = size;

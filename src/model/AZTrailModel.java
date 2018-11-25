@@ -1,11 +1,11 @@
 package model;
 
 public class AZTrailModel {
-  Party party;
+  private Party party;
   // byte day;
-  byte month;
+  private byte month;
   // int year;
-  boolean sound;
+  private boolean sound;
 
   public AZTrailModel() {
     this.sound = true;
@@ -54,17 +54,20 @@ public class AZTrailModel {
    * [getNames description]
    * @return [description]
    */
-  public String[] getNames() {
-    return party.getNames();
+  public String getName(int i) {
+    return party.getName(i);
   }
 
-  /**
-   * [getMember description]
-   * @param  name [description]
-   * @return      [description]
-   */
-  public int getMember(String name) {
-    return party.getMember(name);
+  public void setName(String name) {
+    party.setName(name);
+  }
+
+  public int partySize() {
+    return party.size();
+  }
+
+  public void resetPartyNames() {
+    party.resetNames();
   }
 
   /**

@@ -7,16 +7,17 @@ public class Party {
     BANKER, CARPENTER, FARMER;
   }
 
-  HashMap<String, Integer> members;
-  Profession prof;
-  Inventory inv;
+  private ArrayList<String> names;
+  private final int SIZE = 5;
+  private Profession prof;
+  private Inventory inv;
 
   /**
    * [Party description]
    * @param prof [description]
    */
   public Party() {
-    this.members = new HashMap<String, Integer>();
+    this.names = new ArrayList<String>();
     this.prof = Profession.BANKER;
     this.inv = new Inventory(prof);
   }
@@ -27,7 +28,7 @@ public class Party {
    * @param prof [description]
    */
   public Party(Profession prof) {
-    this.members = new HashMap<String, Integer>();
+    this.names = new ArrayList<String>();
     this.prof = prof;
     this.inv = new Inventory(prof);
   }
@@ -60,17 +61,24 @@ public class Party {
    * [getNames description]
    * @return [description]
    */
-  public String[] getNames() {
-    return members.keySet().toArray(new String[members.keySet().size()]);
+  public String getName(int i) {
+    return names.get(i);
   }
 
-  /**
-   * [getMember description]
-   * @param  name [description]
-   * @return      [description]
-   */
-  public int getMember(String name) {
-    return members.get(name);
+  public void setName(String name) {
+    if (names.size() < SIZE) {
+      names.add(name);
+    }
+  }
+
+  public int size() {
+    return SIZE;
+  }
+
+  public void resetNames() {
+    while (names.size() > 1) {
+      names.remove(names.size() - 1);
+    }
   }
 
   /**
