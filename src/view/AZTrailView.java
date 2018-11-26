@@ -44,6 +44,7 @@ public class AZTrailView extends Application {
     // });
     final HashMap<String, AudioClip> sounds = new HashMap<String, AudioClip>();
     final HashMap<String, AudioClip[]> music = new HashMap<String, AudioClip[]>();
+
     final AudioClip themes[] = new AudioClip[5];
     for (int i = 0; i < themes.length; i++) {
       String audioFile = "assets/sounds/music/" + (i + 1) + ".wav";
@@ -86,7 +87,12 @@ public class AZTrailView extends Application {
     // themes[0].play(1.0);
     // sounds.get("ow-xl").play(1.0);
     // music.get("themes")[0].play(1.0);
+    // music.get("themes")[4].play(1.0);
+    // sounds.get("crickets").play(1.0);
+    // sounds.get("hunt-bg").play(1.0);
+    // music.get("hunted")[0].play(1.0);
     music.get("hunted")[1].play(1.0);
+    // sounds.get("hunted").play(1.0);
 
     // huntedIntro.play(1.0);
     // huntedCredits.play(1.0);
