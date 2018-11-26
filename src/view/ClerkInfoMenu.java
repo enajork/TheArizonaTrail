@@ -68,7 +68,7 @@ public class ClerkInfoMenu extends Scene {
     tile.setStyle("-fx-background-color: black;");
 
     // Create the image;
-    Image img = new Image("file:view/assets/menuclerk.png");
+    Image img = new Image("file:view/assets/graphics/menuclerk.png");
     ImageView decor = new ImageView(img);
     decor.setPreserveRatio(true);
     decor.setFitWidth(100);
@@ -98,7 +98,7 @@ public class ClerkInfoMenu extends Scene {
    * @return [description]
    */
   private ImageView menuAccent() {
-    return new ImageView(new Image("file:view/assets/menuaccent.png",
+    return new ImageView(new Image("file:view/assets/graphics/menuaccent.png",
       620, 40, false, false));
   }
 

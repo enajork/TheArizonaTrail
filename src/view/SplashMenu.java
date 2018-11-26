@@ -50,7 +50,7 @@ public class SplashMenu extends Scene {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
 
     // Create the title image;
-    Image img = new Image("file:view/assets/aztrail_splashtext.png");
+    Image img = new Image("file:view/assets/graphics/aztrail_splashtext.png");
     ImageView title = new ImageView(img);
 
     // Create the text for the menu options
@@ -88,7 +88,7 @@ public class SplashMenu extends Scene {
    * @return [description]
    */
   private ImageView menuAccent() {
-    return new ImageView(new Image("file:view/assets/menuaccent.png",
+    return new ImageView(new Image("file:view/assets/graphics/menuaccent.png",
       620, 40, false, false));
   }
 

@@ -45,7 +45,7 @@ public class PartyLeaderMenu extends Scene {
     FlowPane flow = new FlowPane(Orientation.VERTICAL);
     flow.setStyle("-fx-background-color: black;");
     flow.setColumnHalignment(HPos.CENTER);
-    Image img = new Image("file:view/assets/partymenu.png");
+    Image img = new Image("file:view/assets/graphics/partymenu.png");
     ImageView decor = new ImageView(img);
     decor.setPreserveRatio(true);
     decor.setFitWidth(600);
