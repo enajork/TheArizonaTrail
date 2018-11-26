@@ -93,18 +93,23 @@ public class AZTrailController {
     switch (choice) {
       case 1:
         // March
+        model.setCalendar(new Calendar(2));
         break;
       case 2:
         // April
+        model.setCalendar(new Calendar(3));
         break;
       case 3:
         // May
+        model.setCalendar(new Calendar(4));
         break;
       case 4:
         // June
+        model.setCalendar(new Calendar(5));
         break;
       case 5:
         // July
+        model.setCalendar(new Calendar(6));
         break;
       case 6:
         // Ask for advice
