@@ -22,6 +22,7 @@ import controller.*;
 import model.*;
 
 public class AZTrailView extends Application {
+  protected static boolean escape = false;
   protected static AZTrailController controller;
   protected static AZTrailModel model;
   protected static Stage stage;
@@ -46,66 +47,9 @@ public class AZTrailView extends Application {
     //stage.initStyle(StageStyle.UNDECORATED);
 
     // Show the splash menu
-    Scene SplashMenu = new SplashMenu();
+    Scene splashMenu = new SplashMenu();
 
-    this.stage.setScene(SplashMenu);
+    this.stage.setScene(splashMenu);
     this.stage.show();
   }
-
-  /**
-   * [profMenu description]
-   * @param choice [description]
-   */
-  private void profMenu(int choice) {
-    // banker from ***Boston
-    // carpenter from ***Ohio
-    // farmer from ***Illinois
-    // find out the differences between these choices
-  }
-
-  /**
-   * [leaderNameMenu description]
-   * @param name [description]
-   */
-  private void leaderNameMenu(String name) {
-    //
-  }
-
-  /**
-   * [partyNamesMenu description]
-   * @param names [description]
-   */
-  private void partyNamesMenu(String[] names) {
-    //
-  }
-
-  /**
-   * [monthMenu description]
-   * @param choice [description]
-   */
-  private void monthMenu(int choice) {
-    // March
-    // April
-    // May
-    // June
-    // July
-    // Ask for advice
-  }
-
-  /**
-   * [storeMenu description]
-   * @param choice [description]
-   */
-  private void storeMenu(int choice) {
-    //
-  }
-
-  /**
-   * [storeSubMenu description]
-   * @param quantity [description]
-   */
-  private void storeSubMenu(int quantity) {
-    //
-  }
-
 }

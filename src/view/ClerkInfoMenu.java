@@ -20,81 +20,38 @@ import java.io.*;
 
 import controller.*;
 
-public class GenericInfoMenu extends Scene {
-  private boolean accentsOn;
-  private boolean titleOn;
+public class ClerkInfoMenu extends Scene {
   private Scene nextScene;
   private BorderPane root;
   private int curPage = 0;
   private String[] text;
-  private int size;
+  private Text header;
 
   /**
-   * [GenericInfoMenu description]
+   * [ClerkInfoMenu description]
    */
-  public GenericInfoMenu(Scene nextScene, String[] text) {
-    this(new BorderPane(), nextScene, text, 12, false, false);
+  public ClerkInfoMenu(Scene nextScene, String header, String[] text) {
+    this(new BorderPane(), nextScene, header, text);
   }
 
   /**
-   * [GenericInfoMenu description]
-   */
-  public GenericInfoMenu(Scene nextScene, String[] text, int size) {
-    this(new BorderPane(), nextScene, text, size, false, false);
-  }
-
-  /**
-   * [GenericInfoMenu description]
-   */
-  public GenericInfoMenu(Scene nextScene, String[] text, boolean accentsOn) {
-    this(new BorderPane(), nextScene, text, 12, accentsOn, false);
-  }
-
-  /**
-   * [GenericInfoMenu description]
-   */
-  public GenericInfoMenu(Scene nextScene, String[] text, int size, boolean accentsOn) {
-    this(new BorderPane(), nextScene, text, size, accentsOn, false);
-  }
-
-  /**
-   * [GenericInfoMenu description]
-   */
-  public GenericInfoMenu(Scene nextScene, String[] text,
-      boolean accentsOn, boolean titleOn) {
-    this(new BorderPane(), nextScene, text, 12, accentsOn, titleOn);
-  }
-
-  /**
-   * [GenericInfoMenu description]
-   */
-  public GenericInfoMenu(Scene nextScene, int size, String[] text,
-      boolean accentsOn, boolean titleOn) {
-    this(new BorderPane(), nextScene, text, size, accentsOn, titleOn);
-  }
-
-  /**
-   * [GenericInfoMenu description]
+   * [ClerkInfoMenu description]
    * @param root [description]
    */
-  private GenericInfoMenu(BorderPane root, Scene nextScene, String[] text,
-      int size, boolean accentsOn, boolean titleOn) {
+  private ClerkInfoMenu(BorderPane root, Scene nextScene, String header,
+      String[] text) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
     this.nextScene = nextScene;
-    this.accentsOn = accentsOn;
-    this.titleOn = titleOn;
     this.root = root;
     this.text = text;
-    this.size = size;
 
-    // Create the title image;
-    if (titleOn) {
-      Image img = new Image("file:view/assets/aztrail_splashtext.png");
-      ImageView title = new ImageView(img);
-      root.setAlignment(title, Pos.CENTER);
-      root.setTop(title);
-    }
+    this.header = new Text(header);
+    this.header.setFill(Color.WHITE);
+    this.header.setId("text12");
+    root.setTop(this.header);
+    root.setAlignment(this.header, Pos.CENTER);
+    root.setMargin(this.header, new Insets(40, 0, 0, 0));
 
     // Style the view
     root.setStyle("-fx-background-color: black;");
@@ -110,31 +67,27 @@ public class GenericInfoMenu extends Scene {
     BorderPane tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
 
+    // Create the image;
+    Image img = new Image("file:view/assets/menuclerk.png");
+    ImageView decor = new ImageView(img);
+    decor.setPreserveRatio(true);
+    decor.setFitWidth(100);
+    tile.setLeft(decor);
+    tile.setMargin(decor, new Insets(10));
+
     Text body = new Text(text[curPage]);
-    setTextSize(body);
+    body.setId("text12");
     body.setFill(Color.WHITE);
     tile.setAlignment(body, Pos.CENTER);
 
-    if (accentsOn) {
-      // Create the first accent
-      ImageView accent1 = menuAccent();
-      tile.setTop(accent1);
-      tile.setAlignment(accent1, Pos.CENTER);
-      // Create the second accent
-      ImageView accent2 = menuAccent();
-      tile.setBottom(accent2);
-      tile.setMargin(accent2, new Insets(0, 0, 10, 0));
-      tile.setAlignment(accent2, Pos.CENTER);
-    }
-
     Text footer = new Text("Press SPACEBAR to continue...");
     footer.setFill(Color.WHITE);
-    setTextSize(footer);
+    footer.setId("text12");
     tile.setCenter(body);
     tile.setAlignment(body, Pos.CENTER);
     root.setBottom(footer);
     root.setAlignment(footer, Pos.CENTER);
-    root.setMargin(footer, new Insets(0, 0, 40, 0));
+    root.setMargin(footer, new Insets(0, 0, 20, 0));
 
     root.setCenter(tile);
     root.setAlignment(tile, Pos.CENTER);
@@ -191,22 +144,5 @@ public class GenericInfoMenu extends Scene {
         }
       }
     });
-  }
-
-  private void setTextSize(Text body) {
-    switch (size) {
-      case 8:
-        body.setId("text8");
-        break;
-      case 10:
-        body.setId("text10");
-        break;
-      case 12:
-        body.setId("text12");
-        break;
-      default:
-        body.setId("text12");
-        break;
-    }
   }
 }
