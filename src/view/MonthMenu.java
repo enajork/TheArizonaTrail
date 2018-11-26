@@ -84,7 +84,7 @@ public class MonthMenu extends Scene {
    * @return [description]
    */
   private ImageView menuAccent() {
-    return new ImageView(new Image("file:view/assets/graphics/menuaccent.png",
+    return new ImageView(new Image("file:view/assets/menuaccent.png",
       620, 40, false, false));
   }
 

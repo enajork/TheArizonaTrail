@@ -90,7 +90,7 @@ public class GenericInfoMenu extends Scene {
 
     // Create the title image;
     if (titleOn) {
-      Image img = new Image("file:view/assets/graphics/aztrail_splashtext.png");
+      Image img = new Image("file:view/assets/aztrail_splashtext.png");
       ImageView title = new ImageView(img);
       root.setAlignment(title, Pos.CENTER);
       root.setTop(title);
@@ -145,7 +145,7 @@ public class GenericInfoMenu extends Scene {
    * @return [description]
    */
   private ImageView menuAccent() {
-    return new ImageView(new Image("file:view/assets/graphics/menuaccent.png",
+    return new ImageView(new Image("file:view/assets/menuaccent.png",
       620, 40, false, false));
   }
 

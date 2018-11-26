@@ -91,7 +91,7 @@ public class AZTrailView extends Application {
     // huntedIntro.play(1.0);
     // huntedCredits.play(1.0);
 
-    styleSheet = getClass().getResource("assets/font/style.css").toExternalForm();
+    styleSheet = getClass().getResource("assets/style.css").toExternalForm();
 
     this.stage = stage;
     model = new AZTrailModel();
