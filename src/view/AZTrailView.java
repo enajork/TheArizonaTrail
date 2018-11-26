@@ -86,7 +86,9 @@ public class AZTrailView extends Application {
     // themes[0].play(1.0);
     // sounds.get("ow-xl").play(1.0);
     // music.get("themes")[0].play(1.0);
-    music.get("hunted")[1].play(1.0);
+    music.get("themes")[4].play(1.0);
+    // music.get("hunted")[0].play(1.0);
+    // music.get("hunted")[1].play(1.0);
 
     // huntedIntro.play(1.0);
     // huntedCredits.play(1.0);
