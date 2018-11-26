@@ -1,7 +1,7 @@
 package model;
 
 public class Inventory {
-  int money;
+  double money;
   int oxen;
   int water;
   int food;
@@ -16,21 +16,8 @@ public class Inventory {
    * [Inventory description]
    * @param prof [description]
    */
-  public Inventory(Party.Profession prof) {
-    switch (prof) {
-      case BANKER:
-        this.money = 1600;
-        break;
-      case CARPENTER:
-        this.money = 800;
-        break;
-      case FARMER:
-        this.money = 400;
-        break;
-      default:
-        throw new IllegalStateException();
-    }
-    this.money = 0;
+  public Inventory() {
+    this.money = 1600;
     this.oxen = 0;
     this.water = 0;
     this.blankets = 0;
@@ -43,23 +30,22 @@ public class Inventory {
   }
 
   /**
-   * [addMoney description]
+   * [addmoney description]
    * @param  amount [description]
    * @return        [description]
    */
-  public int addMoney(int amount) {
+  public void addMoney(double amount) {
     if (amount >= 0) {
-      return this.money += amount;
+      this.money += amount;
     }
-    return this.money;
   }
 
   /**
-   * [removeMoney description]
+   * [removemoney description]
    * @param  amount [description]
    * @return        [description]
    */
-  public boolean removeMoney(int amount) {
+  public boolean removeMoney(double amount) {
     if (amount >= 0 && this.money - amount >= 0) {
       this.money -= amount;
       return true;
@@ -71,7 +57,7 @@ public class Inventory {
    * [getMoney description]
    * @return [description]
    */
-  public int getMoney() {
+  public double getMoney() {
     return this.money;
   }
 

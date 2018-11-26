@@ -23,6 +23,7 @@ import controller.*;
 import model.*;
 
 public class AZTrailView extends Application {
+  protected static boolean escape = false;
   protected static AZTrailController controller;
   protected static AZTrailModel model;
   protected static Stage stage;
@@ -100,9 +101,9 @@ public class AZTrailView extends Application {
     //stage.initStyle(StageStyle.UNDECORATED);
 
     // Show the splash menu
-    Scene SplashMenu = new SplashMenu();
+    Scene splashMenu = new SplashMenu();
 
-    this.stage.setScene(SplashMenu);
+    this.stage.setScene(splashMenu);
     this.stage.show();
   }
 }

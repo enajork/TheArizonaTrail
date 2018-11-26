@@ -61,89 +61,110 @@ public class AZTrailController {
    * [leaderNameMenu description]
    * @param name [description]
    */
-  public void setName(String name) {
-    model.setName(name);
+  public void setName(int i, String name) {
+    model.setName(i, name);
   }
 
   public int partySize() {
     return model.partySize();
   }
 
-  public void resetPartyNames() {
-    model.resetPartyNames();
+  /**
+   * [setMonth description]
+   * @param  month [description]
+   * @return       [description]
+   */
+  public int setMonth(int month) {
+    return model.setMonth(month);
   }
 
   /**
-   * [partyNamesMenu description]
-   * @param names [description]
+   * [getMonth description]
+   * @return [description]
    */
-  public void partyNamesMenu(String[] names) {
-    //
+  public int getMonth() {
+    return model.getMonth();
   }
 
   /**
-   * [monthMenu description]
-   * @param choice [description]
+   * [getMoney description]
+   * @return [description]
    */
-  public void monthMenu(int choice) {
-    if (choice < 1 || choice > 6) {
-      System.err.println("Invalid Month Choice!");
-      System.exit(1);
-    }
-    switch (choice) {
-      case 1:
-        // March
-        break;
-      case 2:
-        // April
-        break;
-      case 3:
-        // May
-        break;
-      case 4:
-        // June
-        break;
-      case 5:
-        // July
-        break;
-      case 6:
-        // Ask for advice
-        break;
-    }
+  public void addMoney(double amount) {
+    model.addMoney(amount);
   }
 
-  // public void storeMenu(int choice) {
-  //   if (choice < 1 || choice > 5) {
-  //     System.err.println("Invalid Store Choice!");
-  //     System.exit(1);
-  //   }
-  //   switch (choice) {
-  //     case 1:
-  //       // Oxen
-  //       break;
-  //     case 2:
-  //       // Food
-  //       break;
-  //     case 3:
-  //       // Clothing
-  //       break;
-  //     case 4:
-  //       // Ammunition
-  //       break;
-  //     case 5:
-  //       // Spare parts
-  //       break;
-  //   }
-  // }
+  /**
+   * [removeMoney description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public boolean removeMoney(double amount) {
+    return model.removeMoney(amount);
+  }
 
-  // public void storeSubMenu(int quantity) {
-  //   if (quantity < 1 || quantity > 10) {
-  //     //
-  //   }
-  //   // add quantity to order
-  // }
+  /**
+   * [getMoney description]
+   * @return [description]
+   */
+  public double getMoney() {
+    return model.getMoney();
+  }
 
-  // public void addToCart(Item item) {
-  //   //
-  // }
+  /**
+   * [addOxen description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public int addOxen(int amount) {
+    return model.addOxen(amount);
+  }
+
+  public double getCartClothes() {
+    return model.getCartClothes();
+  }
+
+  public void setCartClothes(double amount) {
+    model.setCartClothes(amount);
+  }
+
+  public double getCartParts() {
+    return model.getCartParts();
+  }
+
+  public void setCartParts(double amount) {
+    model.setCartParts(amount);
+  }
+
+  public double getCartTotal() {
+    return model.getCartTotal();
+  }
+
+  public void setCartTotal(double amount) {
+    model.setCartTotal(amount);
+  }
+
+  public double getCartOxen() {
+    return model.getCartOxen();
+  }
+
+  public void setCartOxen(double amount) {
+    model.setCartOxen(amount);
+  }
+
+  public double getCartFood() {
+    return model.getCartFood();
+  }
+
+  public void setCartFood(double amount) {
+    model.setCartFood(amount);
+  }
+
+  public double getCartAmmo() {
+    return model.getCartAmmo();
+  }
+
+  public void setCartAmmo(double amount) {
+    model.setCartAmmo(amount);
+  }
 }

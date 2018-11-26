@@ -23,12 +23,12 @@ import controller.*;
 public class SplashMenu extends Scene {
   private final int NUM_OPTS = 6;
   private Text body;
-  private String contents = "You may:\n\n\t"
-    + "1. Travel the Trail\n\t"
-    + "2. Learn about the trail\n\t"
-    + "3. See the Arizona Top Ten\n\t"
-    + "4. Turn sound off\n\t"
-    + "5. Choose Management Options\n\t"
+  private String contents = "You may:\n\n  "
+    + "1. Travel the Trail\n  "
+    + "2. Learn about the trail\n  "
+    + "3. See the Arizona Top Ten\n  "
+    + "4. Turn sound off\n  "
+    + "5. Choose Management Options\n  "
     + "6. End\n\n"
     + "What is your choice? ";
   private String input = "_";
@@ -39,6 +39,7 @@ public class SplashMenu extends Scene {
   public SplashMenu() {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
+    AZTrailView.escape = false;
   }
 
   /**
@@ -48,7 +49,7 @@ public class SplashMenu extends Scene {
   private SplashMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
 
-    // Create the tile image;
+    // Create the title image;
     Image img = new Image("file:view/assets/aztrail_splashtext.png");
     ImageView title = new ImageView(img);
 
@@ -68,6 +69,7 @@ public class SplashMenu extends Scene {
     // Create the second accent
     ImageView accent2 = menuAccent();
     tile.setBottom(accent2);
+    tile.setMargin(accent2, new Insets(0, 0, 40, 0));
 
     // Style the view
     root.setAlignment(title, Pos.CENTER);
@@ -76,6 +78,7 @@ public class SplashMenu extends Scene {
     root.setStyle("-fx-background-color: black;");
     root.setTop(title);
     root.setCenter(tile);
+
 
     addEventHandlers();
   }
@@ -98,6 +101,7 @@ public class SplashMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case BACK_SPACE:
+            AZTrailView.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
@@ -106,13 +110,24 @@ public class SplashMenu extends Scene {
             break;
 
           case ENTER:
+            AZTrailView.escape = false;
             if (input.length() == 2) {
-              AZTrailView.stage.setScene(getSplashView(Integer.parseInt(input
+              AZTrailView.stage.setScene(getNextView(Integer.parseInt(input
                 .substring(0, 1))));
             }
             break;
 
+          case ESCAPE:
+            if (AZTrailView.escape) {
+              System.exit(0);
+              // AZTrailView.stage.setScene(new SplashMenu());
+            } else {
+              AZTrailView.escape = true;
+            }
+            break;
+
           default:
+            AZTrailView.escape = false;
             if (event.getText().length() > 0
                 && Character.isDigit(event.getText().charAt(0))) {
               updateInputText(Integer.parseInt(event.getText()));
@@ -135,12 +150,12 @@ public class SplashMenu extends Scene {
   }
 
   /**
-   * [getSplashView description]
+   * [getNextView description]
    * @param  choice [description]
    * @return        [description]
    */
-  private Scene getSplashView(int choice) {
-    if (choice < 1 || choice > 6) {
+  private Scene getNextView(int choice) {
+    if (choice < 1 || choice > NUM_OPTS) {
       throw new IllegalStateException();
     }
     switch (choice) {
@@ -161,7 +176,7 @@ public class SplashMenu extends Scene {
           + " get an Elk...\nyou might. And there are bears\nin the mountains.",
           "If for some reason you don't\nsurvive -- your wagon burns,\nor bandits "
           + "steal your oxen, or\nyou run out of provisions, or\nyou die of "
-          + "dehydration -- don't\ngive up!\tTry again... and again...\n"
+          + "dehydration -- don't\ngive up!  Try again... and again...\n"
           + "until your name is up with the\nothers on The Arizona Top Ten.",
           "You may turn the sound on or\noff during the program by\npressing "
           + "Control-S.", "You may want to quit in the\nmiddle of the program. If so,"
@@ -169,7 +184,7 @@ public class SplashMenu extends Scene {
           + " for a response.", "The software team responsible for the\ncreation of "
           + "this product includes:\n\nJordan Bridgewater\nJared Grady\nDavid Najork"
           + "\nEric Najork"
-        });
+        }, true, true);
       case 3:
         // See the Arizona top 10
         return new GenericInfoMenu(new SplashMenu(), new String[]{
@@ -181,7 +196,7 @@ public class SplashMenu extends Scene {
           "The sound is now turned off. \n"
             + "You may turn sound on or off\n"
             + "during the program by pressing\nControl-S."
-        });
+        }, true, true);
       case 5:
         // choose management option
         return new OptionsMenu();
