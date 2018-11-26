@@ -73,6 +73,7 @@ public class AZTrailView extends Application {
     sounds.put("sick2", new AudioClip(getClass().getResource("assets/sounds/fx/sick2.wav").toString()));
     sounds.put("fracture", new AudioClip(getClass().getResource("assets/sounds/fx/fracture.wav").toString()));
     sounds.put("sizzle", new AudioClip(getClass().getResource("assets/sounds/fx/sizzle.wav").toString()));
+    sounds.put("hunt-bg", new AudioClip(getClass().getResource("assets/sounds/fx/hunting-background.wav").toString()));
 
     if (huntedMode) {
       sounds.put("ow-xl", new AudioClip(getClass().getResource("assets/sounds/fx/ow-xl.wav").toString()));

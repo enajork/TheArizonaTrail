@@ -9,4 +9,4 @@ this repo and run the following commands in your terminal:
 `./run_aztrail`
 
 # IMPORTANT NOTE
-You must not have any whitespace in your file path otherwise it will cause build issues.
+You must not have any whitespace in your path otherwise it will cause build issues.
