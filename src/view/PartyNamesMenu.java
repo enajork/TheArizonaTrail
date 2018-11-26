@@ -57,7 +57,7 @@ public class PartyNamesMenu extends Scene {
     flow = new FlowPane(Orientation.VERTICAL);
     flow.setStyle("-fx-background-color: black;");
     flow.setColumnHalignment(HPos.LEFT);
-    Image img = new Image("file:view/assets/partymenu.png");
+    Image img = new Image("file:view/assets/graphics/partymenu.png");
     ImageView decor = new ImageView(img);
     decor.setPreserveRatio(true);
     decor.setFitWidth(600);
