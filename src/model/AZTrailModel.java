@@ -1,38 +1,14 @@
 package model;
 
 public class AZTrailModel {
-  // Party party;
-  boolean sound;
-
-  // NEW
-  Calendar calendar;
+  private Calendar calendar;
   private Party party;
   private Cart cart;
-  // int day;
-  private int month;
   private String[] topTen = {"Me", "You", "Your brother", "Your mother", "Your father", "Your sister", "Your dog", "Owen Wilson", "player1", "guest"};
-  // int year;
 
   public AZTrailModel() {
-    this.sound = true;
+    this.calendar = new Calendar();
     this.party = new Party();
-  }
-
-  /**
-   * [AZTrailModel description]
-   * @param party [description]
-   * @param month [description]
-   */
-  public AZTrailModel(Party party, byte month) {
-    this.sound = true;
-  }
-
-  public void setParty(Party gameParty) {
-    this.party = gameParty;
-  }
-
-  public void setCalendar(Calendar gameCal) {
-    this.calendar = gameCal;
     this.cart = new Cart();
     // this.topTen;
   }
@@ -328,7 +304,7 @@ public class AZTrailModel {
    * @return [description]
    */
   public int getDay() {
-    return this.calendar.getDay();
+    return calendar.getDay();
   }
 
   /**
@@ -336,7 +312,11 @@ public class AZTrailModel {
    * @return [description]
    */
   public int getMonth() {
-    return this.calendar.getMonth();
+    return calendar.getMonth();
+  }
+
+  public void setMonth(String month) {
+    calendar.setMonth(month);
   }
 
   /**
@@ -344,7 +324,7 @@ public class AZTrailModel {
    * @return [description]
    */
   public int getYear() {
-    return this.calendar.getYear();
+    return calendar.getYear();
   }
 
   /**
@@ -352,7 +332,7 @@ public class AZTrailModel {
    * @return [description]
    */
   public String getSeason() {
-    return this.calendar.getSeason();
+    return calendar.getSeason();
   }
 
   /**
@@ -360,7 +340,7 @@ public class AZTrailModel {
    * @return [description]
    */
   public String getDateStr() {
-    return this.calendar.getDateStr();
+    return calendar.getDateStr();
   }
 
   // -------------------- end new ----------------------------

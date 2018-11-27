@@ -3,20 +3,22 @@ package model;
 import java.util.*;
 
 public class Calendar {
+  private int START_YEAR = 1848;
+  private int TOTAL_MONTHS = 12;
   private int year;
-  private int monthNum;
+  private int month;
   private int day;
   private Map<String, Integer> daysInMonth;
+  private Map<String, Integer> monthNum;
 
   private String[] months = {"January", "February", "March", "April", "May",
 		  "June", "July", "August", "September", "October", "November", "December"};
 
-  public Calendar(int startMonth) {
+  public Calendar() {
     createDaysInMonthMap();
-
-    year = 1848;
-    monthNum = startMonth;
-    day = 1;
+    this.year = START_YEAR;
+    this.month = 0;
+    this.day = 1;
   }
 
   public int getYear() {
@@ -27,35 +29,44 @@ public class Calendar {
     return day;
   }
 
+  public void setMonth(String month) {
+    int i = monthNum.get(month);
+    if (i >= 0 && i <= TOTAL_MONTHS - 1) {
+      this.month = i;
+    } else {
+      throw new IllegalStateException();
+    }
+  }
+
   public int getMonth() {
-    return monthNum;
+    return month;
   }
 
   public String getDateStr() {
-    return months[monthNum] + " " + day + ", " + year;
+    return months[month] + " " + day + ", " + year;
   }
 
   public void advance() {
     // advance day
-    if (day + 1 <= daysInMonth.get(months[monthNum])) {
+    if (day + 1 <= daysInMonth.get(months[month])) {
       day++;
     } else {
       // advance month
-      monthNum = (monthNum + 1) % 12;
+      month = (month + 1) % TOTAL_MONTHS;
       day = 1;
       // advance year
-      if (monthNum == 0) {
+      if (month == 0) {
         year++;
       }
     }
   }
 
   public String getSeason() {
-    if ((0 <= monthNum && monthNum <= 1) || monthNum == 11) {
+    if ((0 <= month && month <= 1) || month == (TOTAL_MONTHS - 1)) {
       return "winter";
-    } else if (2 <= monthNum && monthNum <= 4) {
+    } else if (2 <= month && month <= 4) {
       return "spring";
-    } else if (5 <= monthNum && monthNum <= 7) {
+    } else if (5 <= month && month <= 7) {
       return "summer";
     } else {
       return "fall";
@@ -64,6 +75,8 @@ public class Calendar {
 
   private void createDaysInMonthMap() {
     daysInMonth = new HashMap<String, Integer>();
+    // disregarding leapyears and other aspects of the Gregorian calendar for
+    // the sake of simplicity...
     daysInMonth.put("January", 31);
     daysInMonth.put("February", 28);
     daysInMonth.put("March", 31);
@@ -76,5 +89,12 @@ public class Calendar {
     daysInMonth.put("October", 31);
     daysInMonth.put("November", 30);
     daysInMonth.put("December", 31);
+  }
+
+  private void createMonthNumMap() {
+    monthNum = new HashMap<String, Integer>();
+    for (int i = 0; i < TOTAL_MONTHS; i++) {
+      monthNum.put(months[i], i);
+    }
   }
 }

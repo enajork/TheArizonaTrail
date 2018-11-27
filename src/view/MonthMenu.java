@@ -154,6 +154,21 @@ public class MonthMenu extends Scene {
       throw new IllegalStateException();
     }
     switch (choice) {
+      case 1:
+        AZTrailView.controller.setMonth("March");
+        return shopView();
+      case 2:
+        AZTrailView.controller.setMonth("April");
+        return shopView();
+      case 3:
+        AZTrailView.controller.setMonth("May");
+        return shopView();
+      case 4:
+        AZTrailView.controller.setMonth("June");
+        return shopView();
+      case 5:
+        AZTrailView.controller.setMonth("July");
+        return shopView();
       case 6:
         return new GenericInfoMenu(new MonthMenu(), new String[]{
           "You attend a public meeting held\n"
@@ -163,10 +178,8 @@ public class MonthMenu extends Scene {
           + "before winter comes. If you\nleave at just the right time,\n"
           + "there will be green grass and\nthe weather will still be cool."
         }, true);
-      default:
-        AZTrailView.controller.setMonth(choice + 2);
-        return shopView();
     }
+    return null;
   }
 
   private Scene shopView() {

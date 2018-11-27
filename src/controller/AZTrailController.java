@@ -74,8 +74,8 @@ public class AZTrailController {
    * @param  month [description]
    * @return       [description]
    */
-  public int setMonth(int month) {
-    return model.setMonth(month);
+  public void setMonth(String month) {
+    model.setMonth(month);
   }
 
   /**
