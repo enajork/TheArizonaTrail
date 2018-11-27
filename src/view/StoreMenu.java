@@ -202,6 +202,8 @@ public class StoreMenu extends Scene {
             } else {
               AZTrailView.controller.addWater(500);
               AZTrailView.controller.addBlankets(5);
+              AZTrailView.controller.removeMoney(AZTrailView.controller
+                .getCartTotal());
               AZTrailView.stage.setScene(new ClerkInfoMenu(new NogalesSplash(),
                 "", new String[]{"Here, take these blankets\nand water. On the house!",
                 "Well then, you're ready\nto start. Good luck!\nYou have a long"

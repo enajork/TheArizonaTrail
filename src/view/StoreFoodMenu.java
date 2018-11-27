@@ -155,6 +155,7 @@ public class StoreFoodMenu extends Scene {
               }
               warn = true;
               body.setText("Your wagon may only carry\n2000 pounds of food.");
+              footer.setText("Press SPACE BAR to continue");
             }
             break;
 

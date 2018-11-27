@@ -21,7 +21,7 @@ import java.io.*;
 
 import controller.*;
 
-public class StoreWheelMenu extends Scene {
+public class StoreTonguesMenu extends Scene {
   private final Rectangle rect1 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
@@ -35,24 +35,25 @@ public class StoreWheelMenu extends Scene {
   private BorderPane tile;
   private Text footer;
   private Text body;
-  private String prompt = "\n\nHow many wagon wheels? ";
+  private String prompt = "\n\nHow many wagon tongues? ";
   private String input = "_";
-  private int parts = 0;
+  private int parts;
 
   /**
-   * [StoreWheelMenu description]
+   * [StoreTonguesMenu description]
    */
-  public StoreWheelMenu() {
+  public StoreTonguesMenu(int parts) {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailView.escape = false;
+    this.parts = parts;
   }
 
   /**
-   * [StoreWheelMenu description]
+   * [StoreTonguesMenu description]
    * @param root [description]
    */
-  private StoreWheelMenu(BorderPane root) {
+  private StoreTonguesMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
@@ -153,7 +154,7 @@ public class StoreWheelMenu extends Scene {
           case SPACE:
             AZTrailView.escape = false;
             if (warn) {
-              AZTrailView.stage.setScene(new StoreWheelMenu());
+              AZTrailView.stage.setScene(new StoreTonguesMenu(parts));
             }
             break;
           case BACK_SPACE:
@@ -174,14 +175,14 @@ public class StoreWheelMenu extends Scene {
               return;
             }
             if (warn) {
-              AZTrailView.stage.setScene(new StoreWheelMenu());
+              AZTrailView.stage.setScene(new StoreTonguesMenu(parts));
             } else {
               int i = Integer.parseInt(input.replace("_", ""));
               if (i >= 0 && i <= MAX_PARTS) {
                 AZTrailView.stage.setScene(getNextView(i));
               }
               warn = true;
-              body.setText("\n\nYour wagon may only carry 3\nwagon wheels.");
+              body.setText("\n\nYour wagon may only carry 3\nwagon tongues.");
               footer.setText("Press SPACE BAR to continue");
             }
             break;
@@ -227,8 +228,9 @@ public class StoreWheelMenu extends Scene {
    */
   private Scene getNextView(int choice) {
     parts += choice;
-    AZTrailView.controller.removeWheels(AZTrailView.controller.getWheels());
-    AZTrailView.controller.addWheels(choice);
-    return new StoreAxlesMenu(parts);
+    AZTrailView.controller.removeTongues(AZTrailView.controller.getTongues());
+    AZTrailView.controller.addTongues(choice);
+    AZTrailView.controller.setCartParts(parts * 10);
+    return new StoreMenu();
   }
 }
