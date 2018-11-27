@@ -9,12 +9,12 @@ public class Cart {
   private double ammo;
 
   public Cart() {
-    this.clothes = 0;
-    this.parts = 0;
-    this.total = 0;
-    this.oxen = 0;
-    this.food = 0;
-    this.ammo = 0;
+    this.clothes = 0.0;
+    this.parts = 0.0;
+    this.total = 0.0;
+    this.oxen = 0.0;
+    this.food = 0.0;
+    this.ammo = 0.0;
   }
 
   public double getClothes() {

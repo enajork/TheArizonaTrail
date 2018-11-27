@@ -77,6 +77,7 @@ public class SplashMenu extends Scene {
     root.setAlignment(accent2, Pos.CENTER);
     root.setStyle("-fx-background-color: black;");
     root.setTop(title);
+    root.setMargin(title, new Insets(5));
     root.setCenter(tile);
 
 

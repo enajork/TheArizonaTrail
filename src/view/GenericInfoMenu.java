@@ -94,6 +94,7 @@ public class GenericInfoMenu extends Scene {
       ImageView title = new ImageView(img);
       root.setAlignment(title, Pos.CENTER);
       root.setTop(title);
+      root.setMargin(title, new Insets(5));
     }
 
     // Style the view

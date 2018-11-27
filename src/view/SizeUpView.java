@@ -57,7 +57,7 @@ public class SizeUpView extends Scene {
     body.setFill(Color.WHITE);
 
     // TODO get date and location from controller
-    Text locDate = new Text("Blank\n" + AZTrailView.controller.getDateStr() + "\n");
+    Text locDate = new Text("Nogales\n" + AZTrailView.controller.getDateStr() + "\n");
     locDate.setFill(Color.WHITE);
     locDate.setId("text12");
 

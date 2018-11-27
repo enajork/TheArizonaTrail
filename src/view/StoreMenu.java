@@ -15,28 +15,32 @@ import javafx.beans.value.*;
 import javafx.geometry.*;
 import javafx.stage.*;
 import javafx.event.*;
+import java.text.*;
 import java.util.*;
 import java.io.*;
 
 import controller.*;
 
 public class StoreMenu extends Scene {
-  private final int NUM_OPTS = 6;
-  private Text header;
-  private Text footer;
+  private final Rectangle rect1 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
+    AZTrailView.HEIGHT * 0.016, Color.RED);
+  private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
+    AZTrailView.HEIGHT * 0.016, Color.RED);
+  private final Rectangle rect3 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
+    AZTrailView.HEIGHT * 0.016, Color.RED);
+  private final int NUM_OPTS = 5;
+  private String item1 = new DecimalFormat("'$'###,##0.00")
+    .format(AZTrailView.controller.getCartOxen());
+  private String item2 = new DecimalFormat("'$'###,##0.00")
+    .format(AZTrailView.controller.getCartFood());
+  private String item3 = new DecimalFormat("'$'###,##0.00")
+    .format(AZTrailView.controller.getCartClothes());
+  private String item4 = new DecimalFormat("'$'###,##0.00")
+    .format(AZTrailView.controller.getCartAmmo());
+  private String item5 = new DecimalFormat("'$'###,##0.00")
+    .format(AZTrailView.controller.getCartParts());
   private Text body;
-  private Text date;
-  private Rectangle rect1 = new Rectangle(AZTrailView.WIDTH * 0.8 , AZTrailView.HEIGHT * 0.016, Color.RED);
-  private Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.8, AZTrailView.HEIGHT * 0.016, Color.RED);
-  private Rectangle rect3 = new Rectangle(AZTrailView.WIDTH * 0.8, AZTrailView.HEIGHT * 0.016, Color.RED);
-  private String contents = "You may:\n\n  "
-    + "1. Travel the Trail\n  "
-    + "2. Learn about the trail\n  "
-    + "3. See the Arizona Top Ten\n  "
-    + "4. Turn sound off\n  "
-    + "5. Choose Management Options\n  "
-    + "6. End\n\n"
-    + "What is your choice? ";
+  private String prompt = "  Which item would you\n  like to buy? ";
   private String input = "_";
 
   /**
@@ -54,63 +58,123 @@ public class StoreMenu extends Scene {
    */
   private StoreMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    BorderPane tile = new BorderPane();
+    tile.setStyle("-fx-background-color: black;");
+    BorderPane receiptBody = new BorderPane();
+    receiptBody.setStyle("-fx-background-color: black;");
+    BorderPane subTotals = new BorderPane();
+    subTotals.setStyle("-fx-background-color: black;");
+    subTotals.setMaxWidth(AZTrailView.WIDTH / 1.65);
+    BorderPane banner = new BorderPane();
+    banner.setStyle("-fx-background-color: black;");
+    BorderPane lower = new BorderPane();
+    lower.setStyle("-fx-background-color: black;");
+    BorderPane billBody = new BorderPane();
+    billBody.setStyle("-fx-background-color: black;");
+    billBody.setMaxWidth(AZTrailView.WIDTH / 2.3);
+    BorderPane totalBody = new BorderPane();
+    totalBody.setStyle("-fx-background-color: black;");
+    root.setCenter(tile);
+    tile.setTop(banner);
+    tile.setCenter(receiptBody);
+    tile.setBottom(lower);
+    tile.setMargin(lower, new Insets(40));
+    banner.setTop(rect1);
+    banner.setAlignment(rect1, Pos.CENTER);
+    banner.setMargin(rect1, new Insets(5));
+    banner.setBottom(rect2);
+    banner.setAlignment(rect2, Pos.CENTER);
+    banner.setMargin(rect2, new Insets(5));
+    banner.setMargin(rect3, new Insets(5));
+    receiptBody.setTop(subTotals);
+    receiptBody.setAlignment(subTotals, Pos.CENTER_RIGHT);
+    receiptBody.setMargin(subTotals, new Insets(0, 70, 0, 0));
+    receiptBody.setCenter(rect3);
+    receiptBody.setAlignment(rect3, Pos.CENTER);
+    receiptBody.setMaxHeight(100);
+    receiptBody.setAlignment(billBody, Pos.CENTER_RIGHT);
+    receiptBody.setMargin(billBody, new Insets(0, 70, 0, 0));
+    receiptBody.setBottom(billBody);
 
-    // Create the title image;
-    Image img = new Image("file:view/assets/aztrail_splashtext.png");
-    ImageView title = new ImageView(img);
+    // Create the image;
+    Image img = new Image("file:view/assets/graphics/menuclerk.png");
+    ImageView decor = new ImageView(img);
+    decor.setPreserveRatio(true);
+    decor.setFitWidth(100);
+    root.setLeft(decor);
+    root.setMargin(decor, new Insets(100, 10, 10, 10));
 
     // Create the text for the menu options
-    body = new Text(contents);
+    body = new Text(prompt + input);
     body.setId("text12");
     body.setFill(Color.WHITE);
 
     // Create the text for the menu options
-    header = new Text("Matt's General Store\n Blank, Arizona.");
+    Text header = new Text("Matt's General Store\nNogales, Arizona\n\n     "
+      + AZTrailView.controller.getDateStr());
     header.setId("text12");
     header.setFill(Color.WHITE);
+    banner.setCenter(header);
 
     // Create the text for the menu options
-    footer = new Text("");
+    Text footer = new Text("Press SPACE BAR to\nleave store");
     footer.setId("text12");
     footer.setFill(Color.WHITE);
 
     // Create the text for the menu options
-    date = new Text("");
-    date.setId("text12");
-    date.setFill(Color.WHITE);
+    Text bill = new Text(new DecimalFormat("'$'###,##0.00")
+      .format(AZTrailView.controller.getCartTotal()));
+    bill.setId("text12");
+    bill.setFill(Color.WHITE);
 
-    BorderPane tile = new BorderPane();
-    tile.setStyle("-fx-background-color: black;");
+    // Create the text for the menu options
+    Text total = new Text(new DecimalFormat("'$'###,##0.00")
+      .format(AZTrailView.controller.getMoney()));
+    total.setId("text12");
+    total.setFill(Color.WHITE);
 
-    // Create the first accent
-    ImageView accent1 = menuAccent();
-    tile.setTop(accent1);
-    tile.setCenter(body);
+    // Create the text for the menu options
+    Text items = new Text("1. Oxen\n2. Food\n3. Clothing\n4. Ammunition\n5. "
+      + "Spare parts");
+    items.setId("text12");
+    items.setFill(Color.WHITE);
+    subTotals.setLeft(items);
 
-    // Create the second accent
-    ImageView accent2 = menuAccent();
-    tile.setBottom(accent2);
-    tile.setMargin(accent2, new Insets(0, 0, 40, 0));
+    // Create the text for the menu options
+    Text receipt = new Text(item1 + "\n" + item2 + "\n" + item3 + "\n" + item4
+      + "\n" + item5);
+    receipt.setId("text12");
+    receipt.setFill(Color.WHITE);
+    subTotals.setRight(receipt);
 
-    // Style the view
-    root.setAlignment(title, Pos.CENTER);
-    root.setAlignment(accent1, Pos.CENTER);
-    root.setAlignment(accent2, Pos.CENTER);
+    // Create the text for the menu options
+    Text billText = new Text("Total bill:");
+    billText.setId("text12");
+    billText.setFill(Color.WHITE);
+
+    // Create the text for the menu options
+    Text totalText = new Text("Amount you have: ");
+    totalText.setId("text12");
+    totalText.setFill(Color.WHITE);
+
+    billBody.setLeft(billText);
+    billBody.setRight(bill);
+
+    lower.setTop(totalBody);
+    lower.setAlignment(totalBody, Pos.CENTER_RIGHT);
+    lower.setMargin(totalBody, new Insets(0, 70, 30, 0));
+    lower.setBottom(body);
+    lower.setAlignment(body, Pos.CENTER_LEFT);
+    totalBody.setLeft(totalText);
+    totalBody.setRight(total);
+
     root.setStyle("-fx-background-color: black;");
-    root.setTop(title);
     root.setCenter(tile);
-
+    root.setBottom(footer);
+    root.setAlignment(footer, Pos.CENTER);
+    root.setMargin(footer, new Insets(5));
 
     addEventHandlers();
-  }
-
-  /**
-   * [menuAccent description]
-   * @return [description]
-   */
-  private ImageView menuAccent() {
-    return new ImageView(new Image("file:view/assets/menuaccent.png",
-      620, 40, false, false));
   }
 
   /**
@@ -127,7 +191,7 @@ public class StoreMenu extends Scene {
               input = input.substring(0, input.length() - 2);
               input += "_";
             }
-            body.setText(contents + input);
+            body.setText(prompt + input);
             break;
 
           case ENTER:
@@ -166,7 +230,7 @@ public class StoreMenu extends Scene {
     if (input.length() == 1 && num >= 1 && num <= NUM_OPTS) {
       input = input.substring(0, input.length() - 1);
       input += num + "_";
-      body.setText(contents + input);
+      body.setText(prompt + input);
     }
   }
 
@@ -221,9 +285,6 @@ public class StoreMenu extends Scene {
       case 5:
         // choose management option
         return new OptionsMenu();
-      case 6:
-        // end
-        System.exit(0);
     }
     // return;
     return null;

@@ -26,7 +26,7 @@ public class MonthMenu extends Scene {
   private final int NUM_OPTS = 6;
   private Text body;
   private String contents = "It is 1848. Your jumping off\nplace for Utah is"
-    + " Blank,\nArizona. You must decide which\nmonth to leave Blank.\n\n  "
+    + " Nogales,\nArizona. You must decide which\nmonth to leave Nogales.\n\n  "
     + "1. March\n  "
     + "2. April\n  "
     + "3. May\n  "
@@ -183,7 +183,7 @@ public class MonthMenu extends Scene {
   }
 
   private Scene shopView() {
-    return new GenericInfoMenu(new ClerkInfoMenu(new SizeUpView(),
+    return new GenericInfoMenu(new ClerkInfoMenu(new StoreMenu(),
       "Hello, I'm Matt. So you're going\nto Utah! "
       + "I can fix you up with\nwhat you need:",
       new String[]{"- a team of oxen to pull\nyour wagon\n\n- "
@@ -191,9 +191,9 @@ public class MonthMenu extends Scene {
       + "\ntrip\n\n- ammunition for your\nrifles\n\n- spare parts for your"
       + "\nwagon", "- lots of blankets to\nstay warm\n\n- enough water for"
       + " you\nand your oxen"}),
-      new String[]{ "Before leaving Blank you\nshould buy equipment and"
+      new String[]{ "Before leaving Nogales you\nshould buy equipment and"
       + "\nsupplies. You have $"
-      + (new DecimalFormat("#.00#").format(AZTrailView.controller.getMoney()))
+      + (new DecimalFormat("'$'###,##0.00").format(AZTrailView.controller.getMoney()))
       + " in\ncash, but you don't have to\nspend it all now.",
       "You can buy whatever you need at\nMatt's General Store."
     }, true);
