@@ -1,7 +1,7 @@
 package model;
 
 public class AZTrailModel {
-  Party party;
+  // Party party;
   boolean sound;
 
   // NEW
