@@ -189,8 +189,11 @@ public class SplashMenu extends Scene {
       case 3:
         // See the Arizona top 10
         return new GenericInfoMenu(new SplashMenu(), new String[]{
-          "Not yet implemented..."
-        });
+          "\tThe Arizona Top Ten\n\n  Name\t    Points\t   Rating\n\n"
+          + " Me\t     9999       Trail guide\n"
+          + " Myself\t     9999       Trail guide\n"
+          + " Eye\t     9999       Adventurer\n"
+        }, false, false);
       case 4:
         // turn sound off
         return new GenericInfoMenu(new SplashMenu(), new String[]{
