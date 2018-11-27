@@ -280,7 +280,7 @@ public class StoreMenu extends Scene {
       case 4:
         return new StoreAmmoMenu();
       case 5:
-        return new StoreMenu();
+        return new StoreWheelMenu();
     }
     // return;
     return null;
