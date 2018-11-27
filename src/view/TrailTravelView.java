@@ -64,4 +64,29 @@ public class TrailTravelView extends Scene {
     info.setBottom(statsArea);
     return info;
   }
+
+  /**
+   * [addEventHandlers description]
+   */
+  private void addEventHandlers() {
+    this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case ESCAPE:
+            if (AZTrailView.escape) {
+              System.exit(0);
+              // AZTrailView.stage.setScene(new SplashMenu());
+            } else {
+              AZTrailView.escape = true;
+            }
+            break;
+
+          default:
+            AZTrailView.escape = false;
+            return;
+        }
+      }
+    });
+  }
 }

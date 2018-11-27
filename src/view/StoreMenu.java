@@ -22,7 +22,13 @@ import controller.*;
 
 public class StoreMenu extends Scene {
   private final int NUM_OPTS = 6;
+  private Text header;
+  private Text footer;
   private Text body;
+  private Text date;
+  private Rectangle rect1 = new Rectangle(AZTrailView.WIDTH * 0.8 , AZTrailView.HEIGHT * 0.016, Color.RED);
+  private Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.8, AZTrailView.HEIGHT * 0.016, Color.RED);
+  private Rectangle rect3 = new Rectangle(AZTrailView.WIDTH * 0.8, AZTrailView.HEIGHT * 0.016, Color.RED);
   private String contents = "You may:\n\n  "
     + "1. Travel the Trail\n  "
     + "2. Learn about the trail\n  "
@@ -54,9 +60,24 @@ public class StoreMenu extends Scene {
     ImageView title = new ImageView(img);
 
     // Create the text for the menu options
-    body = new Text(contents + input);
+    body = new Text(contents);
     body.setId("text12");
     body.setFill(Color.WHITE);
+
+    // Create the text for the menu options
+    header = new Text("Matt's General Store\n Blank, Arizona.");
+    header.setId("text12");
+    header.setFill(Color.WHITE);
+
+    // Create the text for the menu options
+    footer = new Text("");
+    footer.setId("text12");
+    footer.setFill(Color.WHITE);
+
+    // Create the text for the menu options
+    date = new Text();
+    date.setId("text12");
+    date.setFill(Color.WHITE);
 
     BorderPane tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
