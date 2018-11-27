@@ -22,12 +22,16 @@ import java.io.*;
 import controller.*;
 
 public class PartyNamesMenu extends Scene {
-  private final String PROMPT = "\nAre these names correct? ";
+  private final String PROMPT1 = "\nAre these names correct? ";
+  private final String PROMPT2 = "\nChange which name? ";
   private final int CHAR_LIMIT = 12;
   private Text header = new Text("What are the first names of the\nfour other"
     + " members in your party?\n");
   private boolean confirmation = false;
+  private boolean select = false;
+  private boolean edit = false;
   private String input = "_";
+  private String editTemp;
   private FlowPane flow;
   private Text footer;
   private Text[] names;
@@ -49,13 +53,11 @@ public class PartyNamesMenu extends Scene {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     names = new Text[AZTrailView.controller.partySize()];
 
-    AZTrailView.controller.resetPartyNames();
-
     // Create the tile image;
     flow = new FlowPane(Orientation.VERTICAL);
     flow.setStyle("-fx-background-color: black;");
     flow.setColumnHalignment(HPos.LEFT);
-    Image img = new Image("file:view/assets/partymenu.png");
+    Image img = new Image("file:view/assets/graphics/partymenu.png");
     ImageView decor = new ImageView(img);
     decor.setPreserveRatio(true);
     decor.setFitWidth(600);
@@ -74,6 +76,8 @@ public class PartyNamesMenu extends Scene {
     for (int i = 0; i < names.length; i++) {
       if (i == 0) {
         names[i] = new Text((i + 1) + ". " + AZTrailView.controller.getName(0));
+      } else if (i == 1) {
+        names[i] = new Text((i + 1) + ". " + input);
       } else {
         names[i] = new Text((i + 1) + ". ");
       }
@@ -103,18 +107,37 @@ public class PartyNamesMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case BACK_SPACE:
+            AZTrailView.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
             }
+            if (select) {
+              footer.setText(PROMPT2 + input);
+              return;
+            }
             if (!confirmation) {
               names[curr].setText((curr + 1) + ". " + input);
             } else {
-              footer.setText(PROMPT + input);
+              footer.setText(PROMPT1 + input);
             }
             break;
 
           case ENTER:
+            AZTrailView.escape = false;
+            if (select) {
+              if (input.length() == 2) {
+                select = false;
+                edit = true;
+                input = input.substring(0, input.length() - 1);
+                footer.setText(PROMPT2 + input);
+                curr = Integer.parseInt(input) - 1;
+                input = "_";
+                editTemp = names[curr].getText();
+                names[curr].setText((curr + 1) + ". " + input);
+              }
+              return;
+            }
             if (confirmation && input.length() > 1) {
               boolean yesTrue = true;
               boolean noTrue = true;
@@ -132,25 +155,46 @@ public class PartyNamesMenu extends Scene {
                 }
               }
               if (noTrue) {
-                AZTrailView.stage.setScene(new PartyNamesMenu());
+                confirmation = false;
+                select = true;
+                input = "_";
+                footer.setText(PROMPT2 + input);
+                return;
               }
               if (yesTrue) {
-                System.out.println("next scene!");
-                // AZTrailView.stage.setScene();
+                AZTrailView.stage.setScene(new MonthMenu());
               }
               input = "_";
-              footer.setText(PROMPT + input);
+              footer.setText(PROMPT1 + input);
             }
-            if (curr == 1 && input.length() == 1) {
-              names[1].setText(names[1].getText() + "Henry");
-              names[2].setText(names[2].getText() + "Sara");
-              names[3].setText(names[3].getText() + "Zeke");
-              names[4].setText(names[4].getText() + "Beth");
+            if (edit) {
+              if (input.length() == 1) {
+                names[curr].setText(editTemp);
+              } else {
+                input = input.substring(0, input.length() - 1);
+                names[curr].setText((curr + 1) + ". " + input);
+              }
+              AZTrailView.controller.setName(curr,
+                names[curr].getText().substring(3,
+                names[curr].getText().length()));
+              input = "_";
+              footer.setText(PROMPT1 + input);
+              edit = false;
               curr = 4;
+              confirm();
+              return;
+            }
+            if (!confirmation && input.length() == 1) {
+              String[] presets = {"Henry", "Sara", "Zeke", "Beth"};
+              do {
+                AZTrailView.controller.setName(curr, presets[curr - 1]);
+                names[curr].setText((curr + 1) + ". " + presets[curr - 1]);
+                curr++;
+              } while (curr <= AZTrailView.controller.partySize() - 1);
               confirm();
             }
             if (curr == AZTrailView.controller.partySize() - 1 && !confirmation) {
-              AZTrailView.controller.setName(input.substring(0,
+              AZTrailView.controller.setName(curr, input.substring(0,
                 input.length() - 1));
               names[curr].setText((curr + 1) + ". " + input.substring(0,
                 input.length() - 1));
@@ -158,7 +202,7 @@ public class PartyNamesMenu extends Scene {
               confirm();
             }
             if (curr < AZTrailView.controller.partySize() - 1) {
-              AZTrailView.controller.setName(input.substring(0,
+              AZTrailView.controller.setName(curr, input.substring(0,
                 input.length() - 1));
                 names[curr].setText((curr + 1) + ". " + input.substring(0,
                   input.length() - 1));
@@ -168,7 +212,16 @@ public class PartyNamesMenu extends Scene {
             }
             break;
 
+          case ESCAPE:
+            if (AZTrailView.escape) {
+              AZTrailView.stage.setScene(new SplashMenu());
+            } else {
+              AZTrailView.escape = true;
+            }
+            break;
+
           default:
+            AZTrailView.escape = false;
             updateInputText(event, curr);
         }
       }
@@ -182,6 +235,18 @@ public class PartyNamesMenu extends Scene {
   private void updateInputText(KeyEvent event, int i) {
     String letter = event.getText();
     if (letter.length() != 1) {
+      return;
+    }
+    if (select && input.length() < 2
+        && Character.isDigit(letter.charAt(0))
+        && Integer.parseInt(letter.substring(0, 1)) >= 1
+        && Integer.parseInt(letter.substring(0, 1))
+        <= AZTrailView.controller.partySize()) {
+      input = input.substring(0, input.length() - 1);
+      input += letter + "_";
+      footer.setText(PROMPT2 + input);
+    }
+    if (select) {
       return;
     }
     if (confirmation && ((letter.toLowerCase().charAt(0) != 'y'
@@ -202,12 +267,12 @@ public class PartyNamesMenu extends Scene {
     if (!confirmation) {
       names[i].setText((i + 1) + ". " + input);
     } else {
-      footer.setText(PROMPT + input);
+      footer.setText(PROMPT1 + input);
     }
   }
 
   private void confirm() {
-    footer.setText(PROMPT + input);
+    footer.setText(PROMPT1 + input);
     flow.setMargin(footer, new Insets(0, 0, 0, 0));
     confirmation = true;
   }

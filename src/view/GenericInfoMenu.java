@@ -3,74 +3,101 @@ package view;
 import javafx.scene.control.Alert.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.input.*;
+import javafx.scene.text.*;
 import javafx.application.*;
 import javafx.scene.input.*;
 import javafx.scene.image.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
+import javafx.scene.*;
 import javafx.beans.value.*;
 import javafx.geometry.*;
 import javafx.stage.*;
-import javafx.scene.*;
-import javafx.scene.text.Font;
 import javafx.event.*;
 import java.util.*;
 import java.io.*;
-import javafx.scene.text.Text;
-import javafx.scene.input.KeyCode;
 
 import controller.*;
 
 public class GenericInfoMenu extends Scene {
-  private Scene prevScene;
+  private boolean accentsOn;
+  private boolean titleOn;
+  private Scene nextScene;
   private BorderPane root;
   private int curPage = 0;
   private String[] text;
   private int size;
 
-
   /**
    * [GenericInfoMenu description]
    */
-  public GenericInfoMenu(Scene prevScene, String[] text) {
-    this(new BorderPane(), text, 12);
-    getStylesheets().add(AZTrailView.styleSheet);
-    this.prevScene = prevScene;
+  public GenericInfoMenu(Scene nextScene, String[] text) {
+    this(new BorderPane(), nextScene, text, 12, false, false);
   }
 
   /**
    * [GenericInfoMenu description]
    */
-  public GenericInfoMenu(Scene prevScene, int size, String[] text) {
-    this(new BorderPane(), text, size);
-    getStylesheets().add(getClass().getResource("assets/style.css")
-      .toExternalForm());
-    this.prevScene = prevScene;
+  public GenericInfoMenu(Scene nextScene, String[] text, int size) {
+    this(new BorderPane(), nextScene, text, size, false, false);
+  }
+
+  /**
+   * [GenericInfoMenu description]
+   */
+  public GenericInfoMenu(Scene nextScene, String[] text, boolean accentsOn) {
+    this(new BorderPane(), nextScene, text, 12, accentsOn, false);
+  }
+
+  /**
+   * [GenericInfoMenu description]
+   */
+  public GenericInfoMenu(Scene nextScene, String[] text, int size, boolean accentsOn) {
+    this(new BorderPane(), nextScene, text, size, accentsOn, false);
+  }
+
+  /**
+   * [GenericInfoMenu description]
+   */
+  public GenericInfoMenu(Scene nextScene, String[] text,
+      boolean accentsOn, boolean titleOn) {
+    this(new BorderPane(), nextScene, text, 12, accentsOn, titleOn);
+  }
+
+  /**
+   * [GenericInfoMenu description]
+   */
+  public GenericInfoMenu(Scene nextScene, int size, String[] text,
+      boolean accentsOn, boolean titleOn) {
+    this(new BorderPane(), nextScene, text, size, accentsOn, titleOn);
   }
 
   /**
    * [GenericInfoMenu description]
    * @param root [description]
    */
-  private GenericInfoMenu(BorderPane root, String[] text, int size) {
+  private GenericInfoMenu(BorderPane root, Scene nextScene, String[] text,
+      int size, boolean accentsOn, boolean titleOn) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    getStylesheets().add(AZTrailView.styleSheet);
+    this.nextScene = nextScene;
+    this.accentsOn = accentsOn;
+    this.titleOn = titleOn;
     this.root = root;
     this.text = text;
     this.size = size;
 
-    // Create the tile image;
-    Image img = new Image("file:view/assets/aztrail_splashtext.png");
-    ImageView title = new ImageView(img);
-
-    // Create the text for the menu options
-    Text body = new Text(text[0] + "\n\nPress SPACEBAR to continue...");
-    setTextSize(body);
-    body.setFill(Color.WHITE);
+    // Create the title image;
+    if (titleOn) {
+      Image img = new Image("file:view/assets/graphics/aztrail_splashtext.png");
+      ImageView title = new ImageView(img);
+      root.setAlignment(title, Pos.CENTER);
+      root.setTop(title);
+    }
 
     // Style the view
-    root.setAlignment(title, Pos.CENTER);
     root.setStyle("-fx-background-color: black;");
-    root.setTop(title);
 
     learnTextBlock();
     addEventHandlers();
@@ -80,25 +107,37 @@ public class GenericInfoMenu extends Scene {
    * [learnTextBlock description]
    */
   private void learnTextBlock() {
-    Text body = new Text(text[curPage] + "\n\nPress SPACEBAR to continue...");
-    setTextSize(body);
-    body.setFill(Color.WHITE);
-
     BorderPane tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
 
-    // Create the first accent
-    ImageView accent1 = menuAccent();
-    tile.setTop(accent1);
+    Text body = new Text(text[curPage]);
+    setTextSize(body);
+    body.setFill(Color.WHITE);
+    tile.setAlignment(body, Pos.CENTER);
+
+    if (accentsOn) {
+      // Create the first accent
+      ImageView accent1 = menuAccent();
+      tile.setTop(accent1);
+      tile.setAlignment(accent1, Pos.CENTER);
+      // Create the second accent
+      ImageView accent2 = menuAccent();
+      tile.setBottom(accent2);
+      tile.setMargin(accent2, new Insets(0, 0, 10, 0));
+      tile.setAlignment(accent2, Pos.CENTER);
+    }
+
+    Text footer = new Text("Press SPACEBAR to continue...");
+    footer.setFill(Color.WHITE);
+    setTextSize(footer);
     tile.setCenter(body);
+    tile.setAlignment(body, Pos.CENTER);
+    root.setBottom(footer);
+    root.setAlignment(footer, Pos.CENTER);
+    root.setMargin(footer, new Insets(0, 0, 40, 0));
 
-    // Create the second accent
-    ImageView accent2 = menuAccent();
-    tile.setBottom(accent2);
-
-    this.root.setAlignment(accent1, Pos.CENTER);
-    this.root.setAlignment(accent2, Pos.CENTER);
-    this.root.setCenter(tile);
+    root.setCenter(tile);
+    root.setAlignment(tile, Pos.CENTER);
   }
 
   /**
@@ -106,7 +145,7 @@ public class GenericInfoMenu extends Scene {
    * @return [description]
    */
   private ImageView menuAccent() {
-    return new ImageView(new Image("file:view/assets/menuaccent.png",
+    return new ImageView(new Image("file:view/assets/graphics/menuaccent.png",
       620, 40, false, false));
   }
 
@@ -117,11 +156,38 @@ public class GenericInfoMenu extends Scene {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.SPACE) && curPage < text.length - 1) {
-          curPage++;
-          learnTextBlock();
-        } else if (event.getCode().equals(KeyCode.SPACE) && curPage == text.length - 1) {
-          AZTrailView.stage.setScene(prevScene);
+        switch (event.getCode()) {
+          case SPACE:
+            AZTrailView.escape = false;
+            if (curPage < text.length - 1) {
+              curPage++;
+              learnTextBlock();
+            } else if (curPage == text.length - 1) {
+              AZTrailView.stage.setScene(nextScene);
+            }
+            break;
+
+          case ENTER:
+            AZTrailView.escape = false;
+            if (curPage < text.length - 1) {
+              curPage++;
+              learnTextBlock();
+            } else if (curPage == text.length - 1) {
+              AZTrailView.stage.setScene(nextScene);
+            }
+            break;
+
+          case ESCAPE:
+            if (AZTrailView.escape) {
+              AZTrailView.stage.setScene(new SplashMenu());
+            } else {
+              AZTrailView.escape = true;
+            }
+            break;
+
+          default:
+            AZTrailView.escape = false;
+            return;
         }
       }
     });

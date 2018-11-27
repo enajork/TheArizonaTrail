@@ -3,28 +3,27 @@ package view;
 import javafx.scene.control.Alert.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.input.*;
+import javafx.scene.text.*;
 import javafx.application.*;
 import javafx.scene.input.*;
 import javafx.scene.image.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
+import javafx.scene.*;
 import javafx.beans.value.*;
 import javafx.geometry.*;
 import javafx.stage.*;
-import javafx.scene.*;
-import javafx.scene.text.Font;
 import javafx.event.*;
 import java.util.*;
 import java.io.*;
-import javafx.scene.text.Text;
-import javafx.scene.input.KeyCode;
 
 import controller.*;
 
 public class OptionsMenu extends Scene {
   private final int NUM_OPTS = 1;
   private Text body;
-  private String contents = "You may:\n\n\t"
+  private String contents = "You may:\n\n  "
     + "1. Travel the Trail\n\n"
     + "What is your choice? ";
   private String input = "_";
@@ -44,10 +43,6 @@ public class OptionsMenu extends Scene {
   private OptionsMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
 
-    // Create the tile image;
-    Image img = new Image("file:view/assets/aztrail_splashtext.png");
-    ImageView title = new ImageView(img);
-
     // Create the text for the menu options
     body = new Text(contents + input);
     body.setId("text12");
@@ -55,22 +50,8 @@ public class OptionsMenu extends Scene {
 
     BorderPane tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
-
-    // Create the first accent
-    ImageView accent1 = menuAccent();
-    tile.setTop(accent1);
     tile.setCenter(body);
-
-    // Create the second accent
-    ImageView accent2 = menuAccent();
-    tile.setBottom(accent2);
-
-    // Style the view
-    root.setAlignment(title, Pos.CENTER);
-    root.setAlignment(accent1, Pos.CENTER);
-    root.setAlignment(accent2, Pos.CENTER);
     root.setStyle("-fx-background-color: black;");
-    root.setTop(title);
     root.setCenter(tile);
 
     addEventHandlers();
@@ -81,7 +62,7 @@ public class OptionsMenu extends Scene {
    * @return [description]
    */
   private ImageView menuAccent() {
-    return new ImageView(new Image("file:view/assets/menuaccent.png",
+    return new ImageView(new Image("file:view/assets/graphics/menuaccent.png",
       620, 40, false, false));
   }
 
@@ -94,6 +75,7 @@ public class OptionsMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case BACK_SPACE:
+            AZTrailView.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
@@ -102,17 +84,27 @@ public class OptionsMenu extends Scene {
             break;
 
           case ENTER:
+            AZTrailView.escape = false;
             if (input.length() == 2) {
               AZTrailView.stage.setScene(getSplashView(Integer.parseInt(input
                 .substring(0, 1))));
             }
             break;
 
+          case ESCAPE:
+            if (AZTrailView.escape) {
+              AZTrailView.stage.setScene(new SplashMenu());
+            } else {
+              AZTrailView.escape = true;
+            }
+            break;
+
           default:
-          if (event.getText().length() > 0
-              && Character.isDigit(event.getText().charAt(0))) {
-            updateInputText(Integer.parseInt(event.getText()));
-          }
+            AZTrailView.escape = false;
+            if (event.getText().length() > 0
+                && Character.isDigit(event.getText().charAt(0))) {
+              updateInputText(Integer.parseInt(event.getText()));
+            }
         }
       }
     });

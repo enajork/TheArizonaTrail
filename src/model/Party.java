@@ -18,19 +18,10 @@ public class Party {
    */
   public Party() {
     this.names = new ArrayList<String>();
-    this.prof = Profession.BANKER;
-    this.inv = new Inventory(prof);
-  }
-
-
-  /**
-   * [Party description]
-   * @param prof [description]
-   */
-  public Party(Profession prof) {
-    this.names = new ArrayList<String>();
-    this.prof = prof;
-    this.inv = new Inventory(prof);
+    for (int i = 0; i < SIZE; i++) {
+      names.add("");
+    }
+    this.inv = new Inventory();
   }
 
   /**
@@ -48,10 +39,16 @@ public class Party {
   public void setProf(String name) {
     if (name.toLowerCase().equals("banker")) {
       this.prof = Profession.BANKER;
+      inv.removeMoney(inv.getMoney());
+      inv.addMoney(1600);
     } else if (name.toLowerCase().equals("carpenter")) {
       this.prof = Profession.CARPENTER;
+      inv.removeMoney(inv.getMoney());
+      inv.addMoney(800);
     } else if (name.toLowerCase().equals("farmer")) {
       this.prof = Profession.FARMER;
+      inv.removeMoney(inv.getMoney());
+      inv.addMoney(400);
     } else {
       throw new IllegalStateException();
     }
@@ -65,9 +62,9 @@ public class Party {
     return names.get(i);
   }
 
-  public void setName(String name) {
-    if (names.size() < SIZE) {
-      names.add(name);
+  public void setName(int i, String name) {
+    if (i >= 0 && i < SIZE) {
+      names.set(i, name);
     }
   }
 
@@ -75,19 +72,13 @@ public class Party {
     return SIZE;
   }
 
-  public void resetNames() {
-    while (names.size() > 1) {
-      names.remove(names.size() - 1);
-    }
-  }
-
   /**
    * [addMoney description]
    * @param  amount [description]
    * @return        [description]
    */
-  public int addMoney(int amount) {
-    return inv.addMoney(amount);
+  public void addMoney(double amount) {
+    inv.addMoney(amount);
   }
 
   /**
@@ -95,7 +86,7 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
-  public boolean removeMoney(int amount) {
+  public boolean removeMoney(double amount) {
     return inv.removeMoney(amount);
   }
 
@@ -103,7 +94,7 @@ public class Party {
    * [getMoney description]
    * @return [description]
    */
-  public int getMoney() {
+  public double getMoney() {
     return inv.getMoney();
   }
 

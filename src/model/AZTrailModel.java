@@ -62,16 +62,12 @@ public class AZTrailModel {
     return party.getName(i);
   }
 
-  public void setName(String name) {
-    party.setName(name);
+  public void setName(int i, String name) {
+    party.setName(i, name);
   }
 
   public int partySize() {
     return party.size();
-  }
-
-  public void resetPartyNames() {
-    party.resetNames();
   }
 
   /**
@@ -79,8 +75,8 @@ public class AZTrailModel {
    * @param  amount [description]
    * @return        [description]
    */
-  public int addMoney(int amount) {
-    return party.addMoney(amount);
+  public void addMoney(double amount) {
+    party.addMoney(amount);
   }
 
   /**
@@ -88,7 +84,7 @@ public class AZTrailModel {
    * @param  amount [description]
    * @return        [description]
    */
-  public boolean removeMoney(int amount) {
+  public boolean removeMoney(double amount) {
     return party.removeMoney(amount);
   }
 
@@ -96,7 +92,7 @@ public class AZTrailModel {
    * [getMoney description]
    * @return [description]
    */
-  public int getMoney() {
+  public double getMoney() {
     return party.getMoney();
   }
 
@@ -370,11 +366,51 @@ public class AZTrailModel {
     return topTen;
   }
 
-  public boolean getSound() {
-    return sound;
+  public double getCartClothes() {
+    return cart.getClothes();
   }
 
-  public void toggleSound() {
-    this.sound = !this.sound;
+  public void setCartClothes(double amount) {
+    cart.setClothes(amount);
+  }
+
+  public double getCartParts() {
+    return cart.getParts();
+  }
+
+  public void setCartParts(double amount) {
+    cart.setParts(amount);
+  }
+
+  public double getCartTotal() {
+    return cart.getTotal();
+  }
+
+  public void setCartTotal(double amount) {
+    cart.setTotal(amount);
+  }
+
+  public double getCartOxen() {
+    return cart.getOxen();
+  }
+
+  public void setCartOxen(double amount) {
+    cart.setOxen(amount);
+  }
+
+  public double getCartFood() {
+    return cart.getFood();
+  }
+
+  public void setCartFood(double amount) {
+    cart.setFood(amount);
+  }
+
+  public double getCartAmmo() {
+    return cart.getAmmo();
+  }
+
+  public void setCartAmmo(double amount) {
+    cart.setAmmo(amount);
   }
 }

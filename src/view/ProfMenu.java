@@ -23,11 +23,11 @@ import controller.*;
 public class ProfMenu extends Scene {
   private final int NUM_OPTS = 4;
   private Text body;
-  private String contents = "You may:\n\n\t"
-    + "1. Be a banker from Boston\n\t"
-    + "2. Be a carpenter from Ohio\n\t"
-    + "3. Be a farmer from Illinois\n\t"
-    + "4. Find out the differences\n\t"
+  private String contents = "You may:\n\n  "
+    + "1. Be a banker from Boston\n  "
+    + "2. Be a carpenter from Ohio\n  "
+    + "3. Be a farmer from Illinois\n  "
+    + "4. Find out the differences\n  "
     + "   between these choices\n\n"
     + "What is your choice? ";
   private String input = "_";
@@ -47,10 +47,6 @@ public class ProfMenu extends Scene {
   private ProfMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
 
-    // Create the tile image;
-    Image img = new Image("file:view/assets/aztrail_splashtext.png");
-    ImageView title = new ImageView(img);
-
     // Create the text for the menu options
     body = new Text(contents + input);
     body.setId("text12");
@@ -67,13 +63,12 @@ public class ProfMenu extends Scene {
     // Create the second accent
     ImageView accent2 = menuAccent();
     tile.setBottom(accent2);
+    tile.setMargin(accent2, new Insets(0, 0, 40, 0));
 
     // Style the view
-    root.setAlignment(title, Pos.CENTER);
     root.setAlignment(accent1, Pos.CENTER);
     root.setAlignment(accent2, Pos.CENTER);
     root.setStyle("-fx-background-color: black;");
-    root.setTop(title);
     root.setCenter(tile);
 
     addEventHandlers();
@@ -84,7 +79,7 @@ public class ProfMenu extends Scene {
    * @return [description]
    */
   private ImageView menuAccent() {
-    return new ImageView(new Image("file:view/assets/menuaccent.png",
+    return new ImageView(new Image("file:view/assets/graphics/menuaccent.png",
       620, 40, false, false));
   }
 
@@ -106,8 +101,16 @@ public class ProfMenu extends Scene {
 
           case ENTER:
             if (input.length() == 2) {
-              AZTrailView.stage.setScene(getSplashView(Integer.parseInt(input
+              AZTrailView.stage.setScene(getNextView(Integer.parseInt(input
                 .substring(0, 1))));
+            }
+            break;
+
+          case ESCAPE:
+            if (AZTrailView.escape) {
+              AZTrailView.stage.setScene(new SplashMenu());
+            } else {
+              AZTrailView.escape = true;
             }
             break;
 
@@ -134,12 +137,12 @@ public class ProfMenu extends Scene {
   }
 
   /**
-   * [getSplashView description]
+   * [getNextView description]
    * @param  choice [description]
    * @return        [description]
    */
-  private Scene getSplashView(int choice) {
-    if (choice < 1 || choice > 6) {
+  private Scene getNextView(int choice) {
+    if (choice < 1 || choice > NUM_OPTS) {
       throw new IllegalStateException();
     }
     switch (choice) {
@@ -155,8 +158,12 @@ public class ProfMenu extends Scene {
         return new PartyLeaderMenu();
       case 4:
         return new GenericInfoMenu(new ProfMenu(), new String[]{
-          "Not yet implemented..."
-        });
+          "Traveling to Utah isn't easy!\nBut if you're a banker, you'll\n"
+          + "have more money for supplies\nand services than a carpenter\n"
+          + "or a farmer.\n\nHowever, the harder you have\nto try, the "
+          + "more points you\ndeserve! Therefore, the\nfarmer earns the "
+          + "greatest\nnumber of points and the\nbanker earns the least."
+        }, true);
     }
     // return;
     return null;

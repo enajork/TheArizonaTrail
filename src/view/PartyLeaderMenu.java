@@ -45,7 +45,7 @@ public class PartyLeaderMenu extends Scene {
     FlowPane flow = new FlowPane(Orientation.VERTICAL);
     flow.setStyle("-fx-background-color: black;");
     flow.setColumnHalignment(HPos.CENTER);
-    Image img = new Image("file:view/assets/partymenu.png");
+    Image img = new Image("file:view/assets/graphics/partymenu.png");
     ImageView decor = new ImageView(img);
     decor.setPreserveRatio(true);
     decor.setFitWidth(600);
@@ -76,6 +76,7 @@ public class PartyLeaderMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case BACK_SPACE:
+            AZTrailView.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
@@ -84,13 +85,24 @@ public class PartyLeaderMenu extends Scene {
             break;
 
           case ENTER:
+            AZTrailView.escape = false;
             if (input.length() > 1) {
-              AZTrailView.controller.setName(input.substring(0, input.length() - 1));
+              AZTrailView.controller.setName(0, input.substring(0,
+                input.length() - 1));
               AZTrailView.stage.setScene(new PartyNamesMenu());
             }
             break;
 
+          case ESCAPE:
+            if (AZTrailView.escape) {
+              AZTrailView.stage.setScene(new SplashMenu());
+            } else {
+              AZTrailView.escape = true;
+            }
+            break;
+
           default:
+            AZTrailView.escape = false;
             updateInputText(event);
         }
       }
