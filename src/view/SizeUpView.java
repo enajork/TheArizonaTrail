@@ -22,6 +22,7 @@ import javafx.scene.input.KeyCode;
 import controller.*;
 
 public class SizeUpView extends Scene {
+  private final int NUM_OPTS = 9;
   private Text body;
   private String contents = "You may:\n\n\t\t"
     + "1. Continue on the trail\n\t\t"
@@ -134,6 +135,8 @@ public class SizeUpView extends Scene {
             break;
 
           case ENTER:
+            AZTrailView.stage.setScene(getNextView(Integer.parseInt(input
+              .substring(0, 1))));
             break;
 
           default:
@@ -153,5 +156,23 @@ public class SizeUpView extends Scene {
       input += num + "_";
       body.setText(contents + input);
     }
+  }
+
+  /**
+   * [getNextView description]
+   * @param  choice [description]
+   * @return        [description]
+   */
+  private Scene getNextView(int choice) {
+    if (choice < 1 || choice > NUM_OPTS) {
+      throw new IllegalStateException();
+    }
+    switch (choice) {
+      case 1:
+        // Travel the trail
+        return new TrailTravelView();
+    }
+    // return;
+    return null;
   }
 }
