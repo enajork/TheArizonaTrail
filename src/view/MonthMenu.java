@@ -192,7 +192,7 @@ public class MonthMenu extends Scene {
       + "\nwagon", "- lots of blankets to\nstay warm\n\n- enough water for"
       + " you\nand your oxen"}),
       new String[]{ "Before leaving Nogales you\nshould buy equipment and"
-      + "\nsupplies. You have $"
+      + "\nsupplies. You have "
       + (new DecimalFormat("'$'###,##0.00").format(AZTrailView.controller.getMoney()))
       + " in\ncash, but you don't have to\nspend it all now.",
       "You can buy whatever you need at\nMatt's General Store."

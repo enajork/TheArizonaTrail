@@ -128,6 +128,15 @@ public class AZTrailController {
     return model.addOxen(amount);
   }
 
+  /**
+   * [addOxen description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public int getOxen() {
+    return model.getOxen();
+  }
+
   public double getCartClothes() {
     return model.getCartClothes();
   }

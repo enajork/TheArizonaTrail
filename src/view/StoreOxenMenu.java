@@ -21,14 +21,14 @@ import java.io.*;
 
 import controller.*;
 
-public class StoreMenu extends Scene {
+public class StoreOxenMenu extends Scene {
   private final Rectangle rect1 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect3 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
-  private final int NUM_OPTS = 5;
+  private final int NUM_OPTS = 9;
   private String item1 = new DecimalFormat("'$'###,##0.00")
     .format(AZTrailView.controller.getCartOxen());
   private String item2 = new DecimalFormat("'$'###,##0.00")
@@ -47,19 +47,19 @@ public class StoreMenu extends Scene {
   private String input = "_";
 
   /**
-   * [StoreMenu description]
+   * [StoreOxenMenu description]
    */
-  public StoreMenu() {
+  public StoreOxenMenu() {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailView.escape = false;
   }
 
   /**
-   * [StoreMenu description]
+   * [StoreOxenMenu description]
    * @param root [description]
    */
-  private StoreMenu(BorderPane root) {
+  private StoreOxenMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
@@ -192,7 +192,7 @@ public class StoreMenu extends Scene {
               footer.setText("Press SPACE BAR to continue");
               warn = true;
             } else if (warn) {
-              AZTrailView.stage.setScene(new StoreMenu());
+              AZTrailView.stage.setScene(new StoreOxenMenu());
             } else {
               AZTrailView.stage.setScene(new ClerkInfoMenu(new NogalesSplash(),
                 "", new String[]{
@@ -214,7 +214,7 @@ public class StoreMenu extends Scene {
           case ENTER:
             AZTrailView.escape = false;
             if (warn) {
-              AZTrailView.stage.setScene(new StoreMenu());
+              AZTrailView.stage.setScene(new StoreOxenMenu());
             }
             if (input.length() == 2) {
               AZTrailView.stage.setScene(getNextView(Integer.parseInt(input
@@ -264,15 +264,15 @@ public class StoreMenu extends Scene {
     }
     switch (choice) {
       case 1:
-        return new StoreMenu();
+        return new StoreOxenMenu();
       case 2:
-        return new StoreMenu();
+        return new StoreOxenMenu();
       case 3:
-        return new StoreMenu();
+        return new StoreOxenMenu();
       case 4:
-        return new StoreMenu();
+        return new StoreOxenMenu();
       case 5:
-        return new StoreMenu();
+        return new StoreOxenMenu();
     }
     // return;
     return null;
