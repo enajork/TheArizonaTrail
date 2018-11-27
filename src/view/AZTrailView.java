@@ -24,6 +24,8 @@ import model.*;
 
 public class AZTrailView extends Application {
   protected static boolean sound = true;
+  protected static final HashMap<String, AudioClip> sounds = new HashMap<String, AudioClip>();
+  protected static final HashMap<String, AudioClip[]> music = new HashMap<String, AudioClip[]>();
   protected static boolean escape = false;
   protected static AZTrailController controller;
   protected static AZTrailModel model;
@@ -43,8 +45,6 @@ public class AZTrailView extends Application {
     //   Media m = new Media(Paths.get("04.mp3").toUri().toString());
     //   new MediaPlayer(m).play();
     // });
-    final HashMap<String, AudioClip> sounds = new HashMap<String, AudioClip>();
-    final HashMap<String, AudioClip[]> music = new HashMap<String, AudioClip[]>();
 
     final AudioClip themes[] = new AudioClip[5];
     for (int i = 0; i < themes.length; i++) {
@@ -108,5 +108,28 @@ public class AZTrailView extends Application {
 
     this.stage.setScene(new SplashMenu());
     this.stage.show();
+  }
+
+  public static synchronized void startThemeLoop() {
+    music.get("themes")[0].play(1.0);
+
+    // if (sound) {
+    //   int i = 0;
+    //   while (true) {
+    //     AudioClip theme = music.get("themes")[i];
+    //     theme.play(1.0);
+    //     volatile boolean isPlaying = theme.isPlaying();
+    //     while (isPlaying) {
+    //       check.
+    //     }
+    //     if (!isPlaying) {
+    //       if (i == 4) {
+    //         i = 0;
+    //       } else {
+    //         i++;
+    //       }
+    //     }
+    //   }
+    // }
   }
 }
