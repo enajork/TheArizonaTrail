@@ -6,6 +6,12 @@ public class AZTrailModel {
 
   // NEW
   Calendar calendar;
+  private Party party;
+  private Cart cart;
+  // int day;
+  private int month;
+  private String[] topTen = {"Me", "You", "Your brother", "Your mother", "Your father", "Your sister", "Your dog", "Owen Wilson", "player1", "guest"};
+  // int year;
 
   public AZTrailModel() {
     this.sound = true;
@@ -27,6 +33,8 @@ public class AZTrailModel {
 
   public void setCalendar(Calendar gameCal) {
     this.calendar = gameCal;
+    this.cart = new Cart();
+    // this.topTen;
   }
 
   /**
@@ -362,8 +370,7 @@ public class AZTrailModel {
    * @return [description]
    */
   public String[] getTopTen() {
-    String[] topTen = {"Me", "You", "Your brother", "Your mother", "Your father", "Your sister", "Your dog", "Owen Wilson", "player1", "guest"};
-    return topTen;
+    return this.topTen;
   }
 
   public double getCartClothes() {
