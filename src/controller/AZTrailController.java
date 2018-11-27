@@ -87,6 +87,14 @@ public class AZTrailController {
   }
 
   /**
+   * [getDateStr description]
+   * @return [description]
+   */
+  public String getDateStr() {
+    return model.getDateStr();
+  }
+
+  /**
    * [getMoney description]
    * @return [description]
    */

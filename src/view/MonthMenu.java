@@ -183,7 +183,7 @@ public class MonthMenu extends Scene {
   }
 
   private Scene shopView() {
-    return new GenericInfoMenu(new ClerkInfoMenu(/*new StoreMenu()*/null,
+    return new GenericInfoMenu(new ClerkInfoMenu(new SizeUpView(),
       "Hello, I'm Matt. So you're going\nto Utah! "
       + "I can fix you up with\nwhat you need:",
       new String[]{"- a team of oxen to pull\nyour wagon\n\n- "
