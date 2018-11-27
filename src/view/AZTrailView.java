@@ -108,7 +108,7 @@ public class AZTrailView extends Application {
     //stage.initStyle(StageStyle.UNDECORATED);
 
     // Show the splash menu
-    Scene splashMenu = new MonthMenu();
+    Scene splashMenu = new SplashMenu();
 
     this.stage.setScene(splashMenu);
     this.stage.show();
