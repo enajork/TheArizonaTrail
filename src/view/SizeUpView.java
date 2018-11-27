@@ -3,21 +3,21 @@ package view;
 import javafx.scene.control.Alert.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.media.*;
+import javafx.scene.input.*;
+import javafx.scene.text.*;
 import javafx.application.*;
 import javafx.scene.input.*;
 import javafx.scene.image.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
+import javafx.scene.*;
 import javafx.beans.value.*;
 import javafx.geometry.*;
 import javafx.stage.*;
-import javafx.scene.*;
-import javafx.scene.text.Font;
 import javafx.event.*;
 import java.util.*;
 import java.io.*;
-import javafx.scene.text.Text;
-import javafx.scene.input.KeyCode;
 
 import controller.*;
 
@@ -57,7 +57,7 @@ public class SizeUpView extends Scene {
     body.setFill(Color.WHITE);
 
     // TODO get date and location from controller
-    Text locDate = new Text("Independence\nMarch 1, 1848\n");
+    Text locDate = new Text("Blank\nMarch 1, 1848\n");
     locDate.setFill(Color.WHITE);
     locDate.setId("text12");
 
@@ -89,43 +89,8 @@ public class SizeUpView extends Scene {
       @Override
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
-          case DIGIT1:
-            updateInputText(1);
-            break;
-
-          case DIGIT2:
-            updateInputText(2);
-            break;
-
-          case DIGIT3:
-            updateInputText(3);
-            break;
-
-          case DIGIT4:
-            updateInputText(4);
-            break;
-
-          case DIGIT5:
-            updateInputText(5);
-            break;
-
-          case DIGIT6:
-            updateInputText(6);
-            break;
-
-          case DIGIT7:
-            updateInputText(7);
-            break;
-
-          case DIGIT8:
-            updateInputText(8);
-            break;
-
-          case DIGIT9:
-            updateInputText(9);
-            break;
-
           case BACK_SPACE:
+            AZTrailView.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
@@ -134,10 +99,27 @@ public class SizeUpView extends Scene {
             break;
 
           case ENTER:
+            AZTrailView.escape = false;
+            if (input.length() == 2) {
+              AZTrailView.stage.setScene(new TrailTravelView());
+            }
+            break;
+
+          case ESCAPE:
+            if (AZTrailView.escape) {
+              System.exit(0);
+              // AZTrailView.stage.setScene(new SplashMenu());
+            } else {
+              AZTrailView.escape = true;
+            }
             break;
 
           default:
-            return;
+            AZTrailView.escape = false;
+            if (event.getText().length() > 0
+                && Character.isDigit(event.getText().charAt(0))) {
+              updateInputText(Integer.parseInt(event.getText()));
+            }
         }
       }
     });
