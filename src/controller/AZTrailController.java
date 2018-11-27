@@ -49,6 +49,10 @@ public class AZTrailController {
     }
   }
 
+  public void startThemeLoop() {
+    AZTrailView.startThemeLoop();
+  }
+
   /**
    * [getNames description]
    * @return [description]
