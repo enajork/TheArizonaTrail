@@ -16,6 +16,7 @@ public class Calendar {
 
   public Calendar() {
     createDaysInMonthMap();
+    createMonthNumMap();
     this.year = START_YEAR;
     this.month = 0;
     this.day = 1;
