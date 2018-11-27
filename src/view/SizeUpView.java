@@ -57,7 +57,8 @@ public class SizeUpView extends Scene {
     body.setFill(Color.WHITE);
 
     // TODO get date and location from controller
-    Text locDate = new Text("Nogales\n" + AZTrailView.controller.getDateStr() + "\n");
+    Text locDate = new Text(AZTrailView.controller.getCurrentCity()
+      + "\n" + AZTrailView.controller.getDateStr() + "\n");
     locDate.setFill(Color.WHITE);
     locDate.setId("text12");
 
@@ -107,8 +108,7 @@ public class SizeUpView extends Scene {
 
           case ESCAPE:
             if (AZTrailView.escape) {
-              System.exit(0);
-              // AZTrailView.stage.setScene(new SplashMenu());
+              AZTrailView.stage.setScene(new SplashMenu());
             } else {
               AZTrailView.escape = true;
             }

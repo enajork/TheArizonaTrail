@@ -95,8 +95,9 @@ public class AZTrailController {
   }
 
   /**
-   * [getMoney description]
-   * @return [description]
+   * [addMoney description]
+   * @param  amount [description]
+   * @return        [description]
    */
   public void addMoney(double amount) {
     model.addMoney(amount);
@@ -129,12 +130,202 @@ public class AZTrailController {
   }
 
   /**
-   * [addOxen description]
+   * [removeOxen description]
    * @param  amount [description]
    * @return        [description]
    */
+  public boolean removeOxen(int amount) {
+    return model.removeOxen(amount);
+  }
+
+  /**
+   * [getOxen description]
+   * @return [description]
+   */
   public int getOxen() {
     return model.getOxen();
+  }
+
+  /**
+   * [addBlankets description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public int addBlankets(int amount) {
+    return model.addBlankets(amount);
+  }
+
+  /**
+   * [removeBlankets description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public boolean removeBlankets(int amount) {
+    return model.removeBlankets(amount);
+  }
+
+  /**
+   * [getBlankets description]
+   * @return [description]
+   */
+  public int getBlankets() {
+    return model.getBlankets();
+  }
+
+  /**
+   * [addBullets description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public int addBullets(int amount) {
+    return model.addBullets(amount);
+  }
+
+  /**
+   * [removeBullets description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public boolean removeBullets(int amount) {
+    return model.removeBullets(amount);
+  }
+
+  /**
+   * [getBullets description]
+   * @return [description]
+   */
+  public int getBullets() {
+    return model.getBullets();
+  }
+
+  /**
+   * [addFood description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public int addFood(int amount) {
+    return model.addFood(amount);
+  }
+
+  /**
+   * [removeFood description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public boolean removeFood(int amount) {
+    return model.removeFood(amount);
+  }
+
+  /**
+   * [getFood description]
+   * @return [description]
+   */
+  public int getFood() {
+    return model.getFood();
+  }
+
+  /**
+   * [addWater description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public int addWater(int amount) {
+    return model.addWater(amount);
+  }
+
+  /**
+   * [removeWater description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public boolean removeWater(int amount) {
+    return model.removeWater(amount);
+  }
+
+  /**
+   * [getWater description]
+   * @return [description]
+   */
+  public int getWater() {
+    return model.getWater();
+  }
+
+  /**
+   * [addWheels description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public int addWheels(int amount) {
+    return model.addWheels(amount);
+  }
+
+  /**
+   * [removeWheels description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public boolean removeWheels(int amount) {
+    return model.removeWheels(amount);
+  }
+
+  /**
+   * [getWheels description]
+   * @return [description]
+   */
+  public int getWheels() {
+    return model.getWheels();
+  }
+
+  /**
+   * [addAxles description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public int addAxles(int amount) {
+    return model.addAxles(amount);
+  }
+
+  /**
+   * [removeAxles description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public boolean removeAxles(int amount) {
+    return model.removeAxles(amount);
+  }
+
+  /**
+   * [getAxles description]
+   * @return [description]
+   */
+  public int getAxles() {
+    return model.getAxles();
+  }
+
+  /**
+   * [addTongues description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public int addTongues(int amount) {
+    return model.addTongues(amount);
+  }
+
+  /**
+   * [removeTongues description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public boolean removeTongues(int amount) {
+    return model.removeTongues(amount);
+  }
+
+  /**
+   * [getTongues description]
+   * @return [description]
+   */
+  public int getTongues() {
+    return model.getTongues();
   }
 
   public double getCartClothes() {
@@ -183,5 +374,9 @@ public class AZTrailController {
 
   public void setCartAmmo(double amount) {
     model.setCartAmmo(amount);
+  }
+
+  public String getCurrentCity() {
+    return model.getCurrentCity();
   }
 }

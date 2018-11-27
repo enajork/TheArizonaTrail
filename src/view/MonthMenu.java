@@ -26,7 +26,9 @@ public class MonthMenu extends Scene {
   private final int NUM_OPTS = 6;
   private Text body;
   private String contents = "It is 1848. Your jumping off\nplace for Utah is"
-    + " Nogales,\nArizona. You must decide which\nmonth to leave Nogales.\n\n  "
+    + " " + AZTrailView.controller.getCurrentCity()
+    + ",\nArizona. You must decide which\nmonth to leave "
+    + AZTrailView.controller.getCurrentCity() + ".\n\n  "
     + "1. March\n  "
     + "2. April\n  "
     + "3. May\n  "
@@ -191,7 +193,8 @@ public class MonthMenu extends Scene {
       + "\ntrip\n\n- ammunition for your\nrifles\n\n- spare parts for your"
       + "\nwagon", "- lots of blankets to\nstay warm\n\n- enough water for"
       + " you\nand your oxen"}),
-      new String[]{ "Before leaving Nogales you\nshould buy equipment and"
+      new String[]{ "Before leaving " + AZTrailView.controller.getCurrentCity()
+      + " you\nshould buy equipment and"
       + "\nsupplies. You have "
       + (new DecimalFormat("'$'###,##0.00").format(AZTrailView.controller.getMoney()))
       + " in\ncash, but you don't have to\nspend it all now.",

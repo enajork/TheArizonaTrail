@@ -2,12 +2,16 @@ package model;
 
 public class AZTrailModel {
   private Calendar calendar;
+  private MapModel mapModel;
   private Party party;
   private Cart cart;
-  private String[] topTen = {"Me", "You", "Your brother", "Your mother", "Your father", "Your sister", "Your dog", "Owen Wilson", "player1", "guest"};
+  private String[] topTen = {"Me", "You", "Your brother", "Your mother",
+    "Your father", "Your sister", "Your dog", "Owen Wilson", "player1",
+    "guest"};
 
   public AZTrailModel() {
     this.calendar = new Calendar();
+    this.mapModel = new MapModel();
     this.party = new Party();
     this.cart = new Cart();
     // this.topTen;
@@ -209,7 +213,6 @@ public class AZTrailModel {
   public int getWater() {
     return party.getWater();
   }
-  // ---------- optional parts from here -------------- //
 
   /**
    * [addWheels description]
@@ -288,8 +291,6 @@ public class AZTrailModel {
   public int getTongues() {
     return party.getTongues();
   }
-
-  // ---------------- NEW -------------------------
 
   /**
   * [advanceCalendar description]
@@ -399,5 +400,9 @@ public class AZTrailModel {
 
   public void setCartAmmo(double amount) {
     cart.setAmmo(amount);
+  }
+
+  public String getCurrentCity() {
+    return mapModel.getCurrentCity();
   }
 }

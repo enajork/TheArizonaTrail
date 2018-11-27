@@ -1,9 +1,8 @@
 package model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public class Map {
+public class MapModel {
   private boolean atDestination;
   private String currentCity;
   private String nextCity;

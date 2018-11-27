@@ -21,7 +21,7 @@ import java.io.*;
 
 import controller.*;
 
-public class StoreOxenMenu extends Scene {
+public class StoreFoodMenu extends Scene {
   private final Rectangle rect1 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
@@ -32,24 +32,26 @@ public class StoreOxenMenu extends Scene {
   private BorderPane tile;
   private Text footer;
   private Text body;
-  private String prompt = "There are 2 oxen in a yoke;\nI recommend at least "
-    + "3 yoke.\nI charge $40 a yoke.\n\nHow many yoke do you\nwant? ";
+  private String prompt = "I recommend you take at\nleast 200 pounds of food\n"
+    + "for each person in your\nfamily. I see that you have\n5 people in all. "
+    + "You'll need\nflour, sugar, bacon, and\ncofee. My price is 20\ncents a "
+    + "pound.\n\nHow many pounds of food do\nyou want? ";
   private String input = "_";
 
   /**
-   * [StoreOxenMenu description]
+   * [StoreFoodMenu description]
    */
-  public StoreOxenMenu() {
+  public StoreFoodMenu() {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailView.escape = false;
   }
 
   /**
-   * [StoreOxenMenu description]
+   * [StoreFoodMenu description]
    * @param root [description]
    */
-  private StoreOxenMenu(BorderPane root) {
+  private StoreFoodMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
@@ -80,12 +82,11 @@ public class StoreOxenMenu extends Scene {
     tile.setMargin(body, new Insets(40));
 
     // Create the image;
-    Image img2 = new Image("file:view/assets/graphics/menuoxen.png");
+    Image img2 = new Image("file:view/assets/graphics/menufood.png");
     ImageView decor2 = new ImageView(img2);
     decor2.setPreserveRatio(true);
     decor2.setFitWidth(100);
     tile.setBottom(decor2);
-    tile.setMargin(decor2, new Insets(10));
     tile.setAlignment(decor2, Pos.CENTER);
 
     // Create the text for the menu options
@@ -157,7 +158,7 @@ public class StoreOxenMenu extends Scene {
    * @param num [description]
    */
   private void updateInputText(int num) {
-    if (input.length() == 1 && num >= 1 && num <= NUM_OPTS) {
+    if (input.length() == 1 && num >= 0 && num <= NUM_OPTS) {
       input = input.substring(0, input.length() - 1);
       input += num + "_";
       body.setText(prompt + input);

@@ -88,12 +88,12 @@ public class StoreMenu extends Scene {
     banner.setBottom(rect2);
     banner.setAlignment(rect2, Pos.CENTER);
     banner.setMargin(rect2, new Insets(5));
-    banner.setMargin(rect3, new Insets(5));
     receiptBody.setTop(subTotals);
     receiptBody.setAlignment(subTotals, Pos.CENTER_RIGHT);
     receiptBody.setMargin(subTotals, new Insets(0, 70, 0, 0));
     receiptBody.setCenter(rect3);
     receiptBody.setAlignment(rect3, Pos.CENTER);
+    receiptBody.setMargin(rect3, new Insets(5));
     receiptBody.setMaxHeight(0);
 
 
@@ -111,7 +111,9 @@ public class StoreMenu extends Scene {
     body.setFill(Color.WHITE);
 
     // Create the text for the menu options
-    Text header = new Text("Matt's General Store\nNogales, Arizona\n\n     "
+    Text header = new Text("Matt's General Store\n"
+      + AZTrailView.controller.getCurrentCity()
+      + ", Arizona\n\n     "
       + AZTrailView.controller.getDateStr());
     header.setId("text12");
     header.setFill(Color.WHITE);
@@ -194,8 +196,10 @@ public class StoreMenu extends Scene {
             } else if (warn) {
               AZTrailView.stage.setScene(new StoreMenu());
             } else {
+              AZTrailView.controller.addWater(500);
+              AZTrailView.controller.addBlankets(5);
               AZTrailView.stage.setScene(new ClerkInfoMenu(new NogalesSplash(),
-                "", new String[]{
+                "", new String[]{"Here, take these blankets\nand water. On the house!",
                 "Well then, you're ready\nto start. Good luck!\nYou have a long"
                  + " and\ndifficult journey ahead\nof you."
               }));
@@ -264,7 +268,7 @@ public class StoreMenu extends Scene {
     }
     switch (choice) {
       case 1:
-        return new StoreMenu();
+        return new StoreOxenMenu();
       case 2:
         return new StoreMenu();
       case 3:
