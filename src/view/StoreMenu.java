@@ -75,7 +75,7 @@ public class StoreMenu extends Scene {
     footer.setFill(Color.WHITE);
 
     // Create the text for the menu options
-    date = new Text();
+    date = new Text("");
     date.setId("text12");
     date.setFill(Color.WHITE);
 
