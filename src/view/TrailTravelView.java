@@ -90,7 +90,7 @@ public class TrailTravelView extends Scene {
 
     gc.drawImage(new Image("file:view/assets/graphics/mountain.png"), 0, 0, 1000, 50);
     gc.drawImage(new Image("file:view/assets/graphics/grass.png"), 0, 100, 1000, 50);
-    //gc.drawImage(new Image("file:view/assets/graphics/ox1.png"), 400, 50, 160, 70);
+    gc.drawImage(new Image("file:view/assets/graphics/ox1.png"), 400, 50, 160, 70);
 
     return canvas;
   }
