@@ -3,7 +3,6 @@ package model;
 public class Cart {
   private double clothes;
   private double parts;
-  private double total;
   private double oxen;
   private double food;
   private double ammo;
@@ -11,7 +10,6 @@ public class Cart {
   public Cart() {
     this.clothes = 0.0;
     this.parts = 0.0;
-    this.total = 0.0;
     this.oxen = 0.0;
     this.food = 0.0;
     this.ammo = 0.0;
@@ -38,13 +36,7 @@ public class Cart {
   }
 
   public double getTotal() {
-    return total;
-  }
-
-  public void setTotal(double amount) {
-    if (amount >= 0) {
-      total = amount;
-    }
+    return oxen + food + clothes + ammo + parts;
   }
 
   public double getOxen() {

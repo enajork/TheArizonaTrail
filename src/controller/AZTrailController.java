@@ -151,6 +151,32 @@ public class AZTrailController {
    * @param  amount [description]
    * @return        [description]
    */
+  public int addClothes(int amount) {
+    return model.addClothes(amount);
+  }
+
+  /**
+   * [removeBlankets description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public boolean removeClothes(int amount) {
+    return model.removeClothes(amount);
+  }
+
+  /**
+   * [getBlankets description]
+   * @return [description]
+   */
+  public int getClothes() {
+    return model.getClothes();
+  }
+
+  /**
+   * [addBlankets description]
+   * @param  amount [description]
+   * @return        [description]
+   */
   public int addBlankets(int amount) {
     return model.addBlankets(amount);
   }
@@ -346,10 +372,6 @@ public class AZTrailController {
 
   public double getCartTotal() {
     return model.getCartTotal();
-  }
-
-  public void setCartTotal(double amount) {
-    model.setCartTotal(amount);
   }
 
   public double getCartOxen() {

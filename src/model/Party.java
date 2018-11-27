@@ -129,6 +129,32 @@ public class Party {
    * @param  amount [description]
    * @return        [description]
    */
+  public int addClothes(int amount) {
+    return inv.addClothes(amount);
+  }
+
+  /**
+   * [removeBlankets description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public boolean removeClothes(int amount) {
+    return inv.removeClothes(amount);
+  }
+
+  /**
+   * [getBlankets description]
+   * @return [description]
+   */
+  public int getClothes() {
+    return inv.getClothes();
+  }
+
+  /**
+   * [addBlankets description]
+   * @param  amount [description]
+   * @return        [description]
+   */
   public int addBlankets(int amount) {
     return inv.addBlankets(amount);
   }

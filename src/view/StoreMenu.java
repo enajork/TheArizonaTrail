@@ -65,6 +65,9 @@ public class StoreMenu extends Scene {
     tile.setStyle("-fx-background-color: black;");
     BorderPane receiptBody = new BorderPane();
     receiptBody.setStyle("-fx-background-color: black;");
+    BorderPane billBody = new BorderPane();
+    billBody.setStyle("-fx-background-color: black;");
+    billBody.setMaxWidth(AZTrailView.WIDTH / 2.2);
     BorderPane subTotals = new BorderPane();
     subTotals.setStyle("-fx-background-color: black;");
     subTotals.setMaxWidth(AZTrailView.WIDTH / 1.65);
@@ -74,8 +77,6 @@ public class StoreMenu extends Scene {
     top.setStyle("-fx-background-color: black;");
     BorderPane lower = new BorderPane();
     lower.setStyle("-fx-background-color: black;");
-    BorderPane totalBody = new BorderPane();
-    totalBody.setStyle("-fx-background-color: black;");
     top.setTop(banner);
     top.setBottom(receiptBody);
     root.setCenter(tile);
@@ -156,13 +157,16 @@ public class StoreMenu extends Scene {
     billText.setId("text12");
     billText.setFill(Color.WHITE);
 
-    receiptBody.setBottom(total);
-    receiptBody.setAlignment(total, Pos.CENTER_RIGHT);
-    receiptBody.setMargin(total, new Insets(0, 70, 0, 0));
+    billBody.setLeft(billText);
+    billBody.setRight(bill);
 
-    lower.setTop(totalBody);
-    lower.setAlignment(totalBody, Pos.CENTER_RIGHT);
-    lower.setMargin(totalBody, new Insets(0, 70, 30, 0));
+    receiptBody.setBottom(billBody);
+    receiptBody.setAlignment(billBody, Pos.CENTER_RIGHT);
+    receiptBody.setMargin(billBody, new Insets(0, 70, 0, 0));
+
+    lower.setTop(total);
+    lower.setAlignment(total, Pos.CENTER_RIGHT);
+    lower.setMargin(total, new Insets(0, 30, 30, 0));
     lower.setBottom(body);
     lower.setAlignment(body, Pos.CENTER_LEFT);
 
@@ -270,11 +274,11 @@ public class StoreMenu extends Scene {
       case 1:
         return new StoreOxenMenu();
       case 2:
-        return new StoreMenu();
+        return new StoreFoodMenu();
       case 3:
-        return new StoreMenu();
+        return new StoreClothesMenu();
       case 4:
-        return new StoreMenu();
+        return new StoreAmmoMenu();
       case 5:
         return new StoreMenu();
     }

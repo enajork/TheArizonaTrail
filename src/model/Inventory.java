@@ -6,8 +6,8 @@ public class Inventory {
   int water;
   int food;
   int blankets;
+  int clothes;
   int bullets;
-  // optional
   int wheels;
   int axles;
   int tongues;
@@ -21,8 +21,8 @@ public class Inventory {
     this.oxen = 0;
     this.water = 0;
     this.blankets = 0;
+    this.clothes = 0;
     this.food = 0;
-    // optional
     this.bullets = 0;
     this.wheels = 0;
     this.axles = 0;
@@ -92,6 +92,39 @@ public class Inventory {
    */
   public int getOxen() {
     return this.oxen;
+  }
+
+  /**
+   * [addBlankets description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public int addClothes(int amount) {
+    if (amount >= 0) {
+      return this.clothes += amount;
+    }
+    return this.clothes;
+  }
+
+  /**
+   * [removeBlankets description]
+   * @param  amount [description]
+   * @return        [description]
+   */
+  public boolean removeClothes(int amount) {
+    if (amount >= 0 && this.clothes - amount >= 0) {
+      this.clothes -= amount;
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * [getBlankets description]
+   * @return [description]
+   */
+  public int getClothes() {
+    return this.clothes;
   }
 
   /**

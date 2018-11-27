@@ -26,9 +26,12 @@ public class StoreFoodMenu extends Scene {
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
+  private final int MAX_FOOD = 2000;
+  private final int INPUT_SIZE = 4;
   private final int NUM_OPTS = 9;
   private String cost = new DecimalFormat("'$'###,##0.00")
     .format(AZTrailView.controller.getCartOxen());
+  private boolean warn = false;
   private BorderPane tile;
   private Text footer;
   private Text body;
@@ -120,8 +123,17 @@ public class StoreFoodMenu extends Scene {
       @Override
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
+          case SPACE:
+            AZTrailView.escape = false;
+            if (warn) {
+              AZTrailView.stage.setScene(new StoreFoodMenu());
+            }
+            break;
           case BACK_SPACE:
             AZTrailView.escape = false;
+            if (warn) {
+              return;
+            }
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
@@ -130,8 +142,20 @@ public class StoreFoodMenu extends Scene {
             break;
 
           case ENTER:
-            AZTrailView.stage.setScene(getNextView(Integer.parseInt(input
-              .substring(0, 1))));
+            AZTrailView.escape = false;
+            if (input.length() == 1) {
+              return;
+            }
+            if (warn) {
+              AZTrailView.stage.setScene(new StoreFoodMenu());
+            } else {
+              int i = Integer.parseInt(input.replace("_", ""));
+              if (i >= 0 && i <= MAX_FOOD) {
+                AZTrailView.stage.setScene(getNextView(i));
+              }
+              warn = true;
+              body.setText("Your wagon may only carry\n2000 pounds of food.");
+            }
             break;
 
           case ESCAPE:
@@ -158,7 +182,10 @@ public class StoreFoodMenu extends Scene {
    * @param num [description]
    */
   private void updateInputText(int num) {
-    if (input.length() == 1 && num >= 0 && num <= NUM_OPTS) {
+    if (warn) {
+      return;
+    }
+    if (input.length() <= INPUT_SIZE && num >= 0 && num <= NUM_OPTS) {
       input = input.substring(0, input.length() - 1);
       input += num + "_";
       body.setText(prompt + input);
@@ -171,12 +198,9 @@ public class StoreFoodMenu extends Scene {
    * @return        [description]
    */
   private Scene getNextView(int choice) {
-    if (choice < 1 || choice > NUM_OPTS) {
-      throw new IllegalStateException();
-    }
-    AZTrailView.controller.removeOxen(AZTrailView.controller.getOxen());
-    AZTrailView.controller.addOxen(choice);
-    AZTrailView.controller.setCartOxen(choice * 40.0);
+    AZTrailView.controller.removeFood(AZTrailView.controller.getFood());
+    AZTrailView.controller.addFood(choice);
+    AZTrailView.controller.setCartFood(choice * 0.2);
     return new StoreMenu();
   }
 }

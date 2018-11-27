@@ -21,36 +21,38 @@ import java.io.*;
 
 import controller.*;
 
-public class StoreOxenMenu extends Scene {
+public class StoreClothesMenu extends Scene {
   private final Rectangle rect1 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
-  private final int INPUT_SIZE = 1;
+  private final int INPUT_SIZE = 2;
+  private final int START_OPT = 0;
   private final int NUM_OPTS = 9;
   private String cost = new DecimalFormat("'$'###,##0.00")
     .format(AZTrailView.controller.getCartOxen());
   private BorderPane tile;
   private Text footer;
   private Text body;
-  private String prompt = "There are 2 oxen in a yoke;\nI recommend at least "
-    + "3 yoke.\nI charge $40 a yoke.\n\nHow many yoke do you\nwant? ";
+  private String prompt = "You'll need warm clothing in\nthe mountains. I "
+    + "recommend\ntaking at least 2 sets of\nclothes per person. Each\nset "
+    + "is $10.00.\n\nHow many sets of clothes do\nyou want? ";
   private String input = "_";
 
   /**
-   * [StoreOxenMenu description]
+   * [StoreClothesMenu description]
    */
-  public StoreOxenMenu() {
+  public StoreClothesMenu() {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailView.escape = false;
   }
 
   /**
-   * [StoreOxenMenu description]
+   * [StoreClothesMenu description]
    * @param root [description]
    */
-  private StoreOxenMenu(BorderPane root) {
+  private StoreClothesMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
@@ -81,7 +83,7 @@ public class StoreOxenMenu extends Scene {
     tile.setMargin(body, new Insets(40));
 
     // Create the image;
-    Image img2 = new Image("file:view/assets/graphics/menuoxen.png");
+    Image img2 = new Image("file:view/assets/graphics/menuclothes.png");
     ImageView decor2 = new ImageView(img2);
     decor2.setPreserveRatio(true);
     decor2.setFitWidth(100);
@@ -134,7 +136,7 @@ public class StoreOxenMenu extends Scene {
               return;
             }
             AZTrailView.stage.setScene(getNextView(Integer.parseInt(input
-              .substring(0, 1))));
+              .replace("_", ""))));
             break;
 
           case ESCAPE:
@@ -161,7 +163,7 @@ public class StoreOxenMenu extends Scene {
    * @param num [description]
    */
   private void updateInputText(int num) {
-    if (input.length() <= INPUT_SIZE && num >= 1 && num <= NUM_OPTS) {
+    if (input.length() <= INPUT_SIZE && num >= START_OPT && num <= NUM_OPTS) {
       input = input.substring(0, input.length() - 1);
       input += num + "_";
       body.setText(prompt + input);
@@ -174,12 +176,9 @@ public class StoreOxenMenu extends Scene {
    * @return        [description]
    */
   private Scene getNextView(int choice) {
-    if (choice < 1 || choice > NUM_OPTS) {
-      throw new IllegalStateException();
-    }
-    AZTrailView.controller.removeOxen(AZTrailView.controller.getOxen());
-    AZTrailView.controller.addOxen(choice);
-    AZTrailView.controller.setCartOxen(choice * 40.0);
+    AZTrailView.controller.removeClothes(AZTrailView.controller.getClothes());
+    AZTrailView.controller.addClothes(choice);
+    AZTrailView.controller.setCartClothes(choice * 10.0);
     return new StoreMenu();
   }
 }
