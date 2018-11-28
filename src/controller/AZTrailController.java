@@ -26,6 +26,13 @@ public class AZTrailController {
   }
 
   /**
+   * [advance description]
+   */
+  public void advance() {
+    this.model.advanceCalendar();
+  }
+
+  /**
    * [profMenu description]
    * @param choice [description]
    */

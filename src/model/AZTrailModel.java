@@ -321,7 +321,7 @@ public class AZTrailModel {
   /**
   * [advanceCalendar description]
   * @return [description]
-  /
+  */
   public void advanceCalendar() {
     this.calendar.advance();
   }
