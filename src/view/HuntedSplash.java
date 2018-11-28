@@ -89,32 +89,28 @@ public class NogalesSplash extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             AZTrailView.stage.setScene(nextScene);
             break;
 
           case ENTER:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             AZTrailView.stage.setScene(nextScene);
             break;
 
           case ESCAPE:
-            if (AZTrailView.escape) {
-              AZTrailView.stage.setScene(new SplashMenu());
-            } else {
-              AZTrailView.escape = true;
-            }
+            AZTrailView.escapePressed(true);
             break;
 
           case S:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
             break;
 
           default:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             return;
         }
       }

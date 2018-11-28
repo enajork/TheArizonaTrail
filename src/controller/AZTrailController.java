@@ -1,10 +1,15 @@
 package controller;
-import javafx.scene.*;
+
+import java.io.*;
 import model.*;
-import view.*;
 // import java.util.Random;
 
 public class AZTrailController {
+  private final String savePath = "save_game.dat";
+  public static boolean hasSave = false;
+  public static boolean huntedMode = false;
+  public static boolean sound = true;
+  public static boolean escape = false;
   private AZTrailModel model;
   // private static Random rand;
 
@@ -16,13 +21,47 @@ public class AZTrailController {
     // this.rand = new Random(System.currentTimeMillis());
   }
 
-  /**
-   * [AZTrailController description]
-   * @param model [description]
-   */
-  public AZTrailController(AZTrailModel model) {
-    this.model = model;
-    // this.rand = new Random(System.currentTimeMillis());
+  public void loadGame() {
+    try {
+      FileInputStream load = new FileInputStream(savePath);
+      ObjectInputStream save = new ObjectInputStream(load);
+      model = (AZTrailModel) save.readObject();
+      hasSave = true;
+      System.out.println("save loaded");
+      save.close();
+      load.close();
+    } catch (IOException e) {
+      model = new AZTrailModel();
+      System.err.println("IOException in load");
+    } catch (ClassNotFoundException e) {
+      System.err.println("Fatal error: " + e.getMessage());
+      System.exit(1);
+    } catch (ClassCastException e) {
+      System.err.println("Fatal error: " + e.getMessage());
+      System.exit(1);
+    }
+  }
+
+  public void saveGame() {
+    try {
+      FileOutputStream save = new FileOutputStream(savePath);
+      ObjectOutputStream load = new ObjectOutputStream(save);
+      load.writeObject(model);
+      System.out.println("IOException in save");
+      load.close();
+      save.close();
+    } catch (IOException e) {
+      System.err.println("unable to save game!");
+    }
+  }
+
+  public void deleteSave() {
+    File save = new File(savePath);
+    if (save.exists()) {
+      save.delete();
+    }
+    model = new AZTrailModel();
+    System.err.println("save deleted");
   }
 
   /**
@@ -400,5 +439,13 @@ public class AZTrailController {
 
   public String getCurrentCity() {
     return model.getCurrentCity();
+  }
+
+  public boolean isGameStarted() {
+    return model.isGameStarted();
+  }
+
+  public void setGameStarted(boolean value) {
+    model.setGameStarted(value);
   }
 }

@@ -159,7 +159,7 @@ public class GenericInfoMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (curPage < text.length - 1) {
               curPage++;
               learnTextBlock();
@@ -169,7 +169,7 @@ public class GenericInfoMenu extends Scene {
             break;
 
           case ENTER:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (curPage < text.length - 1) {
               curPage++;
               learnTextBlock();
@@ -179,22 +179,18 @@ public class GenericInfoMenu extends Scene {
             break;
 
           case ESCAPE:
-            if (AZTrailView.escape) {
-              AZTrailView.stage.setScene(new SplashMenu());
-            } else {
-              AZTrailView.escape = true;
-            }
+            AZTrailView.escapePressed(true);
             break;
 
           case S:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
             break;
 
           default:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             return;
         }
       }

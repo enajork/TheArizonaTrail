@@ -1,8 +1,10 @@
 package view;
+
 import javafx.scene.media.*;
 import javafx.collections.*;
 import java.util.*;
 import java.io.*;
+import controller.*;
 
 public class Sounds {
   private static final ObservableList<Media> themes = FXCollections.observableArrayList();
@@ -10,6 +12,8 @@ public class Sounds {
   private static final HashMap<String, AudioClip> sounds = new HashMap<String, AudioClip>();
   private static volatile Boolean isPlayingThemes;
   private static final int NUM_SONGS = 5;
+  private static final double MAX_EFFECT_VOLUME = 0.2;
+  private static final double MAX_MUSIC_VOLUME = 0.4;
   private static MediaPlayer player;
 
   public Sounds() {
@@ -41,7 +45,7 @@ public class Sounds {
     sounds.put("sizzle", new AudioClip(getClass().getResource("assets/sounds/fx/sizzle.wav").toExternalForm()));
     sounds.put("hunt-bg", new AudioClip(getClass().getResource("assets/sounds/fx/hunting-background.wav").toExternalForm()));
 
-    if (AZTrailView.huntedMode) {
+    if (AZTrailController.huntedMode) {
       sounds.put("ow-xl", new AudioClip(getClass().getResource("assets/sounds/fx/ow-xl.wav").toExternalForm()));
       sounds.put("ow1", new AudioClip(getClass().getResource("assets/sounds/fx/ow1.wav").toExternalForm()));
       sounds.put("ow2", new AudioClip(getClass().getResource("assets/sounds/fx/ow2.wav").toExternalForm()));
@@ -56,6 +60,10 @@ public class Sounds {
     Media theme = themes.remove(0);
     player = new MediaPlayer(theme);
     player.play();
+    player.setVolume(0.4);
+    if (!AZTrailController.sound) {
+      player.setVolume(0);
+    }
     themes.add(theme);
     player.setOnEndOfMedia(new Runnable() {
       @Override
@@ -66,12 +74,14 @@ public class Sounds {
   }
 
   public static void cashOutSFX() {
-    sounds.get("register").play(0.2);
+    if (AZTrailController.sound) {
+      sounds.get("register").play(0.2);
+    }
   }
 
   public static void mute() {
-    if (AZTrailView.sound) {
-      AZTrailView.sound = false;
+    if (AZTrailController.sound) {
+      AZTrailController.sound = false;
       if (player != null) {
         player.setVolume(0);
       }
@@ -79,13 +89,19 @@ public class Sounds {
         entry.getValue().setVolume(0);
       });
     } else {
-      AZTrailView.sound = true;
+      AZTrailController.sound = true;
       if (player != null) {
-        player.setVolume(0.4);
+        player.setVolume(MAX_MUSIC_VOLUME);
       }
       sounds.entrySet().stream().forEach(entry -> {
-        entry.getValue().setVolume(0.4);
+        entry.getValue().setVolume(MAX_EFFECT_VOLUME);
       });
+    }
+  }
+
+  public static void stop() {
+    if (player != null) {
+      player.stop();
     }
   }
 }

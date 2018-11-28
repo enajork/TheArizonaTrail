@@ -107,15 +107,11 @@ public class ProfMenu extends Scene {
             break;
 
           case ESCAPE:
-            if (AZTrailView.escape) {
-              AZTrailView.stage.setScene(new SplashMenu());
-            } else {
-              AZTrailView.escape = true;
-            }
+            AZTrailView.escapePressed(true);
             break;
 
           case S:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }

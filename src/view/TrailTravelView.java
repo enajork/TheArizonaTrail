@@ -103,26 +103,22 @@ public class TrailTravelView extends Scene {
         switch (event.getCode()) {
           case SPACE:
             ox.play();
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             break;
 
             case ESCAPE:
-              if (AZTrailView.escape) {
-                AZTrailView.stage.setScene(new SplashMenu());
-              } else {
-                AZTrailView.escape = true;
-              }
+              AZTrailView.escapePressed(false);
             break;
 
             case S:
-              AZTrailView.escape = false;
+              AZTrailController.escape = false;
               if (event.isControlDown()) {
                 AZTrailView.sounds.mute();
               }
               break;
 
             case ENTER:
-              AZTrailView.escape = false;
+              AZTrailController.escape = false;
               break;
         }
       }
@@ -157,10 +153,6 @@ public class TrailTravelView extends Scene {
 
     public void play() {
       this.animation.play();
-    }
-
-    public void stop() {
-      this.animation.stop();
     }
 
     public ImageView getSprite() {

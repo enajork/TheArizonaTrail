@@ -39,7 +39,7 @@ public class SplashMenu extends Scene {
   public SplashMenu() {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
-    AZTrailView.escape = false;
+    AZTrailController.escape = false;
   }
 
   /**
@@ -102,7 +102,7 @@ public class SplashMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case BACK_SPACE:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
@@ -111,7 +111,7 @@ public class SplashMenu extends Scene {
             break;
 
           case ENTER:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (input.length() == 2) {
               AZTrailView.stage.setScene(getNextView(Integer.parseInt(input
                 .substring(0, 1))));
@@ -119,23 +119,23 @@ public class SplashMenu extends Scene {
             break;
 
           case ESCAPE:
-            if (AZTrailView.escape) {
+            if (AZTrailController.escape) {
               System.exit(0);
               // AZTrailView.stage.setScene(new SplashMenu());
             } else {
-              AZTrailView.escape = true;
+              AZTrailController.escape = true;
             }
             break;
 
           case S:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
             break;
 
           default:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.getText().length() > 0
                 && Character.isDigit(event.getText().charAt(0))) {
               updateInputText(Integer.parseInt(event.getText()));
@@ -204,7 +204,7 @@ public class SplashMenu extends Scene {
       case 4:
         // turn sound off
         return new GenericInfoMenu(new SplashMenu(), new String[]{
-          "The sound is now turned " + (AZTrailView.sound ? "on" : "off") + ". \n"
+          "The sound is now turned " + (AZTrailController.sound ? "on" : "off") + ". \n"
             + "You may turn sound on or off\n"
             + "during the program by pressing\nControl-S."
         }, true, true);

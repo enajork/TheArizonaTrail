@@ -1,6 +1,9 @@
 package model;
 
-public class AZTrailModel {
+import java.io.*;
+
+public class AZTrailModel implements Serializable {
+  private boolean gameStarted;
   private Calendar calendar;
   private MapModel mapModel;
   private Party party;
@@ -10,6 +13,7 @@ public class AZTrailModel {
     "guest"};
 
   public AZTrailModel() {
+    this.gameStarted = false;
     this.calendar = new Calendar();
     this.mapModel = new MapModel();
     this.party = new Party();
@@ -426,5 +430,12 @@ public class AZTrailModel {
 
   public String getCurrentCity() {
     return mapModel.getCurrentCity();
+  }
+
+  public boolean isGameStarted() {
+    return gameStarted;
+  }
+  public void setGameStarted(boolean value) {
+    this.gameStarted = value;
   }
 }

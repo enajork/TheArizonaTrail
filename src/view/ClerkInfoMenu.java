@@ -21,6 +21,7 @@ import java.io.*;
 import controller.*;
 
 public class ClerkInfoMenu extends Scene {
+  private boolean menu;
   private Scene nextScene;
   private BorderPane root;
   private int curPage = 0;
@@ -30,8 +31,9 @@ public class ClerkInfoMenu extends Scene {
   /**
    * [ClerkInfoMenu description]
    */
-  public ClerkInfoMenu(Scene nextScene, String header, String[] text) {
-    this(new BorderPane(), nextScene, header, text);
+  public ClerkInfoMenu(Scene nextScene, String header, String[] text,
+      boolean menu) {
+    this(new BorderPane(), nextScene, header, text, menu);
   }
 
   /**
@@ -39,12 +41,13 @@ public class ClerkInfoMenu extends Scene {
    * @param root [description]
    */
   private ClerkInfoMenu(BorderPane root, Scene nextScene, String header,
-      String[] text) {
+      String[] text, boolean menu) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
     this.nextScene = nextScene;
     this.root = root;
     this.text = text;
+    this.menu = menu;
 
     this.header = new Text(header);
     this.header.setFill(Color.WHITE);
@@ -111,7 +114,7 @@ public class ClerkInfoMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (curPage < text.length - 1) {
               curPage++;
               learnTextBlock();
@@ -121,7 +124,7 @@ public class ClerkInfoMenu extends Scene {
             break;
 
           case ENTER:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (curPage < text.length - 1) {
               curPage++;
               learnTextBlock();
@@ -131,22 +134,18 @@ public class ClerkInfoMenu extends Scene {
             break;
 
           case ESCAPE:
-            if (AZTrailView.escape) {
-              AZTrailView.stage.setScene(new SplashMenu());
-            } else {
-              AZTrailView.escape = true;
-            }
+            AZTrailView.escapePressed(menu);
             break;
 
           case S:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
             break;
 
           default:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             return;
         }
       }

@@ -76,7 +76,7 @@ public class PartyLeaderMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case BACK_SPACE:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
@@ -85,7 +85,7 @@ public class PartyLeaderMenu extends Scene {
             break;
 
           case ENTER:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (input.length() > 1) {
               AZTrailView.controller.setName(0, input.substring(0,
                 input.length() - 1));
@@ -94,22 +94,18 @@ public class PartyLeaderMenu extends Scene {
             break;
 
           case ESCAPE:
-            if (AZTrailView.escape) {
-              AZTrailView.stage.setScene(new SplashMenu());
-            } else {
-              AZTrailView.escape = true;
-            }
+            AZTrailView.escapePressed(true);
             break;
 
           case S:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
             break;
 
           default:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             updateInputText(event);
         }
       }

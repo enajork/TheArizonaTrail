@@ -25,17 +25,12 @@ import model.*;
 
 public class AZTrailView extends Application {
   protected static AZTrailController controller;
-  protected static AZTrailModel model;
   protected static Sounds sounds;
 
   protected static final int HEIGHT = 408;
   protected static final int WIDTH = 650;
   protected static String styleSheet;
   protected static Stage stage;
-
-  protected static boolean huntedMode = false;
-  protected static boolean sound = true;
-  protected static boolean escape = false;
 
   /**
    * Main entry point for the view
@@ -46,13 +41,26 @@ public class AZTrailView extends Application {
   public void start(Stage stage) throws Exception {
     styleSheet = getClass().getResource("assets/font/style.css").toExternalForm();
     this.stage = stage;
-    model = new AZTrailModel();
-    controller = new AZTrailController(model);
+    controller = new AZTrailController();
     sounds = new Sounds();
+    controller.loadGame();
     this.stage.setTitle("Arizona Trail");
     this.stage.setResizable(false);
     //stage.initStyle(StageStyle.UNDECORATED);
     this.stage.setScene(new SplashMenu());
     this.stage.show();
+  }
+
+  public static void escapePressed(boolean menu) {
+    if (AZTrailController.escape) {
+      if (!menu) {
+        stage.setScene(new SplashMenu());
+        AZTrailView.sounds.stop();
+      } else {
+        stage.setScene(new SplashMenu());
+      }
+    } else {
+      AZTrailController.escape = true;
+    }
   }
 }

@@ -99,7 +99,7 @@ public class MonthMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case BACK_SPACE:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
@@ -108,7 +108,7 @@ public class MonthMenu extends Scene {
             break;
 
           case ENTER:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (input.length() == 2) {
               AZTrailView.stage.setScene(getNextView(Integer.parseInt(input
                 .substring(0, 1))));
@@ -116,22 +116,18 @@ public class MonthMenu extends Scene {
             break;
 
           case ESCAPE:
-            if (AZTrailView.escape) {
-              AZTrailView.stage.setScene(new SplashMenu());
-            } else {
-              AZTrailView.escape = true;
-            }
+            AZTrailView.escapePressed(true);
             break;
 
           case S:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
             break;
 
           default:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.getText().length() > 0
                 && Character.isDigit(event.getText().charAt(0))) {
               updateInputText(Integer.parseInt(event.getText()));
@@ -199,7 +195,7 @@ public class MonthMenu extends Scene {
       + "clothing for both\nsummer and winter", "- plenty of food for the"
       + "\ntrip\n\n- ammunition for your\nrifles\n\n- spare parts for your"
       + "\nwagon", "- lots of blankets to\nstay warm\n\n- enough water for"
-      + " you\nand your oxen"}),
+      + " you\nand your oxen"}, true),
       new String[]{ "Before leaving " + AZTrailView.controller.getCurrentCity()
       + " you\nshould buy equipment and"
       + "\nsupplies. You have "

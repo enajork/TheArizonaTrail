@@ -45,7 +45,7 @@ public class StoreTonguesMenu extends Scene {
   public StoreTonguesMenu(int parts) {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
-    AZTrailView.escape = false;
+    AZTrailController.escape = false;
     this.parts = parts;
   }
 
@@ -152,13 +152,13 @@ public class StoreTonguesMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (warn) {
               AZTrailView.stage.setScene(new StoreTonguesMenu(parts));
             }
             break;
           case BACK_SPACE:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (warn) {
               return;
             }
@@ -170,7 +170,7 @@ public class StoreTonguesMenu extends Scene {
             break;
 
           case ENTER:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (input.length() == 1) {
               return;
             }
@@ -188,22 +188,18 @@ public class StoreTonguesMenu extends Scene {
             break;
 
           case ESCAPE:
-            if (AZTrailView.escape) {
-              AZTrailView.stage.setScene(new SplashMenu());
-            } else {
-              AZTrailView.escape = true;
-            }
+            AZTrailView.escapePressed(true);
             break;
 
           case S:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
             break;
 
           default:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.getText().length() > 0
                 && Character.isDigit(event.getText().charAt(0))) {
               updateInputText(Integer.parseInt(event.getText()));

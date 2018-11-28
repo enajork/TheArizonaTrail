@@ -52,7 +52,7 @@ public class StoreMenu extends Scene {
   public StoreMenu() {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
-    AZTrailView.escape = false;
+    AZTrailController.escape = false;
   }
 
   /**
@@ -204,16 +204,18 @@ public class StoreMenu extends Scene {
               AZTrailView.controller.addBlankets(5);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
+              AZTrailView.controller.setGameStarted(true);
+              AZTrailView.controller.saveGame();
               AZTrailView.stage.setScene(new ClerkInfoMenu(new NogalesSplash(),
                 "", new String[]{"Here, take these blankets\nand water. On the house!",
                 "Well then, you're ready\nto start. Good luck!\nYou have a long"
                  + " and\ndifficult journey ahead\nof you."
-              }));
+              }, false));
             }
             break;
 
           case BACK_SPACE:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
@@ -222,7 +224,7 @@ public class StoreMenu extends Scene {
             break;
 
           case ENTER:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (warn) {
               AZTrailView.stage.setScene(new StoreMenu());
             }
@@ -233,22 +235,18 @@ public class StoreMenu extends Scene {
             break;
 
           case ESCAPE:
-            if (AZTrailView.escape) {
-              AZTrailView.stage.setScene(new SplashMenu());
-            } else {
-              AZTrailView.escape = true;
-            }
+            AZTrailView.escapePressed(true);
             break;
 
           case S:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
             break;
 
           default:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.getText().length() > 0
                 && Character.isDigit(event.getText().charAt(0))) {
               updateInputText(Integer.parseInt(event.getText()));

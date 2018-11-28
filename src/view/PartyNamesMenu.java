@@ -107,7 +107,7 @@ public class PartyNamesMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case BACK_SPACE:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
@@ -124,7 +124,7 @@ public class PartyNamesMenu extends Scene {
             break;
 
           case ENTER:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (select) {
               if (input.length() == 2) {
                 select = false;
@@ -208,27 +208,23 @@ public class PartyNamesMenu extends Scene {
                   input.length() - 1));
               input = "_";
               curr++;
-              names[curr].setText(names[curr].getText() + input);;
+              names[curr].setText(names[curr].getText() + input);
             }
             break;
 
           case ESCAPE:
-            if (AZTrailView.escape) {
-              AZTrailView.stage.setScene(new SplashMenu());
-            } else {
-              AZTrailView.escape = true;
-            }
+            AZTrailView.escapePressed(true);
             break;
 
           case S:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
             break;
 
           default:
-            AZTrailView.escape = false;
+            AZTrailController.escape = false;
             updateInputText(event, curr);
         }
       }
