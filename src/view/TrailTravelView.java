@@ -1,5 +1,6 @@
 package view;
 
+import javafx.animation.Animation;
 import javafx.scene.control.Alert.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -20,25 +21,14 @@ import javafx.scene.text.Text;
 import javafx.scene.input.KeyCode;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.animation.Timeline;
 import javafx.util.Duration;
-import javafx.animation.KeyFrame;
-import java.lang.Thread;
 
 import controller.*;
 
 public class TrailTravelView extends Scene {
   private BorderPane root;
   private GraphicsContext gc;
-  Timeline timeline;
-
-  private Image imgs[] = {
-    new Image("file:view/assets/graphics/ox1.png"),
-    new Image("file:view/assets/graphics/ox2.png"),
-    new Image("file:view/assets/graphics/ox3.png"),
-    new Image("file:view/assets/graphics/ox4.png"),
-    new Image("file:view/assets/graphics/ox5.png"),
-  };
+  private OxenSprite ox;
 
   /**
    * [TrailTravelView description]
@@ -86,15 +76,21 @@ public class TrailTravelView extends Scene {
     return info;
   }
 
-  private Canvas travelGraphics() {
+  private StackPane travelGraphics() {
+    StackPane pane = new StackPane();
     final Canvas canvas = new Canvas(650, 150);
     this.gc = canvas.getGraphicsContext2D();
 
     gc.drawImage(new Image("file:view/assets/graphics/mountain.png"), 0, 0, 1000, 50);
     gc.drawImage(new Image("file:view/assets/graphics/grass.png"), 0, 100, 1000, 50);
-    gc.drawImage(new Image("file:view/assets/graphics/ox1.png"), 400, 50, 160, 70);
 
-    return canvas;
+    this.ox = new OxenSprite();
+    this.ox.getSprite().setTranslateX(150);
+    this.ox.getSprite().setTranslateY(20);
+
+    pane.getChildren().add(canvas);
+    pane.getChildren().add(this.ox.getSprite());
+    return pane;
   }
 
   /**
@@ -106,7 +102,7 @@ public class TrailTravelView extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
-            walkTrail();
+            ox.play();
             AZTrailView.escape = false;
             break;
 
@@ -117,34 +113,38 @@ public class TrailTravelView extends Scene {
     });
   }
 
-  private void walkTrail() {
-      this.timeline = new Timeline(
-        new KeyFrame(Duration.millis(200),
-        new AnimationHandler()));
+  private class OxenSprite {
+    private final Image IMAGE = new Image("file:view/assets/graphics/oxenwalk.png",
+      600, 600, true, false);
+    private static final int COLUMNS  =   5;
+    private static final int COUNT    =   5;
+    private static final int OFFSET_X =   0;
+    private static final int OFFSET_Y =   0;
+    private static final int WIDTH    =  120;
+    private static final int HEIGHT   =  46;
+    private final Animation animation;
+    private ImageView imageView;
 
-      this.timeline.setCycleCount(12);
-      this.timeline.play();
-  }
+    public OxenSprite() {
+      this.imageView = new ImageView(IMAGE);
+      this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
 
-  private class AnimationHandler implements EventHandler<ActionEvent> {
-    int tick = 0;
-    int curFrame = 0;
+      this.animation = new SpriteAnimation(
+              this.imageView,
+              Duration.millis(500),
+              COUNT, COLUMNS,
+              OFFSET_X, OFFSET_Y,
+              WIDTH, HEIGHT
+      );
+      this.animation.setCycleCount(4);
+    }
 
-    @Override
-    public void handle(ActionEvent event) {
-      tick++;
-      gc.fillRect(400, 50, 160, 70);
-      gc.drawImage(new Image("file:view/assets/graphics/grass.png"), 0, 100, 1000, 50);
-      gc.drawImage(imgs[curFrame], 400, 50, 160, 70);
+    public void play() {
+      this.animation.play();
+    }
 
-      if (tick > 200) {
-        timeline.stop();
-      }
-      curFrame++;
-
-      if (curFrame == imgs.length) {
-        curFrame = 0;
-      }
+    public ImageView getSprite() {
+      return this.imageView;
     }
   }
 }
