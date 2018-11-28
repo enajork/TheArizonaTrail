@@ -98,6 +98,7 @@ public class AZTrailView extends Application {
       ObservableList<Media> themes = music.get("themes");
       Media theme = themes.remove(0);
       MediaPlayer player = new MediaPlayer(theme);
+      player.setVolume(0.4);
       player.play();
       themes.add(theme);
       player.setOnEndOfMedia(new Runnable() {
@@ -110,6 +111,6 @@ public class AZTrailView extends Application {
   }
 
   public static void cashOutSFX() {
-    sounds.get("register").play(0.3);
+    sounds.get("register").play(0.2);
   }
 }
