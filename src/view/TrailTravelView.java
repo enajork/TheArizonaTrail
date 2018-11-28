@@ -65,7 +65,7 @@ public class TrailTravelView extends Scene {
     // TODO get partyStats from controller
     HBox statsArea = new HBox();
     // statsArea.setSpacing(0.5);
-    Text stats = new Text("Weather: cold\nHealth: good\nFood: 0 Pounds\nNext landmark: 44 miles\nMiles Traveled: 0 miles");
+    Text stats = new Text("Date: March 1, 1848\nWeather: cold\nHealth: good\nFood: 0 Pounds\nNext landmark: 44 miles\nMiles Traveled: 0 miles");
     stats.setId("text12");
     statsArea.getChildren().add(stats);
     statsArea.setStyle("-fx-background-color: white;");
