@@ -30,8 +30,8 @@ public class HuntedMenu extends Scene {
    */
   public HuntedMenu() {
     this(new BorderPane());
-    AZTrailView.controller.startThemeLoop();
-    AZTrailView.controller.cashOutSFX();
+    AZTrailView.sounds.startThemeLoop();
+    AZTrailView.sounds.cashOutSFX();
   }
 
   /**
@@ -105,6 +105,13 @@ public class HuntedMenu extends Scene {
               AZTrailView.stage.setScene(new SplashMenu());
             } else {
               AZTrailView.escape = true;
+            }
+            break;
+
+          case S:
+            AZTrailView.escape = false;
+            if (event.isControlDown()) {
+              AZTrailView.sounds.mute();
             }
             break;
 
@@ -235,6 +242,13 @@ public class HuntedMenu extends Scene {
               AZTrailView.stage.setScene(new SplashMenu());
             } else {
               AZTrailView.escape = true;
+            }
+            break;
+
+          case S:
+            AZTrailView.escape = false;
+            if (event.isControlDown()) {
+              AZTrailView.sounds.mute();
             }
             break;
 

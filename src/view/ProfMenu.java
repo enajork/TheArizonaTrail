@@ -114,6 +114,13 @@ public class ProfMenu extends Scene {
             }
             break;
 
+          case S:
+            AZTrailView.escape = false;
+            if (event.isControlDown()) {
+              AZTrailView.sounds.mute();
+            }
+            break;
+
           default:
             if (event.getText().length() > 0
                 && Character.isDigit(event.getText().charAt(0))) {

@@ -240,6 +240,13 @@ public class StoreMenu extends Scene {
             }
             break;
 
+          case S:
+            AZTrailView.escape = false;
+            if (event.isControlDown()) {
+              AZTrailView.sounds.mute();
+            }
+            break;
+
           default:
             AZTrailView.escape = false;
             if (event.getText().length() > 0

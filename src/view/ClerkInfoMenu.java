@@ -138,6 +138,13 @@ public class ClerkInfoMenu extends Scene {
             }
             break;
 
+          case S:
+            AZTrailView.escape = false;
+            if (event.isControlDown()) {
+              AZTrailView.sounds.mute();
+            }
+            break;
+
           default:
             AZTrailView.escape = false;
             return;

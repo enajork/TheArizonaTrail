@@ -106,8 +106,24 @@ public class TrailTravelView extends Scene {
             AZTrailView.escape = false;
             break;
 
-          case ENTER:
+            case ESCAPE:
+              if (AZTrailView.escape) {
+                AZTrailView.stage.setScene(new SplashMenu());
+              } else {
+                AZTrailView.escape = true;
+              }
             break;
+
+            case S:
+              AZTrailView.escape = false;
+              if (event.isControlDown()) {
+                AZTrailView.sounds.mute();
+              }
+              break;
+
+            case ENTER:
+              AZTrailView.escape = false;
+              break;
         }
       }
     });
@@ -141,6 +157,10 @@ public class TrailTravelView extends Scene {
 
     public void play() {
       this.animation.play();
+    }
+
+    public void stop() {
+      this.animation.stop();
     }
 
     public ImageView getSprite() {

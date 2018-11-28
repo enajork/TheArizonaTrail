@@ -127,6 +127,13 @@ public class SplashMenu extends Scene {
             }
             break;
 
+          case S:
+            AZTrailView.escape = false;
+            if (event.isControlDown()) {
+              AZTrailView.sounds.mute();
+            }
+            break;
+
           default:
             AZTrailView.escape = false;
             if (event.getText().length() > 0
@@ -197,7 +204,7 @@ public class SplashMenu extends Scene {
       case 4:
         // turn sound off
         return new GenericInfoMenu(new SplashMenu(), new String[]{
-          "The sound is now turned off. \n"
+          "The sound is now turned " + (AZTrailView.sound ? "on" : "off") + ". \n"
             + "You may turn sound on or off\n"
             + "during the program by pressing\nControl-S."
         }, true, true);
