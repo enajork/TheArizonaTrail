@@ -34,6 +34,7 @@ public class AZTrailView extends Application {
   protected static final int HEIGHT = 408;
   protected static final int WIDTH = 650;
   protected static String styleSheet;
+  protected static MediaPlayer player;
   private static volatile Boolean isPlayingThemes;
 
   /**
@@ -97,7 +98,7 @@ public class AZTrailView extends Application {
     if (sound) {
       ObservableList<Media> themes = music.get("themes");
       Media theme = themes.remove(0);
-      MediaPlayer player = new MediaPlayer(theme);
+      player = new MediaPlayer(theme);
       player.setVolume(0.4);
       player.play();
       themes.add(theme);
