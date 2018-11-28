@@ -53,6 +53,10 @@ public class AZTrailController {
     AZTrailView.startThemeLoop();
   }
 
+  public void cashOutSFX() {
+    AZTrailView.cashOutSFX();
+  }
+
   /**
    * [getNames description]
    * @return [description]

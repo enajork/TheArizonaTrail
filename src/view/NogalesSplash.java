@@ -30,6 +30,7 @@ public class NogalesSplash extends Scene {
   public NogalesSplash() {
     this(new BorderPane());
     AZTrailView.controller.startThemeLoop();
+    AZTrailView.controller.cashOutSFX();
   }
 
   /**
