@@ -17,6 +17,11 @@
   -fx-font-size: 12pt;
 }
 
+#text14 {
+  -fx-font-family: 'Here Lies MECC Regular';
+  -fx-font-size: 14pt;
+}
+
 #text16 {
   -fx-font-family: 'Here Lies MECC Regular';
   -fx-font-size: 16pt;

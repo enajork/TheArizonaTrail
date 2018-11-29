@@ -23,16 +23,17 @@ public class AZTrailController {
 
   public void loadGame() {
     try {
+      File file = new File(savePath);
+      file.createNewFile();
+      file.setWritable(true);
       FileInputStream load = new FileInputStream(savePath);
       ObjectInputStream save = new ObjectInputStream(load);
       model = (AZTrailModel) save.readObject();
       hasSave = true;
-      System.out.println("save loaded");
       save.close();
       load.close();
     } catch (IOException e) {
       model = new AZTrailModel();
-      System.err.println("IOException in load");
     } catch (ClassNotFoundException e) {
       System.err.println("Fatal error: " + e.getMessage());
       System.exit(1);
@@ -47,11 +48,10 @@ public class AZTrailController {
       FileOutputStream save = new FileOutputStream(savePath);
       ObjectOutputStream load = new ObjectOutputStream(save);
       load.writeObject(model);
-      System.out.println("IOException in save");
       load.close();
       save.close();
     } catch (IOException e) {
-      System.err.println("unable to save game!");
+      System.err.println("IOException in save");
     }
   }
 
@@ -61,7 +61,6 @@ public class AZTrailController {
       save.delete();
     }
     model = new AZTrailModel();
-    System.err.println("save deleted");
   }
 
   /**

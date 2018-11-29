@@ -1,6 +1,8 @@
 package model;
 
-public class Cart {
+import java.io.*;
+
+public class Cart implements Serializable {
   private double clothes;
   private double parts;
   private double oxen;

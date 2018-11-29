@@ -1,9 +1,10 @@
 package model;
 
 import java.util.*;
+import java.io.*;
 
-public class Party {
-  public static enum Profession {
+public class Party implements Serializable {
+  public static enum Profession implements Serializable {
     BANKER, CARPENTER, FARMER;
   }
 

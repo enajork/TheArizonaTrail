@@ -203,6 +203,7 @@ public class SplashMenu extends Scene {
         }, false, false);
       case 4:
         // turn sound off
+        AZTrailController.sound = !AZTrailController.sound;
         return new GenericInfoMenu(new SplashMenu(), new String[]{
           "The sound is now turned " + (AZTrailController.sound ? "on" : "off") + ". \n"
             + "You may turn sound on or off\n"

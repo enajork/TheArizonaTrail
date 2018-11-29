@@ -1,8 +1,9 @@
 package model;
 
 import java.util.*;
+import java.io.*;
 
-public class MapModel {
+public class MapModel implements Serializable {
   private boolean atDestination;
   private String currentCity;
   private String nextCity;

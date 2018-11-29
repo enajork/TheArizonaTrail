@@ -1,6 +1,8 @@
 package model;
 
-public class Inventory {
+import java.io.*;
+
+public class Inventory implements Serializable {
   double money;
   int oxen;
   int water;

@@ -1,8 +1,9 @@
 package model;
 
 import java.util.*;
+import java.io.*;
 
-public class Calendar {
+public class Calendar implements Serializable {
   private int START_YEAR = 1848;
   private int TOTAL_MONTHS = 12;
   private int year;
