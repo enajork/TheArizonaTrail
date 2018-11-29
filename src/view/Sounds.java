@@ -12,23 +12,31 @@ public class Sounds {
   private static final HashMap<String, AudioClip> sounds = new HashMap<String, AudioClip>();
   private static volatile Boolean isPlayingThemes;
   private static final int NUM_SONGS = 5;
-  private static final double MAX_EFFECT_VOLUME = 0.2;
-  private static final double MAX_MUSIC_VOLUME = 0.4;
+  private static final double MAX_EFFECT_VOLUME = 0.15;
+  private static final double MAX_MUSIC_VOLUME = 0.3;
   private static MediaPlayer player;
+  private static final Media huntedMenu;
+  private static final Media huntedTheme;
+  private static final Media huntedCredits;
 
   public Sounds() {
+    huntedMenu = new Media(getClass().getResource("assets/sounds/music/hunted-menu.wav").toExternalForm());
+    huntedTheme = new Media(getClass().getResource("assets/sounds/music/hunted-theme.wav").toExternalForm());
+    huntedCredits = new Media(getClass().getResource("assets/sounds/music/hunted-special-credits.wav").toExternalForm());
+
     for (int i = 0; i < NUM_SONGS; i++) {
       String audioFile = "assets/sounds/music/" + (i + 1) + ".wav";
       final Media clip = new Media(getClass().getResource(audioFile).toExternalForm());
       themes.add(clip);
     }
     music.put("themes", themes);
-    final ObservableList<Media> hunted = FXCollections.observableArrayList();
-    final Media huntedTheme = new Media(getClass().getResource("assets/sounds/music/hunted-theme.wav").toExternalForm());
-    final Media huntedCredits = new Media(getClass().getResource("assets/sounds/music/hunted-special-credits.wav").toExternalForm());
-    hunted.addAll(huntedTheme, huntedCredits);
+    // final ObservableList<Media> hunted = FXCollections.observableArrayList();
+    // final Media huntedMenu = new Media(getClass().getResource("assets/sounds/music/hunted-menu.wav").toExternalForm());
+    // final Media huntedTheme = new Media(getClass().getResource("assets/sounds/music/hunted-theme.wav").toExternalForm());
+    // final Media huntedCredits = new Media(getClass().getResource("assets/sounds/music/hunted-special-credits.wav").toExternalForm());
+    // hunted.addAll(huntedMenu, huntedTheme, huntedCredits);
 
-    music.put("hunted", hunted);
+    // music.put("hunted", hunted);
 
     boolean huntedMode = true;
 
@@ -45,14 +53,14 @@ public class Sounds {
     sounds.put("sizzle", new AudioClip(getClass().getResource("assets/sounds/fx/sizzle.wav").toExternalForm()));
     sounds.put("hunt-bg", new AudioClip(getClass().getResource("assets/sounds/fx/hunting-background.wav").toExternalForm()));
 
-    if (AZTrailController.huntedMode) {
-      sounds.put("ow-xl", new AudioClip(getClass().getResource("assets/sounds/fx/ow-xl.wav").toExternalForm()));
-      sounds.put("ow1", new AudioClip(getClass().getResource("assets/sounds/fx/ow1.wav").toExternalForm()));
-      sounds.put("ow2", new AudioClip(getClass().getResource("assets/sounds/fx/ow2.wav").toExternalForm()));
-      sounds.put("wow1", new AudioClip(getClass().getResource("assets/sounds/fx/wow1.wav").toExternalForm()));
-      sounds.put("wow2", new AudioClip(getClass().getResource("assets/sounds/fx/wow2.wav").toExternalForm()));
-      sounds.put("wow3", new AudioClip(getClass().getResource("assets/sounds/fx/wow3.wav").toExternalForm()));
-    }
+    // if (AZTrailController.huntedMode) {
+    sounds.put("ow-xl", new AudioClip(getClass().getResource("assets/sounds/fx/ow-xl.wav").toExternalForm()));
+    sounds.put("ow1", new AudioClip(getClass().getResource("assets/sounds/fx/ow1.wav").toExternalForm()));
+    sounds.put("ow2", new AudioClip(getClass().getResource("assets/sounds/fx/ow2.wav").toExternalForm()));
+    sounds.put("wow1", new AudioClip(getClass().getResource("assets/sounds/fx/wow1.wav").toExternalForm()));
+    sounds.put("wow2", new AudioClip(getClass().getResource("assets/sounds/fx/wow2.wav").toExternalForm()));
+    sounds.put("wow3", new AudioClip(getClass().getResource("assets/sounds/fx/wow3.wav").toExternalForm()));
+    // }
   }
 
   public static void startThemeLoop() {
@@ -71,6 +79,11 @@ public class Sounds {
         startThemeLoop();
       }
     });
+  }
+
+  public static void huntedMenuTheme() {
+    player = new MediaPlayer(huntedMenu);
+    player.play();
   }
 
   public static void cashOutSFX() {
