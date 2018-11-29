@@ -139,7 +139,9 @@ public class TrailTravelView extends Scene {
   }
 
   private class OxenSprite {
-    private final Image IMAGE = new Image((AZTrailView.controller.getHunted()) ? "file:view/assets/graphics/oxenwalk-hunted.png" : "file:view/assets/graphics/oxenwalk.png",
+    private final Image IMAGE = new Image((AZTrailView.controller.getHunted()) ?
+                               "file:view/assets/graphics/oxenwalk-hunted.png" :
+                               "file:view/assets/graphics/oxenwalk.png",
       600, 600, true, false);
     private static final int COLUMNS  =   5;
     private static final int COUNT    =   5;
