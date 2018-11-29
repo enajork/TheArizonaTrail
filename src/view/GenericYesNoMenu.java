@@ -108,6 +108,8 @@ public class GenericYesNoMenu extends Scene {
     if (img.length() != 0) {
       decor = new ImageView(new Image("file:view/assests/graphics/"
         + img));
+      decor.setPreserveRatio(true);
+      decor.setFitWidth(100);
       tile.setAlignment(decor, Pos.CENTER);
       tile.setTop(decor);
       root.setMargin(decor, new Insets(5));

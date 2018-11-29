@@ -53,7 +53,9 @@ public class HuntedMenu extends Scene {
     tile.setStyle("-fx-background-color: black;");
 
     // Create the title image;
-    decor = new ImageView(new Image("file:view/assets/graphics/menuclerk.png"));
+    decor = new ImageView(new Image("file:view/assets/graphics/hunted-menu-normal.png"));
+    decor.setPreserveRatio(true);
+    decor.setFitWidth(500);
     tile.setAlignment(decor, Pos.CENTER);
     tile.setTop(decor);
     root.setMargin(decor, new Insets(5));
