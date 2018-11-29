@@ -68,8 +68,11 @@ public class TrailTravelView extends Scene {
     Text stats = new Text("Date: March 1, 1848\nWeather: cold\nHealth: good\nFood:" +
                           " 0 Pounds\nNext landmark: 44 miles\nMiles Traveled: 0 miles");
     stats.setId("text12");
+    stats.setFill((AZTrailView.controller.getHunted()) ?
+                                         (Color.WHITE) : (Color.BLACK));
     statsArea.getChildren().add(stats);
-    statsArea.setStyle("-fx-background-color: white;");
+    statsArea.setStyle("-fx-background-color: " +
+        ((AZTrailView.controller.getHunted()) ? "black" : "white") + ";");
 
     statsArea.setMargin(stats, new Insets(0.5));
     info.setAlignment(statsArea, Pos.CENTER);
@@ -86,7 +89,13 @@ public class TrailTravelView extends Scene {
                       new Image("file:view/assets/graphics/mountain-hunted.png") :
                       new Image("file:view/assets/graphics/mountain.png"),
                                                                   0,   0, 1000, 50);
-    gc.drawImage(new Image("file:view/assets/graphics/sand.png"), 0, 100, 1000, 50);
+    gc.drawImage((AZTrailView.controller.getHunted()) ?
+                      new Image("file:view/assets/graphics/scenery-hunted.png") :
+                      new Image("file:view/assets/graphics/scenery.png"),
+                                                                  0,  50, 1000, 50);
+    gc.drawImage((AZTrailView.controller.getHunted()) ?
+                      new Image("file:view/assets/graphics/sand-hunted.png") :
+                      new Image("file:view/assets/graphics/sand.png"), 0, 100, 1000, 50);
 
     this.ox = new OxenSprite();
     this.ox.getSprite().setTranslateX(150);
@@ -130,7 +139,7 @@ public class TrailTravelView extends Scene {
   }
 
   private class OxenSprite {
-    private final Image IMAGE = new Image("file:view/assets/graphics/oxenwalk.png",
+    private final Image IMAGE = new Image((AZTrailView.controller.getHunted()) ? "file:view/assets/graphics/oxenwalk-hunted.png" : "file:view/assets/graphics/oxenwalk.png",
       600, 600, true, false);
     private static final int COLUMNS  =   5;
     private static final int COUNT    =   5;
