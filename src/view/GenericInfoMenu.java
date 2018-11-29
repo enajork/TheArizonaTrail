@@ -60,16 +60,15 @@ public class GenericInfoMenu extends Scene {
   /**
    * [GenericInfoMenu description]
    */
-  public GenericInfoMenu(Scene nextScene, String[] text,
-      boolean accentsOn, boolean titleOn) {
+  public GenericInfoMenu(Scene nextScene, String[] text, boolean accentsOn, boolean titleOn) {
     this(new BorderPane(), nextScene, text, 12, accentsOn, titleOn);
   }
 
   /**
    * [GenericInfoMenu description]
    */
-  public GenericInfoMenu(Scene nextScene, int size, String[] text,
-      boolean accentsOn, boolean titleOn) {
+  public GenericInfoMenu(Scene nextScene, int size, String[] text, boolean accentsOn,
+      boolean titleOn) {
     this(new BorderPane(), nextScene, text, size, accentsOn, titleOn);
   }
 
@@ -207,6 +206,18 @@ public class GenericInfoMenu extends Scene {
         break;
       case 12:
         body.setId("text12");
+        break;
+      case 14:
+        body.setId("text14");
+        break;
+      case 16:
+        body.setId("text16");
+        break;
+      case 18:
+        body.setId("text18");
+        break;
+      case 20:
+        body.setId("text20");
         break;
       default:
         body.setId("text12");

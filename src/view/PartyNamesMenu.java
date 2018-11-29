@@ -221,6 +221,7 @@ public class PartyNamesMenu extends Scene {
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
+            updateInputText(event, curr);
             break;
 
           default:

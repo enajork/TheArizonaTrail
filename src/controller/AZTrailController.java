@@ -33,6 +33,7 @@ public class AZTrailController {
       save.close();
       load.close();
     } catch (IOException e) {
+      System.err.println("failed to load save");
       model = new AZTrailModel();
     } catch (ClassNotFoundException e) {
       System.err.println("Fatal error: " + e.getMessage());
@@ -51,7 +52,7 @@ public class AZTrailController {
       load.close();
       save.close();
     } catch (IOException e) {
-      System.err.println("IOException in save");
+      System.err.println("unable to save");
     }
   }
 
