@@ -102,6 +102,7 @@ public class GenericYesNoMenu extends Scene {
     tile = new BorderPane();
     tile.setMaxHeight(0);
     tile.setMaxWidth(0);
+    tile.setMinWidth(600);
     tile.setStyle("-fx-background-color: black;");
 
     // Create the title image;

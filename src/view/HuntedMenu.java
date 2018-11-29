@@ -28,6 +28,7 @@ public class HuntedMenu extends Scene {
   private String input = "_";
   private BorderPane root;
   private BorderPane tile;
+  private StackPane stack;
   private String prompt = "";
   private Text body;
 
@@ -36,6 +37,7 @@ public class HuntedMenu extends Scene {
   */
   public HuntedMenu() {
     this(new BorderPane());
+    AZTrailView.sounds.huntedMenuTheme();
   }
 
   /**
@@ -48,6 +50,7 @@ public class HuntedMenu extends Scene {
     this.root = root;
 
     tile = new BorderPane();
+    stack = new StackPane();
     tile.setMaxHeight(0);
     tile.setMaxWidth(0);
     tile.setStyle("-fx-background-color: black;");
@@ -56,9 +59,10 @@ public class HuntedMenu extends Scene {
     decor = new ImageView(new Image("file:view/assets/graphics/hunted-menu-normal.png"));
     decor.setPreserveRatio(true);
     decor.setFitWidth(400);
-    tile.setAlignment(decor, Pos.CENTER);
-    tile.setTop(decor);
-    root.setMargin(decor, new Insets(5));
+    stack.setAlignment(decor, Pos.CENTER);
+    stack.getChildren().add(decor);
+    tile.setTop(stack);
+    stack.setMargin(decor, new Insets(5));
 
     body = new Text(prompt + " " + input);
     body.setId("text12");
@@ -115,6 +119,7 @@ public class HuntedMenu extends Scene {
               return;
             }
             if (yesTrue) {
+              fadeOut();
               return;
             }
             AZTrailController.escape = false;
@@ -145,7 +150,7 @@ public class HuntedMenu extends Scene {
 
   private void fadeOut() {
     FadeTransition trans = new FadeTransition();
-    trans.setDuration(Duration.millis(1000.0));
+    trans.setDuration(Duration.millis(14000.0));
     trans.setNode(root);
     trans.setFromValue(1);
     trans.setToValue(0);
@@ -178,42 +183,6 @@ public class HuntedMenu extends Scene {
       input = input.substring(0, input.length() - 1);
       input += letter + "_";
       body.setText(prompt + " " + input);
-    }
-  }
-
-  private class DripSprite {
-    private final Image IMAGE = new Image("file:view/assets/graphics/hunteddrip"
-      + "sprite.png",
-      600, 600, true, false);
-    private static final int COLUMNS  =   5;
-    private static final int COUNT    =   5;
-    private static final int OFFSET_X =   0;
-    private static final int OFFSET_Y =   0;
-    private static final int WIDTH    =  120;
-    private static final int HEIGHT   =  46;
-    private final Animation animation;
-    private ImageView imageView;
-
-    public DripSprite() {
-      this.imageView = new ImageView(IMAGE);
-      this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
-
-      this.animation = new SpriteAnimation(
-              this.imageView,
-              Duration.millis(500),
-              COUNT, COLUMNS,
-              OFFSET_X, OFFSET_Y,
-              WIDTH, HEIGHT
-      );
-      this.animation.setCycleCount(4);
-    }
-
-    public void play() {
-      this.animation.play();
-    }
-
-    public ImageView getSprite() {
-      return this.imageView;
     }
   }
 }

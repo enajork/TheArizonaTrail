@@ -8,7 +8,7 @@ public class AZTrailController {
   private final String savePath = "save_game.dat";
   public static boolean hasSave = false;
   public static boolean huntedMode = false;
-  public static boolean sound = true;
+  public static boolean sound = false;
   public static boolean escape = false;
   private AZTrailModel model;
   // private static Random rand;

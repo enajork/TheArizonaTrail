@@ -83,6 +83,10 @@ public class Sounds {
 
   public static void huntedMenuTheme() {
     player = new MediaPlayer(huntedMenu);
+    player.setVolume(0.2);
+    if (!AZTrailController.sound) {
+      player.setVolume(0);
+    }
     player.play();
   }
 
