@@ -24,6 +24,7 @@ import controller.*;
 
 public class HuntedMenu extends Scene {
   private final int CHAR_LIMIT = 4;
+  private boolean fadeStart;
   private ImageView decor;
   private String input = "_";
   private BorderPane root;
@@ -89,6 +90,9 @@ public class HuntedMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case BACK_SPACE:
+            if (fadeStart) {
+              return;
+            }
             AZTrailController.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
@@ -98,6 +102,9 @@ public class HuntedMenu extends Scene {
             break;
 
           case ENTER:
+            if (fadeStart) {
+              return;
+            }
             boolean yesTrue = true;
             boolean noTrue = true;
             String yes = "yes";
@@ -119,8 +126,11 @@ public class HuntedMenu extends Scene {
               return;
             }
             if (yesTrue) {
-              fadeOut();
-              return;
+              if (!fadeStart) {
+                fadeStart = true;
+                fadeOut();
+                return;
+              }
             }
             AZTrailController.escape = false;
             input = "_";
@@ -128,10 +138,16 @@ public class HuntedMenu extends Scene {
             break;
 
           case ESCAPE:
+            if (fadeStart) {
+              return;
+            }
             AZTrailView.escapePressed(true);
             break;
 
           case S:
+            if (fadeStart) {
+              return;
+            }
             AZTrailController.escape = false;
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
@@ -140,6 +156,9 @@ public class HuntedMenu extends Scene {
             break;
 
           default:
+            if (fadeStart) {
+              return;
+            }
             updateInputText(event);
             AZTrailController.escape = false;
             return;
