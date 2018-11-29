@@ -241,15 +241,6 @@ public class GenericYesNoMenu extends Scene {
     }
   }
 
-  public static void fadeOut() {
-    FadeTransition trans = new FadeTransition();
-    trans.setDuration(Duration.millis(1000.0));
-    trans.setNode(root);
-    trans.setFromValue(1);
-    trans.setToValue(0);
-    trans.play();
-  }
-
   private void setTextSize(int size) {
     switch (size) {
       case 8:

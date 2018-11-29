@@ -47,25 +47,7 @@ public class AZTrailView extends Application {
     this.stage.setTitle("Arizona Trail");
     this.stage.setResizable(false);
     // stage.initStyle(StageStyle.UNDECORATED);
-    this.stage.setScene(new GenericYesNoMenu(new Runnable() {
-      @Override
-      public void run() {
-        AZTrailView.stage.setScene(new NogalesSplash());
-      }
-    },
-    new Runnable() {
-      @Override
-      public void run() {
-        GenericYesNoMenu.decor = new ImageView(new Image("file:view/assets/graphics/menuclerk.png"));
-        GenericYesNoMenu.decor.setPreserveRatio(true);
-        GenericYesNoMenu.decor.setFitWidth(100);
-        GenericYesNoMenu.tile.setAlignment(GenericYesNoMenu.decor, Pos.CENTER);
-        GenericYesNoMenu.tile.setTop(GenericYesNoMenu.decor);
-        GenericYesNoMenu.root.setMargin(GenericYesNoMenu.decor, new Insets(5));
-        GenericYesNoMenu.fadeOut();
-        AZTrailView.stage.setScene(new NogalesSplash());
-      }
-    }, "body text goes here"));
+    this.stage.setScene(new HuntedMenu());
     this.stage.show();
   }
 
