@@ -173,7 +173,13 @@ public class SplashMenu extends Scene {
         // return new ProfMenuView();
       case 2:
         // Learn about the trail
-        return new GenericInfoMenu(new SplashMenu(), 10, new String[]{
+        return new GenericInfoMenu(
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.stage.setScene(new SplashMenu());
+            }
+          }, 10, new String[]{
           "Try taking a journey by covered wagon across\n200 miles of desert, "
           + "mountains, and canyons.\nTry! In the desert, will you slosh your oxen"
           + "\nthrough dirt and ruts or will you plod through\ndust six inches deep?",
@@ -195,7 +201,13 @@ public class SplashMenu extends Scene {
         }, true, true);
       case 3:
         // See the Arizona top 10
-        return new GenericInfoMenu(new SplashMenu(), new String[]{
+        return new GenericInfoMenu(
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.stage.setScene(new SplashMenu());
+            }
+          }, new String[]{
           "\tThe Arizona Top Ten\n\n  Name\t    Points\t   Rating\n\n"
           + " Me\t     9999       Trail guide\n"
           + " Myself\t     9999       Trail guide\n"
@@ -204,7 +216,13 @@ public class SplashMenu extends Scene {
       case 4:
         // turn sound off
         AZTrailController.sound = !AZTrailController.sound;
-        return new GenericInfoMenu(new SplashMenu(), new String[]{
+        return new GenericInfoMenu(
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.stage.setScene(new SplashMenu());
+            }
+          }, new String[]{
           "The sound is now turned " + (AZTrailController.sound ? "on" : "off") + ". \n"
             + "You may turn sound on or off\n"
             + "during the program by pressing\nControl-S."

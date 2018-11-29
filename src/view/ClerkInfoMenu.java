@@ -22,7 +22,7 @@ import controller.*;
 
 public class ClerkInfoMenu extends Scene {
   private boolean menu;
-  private Scene nextScene;
+  private Runnable call;
   private BorderPane root;
   private int curPage = 0;
   private String[] text;
@@ -31,20 +31,20 @@ public class ClerkInfoMenu extends Scene {
   /**
    * [ClerkInfoMenu description]
    */
-  public ClerkInfoMenu(Scene nextScene, String header, String[] text,
+  public ClerkInfoMenu(Runnable call, String header, String[] text,
       boolean menu) {
-    this(new BorderPane(), nextScene, header, text, menu);
+    this(new BorderPane(), call, header, text, menu);
   }
 
   /**
    * [ClerkInfoMenu description]
    * @param root [description]
    */
-  private ClerkInfoMenu(BorderPane root, Scene nextScene, String header,
+  private ClerkInfoMenu(BorderPane root, Runnable call, String header,
       String[] text, boolean menu) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
-    this.nextScene = nextScene;
+    this.call = call;
     this.root = root;
     this.text = text;
     this.menu = menu;
@@ -119,7 +119,7 @@ public class ClerkInfoMenu extends Scene {
               curPage++;
               learnTextBlock();
             } else if (curPage == text.length - 1) {
-              AZTrailView.stage.setScene(nextScene);
+              call.run();
             }
             break;
 
@@ -129,7 +129,7 @@ public class ClerkInfoMenu extends Scene {
               curPage++;
               learnTextBlock();
             } else if (curPage == text.length - 1) {
-              AZTrailView.stage.setScene(nextScene);
+              call.run();
             }
             break;
 

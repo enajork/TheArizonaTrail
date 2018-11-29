@@ -30,7 +30,6 @@ public class NogalesSplash extends Scene {
   public NogalesSplash() {
     this(new BorderPane());
     AZTrailView.sounds.startThemeLoop();
-    AZTrailView.sounds.cashOutSFX();
   }
 
   /**

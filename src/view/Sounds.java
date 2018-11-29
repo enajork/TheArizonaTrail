@@ -30,15 +30,6 @@ public class Sounds {
       themes.add(clip);
     }
     music.put("themes", themes);
-    // final ObservableList<Media> hunted = FXCollections.observableArrayList();
-    // final Media huntedMenu = new Media(getClass().getResource("assets/sounds/music/hunted-menu.wav").toExternalForm());
-    // final Media huntedTheme = new Media(getClass().getResource("assets/sounds/music/hunted-theme.wav").toExternalForm());
-    // final Media huntedCredits = new Media(getClass().getResource("assets/sounds/music/hunted-special-credits.wav").toExternalForm());
-    // hunted.addAll(huntedMenu, huntedTheme, huntedCredits);
-
-    // music.put("hunted", hunted);
-
-    boolean huntedMode = true;
 
     sounds.put("hunted", new AudioClip(getClass().getResource("assets/sounds/fx/hunted-mode.wav").toExternalForm()));
     sounds.put("crickets", new AudioClip(getClass().getResource("assets/sounds/fx/crickets.wav").toExternalForm()));
@@ -53,14 +44,12 @@ public class Sounds {
     sounds.put("sizzle", new AudioClip(getClass().getResource("assets/sounds/fx/sizzle.wav").toExternalForm()));
     sounds.put("hunt-bg", new AudioClip(getClass().getResource("assets/sounds/fx/hunting-background.wav").toExternalForm()));
 
-    // if (AZTrailController.huntedMode) {
     sounds.put("ow-xl", new AudioClip(getClass().getResource("assets/sounds/fx/ow-xl.wav").toExternalForm()));
     sounds.put("ow1", new AudioClip(getClass().getResource("assets/sounds/fx/ow1.wav").toExternalForm()));
     sounds.put("ow2", new AudioClip(getClass().getResource("assets/sounds/fx/ow2.wav").toExternalForm()));
     sounds.put("wow1", new AudioClip(getClass().getResource("assets/sounds/fx/wow1.wav").toExternalForm()));
     sounds.put("wow2", new AudioClip(getClass().getResource("assets/sounds/fx/wow2.wav").toExternalForm()));
     sounds.put("wow3", new AudioClip(getClass().getResource("assets/sounds/fx/wow3.wav").toExternalForm()));
-    // }
   }
 
   public static void startThemeLoop() {

@@ -121,14 +121,18 @@ public class HuntedMenu extends Scene {
               }
             }
             if (noTrue) {
-              body.setText(prompt + " " + input);
-              input = "_";
+              AZTrailView.sounds.stop();
+              AZTrailView.controller.setHunted(false);
+              fadeOut(3000);
               return;
             }
             if (yesTrue) {
               if (!fadeStart) {
                 fadeStart = true;
-                fadeOut();
+                AZTrailView.sounds.stop();
+                AZTrailView.sounds.huntedModeSFX();
+                AZTrailView.controller.setHunted(true);
+                fadeOut(14000);
                 return;
               }
             }
@@ -167,9 +171,9 @@ public class HuntedMenu extends Scene {
     });
   }
 
-  private void fadeOut() {
+  private void fadeOut(double duration) {
     FadeTransition trans = new FadeTransition();
-    trans.setDuration(Duration.millis(14000.0));
+    trans.setDuration(Duration.millis(duration));
     trans.setNode(root);
     trans.setFromValue(1);
     trans.setToValue(0);

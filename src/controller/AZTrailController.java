@@ -7,7 +7,6 @@ import model.*;
 public class AZTrailController {
   private final String savePath = "save_game.dat";
   public static boolean hasSave = false;
-  public static boolean huntedMode = false;
   public static boolean sound = true;
   public static boolean escape = false;
   private AZTrailModel model;
@@ -447,5 +446,13 @@ public class AZTrailController {
 
   public void setGameStarted(boolean value) {
     model.setGameStarted(value);
+  }
+
+  public void setHunted(boolean value) {
+    model.setHunted(value);
+  }
+
+  public boolean getHunted() {
+    return model.getHunted();
   }
 }

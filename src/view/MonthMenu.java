@@ -175,7 +175,13 @@ public class MonthMenu extends Scene {
         AZTrailView.controller.setMonth("July");
         return shopView();
       case 6:
-        return new GenericInfoMenu(new MonthMenu(), new String[]{
+        return new GenericInfoMenu(
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.stage.setScene(new MonthMenu());
+            }
+          }, new String[]{
           "You attend a public meeting held\n"
           + "for \"folks with Arizona -\nUtah fever.\" You're told:\n\n"
           + "If you leave too early, there\nwon't be any grass for your\n"
@@ -188,18 +194,31 @@ public class MonthMenu extends Scene {
   }
 
   private Scene shopView() {
-    return new GenericInfoMenu(new ClerkInfoMenu(new StoreMenu(),
-      "Hello, I'm Matt. So you're going\nto Utah! "
-      + "I can fix you up with\nwhat you need:",
-      new String[]{"- a team of oxen to pull\nyour wagon\n\n- "
-      + "clothing for both\nsummer and winter", "- plenty of food for the"
-      + "\ntrip\n\n- ammunition for your\nrifles\n\n- spare parts for your"
-      + "\nwagon", "- lots of blankets to\nstay warm\n\n- enough water for"
-      + " you\nand your oxen"}, true),
+    return new GenericInfoMenu(
+      new Runnable() {
+        @Override
+        public void run() {
+          AZTrailView.stage.setScene(new ClerkInfoMenu(
+            new Runnable() {
+              @Override
+              public void run() {
+                AZTrailView.stage.setScene(new StoreMenu());
+              }
+            },
+            "Hello, I'm Matt. So you're going\nto Utah! "
+            + "I can fix you up with\nwhat you need:",
+            new String[]{"- a team of oxen to pull\nyour wagon\n\n- "
+            + "clothing for both\nsummer and winter", "- plenty of food for the"
+            + "\ntrip\n\n- ammunition for your\nrifles\n\n- spare parts for your"
+            + "\nwagon", "- lots of blankets to\nstay warm\n\n- enough water for"
+            + " you\nand your oxen"}, true));
+        }
+      },
       new String[]{ "Before leaving " + AZTrailView.controller.getCurrentCity()
       + " you\nshould buy equipment and"
       + "\nsupplies. You have "
-      + (new DecimalFormat("'$'###,##0.00").format(AZTrailView.controller.getMoney()))
+      + (new DecimalFormat("'$'###,##0.00")
+      .format(AZTrailView.controller.getMoney()))
       + " in\ncash, but you don't have to\nspend it all now.",
       "You can buy whatever you need at\nMatt's General Store."
     }, true);

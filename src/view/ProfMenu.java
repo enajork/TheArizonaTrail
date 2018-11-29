@@ -160,7 +160,13 @@ public class ProfMenu extends Scene {
         AZTrailView.controller.profMenu(3);
         return new PartyLeaderMenu();
       case 4:
-        return new GenericInfoMenu(new ProfMenu(), new String[]{
+        return new GenericInfoMenu(
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.stage.setScene(new ProfMenu());
+            }
+          }, new String[]{
           "Traveling to Utah isn't easy!\nBut if you're a banker, you'll\n"
           + "have more money for supplies\nand services than a carpenter\n"
           + "or a farmer.\n\nHowever, the harder you have\nto try, the "
