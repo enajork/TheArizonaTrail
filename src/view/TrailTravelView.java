@@ -65,7 +65,8 @@ public class TrailTravelView extends Scene {
     // TODO get partyStats from controller
     HBox statsArea = new HBox();
     // statsArea.setSpacing(0.5);
-    Text stats = new Text("Date: March 1, 1848\nWeather: cold\nHealth: good\nFood: 0 Pounds\nNext landmark: 44 miles\nMiles Traveled: 0 miles");
+    Text stats = new Text("Date: March 1, 1848\nWeather: cold\nHealth: good\nFood:" +
+                          " 0 Pounds\nNext landmark: 44 miles\nMiles Traveled: 0 miles");
     stats.setId("text12");
     statsArea.getChildren().add(stats);
     statsArea.setStyle("-fx-background-color: white;");
@@ -81,7 +82,10 @@ public class TrailTravelView extends Scene {
     final Canvas canvas = new Canvas(650, 150);
     this.gc = canvas.getGraphicsContext2D();
 
-    gc.drawImage(new Image("file:view/assets/graphics/mountain.png"), 0, 0, 1000, 50);
+    gc.drawImage((AZTrailView.controller.getHunted()) ?
+                      new Image("file:view/assets/graphics/mountain-hunted.png") :
+                      new Image("file:view/assets/graphics/mountain.png"),
+                                                                  0,   0, 1000, 50);
     gc.drawImage(new Image("file:view/assets/graphics/sand.png"), 0, 100, 1000, 50);
 
     this.ox = new OxenSprite();
