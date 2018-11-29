@@ -15,9 +15,9 @@ public class Sounds {
   private static final double MAX_EFFECT_VOLUME = 0.15;
   private static final double MAX_MUSIC_VOLUME = 0.3;
   private static MediaPlayer player;
-  private static final Media huntedMenu;
-  private static final Media huntedTheme;
-  private static final Media huntedCredits;
+  private static Media huntedMenu;
+  private static Media huntedTheme;
+  private static Media huntedCredits;
 
   public Sounds() {
     huntedMenu = new Media(getClass().getResource("assets/sounds/music/hunted-menu.wav").toExternalForm());
