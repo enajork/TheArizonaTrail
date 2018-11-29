@@ -125,7 +125,7 @@ public class TrailTravelView extends Scene {
     });
   }
 
-  private class DripSprite {
+  private class OxenSprite {
     private final Image IMAGE = new Image("file:view/assets/graphics/oxenwalk.png",
       600, 600, true, false);
     private static final int COLUMNS  =   5;
@@ -137,7 +137,7 @@ public class TrailTravelView extends Scene {
     private final Animation animation;
     private ImageView imageView;
 
-    public DripSprite() {
+    public OxenSprite() {
       this.imageView = new ImageView(IMAGE);
       this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
 

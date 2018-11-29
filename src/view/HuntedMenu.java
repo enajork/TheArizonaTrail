@@ -181,36 +181,39 @@ public class HuntedMenu extends Scene {
     }
   }
 
-  private final Image IMAGE = new Image("file:view/assets/graphics/oxenwalk.png",
-    600, 600, true, false);
-  private static final int COLUMNS  =   5;
-  private static final int COUNT    =   5;
-  private static final int OFFSET_X =   0;
-  private static final int OFFSET_Y =   0;
-  private static final int WIDTH    =  120;
-  private static final int HEIGHT   =  46;
-  private final Animation animation;
-  private ImageView imageView;
+  private class DripSprite {
+    private final Image IMAGE = new Image("file:view/assets/graphics/hunteddrip"
+      + "sprite.png",
+      600, 600, true, false);
+    private static final int COLUMNS  =   5;
+    private static final int COUNT    =   5;
+    private static final int OFFSET_X =   0;
+    private static final int OFFSET_Y =   0;
+    private static final int WIDTH    =  120;
+    private static final int HEIGHT   =  46;
+    private final Animation animation;
+    private ImageView imageView;
 
-  private OxenSprite() {
-    this.imageView = new ImageView(IMAGE);
-    this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
+    public DripSprite() {
+      this.imageView = new ImageView(IMAGE);
+      this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
 
-    this.animation = new SpriteAnimation(
-            this.imageView,
-            Duration.millis(500),
-            COUNT, COLUMNS,
-            OFFSET_X, OFFSET_Y,
-            WIDTH, HEIGHT
-    );
-    this.animation.setCycleCount(4);
-  }
+      this.animation = new SpriteAnimation(
+              this.imageView,
+              Duration.millis(500),
+              COUNT, COLUMNS,
+              OFFSET_X, OFFSET_Y,
+              WIDTH, HEIGHT
+      );
+      this.animation.setCycleCount(4);
+    }
 
-  public void play() {
-    this.animation.play();
-  }
+    public void play() {
+      this.animation.play();
+    }
 
-  public ImageView getSprite() {
-    return this.imageView;
+    public ImageView getSprite() {
+      return this.imageView;
+    }
   }
 }
