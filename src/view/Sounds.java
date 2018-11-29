@@ -68,7 +68,7 @@ public class Sounds {
     Media theme = themes.remove(0);
     player = new MediaPlayer(theme);
     player.play();
-    player.setVolume(0.4);
+    player.setVolume(MAX_MUSIC_VOLUME);
     if (!AZTrailController.sound) {
       player.setVolume(0);
     }
@@ -83,12 +83,28 @@ public class Sounds {
 
   public static void huntedMenuTheme() {
     player = new MediaPlayer(huntedMenu);
+    player.setVolume(MAX_MUSIC_VOLUME);
+    if (!AZTrailController.sound) {
+      player.setVolume(0);
+    }
     player.play();
+    player.setOnEndOfMedia(new Runnable() {
+      @Override
+      public void run() {
+        huntedMenuTheme();
+      }
+    });
+  }
+
+  public static void huntedModeSFX() {
+    if (AZTrailController.sound) {
+      sounds.get("hunted").play(MAX_EFFECT_VOLUME);
+    }
   }
 
   public static void cashOutSFX() {
     if (AZTrailController.sound) {
-      sounds.get("register").play(0.2);
+      sounds.get("register").play(MAX_EFFECT_VOLUME);
     }
   }
 
