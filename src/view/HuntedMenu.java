@@ -119,6 +119,8 @@ public class HuntedMenu extends Scene {
               return;
             }
             if (yesTrue) {
+              AZTrailView.sounds.stop();
+              AZTrailView.sounds.huntedModeSFX();
               fadeOut();
               return;
             }
