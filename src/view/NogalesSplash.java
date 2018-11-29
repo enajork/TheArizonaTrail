@@ -43,7 +43,9 @@ public class NogalesSplash extends Scene {
     this.root = root;
     root.setStyle("-fx-background-color: black;");
 
-    Image img = new Image("file:view/assets/graphics/nogales_splash.png");
+    Image img = (AZTrailView.controller.getHunted()) ?
+      new Image("file:view/assets/graphics/nogales_splash-hunted.png") :
+      new Image("file:view/assets/graphics/nogales_splash.png");
     ImageView splash = new ImageView(img);
     splash.setPreserveRatio(true);
     splash.setFitWidth(AZTrailView.WIDTH * 0.985);
