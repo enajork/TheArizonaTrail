@@ -148,36 +148,11 @@ public class TrailTravelView extends Scene {
       scenery[0], sand[0]);
 
     this.ox = new OxenSprite();
-<<<<<<< HEAD
-    this.ox.getSprite().setTranslateX(150);
-    this.ox.getSprite().setTranslateY(20);
-
-    // // Sets the label of the Button based on the animation state
-    // //
-    // movementBack.statusProperty().addListener((obs, old, val) -> {
-    //   if (val == Animation.Status.RUNNING) {
-    //     // btnControl.setText("||");
-    //   } else {
-    //     // btnControl.setText(">");
-    //   }
-    // });
-    this.movementBack.play();
-    this.movementMid.play();
-    this.movementFore.play();
-
-    pane.getChildren().add(scene);
-    ImageView sprite = this.ox.getSprite();
-    AnchorPane wagonAnchor = new AnchorPane(sprite);
-    pane.getChildren().add(wagonAnchor);
-    wagonAnchor.setLeftAnchor(sprite, 350.0);
-    wagonAnchor.setTopAnchor(sprite, 250.0);
-=======
     this.ox.getSprite().setTranslateX(-200);
     this.ox.getSprite().setTranslateY(54);
 
     pane.getChildren().add(tile);
     pane.getChildren().add(this.ox.getSprite());
->>>>>>> eeaea3e6421c9a087dc91ccd5dc4ef2ea935d44e
     return pane;
   }
 
