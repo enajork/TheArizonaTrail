@@ -32,6 +32,7 @@ public class TrailTravelView extends Scene {
   private final int SCENE_WIDTH = 650;
   private BorderPane root;
   private OxenSprite ox;
+  private Text stats;
 
   /**
    * [TrailTravelView description]
@@ -49,14 +50,17 @@ public class TrailTravelView extends Scene {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
     this.root = root;
 
+    // Create the text for spacebar continue message
     Text cont = new Text("Press SPACEBAR to continue...\n");
     cont.setId("text12");
     cont.setFill(Color.WHITE);
 
+    // Create the pane containing the current stats
     BorderPane info = infoPane();
     root.setStyle("-fx-background-color: black;");
     root.setAlignment(cont, Pos.BASELINE_CENTER);
 
+    // Add them to the scene
     root.setTop(travelGraphics());
     root.setCenter(info);
     root.setBottom(cont);
@@ -65,19 +69,32 @@ public class TrailTravelView extends Scene {
 
   private BorderPane infoPane() {
     BorderPane info = new BorderPane();
-    // TODO get partyStats from controller
+
+    // Create the sizeup box
+    HBox sizeUpBox = new HBox();
+    Text sizeUp = new Text("Press ENTER to size up the situation");
+    sizeUp.setId("text12");
+    sizeUp.setFill(Color.WHITE);
+    sizeUpBox.getChildren().add(sizeUp);
+    sizeUpBox.setStyle("-fx-background-color: black;");
+
+    // create the stats area
     HBox statsArea = new HBox();
-    // statsArea.setSpacing(0.5);
-    Text stats = new Text("Date: March 1, 1848\nWeather: cold\nHealth: good\nFood:" +
-                          " 0 Pounds\nNext landmark: 44 miles\nMiles Traveled: 0 miles");
-    stats.setId("text12");
+    this.stats = new Text(buildStatsString());
+    this.stats.setId("text12");
+
     stats.setFill((AZTrailView.controller.getHunted()) ?
-                                         (Color.WHITE) : (Color.BLACK));
+          (Color.WHITE) : (Color.BLACK));
     statsArea.getChildren().add(stats);
+
     statsArea.setStyle("-fx-background-color: " +
         ((AZTrailView.controller.getHunted()) ? "black" : "white") + ";");
 
     statsArea.setMargin(stats, new Insets(0.5));
+
+    // add them to the scene
+    info.setAlignment(sizeUpBox, Pos.CENTER);
+    info.setTop(sizeUpBox);
     info.setAlignment(statsArea, Pos.CENTER);
     info.setCenter(statsArea);
     return info;
@@ -191,25 +208,49 @@ public class TrailTravelView extends Scene {
           case SPACE:
             AZTrailController.escape = false;
             ox.play();
+            updateStats();
             break;
 
-            case ESCAPE:
-              AZTrailView.escapePressed(false);
-              break;
+          case ESCAPE:
+            AZTrailView.escapePressed(false);
+            break;
 
-            case S:
-              AZTrailController.escape = false;
-              if (event.isControlDown()) {
-                AZTrailView.sounds.mute();
-              }
-              break;
+          case S:
+            AZTrailController.escape = false;
+            if (event.isControlDown()) {
+              AZTrailView.sounds.mute();
+            }
+            break;
 
-            case ENTER:
-              AZTrailController.escape = false;
-              break;
+          case ENTER:
+            AZTrailController.escape = false;
+            AZTrailView.stage.setScene(new SizeUpView());
+            break;
         }
       }
     });
+  }
+
+  /**
+   * [buildStatsString description]
+   */
+  private String buildStatsString() {
+
+    String res = "Date: %s\nWeather: %s\nHealth: %s\nFood: %d Pounds\nNext landmark: %.0f miles\nMiles Traveled: %d miles";
+    String date = AZTrailView.controller.getDateStr();
+
+    int food = AZTrailView.controller.getFood();
+    double remaining = AZTrailView.controller.milesToLandmark();
+    int totalMiles = AZTrailView.controller.getTotalMiles();
+    return String.format(res, date, "cold", "good", food, remaining, totalMiles);
+  }
+
+  /**
+   * [updateStats description]
+   */
+  private void updateStats() {
+    AZTrailView.controller.advance();
+    this.stats.setText(buildStatsString());
   }
 
   private class OxenSprite {

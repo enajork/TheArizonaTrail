@@ -77,6 +77,14 @@ public class AZTrailController {
   }
 
   /**
+   * [advance description]
+   */
+  public void advance() {
+    this.model.advanceCalendar();
+    this.model.advancePosition();
+  }
+
+  /**
    * [profMenu description]
    * @param choice [description]
    */
@@ -475,5 +483,13 @@ public class AZTrailController {
     result += "\nsound=" + sound;
     result += "\nescape=" + escape;
     return result + "\n----------end------------\n";
+  }
+
+  public int getTotalMiles() {
+    return model.getTotalMiles();
+  }
+
+  public double milesToLandmark() {
+    return model.milesToLandmark();
   }
 }
