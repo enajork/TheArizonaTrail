@@ -12,10 +12,8 @@ public class AZTrailController {
   private AZTrailModel model;
   // private static Random rand;
 
-
-  // debug flags
-  private static final boolean SAVE_DEBUG = false;
-
+  // debug flag
+  private static final boolean SAVE_DEBUG = true;
 
   /**
    * [AZTrailController description]

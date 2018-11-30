@@ -50,7 +50,7 @@ public class TrailTravelView extends Scene {
     this.root = root;
     root.setStyle("-fx-background-color: black;");
 
-    Text footer = new Text("Press SPACEBAR to continue...\n");
+    Text footer = new Text("Hold SPACEBAR to continue...\n");
     footer.setId("text12");
     footer.setFill(Color.WHITE);
     AnchorPane anchor = new AnchorPane(footer);
@@ -88,9 +88,9 @@ public class TrailTravelView extends Scene {
 
   private StackPane travelGraphics() {
     StackPane pane = new StackPane();
-    TilePane scene = new TilePane(Orientation.VERTICAL);
-    scene.setPrefRows(3);
-    scene.setAlignment(Pos.TOP_CENTER);
+    TilePane tile = new TilePane(Orientation.VERTICAL);
+    tile.setPrefRows(3);
+    tile.setAlignment(Pos.TOP_CENTER);
 
     ImageView mountains[] = {null, null};
     TranslateTransition transBack[] = {null, null};
@@ -105,8 +105,8 @@ public class TrailTravelView extends Scene {
       transBack[i].setToX(-1 * SCENE_WIDTH);
       transBack[i].setInterpolator(Interpolator.LINEAR);
     }
-    movementBack = new ParallelTransition(transBack[0], transBack[1]);
-    movementBack.setCycleCount(Animation.INDEFINITE);
+    movementBack = new ParallelTransition(transBack[1], transBack[0]);
+    movementBack.setCycleCount(1);
 
     ImageView scenery[] = {null, null};
     TranslateTransition transMid[] = {null, null};
@@ -123,8 +123,8 @@ public class TrailTravelView extends Scene {
       transMid[i].setToX(-1 * SCENE_WIDTH);
       transMid[i].setInterpolator(Interpolator.LINEAR);
     }
-    movementMid = new ParallelTransition(transMid[0], transMid[1]);
-    movementMid.setCycleCount(Animation.INDEFINITE);
+    movementMid = new ParallelTransition(transMid[1], transMid[0]);
+    movementMid.setCycleCount(1);
 
     ImageView sand[] = {null, null};
     TranslateTransition transFore[] = {null, null};
@@ -141,51 +141,20 @@ public class TrailTravelView extends Scene {
       transFore[i].setToX(-1 * SCENE_WIDTH);
       transFore[i].setInterpolator(Interpolator.LINEAR);
     }
-    movementFore = new ParallelTransition(transFore[0], transFore[1]);
-    movementFore.setCycleCount(Animation.INDEFINITE);
+    movementFore = new ParallelTransition(transFore[1], transFore[0]);
+    movementFore.setCycleCount(1);
 
-    scene.getChildren().addAll(mountains[0], scenery[0], sand[0], mountains[1],
-      scenery[1], sand[1]);
+    tile.getChildren().addAll(mountains[1], scenery[1], sand[1], mountains[0],
+      scenery[0], sand[0]);
 
     this.ox = new OxenSprite();
-    this.ox.getSprite().setTranslateX(150);
-    this.ox.getSprite().setTranslateY(20);
+    this.ox.getSprite().setTranslateX(-200);
+    this.ox.getSprite().setTranslateY(54);
 
-    // // Sets the label of the Button based on the animation state
-    // //
-    // movementBack.statusProperty().addListener((obs, old, val) -> {
-    //   if (val == Animation.Status.RUNNING) {
-    //     // btnControl.setText("||");
-    //   } else {
-    //     // btnControl.setText(">");
-    //   }
-    // });
-    this.movementBack.play();
-    this.movementMid.play();
-    this.movementFore.play();
-
-    pane.getChildren().add(scene);
+    pane.getChildren().add(tile);
     pane.getChildren().add(this.ox.getSprite());
     return pane;
   }
-
-  //
-  // public void startAmination() {
-  //   movementBack.play();
-  // }
-  //
-  // public void pauseAnimation() {
-  //   movementBack.pause();
-  // }
-  // //
-  // // @FXML
-  // public void controlPressed() {
-  //   if (movementBack.getStatus() == Animation.Status.RUNNING) {
-  //     pauseAnimation();
-  //   } else {
-  //     startAmination();
-  //   }
-  // }
 
   /**
    * [addEventHandlers description]
@@ -198,6 +167,12 @@ public class TrailTravelView extends Scene {
           case SPACE:
             AZTrailController.escape = false;
             ox.play();
+            movementBack.setRate(-1.0);
+            movementMid.setRate(-1.0);
+            movementFore.setRate(-1.0);
+            movementBack.play();
+            movementMid.play();
+            movementFore.play();
             break;
 
             case ESCAPE:
@@ -214,6 +189,24 @@ public class TrailTravelView extends Scene {
             case ENTER:
               AZTrailController.escape = false;
               break;
+
+            default:
+              AZTrailController.escape = false;
+              break;
+        }
+      }
+    });
+    this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case SPACE:
+            AZTrailController.escape = false;
+            ox.pause();
+            movementBack.pause();
+            movementMid.pause();
+            movementFore.pause();
+            break;
         }
       }
     });
@@ -250,6 +243,10 @@ public class TrailTravelView extends Scene {
 
     public void play() {
       this.animation.play();
+    }
+
+    public void pause() {
+      this.animation.pause();
     }
 
     public ImageView getSprite() {
