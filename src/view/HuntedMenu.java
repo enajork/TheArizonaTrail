@@ -121,6 +121,7 @@ public class HuntedMenu extends Scene {
               }
             }
             if (noTrue) {
+              fadeStart = true;
               AZTrailView.sounds.stop();
               AZTrailView.controller.setHunted(false);
               fadeOut(3000);

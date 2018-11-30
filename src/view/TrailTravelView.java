@@ -130,7 +130,7 @@ public class TrailTravelView extends Scene {
       new Image("file:view/assets/graphics/sand.png", 1000, 50, false, true));
       sand[i].setViewport(fore);
       transFore[i] =
-          new TranslateTransition(Duration.millis(10000), sand[i]);
+          new TranslateTransition(Duration.millis(30000), sand[i]);
       transFore[i].setFromX(0);
       transFore[i].setToX(-1 * SCENE_WIDTH);
       transFore[i].setInterpolator(Interpolator.LINEAR);
