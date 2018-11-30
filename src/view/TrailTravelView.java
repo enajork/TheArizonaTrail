@@ -70,7 +70,7 @@ public class TrailTravelView extends Scene {
     // Create the sizeup box
     HBox sizeUpBox = new HBox();
     Text sizeUp = new Text("Press ENTER to size up the situation");
-    sizeUp.setId("text16");
+    sizeUp.setId("text12");
     sizeUp.setFill(Color.WHITE);
     sizeUpBox.getChildren().add(sizeUp);
     sizeUpBox.setStyle("-fx-background-color: black;");
@@ -133,10 +133,14 @@ public class TrailTravelView extends Scene {
    * [buildStatsString description]
    */
   private String buildStatsString() {
-    String res = "Date: %s\nWeather: %s\nHealth: %s\nFood: %d Pounds\nNext landmark: %d miles\nMiles Traveled: %d miles";
+
+    String res = "Date: %s\nWeather: %s\nHealth: %s\nFood: %d Pounds\nNext landmark: %.0f miles\nMiles Traveled: %d miles";
     String date = AZTrailView.controller.getDateStr();
+
     int food = AZTrailView.controller.getFood();
-    return String.format(res, date, "cold", "good", food, 4, 0);
+    double remaining = AZTrailView.controller.milesToLandmark();
+    int totalMiles = AZTrailView.controller.getTotalMiles();
+    return String.format(res, date, "cold", "good", food, remaining, totalMiles);
   }
 
   /**

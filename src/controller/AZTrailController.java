@@ -30,6 +30,7 @@ public class AZTrailController {
    */
   public void advance() {
     this.model.advanceCalendar();
+    this.model.advancePosition();
   }
 
   /**
@@ -415,5 +416,13 @@ public class AZTrailController {
 
   public String getCurrentCity() {
     return model.getCurrentCity();
+  }
+
+  public int getTotalMiles() {
+    return model.getTotalMiles();
+  }
+
+  public double milesToLandmark() {
+    return model.milesToLandmark();
   }
 }
