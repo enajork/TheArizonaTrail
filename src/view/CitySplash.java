@@ -118,8 +118,8 @@ public class CitySplash extends Scene {
     switch (city) {
       case "Nogales":
         img = new Image((AZTrailView.controller.getHunted())
-          ? "file:view/assets/graphics/nogales_splash-hunted.png"
-          : "file:view/assets/graphics/nogales_splash.png");
+          ? "file:view/assets/graphics/locations/nogales_splash-hunted.png"
+          : "file:view/assets/graphics/locations/nogales_splash.png");
         splash = new ImageView(img);
         splash.setPreserveRatio(true);
         splash.setFitWidth(AZTrailView.WIDTH * 0.985);
@@ -131,8 +131,8 @@ public class CitySplash extends Scene {
 
       default:
         img = new Image((AZTrailView.controller.getHunted())
-          ? "file:view/assets/graphics/nogales_splash-hunted.png"
-          : "file:view/assets/graphics/nogales_splash.png");
+          ? "file:view/assets/graphics/locations/nogales_splash-hunted.png"
+          : "file:view/assets/graphics/locations/nogales_splash.png");
         splash = new ImageView(img);
         splash.setPreserveRatio(true);
         splash.setFitWidth(AZTrailView.WIDTH * 0.985);

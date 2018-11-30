@@ -114,8 +114,8 @@ public class TrailTravelView extends Scene {
       Rectangle2D mid = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
       scenery[i] = new ImageView((AZTrailView.controller.getHunted()) ?
                    new Image("file:view/assets/graphics/scenery-hunted.png",
-                    1000, 50, false, true) :
-                   new Image("file:view/assets/graphics/scenery.png", 1000, 50,
+                    700, 50, false, true) :
+                   new Image("file:view/assets/graphics/scenery.png", 700, 50,
                     false, true));
       scenery[i].setViewport(mid);
       transMid[i] = new TranslateTransition(Duration.millis(50000), scenery[i]);
