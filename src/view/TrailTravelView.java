@@ -178,24 +178,24 @@ public class TrailTravelView extends Scene {
             movementFore.play();
             break;
 
-            case ESCAPE:
-              AZTrailView.escapePressed(false);
-              break;
+          case ESCAPE:
+            AZTrailView.escapePressed(false);
+            break;
 
-            case S:
-              AZTrailController.escape = false;
-              if (event.isControlDown()) {
-                AZTrailView.sounds.mute();
-              }
-              break;
+          case S:
+            AZTrailController.escape = false;
+            if (event.isControlDown()) {
+              AZTrailView.sounds.mute();
+            }
+            break;
 
-            case ENTER:
-              AZTrailController.escape = false;
-              break;
+          case ENTER:
+            AZTrailController.escape = false;
+            break;
 
-            default:
-              AZTrailController.escape = false;
-              break;
+          default:
+            AZTrailController.escape = false;
+            break;
         }
       }
     });
