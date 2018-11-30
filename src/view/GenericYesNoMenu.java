@@ -184,6 +184,9 @@ public class GenericYesNoMenu extends Scene {
             break;
 
           case ENTER:
+            if (input.length() == 1) {
+              return;
+            }
             boolean yesTrue = true;
             boolean noTrue = true;
             String yes = "yes";

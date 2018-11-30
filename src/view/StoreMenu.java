@@ -188,7 +188,9 @@ public class StoreMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
-            if (AZTrailView.controller.getOxen() == 0 && !warn) {
+            if (warn) {
+              AZTrailView.stage.setScene(new StoreMenu());
+            } else if (AZTrailView.controller.getOxen() == 0 && !warn) {
               Text warning= new Text("Don't forget, you'll need\noxen to pull "
                 + "your wagon.");
               warning.setId("text12");
@@ -197,8 +199,21 @@ public class StoreMenu extends Scene {
               tile.setMargin(warning, new Insets(40));
               footer.setText("Press SPACE BAR to continue");
               warn = true;
-            } else if (warn) {
-              AZTrailView.stage.setScene(new StoreMenu());
+            } else if (AZTrailView.controller.getCartTotal()
+                > AZTrailView.controller.getMoney()) {
+              Text warning= new Text("Okay, that comes to a total\nof "
+                + new DecimalFormat("'$'###,##0.00")
+                .format(AZTrailView.controller.getCartTotal())
+                + " But I see that\nyou only have "
+                + new DecimalFormat("'$'###,##0.00")
+                .format(AZTrailView.controller.getMoney())
+                + ".\nWe'd better go over the\nlist again.");
+              warning.setId("text12");
+              warning.setFill(Color.WHITE);
+              tile.setBottom(warning);
+              tile.setMargin(warning, new Insets(40));
+              footer.setText("Press SPACE BAR to continue");
+              warn = true;
             } else {
               AZTrailView.controller.addWater(500);
               AZTrailView.controller.addBlankets(5);

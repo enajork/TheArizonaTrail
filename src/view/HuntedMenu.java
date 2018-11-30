@@ -161,12 +161,12 @@ public class HuntedMenu extends Scene {
             break;
 
           case S:
-            if (fadeStart) {
-              return;
-            }
             AZTrailController.escape = false;
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
+            }
+            if (fadeStart) {
+              return;
             }
             updateInputText(event);
             break;
