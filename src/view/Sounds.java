@@ -95,7 +95,7 @@ public class Sounds {
     }
   }
 
-  public static void cricketsSFX() {
+  private static void cricketsSFX() {
     player = new MediaPlayer(crickets);
     player.setVolume(MAX_EFFECT_VOLUME);
     if (!AZTrailController.sound) {
@@ -152,6 +152,7 @@ public class Sounds {
   public static void huntBackgroundSFX() {
     if (AZTrailController.sound) {
       sounds.get("hunt-bg").play(MAX_EFFECT_VOLUME - 0.08);
+      cricketsSFX();
     }
   }
 
