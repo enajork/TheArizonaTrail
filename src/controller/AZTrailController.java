@@ -12,6 +12,11 @@ public class AZTrailController {
   private AZTrailModel model;
   // private static Random rand;
 
+
+  // debug flags
+  private static final boolean SAVE_DEBUG = false;
+
+
   /**
    * [AZTrailController description]
    */
@@ -29,14 +34,18 @@ public class AZTrailController {
       ObjectInputStream save = new ObjectInputStream(load);
       model = (AZTrailModel) save.readObject();
       hasSave = true;
-      System.out.println("save loaded");
-      System.out.println(toString());
+      if (SAVE_DEBUG) {
+        System.out.println("save loaded");
+        System.out.println(toString());
+      }
       save.close();
       load.close();
     } catch (IOException e) {
-      System.err.println("failed to load save");
+      if (SAVE_DEBUG) {
+        System.err.println("failed to load save");
+        System.out.println(toString());
+      }
       model = new AZTrailModel();
-      System.out.println(toString());
     } catch (ClassNotFoundException e) {
       System.err.println("Fatal error: " + e.getMessage());
       System.exit(1);
@@ -51,12 +60,16 @@ public class AZTrailController {
       FileOutputStream save = new FileOutputStream(savePath);
       ObjectOutputStream load = new ObjectOutputStream(save);
       load.writeObject(model);
-      System.out.println("game saved");
-      System.out.println(toString());
+      if (SAVE_DEBUG) {
+        System.out.println("game saved");
+        System.out.println(toString());
+      }
       load.close();
       save.close();
     } catch (IOException e) {
-      System.err.println("unable to save");
+      if (SAVE_DEBUG) {
+        System.err.println("unable to save");
+      }
     }
   }
 
@@ -64,15 +77,21 @@ public class AZTrailController {
     File save = new File(savePath);
     if (save.exists()) {
       save.delete();
-      System.out.println("save deleted");
+      if (SAVE_DEBUG) {
+        System.out.println("save deleted");
+      }
     }
     model = new AZTrailModel();
-    System.out.println(toString());
+    if (SAVE_DEBUG) {
+      System.out.println(toString());
+    }
   }
 
   public void resetModel() {
     model = new AZTrailModel();
-    System.out.println(toString());
+    if (SAVE_DEBUG) {
+      System.out.println(toString());
+    }
   }
 
   /**
