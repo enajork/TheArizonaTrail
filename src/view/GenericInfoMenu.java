@@ -23,70 +23,57 @@ import controller.*;
 public class GenericInfoMenu extends Scene {
   private boolean accentsOn;
   private boolean titleOn;
-  private Scene nextScene;
+  private Runnable call;
   private BorderPane root;
   private int curPage = 0;
   private String[] text;
-  private int size;
+  private int top;
 
   /**
    * [GenericInfoMenu description]
    */
-  public GenericInfoMenu(Scene nextScene, String[] text) {
-    this(new BorderPane(), nextScene, text, 12, false, false);
+  public GenericInfoMenu(Runnable call, String[] text) {
+    this(new BorderPane(), call, text, false, false, 0);
   }
 
   /**
    * [GenericInfoMenu description]
    */
-  public GenericInfoMenu(Scene nextScene, String[] text, int size) {
-    this(new BorderPane(), nextScene, text, size, false, false);
+  public GenericInfoMenu(Runnable call, String[] text, boolean accentsOn) {
+    this(new BorderPane(), call, text, accentsOn, false, 0);
   }
 
   /**
    * [GenericInfoMenu description]
    */
-  public GenericInfoMenu(Scene nextScene, String[] text, boolean accentsOn) {
-    this(new BorderPane(), nextScene, text, 12, accentsOn, false);
+  public GenericInfoMenu(Runnable call, String[] text, boolean accentsOn,
+      int top) {
+    this(new BorderPane(), call, text, accentsOn, false, top);
   }
+
 
   /**
    * [GenericInfoMenu description]
    */
-  public GenericInfoMenu(Scene nextScene, String[] text, int size, boolean accentsOn) {
-    this(new BorderPane(), nextScene, text, size, accentsOn, false);
-  }
-
-  /**
-   * [GenericInfoMenu description]
-   */
-  public GenericInfoMenu(Scene nextScene, String[] text,
-      boolean accentsOn, boolean titleOn) {
-    this(new BorderPane(), nextScene, text, 12, accentsOn, titleOn);
-  }
-
-  /**
-   * [GenericInfoMenu description]
-   */
-  public GenericInfoMenu(Scene nextScene, int size, String[] text,
-      boolean accentsOn, boolean titleOn) {
-    this(new BorderPane(), nextScene, text, size, accentsOn, titleOn);
+  public GenericInfoMenu(Runnable call, String[] text, boolean accentsOn,
+      boolean titleOn) {
+    this(new BorderPane(), call, text, accentsOn, titleOn, 0);
   }
 
   /**
    * [GenericInfoMenu description]
    * @param root [description]
    */
-  private GenericInfoMenu(BorderPane root, Scene nextScene, String[] text,
-      int size, boolean accentsOn, boolean titleOn) {
+  private GenericInfoMenu(BorderPane root, Runnable call, String[] text,
+      boolean accentsOn, boolean titleOn, int top) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
-    this.nextScene = nextScene;
+    this.call = call;
     this.accentsOn = accentsOn;
     this.titleOn = titleOn;
     this.root = root;
     this.text = text;
-    this.size = size;
+    this.top = top;
 
     // Create the title image;
     if (titleOn) {
@@ -112,8 +99,9 @@ public class GenericInfoMenu extends Scene {
     tile.setStyle("-fx-background-color: black;");
 
     Text body = new Text(text[curPage]);
-    setTextSize(body);
+    body.setId("text12");
     body.setFill(Color.WHITE);
+    tile.setCenter(body);
     tile.setAlignment(body, Pos.CENTER);
 
     if (accentsOn) {
@@ -121,6 +109,7 @@ public class GenericInfoMenu extends Scene {
       ImageView accent1 = menuAccent();
       tile.setTop(accent1);
       tile.setAlignment(accent1, Pos.CENTER);
+      tile.setMargin(accent1, new Insets(top, 0, 0, 0));
       // Create the second accent
       ImageView accent2 = menuAccent();
       tile.setBottom(accent2);
@@ -130,13 +119,11 @@ public class GenericInfoMenu extends Scene {
 
     Text footer = new Text("Press SPACEBAR to continue...");
     footer.setFill(Color.WHITE);
-    setTextSize(footer);
-    tile.setCenter(body);
-    tile.setAlignment(body, Pos.CENTER);
+    footer.setId("text12");
+
     root.setBottom(footer);
     root.setAlignment(footer, Pos.CENTER);
-    root.setMargin(footer, new Insets(0, 0, 40, 0));
-
+    root.setMargin(footer, new Insets(10, 0, 10, 0));
     root.setCenter(tile);
     root.setAlignment(tile, Pos.CENTER);
   }
@@ -164,7 +151,7 @@ public class GenericInfoMenu extends Scene {
               curPage++;
               learnTextBlock();
             } else if (curPage == text.length - 1) {
-              AZTrailView.stage.setScene(nextScene);
+              call.run();
             }
             break;
 
@@ -174,7 +161,7 @@ public class GenericInfoMenu extends Scene {
               curPage++;
               learnTextBlock();
             } else if (curPage == text.length - 1) {
-              AZTrailView.stage.setScene(nextScene);
+              call.run();
             }
             break;
 
@@ -195,22 +182,5 @@ public class GenericInfoMenu extends Scene {
         }
       }
     });
-  }
-
-  private void setTextSize(Text body) {
-    switch (size) {
-      case 8:
-        body.setId("text8");
-        break;
-      case 10:
-        body.setId("text10");
-        break;
-      case 12:
-        body.setId("text12");
-        break;
-      default:
-        body.setId("text12");
-        break;
-    }
   }
 }

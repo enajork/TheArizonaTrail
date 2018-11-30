@@ -21,12 +21,13 @@ import java.io.*;
 import controller.*;
 
 public class OptionsMenu extends Scene {
-  private final int NUM_OPTS = 1;
-  private Text body;
+  private final int NUM_OPTS = 2;
   private String contents = "You may:\n\n  "
-    + "1. Travel the Trail\n\n"
+    + "1. Delete save file\n  "
+    + "2. Travel the Trail\n\n"
     + "What is your choice? ";
   private String input = "_";
+  private Text body;
 
   /**
    * [OptionsMenu description]
@@ -43,16 +44,43 @@ public class OptionsMenu extends Scene {
   private OptionsMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
 
+    // Create the title image;
+    Image img = new Image("file:view/assets/graphics/aztrail_splashtext.png");
+    ImageView title = new ImageView(img);
+
     // Create the text for the menu options
     body = new Text(contents + input);
     body.setId("text12");
     body.setFill(Color.WHITE);
 
+    AnchorPane anchor = new AnchorPane(body);
+    anchor.setLeftAnchor(body, 120.0);
+    anchor.setTopAnchor(body, 30.0);
+
     BorderPane tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
-    tile.setCenter(body);
+
+    // Create the first accent
+    ImageView accent1 = menuAccent();
+    tile.setTop(accent1);
+    tile.setCenter(anchor);
+    tile.setMargin(anchor, new Insets(20));
+
+    // Create the second accent
+    ImageView accent2 = menuAccent();
+    tile.setBottom(accent2);
+    tile.setMargin(accent2, new Insets(0, 0, 40, 0));
+
+    // Style the view
+    root.setAlignment(title, Pos.CENTER);
+    root.setAlignment(accent1, Pos.CENTER);
+    root.setAlignment(accent2, Pos.CENTER);
+    root.setMargin(accent2, new Insets(0, 0, 46, 0));
     root.setStyle("-fx-background-color: black;");
+    root.setTop(title);
+    root.setMargin(title, new Insets(5));
     root.setCenter(tile);
+    root.setAlignment(tile, Pos.CENTER);
 
     addEventHandlers();
   }
@@ -136,7 +164,43 @@ public class OptionsMenu extends Scene {
     }
     switch (choice) {
       case 1:
-        // Travel the trail
+        if (AZTrailController.hasSave) {
+          return new GenericYesNoMenu(
+            new Runnable() {
+              @Override
+              public void run() {
+                AZTrailView.stage.setScene(new OptionsMenu());
+                AZTrailView.controller.deleteSave();
+                AZTrailView.controller.hasSave = false;
+              }
+            },
+            new Runnable() {
+              @Override
+              public void run() {
+                AZTrailView.stage.setScene(new OptionsMenu());
+              }
+            },
+            "Are you sure?",
+            "",
+            true,
+            true
+          );
+        } else {
+          return new GenericInfoMenu(
+            new Runnable() {
+              @Override
+              public void run() {
+                AZTrailView.stage.setScene(new OptionsMenu());
+              }
+            },
+            new String[]{
+              "No save to delete..."
+            },
+            true,
+            true
+          );
+        }
+      case 2:
         return new SplashMenu();
     }
     // return;

@@ -20,39 +20,35 @@ import java.io.*;
 
 import controller.*;
 
-public class NogalesSplash extends Scene {
+public class CitySplash extends Scene {
   private Scene nextScene;
   private BorderPane root;
+  private String city;
 
   /**
-   * [NogalesSplash description]
+   * [CitySplash description]
    */
-  public NogalesSplash() {
-    this(new BorderPane());
+  public CitySplash(String city) {
+    this(new BorderPane(), city);
     AZTrailView.sounds.startThemeLoop();
-    AZTrailView.sounds.cashOutSFX();
   }
 
   /**
-   * [NogalesSplash description]
+   * [CitySplash description]
    * @param root [description]
    */
-  private NogalesSplash(BorderPane root) {
+  private CitySplash(BorderPane root, String city) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
     this.nextScene = new SizeUpView();
     this.root = root;
+    this.city = city;
     root.setStyle("-fx-background-color: black;");
 
-    Image img = new Image("file:view/assets/graphics/nogales_splash.png");
-    ImageView splash = new ImageView(img);
-    splash.setPreserveRatio(true);
-    splash.setFitWidth(AZTrailView.WIDTH * 0.985);
-    root.setAlignment(splash, Pos.CENTER);
-    root.setTop(splash);
+    setSplash(city);
     Rectangle rect = new Rectangle(400, 40, Color.WHITE);
     BorderPane innerText = new BorderPane();
-    Text title = new Text("Nogales");
+    Text title = new Text(city);
     title.setId("text12");
     Text date = new Text(AZTrailView.controller.getDateStr());
     date.setId("text12");
@@ -68,7 +64,7 @@ public class NogalesSplash extends Scene {
     stack.getChildren().add(innerText);
     root.setCenter(stack);
     root.setMargin(stack, new Insets(2));
-    root.setMargin(splash, new Insets(5, 5, 0, 5));
+
     // Style the view
     Text footer = new Text("Press SPACE BAR to continue");
     footer.setId("text12");
@@ -114,5 +110,32 @@ public class NogalesSplash extends Scene {
         }
       }
     });
+  }
+
+  private void setSplash(String city) {
+    ImageView splash;
+    Image img;
+    switch (city) {
+      case "Nogales":
+        img = new Image("file:view/assets/graphics/nogales_splash.png");
+        splash = new ImageView(img);
+        splash.setPreserveRatio(true);
+        splash.setFitWidth(AZTrailView.WIDTH * 0.985);
+        root.setMargin(splash, new Insets(5, 5, 0, 5));
+        root.setAlignment(splash, Pos.CENTER);
+        root.setTop(splash);
+        AZTrailView.controller.setGameStarted(true);
+        return;
+
+      default:
+        img = new Image("file:view/assets/graphics/nogales_splash.png");
+        splash = new ImageView(img);
+        splash.setPreserveRatio(true);
+        splash.setFitWidth(AZTrailView.WIDTH * 0.985);
+        root.setMargin(splash, new Insets(5, 5, 0, 5));
+        root.setAlignment(splash, Pos.CENTER);
+        root.setTop(splash);
+        return;
+    }
   }
 }

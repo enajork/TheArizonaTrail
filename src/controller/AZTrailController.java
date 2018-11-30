@@ -5,9 +5,8 @@ import model.*;
 // import java.util.Random;
 
 public class AZTrailController {
-  private final String savePath = "save_game.dat";
+  private final String savePath = "model/save_game.dat";
   public static boolean hasSave = false;
-  public static boolean huntedMode = false;
   public static boolean sound = true;
   public static boolean escape = false;
   private AZTrailModel model;
@@ -18,6 +17,7 @@ public class AZTrailController {
    */
   public AZTrailController() {
     this.model = new AZTrailModel();
+    System.out.println(toString());
     // this.rand = new Random(System.currentTimeMillis());
   }
 
@@ -30,10 +30,14 @@ public class AZTrailController {
       ObjectInputStream save = new ObjectInputStream(load);
       model = (AZTrailModel) save.readObject();
       hasSave = true;
+      System.out.println("save loaded");
+      System.out.println(toString());
       save.close();
       load.close();
     } catch (IOException e) {
+      System.err.println("failed to load save");
       model = new AZTrailModel();
+      System.out.println(toString());
     } catch (ClassNotFoundException e) {
       System.err.println("Fatal error: " + e.getMessage());
       System.exit(1);
@@ -48,10 +52,12 @@ public class AZTrailController {
       FileOutputStream save = new FileOutputStream(savePath);
       ObjectOutputStream load = new ObjectOutputStream(save);
       load.writeObject(model);
+      System.out.println("game saved");
+      System.out.println(toString());
       load.close();
       save.close();
     } catch (IOException e) {
-      System.err.println("IOException in save");
+      System.err.println("unable to save");
     }
   }
 
@@ -59,8 +65,15 @@ public class AZTrailController {
     File save = new File(savePath);
     if (save.exists()) {
       save.delete();
+      System.out.println("save deleted");
     }
     model = new AZTrailModel();
+    System.out.println(toString());
+  }
+
+  public void resetModel() {
+    model = new AZTrailModel();
+    System.out.println(toString());
   }
 
   /**
@@ -446,5 +459,21 @@ public class AZTrailController {
 
   public void setGameStarted(boolean value) {
     model.setGameStarted(value);
+  }
+
+  public void setHunted(boolean value) {
+    model.setHunted(value);
+  }
+
+  public boolean getHunted() {
+    return model.getHunted();
+  }
+
+  public String toString() {
+    String result = "\n----------start-----------\n" + model.toString();
+    result += "\nhasSave=" + hasSave;
+    result += "\nsound=" + sound;
+    result += "\nescape=" + escape;
+    return result + "\n----------end------------\n";
   }
 }

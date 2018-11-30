@@ -204,13 +204,18 @@ public class StoreMenu extends Scene {
               AZTrailView.controller.addBlankets(5);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
-              AZTrailView.controller.setGameStarted(true);
-              AZTrailView.controller.saveGame();
-              AZTrailView.stage.setScene(new ClerkInfoMenu(new NogalesSplash(),
+              AZTrailView.sounds.cashOutSFX();
+              AZTrailView.stage.setScene(new ClerkInfoMenu(
+                new Runnable() {
+                  @Override
+                  public void run() {
+                    AZTrailView.stage.setScene(new HuntedMenu());
+                  }
+                },
                 "", new String[]{"Here, take these blankets\nand water. On the house!",
                 "Well then, you're ready\nto start. Good luck!\nYou have a long"
                  + " and\ndifficult journey ahead\nof you."
-              }, false));
+              }));
             }
             break;
 

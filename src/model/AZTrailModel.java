@@ -3,6 +3,7 @@ package model;
 import java.io.*;
 
 public class AZTrailModel implements Serializable {
+  private boolean hunted;
   private boolean gameStarted;
   private Calendar calendar;
   private MapModel mapModel;
@@ -13,6 +14,7 @@ public class AZTrailModel implements Serializable {
     "guest"};
 
   public AZTrailModel() {
+    this.hunted = true;
     this.gameStarted = false;
     this.calendar = new Calendar();
     this.mapModel = new MapModel();
@@ -435,7 +437,39 @@ public class AZTrailModel implements Serializable {
   public boolean isGameStarted() {
     return gameStarted;
   }
+
   public void setGameStarted(boolean value) {
     this.gameStarted = value;
+  }
+
+  public void setHunted(boolean value) {
+    this.hunted = value;
+  }
+
+  public boolean getHunted() {
+    return this.hunted;
+  }
+
+  public String toString() {
+    String result = "";
+    result += "prof=" + getProf();
+    for (int i = 0; i < 5; i++) {
+      result += "\nname" + i + "=" + getName(i);
+    }
+    result += "\nmoney=" + getMoney();
+    result += "\noxen=" + getOxen();
+    result += "\nclothes=" + getClothes();
+    result += "\nblankets=" + getBlankets();
+    result += "\nbullets=" + getBullets();
+    result += "\nfood=" + getFood();
+    result += "\nwater=" + getWater();
+    result += "\nwheels=" + getWheels();
+    result += "\naxles=" + getAxles();
+    result += "\ntongues=" + getTongues();
+    result += "\ndate=" + getDateStr();
+    result += "\ncity=" + getCurrentCity();
+    result += "\nhunted=" + getHunted();
+    result += "\nstarted=" + isGameStarted();
+    return result;
   }
 }
