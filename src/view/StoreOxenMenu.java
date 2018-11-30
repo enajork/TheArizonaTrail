@@ -139,7 +139,7 @@ public class StoreOxenMenu extends Scene {
             break;
 
           case ESCAPE:
-            AZTrailView.escapePressed(true);
+            AZTrailView.escapePressed(false);
             break;
 
           case S:

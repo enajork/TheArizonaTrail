@@ -157,7 +157,7 @@ public class HuntedMenu extends Scene {
             if (fadeStart) {
               return;
             }
-            AZTrailView.escapePressed(true);
+            AZTrailView.escapePressed(false);
             break;
 
           case S:

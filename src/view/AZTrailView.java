@@ -51,9 +51,9 @@ public class AZTrailView extends Application {
     this.stage.show();
   }
 
-  public static void escapePressed(boolean menu) {
+  public static void escapePressed(boolean saveAllowed) {
     if (AZTrailController.escape) {
-      if (!menu) {
+      if (saveAllowed) {
         stage.setScene(new GenericYesNoMenu(
           new Runnable() {
             @Override
