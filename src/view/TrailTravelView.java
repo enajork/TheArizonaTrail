@@ -96,11 +96,14 @@ public class TrailTravelView extends Scene {
     TranslateTransition transBack[] = {null, null};
     for (int i = 0; i < 2; ++i) {
       Rectangle2D back = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
-      mountains[i] = new ImageView((AZTrailView.controller.getHunted()) ?
-                    new Image("file:view/assets/graphics/mountain-hunted.png", 1000, 50, false, true) :
-                    new Image("file:view/assets/graphics/mountain.png", 1000, 50, false, true));
+      mountains[i] = new ImageView((AZTrailView.controller.getHunted())
+      ? new Image("file:view/assets/graphics/mountain-hunted.png", 1000, 50,
+        false, true)
+      : new Image("file:view/assets/graphics/mountain.png", 1000, 50, false,
+        true));
       mountains[i].setViewport(back);
-      transBack[i] = new TranslateTransition(Duration.millis(100000), mountains[i]);
+      transBack[i] = new TranslateTransition(Duration.millis(100000),
+        mountains[i]);
       transBack[i].setFromX(0);
       transBack[i].setToX(-1 * SCENE_WIDTH);
       transBack[i].setInterpolator(Interpolator.LINEAR);
@@ -112,11 +115,11 @@ public class TrailTravelView extends Scene {
     TranslateTransition transMid[] = {null, null};
     for (int i = 0; i < 2; ++i) {
       Rectangle2D mid = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
-      scenery[i] = new ImageView((AZTrailView.controller.getHunted()) ?
-                   new Image("file:view/assets/graphics/scenery-hunted.png",
-                    1000, 50, false, true) :
-                   new Image("file:view/assets/graphics/scenery.png", 1000, 50,
-                    false, true));
+      scenery[i] = new ImageView((AZTrailView.controller.getHunted())
+        ? new Image("file:view/assets/graphics/scenery-hunted.png", 1000, 50,
+          false, true)
+        : new Image("file:view/assets/graphics/scenery.png", 1000, 50, false,
+          true));
       scenery[i].setViewport(mid);
       transMid[i] = new TranslateTransition(Duration.millis(50000), scenery[i]);
       transMid[i].setFromX(0);
@@ -130,13 +133,13 @@ public class TrailTravelView extends Scene {
     TranslateTransition transFore[] = {null, null};
     for (int i = 0; i < 2; ++i) {
       Rectangle2D fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
-      sand[i] = new ImageView((AZTrailView.controller.getHunted()) ?
-      new Image("file:view/assets/graphics/sand-hunted.png", 1000, 50, false,
-        true) :
-      new Image("file:view/assets/graphics/sand.png", 1000, 50, false, true));
+      sand[i] = new ImageView((AZTrailView.controller.getHunted())
+        ? new Image("file:view/assets/graphics/sand-hunted.png", 1000, 50,
+          false, true)
+        : new Image("file:view/assets/graphics/sand.png", 1000, 50, false,
+          true));
       sand[i].setViewport(fore);
-      transFore[i] =
-          new TranslateTransition(Duration.millis(30000), sand[i]);
+      transFore[i] = new TranslateTransition(Duration.millis(30000), sand[i]);
       transFore[i].setFromX(0);
       transFore[i].setToX(-1 * SCENE_WIDTH);
       transFore[i].setInterpolator(Interpolator.LINEAR);
@@ -213,9 +216,9 @@ public class TrailTravelView extends Scene {
   }
 
   private class OxenSprite {
-    private final Image IMAGE = new Image((AZTrailView.controller.getHunted()) ?
-                               "file:view/assets/graphics/oxenwalk-hunted.png" :
-                               "file:view/assets/graphics/oxenwalk.png",
+    private final Image IMAGE = new Image((AZTrailView.controller.getHunted())
+      ? "file:view/assets/graphics/oxenwalk-hunted.png"
+      : "file:view/assets/graphics/oxenwalk.png",
       600, 600, true, false);
     private static final int COLUMNS  =   5;
     private static final int COUNT    =   5;
@@ -232,11 +235,11 @@ public class TrailTravelView extends Scene {
         HEIGHT));
 
       this.animation = new SpriteAnimation(
-              this.imageView,
-              Duration.millis(500),
-              COUNT, COLUMNS,
-              OFFSET_X, OFFSET_Y,
-              WIDTH, HEIGHT
+        this.imageView,
+        Duration.millis(500),
+        COUNT, COLUMNS,
+        OFFSET_X, OFFSET_Y,
+        WIDTH, HEIGHT
       );
       this.animation.setCycleCount(4);
     }
