@@ -32,6 +32,7 @@ public class TrailTravelView extends Scene {
   private final int SCENE_WIDTH = 650;
   private BorderPane root;
   private OxenSprite ox;
+  private Text stats;
 
   /**
    * [TrailTravelView description]
@@ -56,6 +57,7 @@ public class TrailTravelView extends Scene {
     AnchorPane anchor = new AnchorPane(footer);
     anchor.setLeftAnchor(footer, 110.0);
 
+    // Create the pane containing the current stats
     BorderPane info = infoPane();
     root.setTop(travelGraphics());
     root.setCenter(info);
@@ -66,20 +68,33 @@ public class TrailTravelView extends Scene {
 
   private BorderPane infoPane() {
     BorderPane info = new BorderPane();
-    // TODO get partyStats from controller
+
+    // Create the sizeup box
+    HBox sizeUpBox = new HBox();
+    Text sizeUp = new Text("Press ENTER to size up the situation");
+    sizeUp.setId("text12");
+    sizeUp.setFill(Color.WHITE);
+    sizeUpBox.getChildren().add(sizeUp);
+    sizeUpBox.setStyle("-fx-background-color: black;");
+
+    // create the stats area
     HBox statsArea = new HBox();
-    // statsArea.setSpacing(0.5);
-    Text stats = new Text(
-      "Date: March 1, 1848\nWeather: cold\nHealth: good\nFood: "
-        + "0 Pounds\nNext landmark: 44 miles\nMiles Traveled: 0 miles"
-    );
-    stats.setId("text12");
+    this.stats = new Text(buildStatsString());
+    this.stats.setId("text12");
+
     stats.setFill((AZTrailView.controller.getHunted()) ?
-                                         (Color.WHITE) : (Color.BLACK));
+          (Color.WHITE) : (Color.BLACK));
     statsArea.getChildren().add(stats);
+
     statsArea.setStyle("-fx-background-color: " +
         ((AZTrailView.controller.getHunted()) ? "black" : "white") + ";");
 
+    statsArea.setMargin(stats, new Insets(0.5));
+
+    // add them to the scene
+    info.setAlignment(sizeUpBox, Pos.CENTER);
+    info.setTop(sizeUpBox);
+    info.setAlignment(statsArea, Pos.CENTER);
     info.setCenter(statsArea);
     info.setAlignment(statsArea, Pos.CENTER);
     statsArea.setMargin(stats, new Insets(10));
@@ -176,6 +191,7 @@ public class TrailTravelView extends Scene {
             movementBack.play();
             movementMid.play();
             movementFore.play();
+            updateStats();
             break;
 
           case ESCAPE:
@@ -213,6 +229,28 @@ public class TrailTravelView extends Scene {
         }
       }
     });
+  }
+
+  /**
+   * [buildStatsString description]
+   */
+  private String buildStatsString() {
+
+    String res = "Date: %s\nWeather: %s\nHealth: %s\nFood: %d Pounds\nNext landmark: %.0f miles\nMiles Traveled: %d miles";
+    String date = AZTrailView.controller.getDateStr();
+
+    int food = AZTrailView.controller.getFood();
+    double remaining = AZTrailView.controller.milesToLandmark();
+    int totalMiles = AZTrailView.controller.getTotalMiles();
+    return String.format(res, date, "cold", "good", food, remaining, totalMiles);
+  }
+
+  /**
+   * [updateStats description]
+   */
+  private void updateStats() {
+    AZTrailView.controller.advance();
+    this.stats.setText(buildStatsString());
   }
 
   private class OxenSprite {
