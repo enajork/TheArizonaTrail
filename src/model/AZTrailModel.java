@@ -9,6 +9,7 @@ public class AZTrailModel implements Serializable {
   private MapModel mapModel;
   private Party party;
   private Cart cart;
+  private int travelRate;
   private String[] topTen = {"Me", "You", "Your brother", "Your mother",
     "Your father", "Your sister", "Your dog", "Owen Wilson", "player1",
     "guest"};
@@ -20,6 +21,7 @@ public class AZTrailModel implements Serializable {
     this.mapModel = new MapModel();
     this.party = new Party();
     this.cart = new Cart();
+    this.travelRate = 6;
     // this.topTen;
   }
 
@@ -327,7 +329,7 @@ public class AZTrailModel implements Serializable {
   /**
   * [advanceCalendar description]
   * @return [description]
-  /
+  */
   public void advanceCalendar() {
     this.calendar.advance();
   }
@@ -471,5 +473,17 @@ public class AZTrailModel implements Serializable {
     result += "\nhunted=" + getHunted();
     result += "\nstarted=" + isGameStarted();
     return result;
+  }
+
+  public void advancePosition() {
+    mapModel.advancePosition(travelRate);
+  }
+
+  public int getTotalMiles() {
+    return mapModel.getTotalMiles();
+  }
+
+  public double milesToLandmark() {
+    return mapModel.milesToLandmark();
   }
 }
