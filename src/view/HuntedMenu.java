@@ -90,10 +90,10 @@ public class HuntedMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case BACK_SPACE:
+            AZTrailController.escape = false;
             if (fadeStart) {
               return;
             }
-            AZTrailController.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
@@ -102,6 +102,7 @@ public class HuntedMenu extends Scene {
             break;
 
           case ENTER:
+            AZTrailController.escape = false;
             if (fadeStart) {
               return;
             }
@@ -148,7 +149,6 @@ public class HuntedMenu extends Scene {
                 return;
               }
             }
-            AZTrailController.escape = false;
             input = "_";
             body.setText(prompt + " " + input);
             break;
@@ -172,11 +172,11 @@ public class HuntedMenu extends Scene {
             break;
 
           default:
+            AZTrailController.escape = false;
             if (fadeStart) {
               return;
             }
             updateInputText(event);
-            AZTrailController.escape = false;
             return;
         }
       }

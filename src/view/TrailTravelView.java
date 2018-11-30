@@ -189,13 +189,13 @@ public class TrailTravelView extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
-            ox.play();
             AZTrailController.escape = false;
+            ox.play();
             break;
 
             case ESCAPE:
               AZTrailView.escapePressed(false);
-            break;
+              break;
 
             case S:
               AZTrailController.escape = false;

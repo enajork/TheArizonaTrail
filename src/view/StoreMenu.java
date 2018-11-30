@@ -188,6 +188,7 @@ public class StoreMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            AZTrailController.escape = false;
             if (warn) {
               AZTrailView.stage.setScene(new StoreMenu());
             } else if (AZTrailView.controller.getOxen() == 0 && !warn) {
