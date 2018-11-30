@@ -31,7 +31,6 @@ public class TrailTravelView extends Scene {
   private ParallelTransition movementFore;
   private final int SCENE_WIDTH = 650;
   private BorderPane root;
-  // private GraphicsContext gc;
   private OxenSprite ox;
 
   /**
@@ -86,125 +85,100 @@ public class TrailTravelView extends Scene {
 
   private StackPane travelGraphics() {
     StackPane pane = new StackPane();
-    // final Canvas canvas = new Canvas(650, 150);
-    // this.gc = canvas.getGraphicsContext2D();
     TilePane scene = new TilePane(Orientation.VERTICAL);
-    // HBox scene = new HBox();
     scene.setPrefRows(3);
     scene.setAlignment(Pos.TOP_CENTER);
-    Rectangle2D back = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
-    ImageView mountain = new ImageView((AZTrailView.controller.getHunted()) ?
-                         new Image("file:view/assets/graphics/mountain-hunted.png", 1000, 50, false, true) :
-                         new Image("file:view/assets/graphics/mountain.png", 1000, 50, false, true));
-    mountain.setViewport(back);
-    scene.getChildren().add(mountain);
-    Rectangle2D mid = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
-    ImageView scenery = new ImageView((AZTrailView.controller.getHunted()) ?
-                        new Image("file:view/assets/graphics/scenery-hunted.png", 1000, 50, false, true) :
-                        new Image("file:view/assets/graphics/scenery.png", 1000, 50, false, true));
-    // scenery.setX(0);
-    // scenery.setY(50);
-    scenery.setViewport(mid);
-    scene.getChildren().add(scenery);
-    Rectangle2D fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
-    ImageView sand = new ImageView((AZTrailView.controller.getHunted()) ?
-                     new Image("file:view/assets/graphics/sand-hunted.png", 1000, 50, false, true) :
-                     new Image("file:view/assets/graphics/sand.png", 1000, 50, false, true));
-    sand.setViewport(fore);
-    scene.getChildren().add(sand);
 
+    ImageView mountains[] = {null, null};
+    TranslateTransition transBack[] = {null, null};
+    for (int i = 0; i < 2; ++i) {
+      Rectangle2D back = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
+      mountains[i] = new ImageView((AZTrailView.controller.getHunted()) ?
+                    new Image("file:view/assets/graphics/mountain-hunted.png", 1000, 50, false, true) :
+                    new Image("file:view/assets/graphics/mountain.png", 1000, 50, false, true));
+      mountains[i].setViewport(back);
+      transBack[i] = new TranslateTransition(Duration.millis(100000), mountains[i]);
+      transBack[i].setFromX(0);
+      transBack[i].setToX(-1 * SCENE_WIDTH);
+      transBack[i].setInterpolator(Interpolator.LINEAR);
+    }
+    movementBack = new ParallelTransition(transBack[0], transBack[1]);
+    movementBack.setCycleCount(Animation.INDEFINITE);
 
+    ImageView scenery[] = {null, null};
+    TranslateTransition transMid[] = {null, null};
+    for (int i = 0; i < 2; ++i) {
+      Rectangle2D mid = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
+      scenery[i] = new ImageView((AZTrailView.controller.getHunted()) ?
+                   new Image("file:view/assets/graphics/scenery-hunted.png", 1000, 50, false, true) :
+                   new Image("file:view/assets/graphics/scenery.png", 1000, 50, false, true));
+      scenery[i].setViewport(mid);
+      transMid[i] = new TranslateTransition(Duration.millis(50000), scenery[i]);
+      transMid[i].setFromX(0);
+      transMid[i].setToX(-1 * SCENE_WIDTH);
+      transMid[i].setInterpolator(Interpolator.LINEAR);
+    }
+    movementMid = new ParallelTransition(transMid[0], transMid[1]);
+    movementMid.setCycleCount(Animation.INDEFINITE);
 
-    Rectangle2D back2 = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
-    ImageView mountain2 = new ImageView((AZTrailView.controller.getHunted()) ?
-                         new Image("file:view/assets/graphics/mountain-hunted.png", 1000, 50, false, true) :
-                         new Image("file:view/assets/graphics/mountain.png", 1000, 50, false, true));
-    mountain2.setViewport(back2);
-    scene.getChildren().add(mountain2);
-    Rectangle2D mid2 = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
-    ImageView scenery2 = new ImageView((AZTrailView.controller.getHunted()) ?
-                        new Image("file:view/assets/graphics/scenery-hunted.png", 1000, 50, false, true) :
-                        new Image("file:view/assets/graphics/scenery.png", 1000, 50, false, true));
-    // scenery.setX(0);
-    // scenery.setY(50);
-    scenery2.setViewport(mid2);
-    scene.getChildren().add(scenery2);
-    Rectangle2D fore2 = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
-    ImageView sand2 = new ImageView((AZTrailView.controller.getHunted()) ?
-                     new Image("file:view/assets/graphics/sand-hunted.png", 1000, 50, false, true) :
-                     new Image("file:view/assets/graphics/sand.png", 1000, 50, false, true));
-    sand2.setViewport(fore2);
-    scene.getChildren().add(sand2);
-    // gc.getChildren.add();
+    ImageView sand[] = {null, null};
+    TranslateTransition transFore[] = {null, null};
+    for (int i = 0; i < 2; ++i) {
+      Rectangle2D fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
+      sand[i] = new ImageView((AZTrailView.controller.getHunted()) ?
+      new Image("file:view/assets/graphics/sand-hunted.png", 1000, 50, false, true) :
+      new Image("file:view/assets/graphics/sand.png", 1000, 50, false, true));
+      sand[i].setViewport(fore);
+      transFore[i] =
+          new TranslateTransition(Duration.millis(10000), sand[i]);
+      transFore[i].setFromX(0);
+      transFore[i].setToX(-1 * SCENE_WIDTH);
+      transFore[i].setInterpolator(Interpolator.LINEAR);
+    }
+    movementFore = new ParallelTransition(transFore[0], transFore[1]);
+    movementFore.setCycleCount(Animation.INDEFINITE);
+
+    scene.getChildren().addAll(mountains[0], scenery[0], sand[0], mountains[1], scenery[1], sand[1]);
 
     this.ox = new OxenSprite();
     this.ox.getSprite().setTranslateX(150);
     this.ox.getSprite().setTranslateY(20);
 
-    TranslateTransition transBack =
-        new TranslateTransition(Duration.millis(100000), mountain);
-    transBack.setFromX(0);
-    transBack.setToX(-1 * SCENE_WIDTH);
-    transBack.setInterpolator(Interpolator.LINEAR);
-
-    TranslateTransition transBackWrap =
-        new TranslateTransition(Duration.millis(100000), mountain2);
-    transBackWrap.setFromX(0);
-    transBackWrap.setToX(-1 * SCENE_WIDTH);
-    transBackWrap.setInterpolator(Interpolator.LINEAR);
-
-    movementBack = new ParallelTransition(transBack, transBackWrap);
-    movementBack.setCycleCount(Animation.INDEFINITE);
-
-    TranslateTransition transMid =
-        new TranslateTransition(Duration.millis(50000), scenery);
-    transMid.setFromX(0);
-    transMid.setToX(-1 * SCENE_WIDTH);
-    transMid.setInterpolator(Interpolator.LINEAR);
-
-    TranslateTransition transMidWrap =
-        new TranslateTransition(Duration.millis(50000), scenery2);
-    transMidWrap.setFromX(0);
-    transMidWrap.setToX(-1 * SCENE_WIDTH);
-    transMidWrap.setInterpolator(Interpolator.LINEAR);
-
-    movementMid = new ParallelTransition(transMid, transMidWrap);
-    movementMid.setCycleCount(Animation.INDEFINITE);
-
-    TranslateTransition transFore =
-        new TranslateTransition(Duration.millis(10000), sand);
-    transFore.setFromX(0);
-    transFore.setToX(-1 * SCENE_WIDTH);
-    transFore.setInterpolator(Interpolator.LINEAR);
-
-    TranslateTransition transForeWrap =
-        new TranslateTransition(Duration.millis(10000), sand2);
-    transForeWrap.setFromX(0);
-    transForeWrap.setToX(-1 * SCENE_WIDTH);
-    transForeWrap.setInterpolator(Interpolator.LINEAR);
-
-    movementFore = new ParallelTransition(transFore, transForeWrap);
-    movementFore.setCycleCount(Animation.INDEFINITE);
-
-    //
-    // Sets the label of the Button based on the animation state
-    //
-    movementBack.statusProperty().addListener((obs, old, val) -> {
-      if (val == Animation.Status.RUNNING) {
-        // btnControl.setText("||");
-      } else {
-        // btnControl.setText(">");
-      }
-    });
+    // // Sets the label of the Button based on the animation state
+    // //
+    // movementBack.statusProperty().addListener((obs, old, val) -> {
+    //   if (val == Animation.Status.RUNNING) {
+    //     // btnControl.setText("||");
+    //   } else {
+    //     // btnControl.setText(">");
+    //   }
+    // });
     this.movementBack.play();
     this.movementMid.play();
     this.movementFore.play();
 
-    // pane.getChildren().add(canvas);
     pane.getChildren().add(scene);
     pane.getChildren().add(this.ox.getSprite());
     return pane;
   }
+
+  //
+  // public void startAmination() {
+  //   movementBack.play();
+  // }
+  //
+  // public void pauseAnimation() {
+  //   movementBack.pause();
+  // }
+  // //
+  // // @FXML
+  // public void controlPressed() {
+  //   if (movementBack.getStatus() == Animation.Status.RUNNING) {
+  //     pauseAnimation();
+  //   } else {
+  //     startAmination();
+  //   }
+  // }
 
   /**
    * [addEventHandlers description]
@@ -274,38 +248,4 @@ public class TrailTravelView extends Scene {
       return this.imageView;
     }
   }
-
-
-
-
-
-  //
-  // @FXML
-  // public void initialize() {
-  //
-  // }
-  //
-  // // The remainder of the Controller are the actions registered to the Button.  Recall that startAnimation() is also called from the Stage's onShown event.
-  //
-  // public void startAmination() {
-  //   movementBack.play();
-  // }
-  //
-  // public void pauseAnimation() {
-  //   movementBack.pause();
-  // }
-  // //
-  // // @FXML
-  // public void controlPressed() {
-  //   if (movementBack.getStatus() == Animation.Status.RUNNING) {
-  //     pauseAnimation();
-  //   } else {
-  //     startAmination();
-  //   }
-  // }
-
-
-
-
-
 }
