@@ -204,7 +204,6 @@ public class StoreMenu extends Scene {
               AZTrailView.controller.addBlankets(5);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
-              AZTrailView.controller.setGameStarted(true);
               AZTrailView.sounds.cashOutSFX();
               AZTrailView.stage.setScene(new ClerkInfoMenu(
                 new Runnable() {

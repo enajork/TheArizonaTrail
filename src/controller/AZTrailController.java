@@ -65,7 +65,13 @@ public class AZTrailController {
     File save = new File(savePath);
     if (save.exists()) {
       save.delete();
+      System.out.println("save deleted");
     }
+    model = new AZTrailModel();
+    System.out.println(toString());
+  }
+
+  public void resetModel() {
     model = new AZTrailModel();
     System.out.println(toString());
   }

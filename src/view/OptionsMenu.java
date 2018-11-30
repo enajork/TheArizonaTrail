@@ -171,6 +171,7 @@ public class OptionsMenu extends Scene {
               public void run() {
                 AZTrailView.stage.setScene(new OptionsMenu());
                 AZTrailView.controller.deleteSave();
+                AZTrailView.controller.hasSave = false;
               }
             },
             new Runnable() {

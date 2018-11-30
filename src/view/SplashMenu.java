@@ -175,6 +175,7 @@ public class SplashMenu extends Scene {
             new Runnable() {
               @Override
               public void run() {
+                AZTrailView.controller.loadGame();
                 AZTrailView.stage.setScene(new CitySplash(AZTrailView.controller
                   .getCurrentCity()));
               }
@@ -182,6 +183,7 @@ public class SplashMenu extends Scene {
             new Runnable() {
               @Override
               public void run() {
+                AZTrailView.controller.resetModel();
                 AZTrailView.stage.setScene(new ProfMenu());
               }
             },

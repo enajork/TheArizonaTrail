@@ -469,6 +469,7 @@ public class AZTrailModel implements Serializable {
     result += "\ndate=" + getDateStr();
     result += "\ncity=" + getCurrentCity();
     result += "\nhunted=" + getHunted();
+    result += "\nstarted=" + isGameStarted();
     return result;
   }
 }
