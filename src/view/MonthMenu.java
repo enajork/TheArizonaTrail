@@ -211,7 +211,7 @@ public class MonthMenu extends Scene {
             + "clothing for both\nsummer and winter", "- plenty of food for the"
             + "\ntrip\n\n- ammunition for your\nrifles\n\n- spare parts for your"
             + "\nwagon", "- lots of blankets to\nstay warm\n\n- enough water for"
-            + " you\nand your oxen"}, true));
+            + " you\nand your oxen"}));
         }
       },
       new String[]{ "Before leaving " + AZTrailView.controller.getCurrentCity()

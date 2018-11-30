@@ -75,6 +75,7 @@ public class SplashMenu extends Scene {
     root.setAlignment(title, Pos.CENTER);
     root.setAlignment(accent1, Pos.CENTER);
     root.setAlignment(accent2, Pos.CENTER);
+    root.setMargin(accent2, new Insets(0, 0, 46, 0));
     root.setStyle("-fx-background-color: black;");
     root.setTop(title);
     root.setMargin(title, new Insets(5));
@@ -169,7 +170,29 @@ public class SplashMenu extends Scene {
     switch (choice) {
       case 1:
         // Travel the trail
-        return new ProfMenu();
+        if (AZTrailController.hasSave) {
+          return new GenericYesNoMenu(
+            new Runnable() {
+              @Override
+              public void run() {
+                AZTrailView.stage.setScene(new CitySplash(AZTrailView.controller
+                  .getCurrentCity()));
+              }
+            },
+            new Runnable() {
+              @Override
+              public void run() {
+                AZTrailView.stage.setScene(new ProfMenu());
+              }
+            },
+            "Would you like to continue\na saved game?",
+            "",
+            true,
+            true
+          );
+        } else {
+          return new ProfMenu();
+        }
         // return new ProfMenuView();
       case 2:
         // Learn about the trail
@@ -179,25 +202,41 @@ public class SplashMenu extends Scene {
             public void run() {
               AZTrailView.stage.setScene(new SplashMenu());
             }
-          }, 10, new String[]{
-          "Try taking a journey by covered wagon across\n200 miles of desert, "
-          + "mountains, and canyons.\nTry! In the desert, will you slosh your oxen"
-          + "\nthrough dirt and ruts or will you plod through\ndust six inches deep?",
-          "How will you cross the canyons?\nIf you have money, you might hire"
-          + "\na guide (if there is a guide) or\nyou can try and cross it yourself"
-          + "\nand hope you and your wagon aren't\nlost forever!",
-          "What about supplies? Well, if\nyou're low on food you can\nhunt. You might"
-          + " get an Elk...\nyou might. And there are bears\nin the mountains.",
-          "If for some reason you don't\nsurvive -- your wagon burns,\nor bandits "
-          + "steal your oxen, or\nyou run out of provisions, or\nyou die of "
-          + "dehydration -- don't\ngive up!  Try again... and again...\n"
-          + "until your name is up with the\nothers on The Arizona Top Ten.",
+          }, new String[]{
+          "Try taking a journey by\ncovered wagon across 200\nmiles of desert, "
+            + "canyons,\nand mountains.Try! In the\ndesert, will you slosh "
+            + "your\noxen through dirt and\ntreacherous ruts or will\n"
+            + "you plod through dust six\ninches deep?",
+
+          "How will you cross the\ncanyons? If you have\nmoney, you might hire "
+            + "\na guide (if there is a\nguide). Or, you can\ntry and cross it"
+            + "\nyourself and hope you\nand your wagon aren't\nlost forever!",
+
+          "What about supplies? Well, if\nyou're low on food you can\nhunt. You"
+            + "might get an Elk...\nyou might. And there are bears\nin the "
+            + "mountains.",
+
+          "If for some reason you don't\nsurvive -- your wagon burns,\nor "
+            + "bandits steal your oxen, or\nyou run out of provisions, or\nyou"
+            + " die of dehydration -- don't\ngive up!  Try again... and "
+            + "again...\nuntil your name is up with the\nothers on The Arizona "
+            + "Top Ten.",
+
           "You may turn the sound on or\noff during the program by\npressing "
-          + "Control-S.", "You may want to quit in the\nmiddle of the program. If so,"
-          + "\npress the Escape (Esc) key\ntwice whenever the computer\nis waiting"
-          + " for a response.", "The software team responsible for the\ncreation of "
-          + "this product includes:\n\nJordan Bridgewater\nJared Grady\nDavid Najork"
-          + "\nEric Najork"
+            + "Control-S.",
+
+          "You may want to quit in the\nmiddle of the program. If so,"
+            + "\npress the Escape (Esc) key\ntwice whenever the computer\nis "
+            + "waiting for a response.",
+
+          "In Hunted Mode, the premise is\nthe same but you were somehow\n"
+            + "sucked into an alternate reality.\nIn this universe, time "
+            + "travel is\npossible. And, an evil Owen Wilson\nfrom the future "
+            + "is hunting you\ndown. Evade his capture at all\ncosts!",
+
+          "The software team responsible for the\ncreation of "
+            + "this product includes:\n\n Jordan Bridgewater\n Jared Grady\n "
+            + "David Najork\n Eric Najork"
         }, true, true);
       case 3:
         // See the Arizona top 10

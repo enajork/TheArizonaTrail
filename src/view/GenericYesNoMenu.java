@@ -29,9 +29,11 @@ public class GenericYesNoMenu extends Scene {
   public static BorderPane root;
   public static BorderPane tile;
   public static String prompt;
+  public static String header;
+  public static Text top;
   public static Text body;
-  public static int size;
   private boolean accentsOn;
+  private boolean titleOn;
   private Runnable yesCall;
   private Runnable noCall;
   private String img;
@@ -39,48 +41,35 @@ public class GenericYesNoMenu extends Scene {
   /**
   * [GenericYesNoMenu description]
   */
-  public GenericYesNoMenu(Runnable yesCall, Runnable noCall, String prompt) {
-    this(new BorderPane(), yesCall, noCall, prompt, 12, "", false);
-  }
-
-  /**
-  * [GenericYesNoMenu description]
-  */
   public GenericYesNoMenu(Runnable yesCall, Runnable noCall, String prompt,
-      int size) {
-    this(new BorderPane(), yesCall, noCall, prompt, size, "", false);
+      String header) {
+    this(new BorderPane(), yesCall, noCall, prompt, header, "", false, false);
   }
 
   /**
    * [GenericYesNoMenu description]
    */
   public GenericYesNoMenu(Runnable yesCall, Runnable noCall, String prompt,
-      String img) {
-    this(new BorderPane(), yesCall, noCall, prompt, 12, img, false);
+      String img, String header) {
+    this(new BorderPane(), yesCall, noCall, prompt, header, img, false, false);
   }
 
   /**
    * [GenericYesNoMenu description]
    */
   public GenericYesNoMenu(Runnable yesCall, Runnable noCall, String prompt,
-      String img, boolean accentsOn) {
-    this(new BorderPane(), yesCall, noCall, prompt, 12, img, accentsOn);
+      String header, String img, boolean accentsOn) {
+    this(new BorderPane(), yesCall, noCall, prompt, header, img, accentsOn,
+      false);
   }
 
   /**
    * [GenericYesNoMenu description]
    */
   public GenericYesNoMenu(Runnable yesCall, Runnable noCall, String prompt,
-      int size, String img) {
-    this(new BorderPane(), yesCall, noCall, prompt, size, img, false);
-  }
-
-  /**
-   * [GenericYesNoMenu description]
-   */
-  public GenericYesNoMenu(Runnable yesCall, Runnable noCall, String prompt,
-      int size, String img, boolean accentsOn) {
-    this(new BorderPane(), yesCall, noCall, prompt, size, img, accentsOn);
+      String img, boolean accentsOn, boolean titleOn) {
+    this(new BorderPane(), yesCall, noCall, prompt, "", img, accentsOn,
+      titleOn);
   }
 
   /**
@@ -88,15 +77,17 @@ public class GenericYesNoMenu extends Scene {
    * @param root [description]
    */
   private GenericYesNoMenu(BorderPane root, Runnable yesCall, Runnable noCall,
-      String prompt, int size, String img, boolean accentsOn) {
+      String prompt, String header, String img, boolean accentsOn,
+      boolean titleOn) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
     this.yesCall = yesCall;
     this.noCall = noCall;
     this.accentsOn = accentsOn;
+    this.titleOn = titleOn;
+    this.header = header;
     this.prompt = prompt;
     this.root = root;
-    this.size = size;
     this.img = img;
 
     tile = new BorderPane();
@@ -105,7 +96,6 @@ public class GenericYesNoMenu extends Scene {
     tile.setMinWidth(600);
     tile.setStyle("-fx-background-color: black;");
 
-    // Create the title image;
     if (img.length() != 0) {
       decor = new ImageView(new Image("file:view/assests/graphics/"
         + img));
@@ -116,22 +106,46 @@ public class GenericYesNoMenu extends Scene {
       root.setMargin(decor, new Insets(5));
     }
 
+    BorderPane banner = new BorderPane();
+    top = new Text(header);
+    top.setId("text12");
+    top.setFill(Color.WHITE);
+
+    banner.setTop(top);
+    banner.setAlignment(top, Pos.CENTER);
+    banner.setMargin(top, new Insets(10));
+
+    // Create the title image;
+    if (titleOn) {
+      ImageView title = new ImageView(new Image("file:view/assets/graphics/"
+        + "aztrail_splashtext.png"));
+      banner.setAlignment(title, Pos.CENTER);
+      banner.setTop(title);
+      banner.setMargin(title, new Insets(5));
+    }
+
     if (accentsOn) {
       // Create the first accent
       ImageView accent1 = menuAccent();
-      root.setTop(accent1);
-      root.setAlignment(accent1, Pos.CENTER);
       // Create the second accent
+      banner.setBottom(accent1);
+      banner.setAlignment(accent1, Pos.CENTER);
+      if (!titleOn) {
+        banner.setMargin(accent1, new Insets(10, 0, 0, 0));
+      }
+
+
       ImageView accent2 = menuAccent();
       root.setBottom(accent2);
-      root.setMargin(accent2, new Insets(0, 0, 10, 0));
+      root.setMargin(accent2, new Insets(0, 0, 46, 0));
       root.setAlignment(accent2, Pos.CENTER);
     }
+    root.setTop(banner);
     body = new Text(prompt + " " + input);
-    setTextSize(size);
+    body.setId("text12");
     tile.setBottom(body);
     body.setFill(Color.WHITE);
-    tile.setAlignment(body, Pos.CENTER);
+    tile.setAlignment(body, Pos.CENTER_LEFT);
     tile.setMargin(body, new Insets(20));
 
     root.setCenter(tile);
@@ -175,10 +189,11 @@ public class GenericYesNoMenu extends Scene {
             String yes = "yes";
             String no = "no";
             for (int i = 0; i < input.length() - 1; i++) {
-              if (input.charAt(i) != yes.charAt(i)) {
+              if (input.toLowerCase().charAt(i) != yes.charAt(i)) {
                 yesTrue = false;
               }
-              if (i < no.length() && input.charAt(i) != no.charAt(i)) {
+              if (i < no.length() && input.toLowerCase().charAt(i)
+                  != no.charAt(i)) {
                 noTrue = false;
               }
               if (i > no.length()) {
@@ -186,12 +201,14 @@ public class GenericYesNoMenu extends Scene {
               }
             }
             if (noTrue) {
-              body.setText(prompt + " " + input);
               input = "_";
+              body.setText(prompt + " " + input);
               noCall.run();
               return;
             }
             if (yesTrue) {
+              input = "_";
+              body.setText(prompt + " " + input);
               yesCall.run();
               return;
             }
@@ -243,35 +260,4 @@ public class GenericYesNoMenu extends Scene {
       body.setText(prompt + " " + input);
     }
   }
-
-  private void setTextSize(int size) {
-    switch (size) {
-      case 8:
-        body.setId("text8");
-        break;
-      case 10:
-        body.setId("text10");
-        break;
-      case 12:
-        body.setId("text12");
-        break;
-      case 14:
-        body.setId("text14");
-        break;
-      case 16:
-        body.setId("text16");
-        break;
-      case 18:
-        body.setId("text18");
-        break;
-      case 20:
-        body.setId("text20");
-        break;
-      default:
-        body.setId("text12");
-        break;
-    }
-  }
-
-
 }

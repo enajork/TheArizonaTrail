@@ -47,14 +47,44 @@ public class AZTrailView extends Application {
     this.stage.setTitle("Arizona Trail");
     this.stage.setResizable(false);
     // stage.initStyle(StageStyle.UNDECORATED);
-    this.stage.setScene(new HuntedMenu());
+    this.stage.setScene(new SplashMenu());
     this.stage.show();
   }
 
   public static void escapePressed(boolean menu) {
     if (AZTrailController.escape) {
       if (!menu) {
-        stage.setScene(new SplashMenu());
+        stage.setScene(new GenericYesNoMenu(
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.stage.setScene(new GenericInfoMenu(
+                new Runnable() {
+                  @Override
+                  public void run() {
+                    AZTrailView.stage.setScene(new SplashMenu());
+                  }
+                },
+                new String[]{
+                  "Your game has been saved."
+                },
+                true,
+                46
+              ));
+              AZTrailView.controller.saveGame();
+            }
+          },
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.stage.setScene(new SplashMenu());
+            }
+          },
+          "Do you want to save your game?",
+          "Leaving the Arizona Trail",
+          "",
+          true
+        ));
         AZTrailView.sounds.stop();
       } else {
         stage.setScene(new SplashMenu());

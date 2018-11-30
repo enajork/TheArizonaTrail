@@ -144,10 +144,11 @@ public class PartyNamesMenu extends Scene {
               String yes = "yes";
               String no = "no";
               for (int i = 0; i < input.length() - 1; i++) {
-                if (input.charAt(i) != yes.charAt(i)) {
+                if (input.toLowerCase().charAt(i) != yes.charAt(i)) {
                   yesTrue = false;
                 }
-                if (i < no.length() && input.charAt(i) != no.charAt(i)) {
+                if (i < no.length() && input.toLowerCase().charAt(i)
+                    != no.charAt(i)) {
                   noTrue = false;
                 }
                 if (i > no.length()) {

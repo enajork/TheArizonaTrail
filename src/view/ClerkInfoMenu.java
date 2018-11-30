@@ -21,7 +21,6 @@ import java.io.*;
 import controller.*;
 
 public class ClerkInfoMenu extends Scene {
-  private boolean menu;
   private Runnable call;
   private BorderPane root;
   private int curPage = 0;
@@ -31,9 +30,8 @@ public class ClerkInfoMenu extends Scene {
   /**
    * [ClerkInfoMenu description]
    */
-  public ClerkInfoMenu(Runnable call, String header, String[] text,
-      boolean menu) {
-    this(new BorderPane(), call, header, text, menu);
+  public ClerkInfoMenu(Runnable call, String header, String[] text) {
+    this(new BorderPane(), call, header, text);
   }
 
   /**
@@ -41,13 +39,12 @@ public class ClerkInfoMenu extends Scene {
    * @param root [description]
    */
   private ClerkInfoMenu(BorderPane root, Runnable call, String header,
-      String[] text, boolean menu) {
+      String[] text) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
     this.call = call;
     this.root = root;
     this.text = text;
-    this.menu = menu;
 
     this.header = new Text(header);
     this.header.setFill(Color.WHITE);
@@ -134,7 +131,7 @@ public class ClerkInfoMenu extends Scene {
             break;
 
           case ESCAPE:
-            AZTrailView.escapePressed(menu);
+            AZTrailView.escapePressed(true);
             break;
 
           case S:
