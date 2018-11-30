@@ -287,22 +287,22 @@ public class TrailTravelView extends Scene {
   //
   // // The remainder of the Controller are the actions registered to the Button.  Recall that startAnimation() is also called from the Stage's onShown event.
   //
-  public void startAmination() {
-    movementBack.play();
-  }
-
-  public void pauseAnimation() {
-    movementBack.pause();
-  }
+  // public void startAmination() {
+  //   movementBack.play();
+  // }
   //
-  // @FXML
-  public void controlPressed() {
-    if (movementBack.getStatus() == Animation.Status.RUNNING) {
-      pauseAnimation();
-    } else {
-      startAmination();
-    }
-  }
+  // public void pauseAnimation() {
+  //   movementBack.pause();
+  // }
+  // //
+  // // @FXML
+  // public void controlPressed() {
+  //   if (movementBack.getStatus() == Animation.Status.RUNNING) {
+  //     pauseAnimation();
+  //   } else {
+  //     startAmination();
+  //   }
+  // }
 
 
 
