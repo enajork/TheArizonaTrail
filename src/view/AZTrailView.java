@@ -47,7 +47,7 @@ public class AZTrailView extends Application {
     this.stage.setTitle("Arizona Trail");
     this.stage.setResizable(false);
     // stage.initStyle(StageStyle.UNDECORATED);
-    this.stage.setScene(new SplashMenu());
+    this.stage.setScene(new TrailTravelView());
     this.stage.show();
   }
 

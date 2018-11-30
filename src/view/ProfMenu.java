@@ -92,6 +92,7 @@ public class ProfMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case BACK_SPACE:
+            AZTrailController.escape = false;
             if (input.length() >= 2) {
               input = input.substring(0, input.length() - 2);
               input += "_";
@@ -100,6 +101,7 @@ public class ProfMenu extends Scene {
             break;
 
           case ENTER:
+            AZTrailController.escape = false;
             if (input.length() == 2) {
               AZTrailView.stage.setScene(getNextView(Integer.parseInt(input
                 .substring(0, 1))));
@@ -118,6 +120,7 @@ public class ProfMenu extends Scene {
             break;
 
           default:
+            AZTrailController.escape = false;
             if (event.getText().length() > 0
                 && Character.isDigit(event.getText().charAt(0))) {
               updateInputText(Integer.parseInt(event.getText()));

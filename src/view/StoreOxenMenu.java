@@ -130,6 +130,7 @@ public class StoreOxenMenu extends Scene {
             break;
 
           case ENTER:
+            AZTrailController.escape = false;
             if (input.length() == 1) {
               return;
             }

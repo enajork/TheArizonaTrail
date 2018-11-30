@@ -184,6 +184,7 @@ public class GenericYesNoMenu extends Scene {
             break;
 
           case ENTER:
+            AZTrailController.escape = false;
             if (input.length() == 1) {
               return;
             }
@@ -215,7 +216,6 @@ public class GenericYesNoMenu extends Scene {
               yesCall.run();
               return;
             }
-            AZTrailController.escape = false;
             input = "_";
             body.setText(prompt + " " + input);
             break;
@@ -233,8 +233,8 @@ public class GenericYesNoMenu extends Scene {
             break;
 
           default:
-            updateInputText(event);
             AZTrailController.escape = false;
+            updateInputText(event);
             return;
         }
       }
