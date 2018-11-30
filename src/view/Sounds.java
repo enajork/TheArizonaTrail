@@ -18,11 +18,15 @@ public class Sounds {
   private static Media huntedMenu;
   private static Media huntedTheme;
   private static Media huntedCredits;
+  private static Media crickets;
+  private static Media moving;
 
   public Sounds() {
     huntedMenu = new Media(getClass().getResource("assets/sounds/music/hunted-menu.wav").toExternalForm());
     huntedTheme = new Media(getClass().getResource("assets/sounds/music/hunted-theme.wav").toExternalForm());
     huntedCredits = new Media(getClass().getResource("assets/sounds/music/hunted-special-credits.wav").toExternalForm());
+    crickets = new Media(getClass().getResource("assets/sounds/fx/crickets.wav").toExternalForm());
+    moving = new Media(getClass().getResource("assets/sounds/fx/wagon-moving.wav").toExternalForm());
 
     for (int i = 0; i < NUM_SONGS; i++) {
       String audioFile = "assets/sounds/music/" + (i + 1) + ".wav";
@@ -32,18 +36,12 @@ public class Sounds {
     music.put("themes", themes);
 
     sounds.put("hunted", new AudioClip(getClass().getResource("assets/sounds/fx/hunted-mode.wav").toExternalForm()));
-    sounds.put("crickets", new AudioClip(getClass().getResource("assets/sounds/fx/crickets.wav").toExternalForm()));
     sounds.put("musket", new AudioClip(getClass().getResource("assets/sounds/fx/musket-cleaned.wav").toExternalForm()));
     sounds.put("register", new AudioClip(getClass().getResource("assets/sounds/fx/cash-register.wav").toExternalForm()));
     sounds.put("oxen", new AudioClip(getClass().getResource("assets/sounds/fx/oxen.wav").toExternalForm()));
-    sounds.put("moving", new AudioClip(getClass().getResource("assets/sounds/fx/wagon-moving.wav").toExternalForm()));
     sounds.put("breakdown", new AudioClip(getClass().getResource("assets/sounds/fx/wagon-breakdown.wav").toExternalForm()));
-    sounds.put("sick1", new AudioClip(getClass().getResource("assets/sounds/fx/sick1.wav").toExternalForm()));
-    sounds.put("sick2", new AudioClip(getClass().getResource("assets/sounds/fx/sick2.wav").toExternalForm()));
-    sounds.put("fracture", new AudioClip(getClass().getResource("assets/sounds/fx/fracture.wav").toExternalForm()));
     sounds.put("sizzle", new AudioClip(getClass().getResource("assets/sounds/fx/sizzle.wav").toExternalForm()));
     sounds.put("hunt-bg", new AudioClip(getClass().getResource("assets/sounds/fx/hunting-background.wav").toExternalForm()));
-
     sounds.put("ow-xl", new AudioClip(getClass().getResource("assets/sounds/fx/ow-xl.wav").toExternalForm()));
     sounds.put("ow1", new AudioClip(getClass().getResource("assets/sounds/fx/ow1.wav").toExternalForm()));
     sounds.put("ow2", new AudioClip(getClass().getResource("assets/sounds/fx/ow2.wav").toExternalForm()));
@@ -94,6 +92,66 @@ public class Sounds {
   public static void cashOutSFX() {
     if (AZTrailController.sound) {
       sounds.get("register").play(MAX_EFFECT_VOLUME);
+    }
+  }
+
+  public static void cricketsSFX() {
+    player = new MediaPlayer(crickets);
+    player.setVolume(MAX_EFFECT_VOLUME);
+    if (!AZTrailController.sound) {
+      player.setVolume(0);
+    }
+    player.play();
+    player.setOnEndOfMedia(new Runnable() {
+      @Override
+      public void run() {
+        cricketsSFX();
+      }
+    });
+  }
+
+  public static void musketSFX() {
+    if (AZTrailController.sound) {
+      sounds.get("musket").play(MAX_EFFECT_VOLUME + 0.05);
+    }
+  }
+
+  public static void oxenSFX() {
+    if (AZTrailController.sound) {
+      sounds.get("register").play(MAX_EFFECT_VOLUME - 0.05);
+    }
+  }
+
+  public static void movingSFX() {
+    player = new MediaPlayer(moving);
+    player.setVolume(MAX_EFFECT_VOLUME - 0.1);
+    if (!AZTrailController.sound) {
+      player.setVolume(0);
+    }
+    player.play();
+    player.setOnEndOfMedia(new Runnable() {
+      @Override
+      public void run() {
+        movingSFX();
+      }
+    });
+  }
+
+  public static void breakdownSFX() {
+    if (AZTrailController.sound) {
+      sounds.get("breakdown").play(MAX_EFFECT_VOLUME);
+    }
+  }
+
+  public static void sizzleSFX() {
+    if (AZTrailController.sound) {
+      sounds.get("sizzle").play(MAX_EFFECT_VOLUME - 0.1);
+    }
+  }
+
+  public static void huntBackgroundSFX() {
+    if (AZTrailController.sound) {
+      sounds.get("hunt-bg").play(MAX_EFFECT_VOLUME - 0.08);
     }
   }
 

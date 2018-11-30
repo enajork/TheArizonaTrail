@@ -131,11 +131,15 @@ public class HuntedMenu extends Scene {
               if (!fadeStart) {
                 decor = new ImageView(new Image("file:view/assets/graphics/"
                   + "hunted-menu-inverted.png"));
-                tile.setStyle("-fx-background-color: white;");
+                tile.setStyle("-fx-background-color: transparent;");
                 root.setStyle("-fx-background-color: white;");
                 body.setFill(Color.BLACK);
                 decor.setPreserveRatio(true);
                 decor.setFitWidth(400);
+                stack.setAlignment(decor, Pos.CENTER);
+                stack.getChildren().add(decor);
+                tile.setTop(stack);
+                stack.setMargin(decor, new Insets(5));
                 fadeStart = true;
                 AZTrailView.sounds.stop();
                 AZTrailView.sounds.huntedModeSFX();
