@@ -142,13 +142,13 @@ public class TrailTravelView extends Scene {
     this.ox.getSprite().setTranslateY(20);
 
     TranslateTransition transBack =
-        new TranslateTransition(Duration.millis(10000), mountain);
+        new TranslateTransition(Duration.millis(100000), mountain);
     transBack.setFromX(0);
     transBack.setToX(-1 * SCENE_WIDTH);
     transBack.setInterpolator(Interpolator.LINEAR);
 
     TranslateTransition transBackWrap =
-        new TranslateTransition(Duration.millis(10000), mountain2);
+        new TranslateTransition(Duration.millis(100000), mountain2);
     transBackWrap.setFromX(0);
     transBackWrap.setToX(-1 * SCENE_WIDTH);
     transBackWrap.setInterpolator(Interpolator.LINEAR);
@@ -157,13 +157,13 @@ public class TrailTravelView extends Scene {
     movementBack.setCycleCount(Animation.INDEFINITE);
 
     TranslateTransition transMid =
-        new TranslateTransition(Duration.millis(10000), scenery);
+        new TranslateTransition(Duration.millis(50000), scenery);
     transMid.setFromX(0);
     transMid.setToX(-1 * SCENE_WIDTH);
     transMid.setInterpolator(Interpolator.LINEAR);
 
     TranslateTransition transMidWrap =
-        new TranslateTransition(Duration.millis(10000), scenery2);
+        new TranslateTransition(Duration.millis(50000), scenery2);
     transMidWrap.setFromX(0);
     transMidWrap.setToX(-1 * SCENE_WIDTH);
     transMidWrap.setInterpolator(Interpolator.LINEAR);
