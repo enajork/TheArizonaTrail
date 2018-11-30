@@ -1,6 +1,5 @@
 package view;
 
-import javafx.animation.Animation;
 import javafx.scene.control.Alert.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -10,6 +9,7 @@ import javafx.scene.image.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.beans.value.*;
+import javafx.animation.*;
 import javafx.geometry.*;
 import javafx.stage.*;
 import javafx.scene.*;
@@ -26,8 +26,11 @@ import javafx.util.Duration;
 import controller.*;
 
 public class TrailTravelView extends Scene {
+  private ParallelTransition movementBack;
+  private ParallelTransition movementMid;
+  private ParallelTransition movementFore;
+  private final int SCENE_WIDTH = 650;
   private BorderPane root;
-  private GraphicsContext gc;
   private OxenSprite ox;
 
   /**
@@ -52,7 +55,7 @@ public class TrailTravelView extends Scene {
 
     BorderPane info = infoPane();
     root.setStyle("-fx-background-color: black;");
-    root.setAlignment(cont, Pos.CENTER);
+    root.setAlignment(cont, Pos.BASELINE_CENTER);
 
     root.setTop(travelGraphics());
     root.setCenter(info);
@@ -65,10 +68,14 @@ public class TrailTravelView extends Scene {
     // TODO get partyStats from controller
     HBox statsArea = new HBox();
     // statsArea.setSpacing(0.5);
-    Text stats = new Text("Date: March 1, 1848\nWeather: cold\nHealth: good\nFood: 0 Pounds\nNext landmark: 44 miles\nMiles Traveled: 0 miles");
+    Text stats = new Text("Date: March 1, 1848\nWeather: cold\nHealth: good\nFood:" +
+                          " 0 Pounds\nNext landmark: 44 miles\nMiles Traveled: 0 miles");
     stats.setId("text12");
+    stats.setFill((AZTrailView.controller.getHunted()) ?
+                                         (Color.WHITE) : (Color.BLACK));
     statsArea.getChildren().add(stats);
-    statsArea.setStyle("-fx-background-color: white;");
+    statsArea.setStyle("-fx-background-color: " +
+        ((AZTrailView.controller.getHunted()) ? "black" : "white") + ";");
 
     statsArea.setMargin(stats, new Insets(0.5));
     info.setAlignment(statsArea, Pos.CENTER);
@@ -78,20 +85,100 @@ public class TrailTravelView extends Scene {
 
   private StackPane travelGraphics() {
     StackPane pane = new StackPane();
-    final Canvas canvas = new Canvas(650, 150);
-    this.gc = canvas.getGraphicsContext2D();
+    TilePane scene = new TilePane(Orientation.VERTICAL);
+    scene.setPrefRows(3);
+    scene.setAlignment(Pos.TOP_CENTER);
 
-    gc.drawImage(new Image("file:view/assets/graphics/mountain.png"), 0, 0, 1000, 50);
-    gc.drawImage(new Image("file:view/assets/graphics/sand.png"), 0, 100, 1000, 50);
+    ImageView mountains[] = {null, null};
+    TranslateTransition transBack[] = {null, null};
+    for (int i = 0; i < 2; ++i) {
+      Rectangle2D back = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
+      mountains[i] = new ImageView((AZTrailView.controller.getHunted()) ?
+                    new Image("file:view/assets/graphics/mountain-hunted.png", 1000, 50, false, true) :
+                    new Image("file:view/assets/graphics/mountain.png", 1000, 50, false, true));
+      mountains[i].setViewport(back);
+      transBack[i] = new TranslateTransition(Duration.millis(100000), mountains[i]);
+      transBack[i].setFromX(0);
+      transBack[i].setToX(-1 * SCENE_WIDTH);
+      transBack[i].setInterpolator(Interpolator.LINEAR);
+    }
+    movementBack = new ParallelTransition(transBack[0], transBack[1]);
+    movementBack.setCycleCount(Animation.INDEFINITE);
+
+    ImageView scenery[] = {null, null};
+    TranslateTransition transMid[] = {null, null};
+    for (int i = 0; i < 2; ++i) {
+      Rectangle2D mid = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
+      scenery[i] = new ImageView((AZTrailView.controller.getHunted()) ?
+                   new Image("file:view/assets/graphics/scenery-hunted.png", 1000, 50, false, true) :
+                   new Image("file:view/assets/graphics/scenery.png", 1000, 50, false, true));
+      scenery[i].setViewport(mid);
+      transMid[i] = new TranslateTransition(Duration.millis(50000), scenery[i]);
+      transMid[i].setFromX(0);
+      transMid[i].setToX(-1 * SCENE_WIDTH);
+      transMid[i].setInterpolator(Interpolator.LINEAR);
+    }
+    movementMid = new ParallelTransition(transMid[0], transMid[1]);
+    movementMid.setCycleCount(Animation.INDEFINITE);
+
+    ImageView sand[] = {null, null};
+    TranslateTransition transFore[] = {null, null};
+    for (int i = 0; i < 2; ++i) {
+      Rectangle2D fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
+      sand[i] = new ImageView((AZTrailView.controller.getHunted()) ?
+      new Image("file:view/assets/graphics/sand-hunted.png", 1000, 50, false, true) :
+      new Image("file:view/assets/graphics/sand.png", 1000, 50, false, true));
+      sand[i].setViewport(fore);
+      transFore[i] =
+          new TranslateTransition(Duration.millis(10000), sand[i]);
+      transFore[i].setFromX(0);
+      transFore[i].setToX(-1 * SCENE_WIDTH);
+      transFore[i].setInterpolator(Interpolator.LINEAR);
+    }
+    movementFore = new ParallelTransition(transFore[0], transFore[1]);
+    movementFore.setCycleCount(Animation.INDEFINITE);
+
+    scene.getChildren().addAll(mountains[0], scenery[0], sand[0], mountains[1], scenery[1], sand[1]);
 
     this.ox = new OxenSprite();
     this.ox.getSprite().setTranslateX(150);
     this.ox.getSprite().setTranslateY(20);
 
-    pane.getChildren().add(canvas);
+    // // Sets the label of the Button based on the animation state
+    // //
+    // movementBack.statusProperty().addListener((obs, old, val) -> {
+    //   if (val == Animation.Status.RUNNING) {
+    //     // btnControl.setText("||");
+    //   } else {
+    //     // btnControl.setText(">");
+    //   }
+    // });
+    this.movementBack.play();
+    this.movementMid.play();
+    this.movementFore.play();
+
+    pane.getChildren().add(scene);
     pane.getChildren().add(this.ox.getSprite());
     return pane;
   }
+
+  //
+  // public void startAmination() {
+  //   movementBack.play();
+  // }
+  //
+  // public void pauseAnimation() {
+  //   movementBack.pause();
+  // }
+  // //
+  // // @FXML
+  // public void controlPressed() {
+  //   if (movementBack.getStatus() == Animation.Status.RUNNING) {
+  //     pauseAnimation();
+  //   } else {
+  //     startAmination();
+  //   }
+  // }
 
   /**
    * [addEventHandlers description]
@@ -126,7 +213,9 @@ public class TrailTravelView extends Scene {
   }
 
   private class OxenSprite {
-    private final Image IMAGE = new Image("file:view/assets/graphics/oxenwalk.png",
+    private final Image IMAGE = new Image((AZTrailView.controller.getHunted()) ?
+                               "file:view/assets/graphics/oxenwalk-hunted.png" :
+                               "file:view/assets/graphics/oxenwalk.png",
       600, 600, true, false);
     private static final int COLUMNS  =   5;
     private static final int COUNT    =   5;
