@@ -129,6 +129,13 @@ public class HuntedMenu extends Scene {
             }
             if (yesTrue) {
               if (!fadeStart) {
+                decor = new ImageView(new Image("file:view/assets/graphics/"
+                  + "hunted-menu-inverted.png"));
+                tile.setStyle("-fx-background-color: white;");
+                root.setStyle("-fx-background-color: white;");
+                body.setFill(Color.BLACK);
+                decor.setPreserveRatio(true);
+                decor.setFitWidth(400);
                 fadeStart = true;
                 AZTrailView.sounds.stop();
                 AZTrailView.sounds.huntedModeSFX();
@@ -181,7 +188,8 @@ public class HuntedMenu extends Scene {
     trans.setOnFinished(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        AZTrailView.stage.setScene(new NogalesSplash());
+        AZTrailView.stage.setScene(new CitySplash(AZTrailView.controller
+          .getCurrentCity()));
       }
     });
     trans.play();

@@ -22,6 +22,7 @@ public class Party implements Serializable {
     for (int i = 0; i < SIZE; i++) {
       names.add("");
     }
+    this.prof = Profession.BANKER;
     this.inv = new Inventory();
   }
 
