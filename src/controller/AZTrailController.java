@@ -17,7 +17,6 @@ public class AZTrailController {
    */
   public AZTrailController() {
     this.model = new AZTrailModel();
-    System.out.println(toString());
     // this.rand = new Random(System.currentTimeMillis());
   }
 

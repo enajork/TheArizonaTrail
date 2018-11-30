@@ -48,18 +48,19 @@ public class TrailTravelView extends Scene {
   private TrailTravelView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
     this.root = root;
+    root.setStyle("-fx-background-color: black;");
 
-    Text cont = new Text("Press SPACEBAR to continue...\n");
-    cont.setId("text12");
-    cont.setFill(Color.WHITE);
+    Text footer = new Text("Press SPACEBAR to continue...\n");
+    footer.setId("text12");
+    footer.setFill(Color.WHITE);
+    AnchorPane anchor = new AnchorPane(footer);
+    anchor.setLeftAnchor(footer, 110.0);
 
     BorderPane info = infoPane();
-    root.setStyle("-fx-background-color: black;");
-    root.setAlignment(cont, Pos.BASELINE_CENTER);
-
     root.setTop(travelGraphics());
     root.setCenter(info);
-    root.setBottom(cont);
+    root.setBottom(anchor);
+    root.setAlignment(anchor, Pos.CENTER);
     addEventHandlers();
   }
 
@@ -68,8 +69,10 @@ public class TrailTravelView extends Scene {
     // TODO get partyStats from controller
     HBox statsArea = new HBox();
     // statsArea.setSpacing(0.5);
-    Text stats = new Text("Date: March 1, 1848\nWeather: cold\nHealth: good\nFood:" +
-                          " 0 Pounds\nNext landmark: 44 miles\nMiles Traveled: 0 miles");
+    Text stats = new Text(
+      "Date: March 1, 1848\nWeather: cold\nHealth: good\nFood: "
+        + "0 Pounds\nNext landmark: 44 miles\nMiles Traveled: 0 miles"
+    );
     stats.setId("text12");
     stats.setFill((AZTrailView.controller.getHunted()) ?
                                          (Color.WHITE) : (Color.BLACK));
@@ -77,9 +80,9 @@ public class TrailTravelView extends Scene {
     statsArea.setStyle("-fx-background-color: " +
         ((AZTrailView.controller.getHunted()) ? "black" : "white") + ";");
 
-    statsArea.setMargin(stats, new Insets(0.5));
-    info.setAlignment(statsArea, Pos.CENTER);
     info.setCenter(statsArea);
+    info.setAlignment(statsArea, Pos.CENTER);
+    statsArea.setMargin(stats, new Insets(10));
     return info;
   }
 
@@ -110,8 +113,10 @@ public class TrailTravelView extends Scene {
     for (int i = 0; i < 2; ++i) {
       Rectangle2D mid = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
       scenery[i] = new ImageView((AZTrailView.controller.getHunted()) ?
-                   new Image("file:view/assets/graphics/scenery-hunted.png", 1000, 50, false, true) :
-                   new Image("file:view/assets/graphics/scenery.png", 1000, 50, false, true));
+                   new Image("file:view/assets/graphics/scenery-hunted.png",
+                    1000, 50, false, true) :
+                   new Image("file:view/assets/graphics/scenery.png", 1000, 50,
+                    false, true));
       scenery[i].setViewport(mid);
       transMid[i] = new TranslateTransition(Duration.millis(50000), scenery[i]);
       transMid[i].setFromX(0);
@@ -126,7 +131,8 @@ public class TrailTravelView extends Scene {
     for (int i = 0; i < 2; ++i) {
       Rectangle2D fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
       sand[i] = new ImageView((AZTrailView.controller.getHunted()) ?
-      new Image("file:view/assets/graphics/sand-hunted.png", 1000, 50, false, true) :
+      new Image("file:view/assets/graphics/sand-hunted.png", 1000, 50, false,
+        true) :
       new Image("file:view/assets/graphics/sand.png", 1000, 50, false, true));
       sand[i].setViewport(fore);
       transFore[i] =
@@ -138,7 +144,8 @@ public class TrailTravelView extends Scene {
     movementFore = new ParallelTransition(transFore[0], transFore[1]);
     movementFore.setCycleCount(Animation.INDEFINITE);
 
-    scene.getChildren().addAll(mountains[0], scenery[0], sand[0], mountains[1], scenery[1], sand[1]);
+    scene.getChildren().addAll(mountains[0], scenery[0], sand[0], mountains[1],
+      scenery[1], sand[1]);
 
     this.ox = new OxenSprite();
     this.ox.getSprite().setTranslateX(150);
@@ -228,7 +235,8 @@ public class TrailTravelView extends Scene {
 
     public OxenSprite() {
       this.imageView = new ImageView(IMAGE);
-      this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
+      this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH,
+        HEIGHT));
 
       this.animation = new SpriteAnimation(
               this.imageView,
