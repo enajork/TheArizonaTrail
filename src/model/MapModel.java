@@ -10,7 +10,8 @@ public class MapModel implements Serializable {
   private int milesFromLastCity;
   private int totalMiles;
   private Map<String, Integer> milesToCityMap;
-  private String[] citiesInOrder = {"Nogales", "Tombstone", "Tucson","Phoenix", "Sedona", "Flagstaff", "Page"};
+  private String[] citiesInOrder = {"Nogales", "Tombstone", "Tucson","Phoenix",
+    "Sedona", "Flagstaff", "Page"};
 
   public MapModel() {
     currentCity = "Nogales";

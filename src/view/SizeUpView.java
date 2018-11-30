@@ -24,16 +24,16 @@ import controller.*;
 public class SizeUpView extends Scene {
   private final int NUM_OPTS = 9;
   private Text body;
-  private String contents = "You may:\n\n\t\t"
-    + "1. Continue on the trail\n\t\t"
-    + "2. Check Supplies\n\t\t"
-    + "3. Look at map\n\t\t"
-    + "4. Change pace\n\t\t"
-    + "5. Change food rations\n\t\t"
-    + "6. Stop to rest\n\t\t"
-    + "7. Attempt to trade\n\t\t"
-    + "8. Talk to people\n\t\t"
-    + "9. Buy supplies\n\n"
+  private String contents = "You may:\n\n"
+    + "  1. Continue on the trail\n"
+    + "  2. Check Supplies\n"
+    + "  3. Look at map\n"
+    + "  4. Change pace\n"
+    + "  5. Change food rations\n"
+    + "  6. Stop to rest\n"
+    + "  7. Attempt to trade\n"
+    + "  8. Talk to people\n"
+    + "  9. Buy supplies\n\n"
     + "What is your choice? ";
 
   private String input = "_";
@@ -69,16 +69,21 @@ public class SizeUpView extends Scene {
     stats.setId("text12");
     partyStats.setStyle("-fx-background-color: white;");
     partyStats.getChildren().add(stats);
+    partyStats.setMargin(stats, new Insets(10, 10, 10, 10));
 
     BorderPane tile = new BorderPane();
     tile.setTop(partyStats);
     tile.setCenter(body);
     tile.setAlignment(body, Pos.CENTER_LEFT);
+    tile.setMargin(body, new Insets(20));
 
     root.setStyle("-fx-background-color: black;");
     root.setAlignment(locDate, Pos.CENTER);
     root.setTop(locDate);
+    root.setMargin(locDate, new Insets(10, 0, 0, 0));
     root.setCenter(tile);
+    root.setAlignment(locDate, Pos.CENTER);
+    root.setMargin(tile, new Insets(20));
 
     addEventHandlers();
   }
