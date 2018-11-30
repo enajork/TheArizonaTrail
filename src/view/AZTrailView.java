@@ -62,7 +62,7 @@ public class AZTrailView extends Application {
                 new Runnable() {
                   @Override
                   public void run() {
-                    AZTrailView.stage.setScene(new SplashMenu());
+                    AZTrailView.stage.setScene(new HuntedMenu());
                   }
                 },
                 new String[]{

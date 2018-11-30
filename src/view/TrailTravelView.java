@@ -158,7 +158,11 @@ public class TrailTravelView extends Scene {
     this.movementFore.play();
 
     pane.getChildren().add(scene);
-    pane.getChildren().add(this.ox.getSprite());
+    ImageView sprite = this.ox.getSprite();
+    AnchorPane wagonAnchor = new AnchorPane(sprite);
+    pane.getChildren().add(wagonAnchor);
+    wagonAnchor.setLeftAnchor(sprite, 350.0);
+    wagonAnchor.setTopAnchor(sprite, 250.0);
     return pane;
   }
 
