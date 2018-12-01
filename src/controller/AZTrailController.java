@@ -85,7 +85,7 @@ public class AZTrailController {
     }
   }
 
-  public void resetModel() {
+  public void resetGame() {
     model = new AZTrailModel();
     if (SAVE_DEBUG) {
       System.out.println(toString());
@@ -507,5 +507,9 @@ public class AZTrailController {
 
   public double milesToLandmark() {
     return model.milesToLandmark();
+  }
+
+  public String getWeather() {
+    return model.getWeather();
   }
 }

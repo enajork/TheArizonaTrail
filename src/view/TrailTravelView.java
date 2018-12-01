@@ -26,6 +26,7 @@ import javafx.util.Duration;
 import controller.*;
 
 public class TrailTravelView extends Scene {
+  private boolean moving;
   private ParallelTransition movementBack;
   private ParallelTransition movementMid;
   private ParallelTransition movementFore;
@@ -40,6 +41,11 @@ public class TrailTravelView extends Scene {
   public TrailTravelView() {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
+    if (AZTrailView.controller.getHunted()) {
+      AZTrailView.sounds.nighttimeSFX();
+    } else {
+      AZTrailView.sounds.daytimeSFX();
+    }
   }
 
   /**
@@ -183,8 +189,10 @@ public class TrailTravelView extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            moving = true;
             AZTrailController.escape = false;
             ox.play();
+            AZTrailView.sounds.movingSFX();
             movementBack.setRate(-1.0);
             movementMid.setRate(-1.0);
             movementFore.setRate(-1.0);
@@ -196,6 +204,12 @@ public class TrailTravelView extends Scene {
 
           case ESCAPE:
             AZTrailView.escapePressed(true);
+            moving = false;
+            ox.pause();
+            AZTrailView.sounds.stopMovingSFX();
+            movementBack.pause();
+            movementMid.pause();
+            movementFore.pause();
             break;
 
           case S:
@@ -203,14 +217,32 @@ public class TrailTravelView extends Scene {
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
+            moving = false;
+            ox.pause();
+            AZTrailView.sounds.stopMovingSFX();
+            movementBack.pause();
+            movementMid.pause();
+            movementFore.pause();
             break;
 
           case ENTER:
+            moving = false;
             AZTrailController.escape = false;
+            ox.pause();
+            AZTrailView.sounds.stopMovingSFX();
+            movementBack.pause();
+            movementMid.pause();
+            movementFore.pause();
+            AZTrailView.stage.setScene(new SizeUpView());
             break;
-
           default:
+            moving = false;
             AZTrailController.escape = false;
+            ox.pause();
+            AZTrailView.sounds.stopMovingSFX();
+            movementBack.pause();
+            movementMid.pause();
+            movementFore.pause();
             break;
         }
       }
@@ -220,8 +252,10 @@ public class TrailTravelView extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            moving = false;
             AZTrailController.escape = false;
             ox.pause();
+            AZTrailView.sounds.stopMovingSFX();
             movementBack.pause();
             movementMid.pause();
             movementFore.pause();
@@ -236,13 +270,14 @@ public class TrailTravelView extends Scene {
    */
   private String buildStatsString() {
 
-    String res = "Date: %s\nWeather: %s\nHealth: %s\nFood: %d Pounds\nNext landmark: %.0f miles\nMiles Traveled: %d miles";
+    String res = "Date: %s\nWeather: %s\nHealth: %s\nWater: %d Gallons\nNext landmark: %.0f miles\nMiles Traveled: %d miles";
     String date = AZTrailView.controller.getDateStr();
-
-    int food = AZTrailView.controller.getFood();
+    String weather = AZTrailView.controller.getWeather();
+    // String health = AZTrailView.controller.getHealth();
+    int water = AZTrailView.controller.getWater();
     double remaining = AZTrailView.controller.milesToLandmark();
     int totalMiles = AZTrailView.controller.getTotalMiles();
-    return String.format(res, date, "cold", "good", food, remaining, totalMiles);
+    return String.format(res, date, weather, "good", water, remaining, totalMiles);
   }
 
   /**
