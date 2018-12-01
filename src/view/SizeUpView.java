@@ -22,18 +22,19 @@ import java.io.*;
 import controller.*;
 
 public class SizeUpView extends Scene {
-  private final int NUM_OPTS = 9;
+  private final int MIN_INPUT = 1;
+  private final int MAX_INPUT = 9;
   private Text body;
-  private String contents = "You may:\n\n\t\t"
-    + "1. Continue on the trail\n\t\t"
-    + "2. Check Supplies\n\t\t"
-    + "3. Look at map\n\t\t"
-    + "4. Change pace\n\t\t"
-    + "5. Change food rations\n\t\t"
-    + "6. Stop to rest\n\t\t"
-    + "7. Attempt to trade\n\t\t"
-    + "8. Talk to people\n\t\t"
-    + "9. Buy supplies\n\n"
+  private String contents = "You may:\n\n"
+    + "  1. Continue on the trail\n"
+    + "  2. Check Supplies\n"
+    + "  3. Look at map\n"
+    + "  4. Change pace\n"
+    + "  5. Change food rations\n"
+    + "  6. Stop to rest\n"
+    + "  7. Attempt to trade\n"
+    + "  8. Talk to people\n"
+    + "  9. Buy supplies\n\n"
     + "What is your choice? ";
 
   private String input = "_";
@@ -44,6 +45,7 @@ public class SizeUpView extends Scene {
   public SizeUpView() {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
+    AZTrailView.sounds.startThemeLoop();
   }
 
   /**
@@ -69,16 +71,21 @@ public class SizeUpView extends Scene {
     stats.setId("text12");
     partyStats.setStyle("-fx-background-color: white;");
     partyStats.getChildren().add(stats);
+    partyStats.setMargin(stats, new Insets(10, 10, 10, 10));
 
     BorderPane tile = new BorderPane();
     tile.setTop(partyStats);
     tile.setCenter(body);
     tile.setAlignment(body, Pos.CENTER_LEFT);
+    tile.setMargin(body, new Insets(20));
 
     root.setStyle("-fx-background-color: black;");
     root.setAlignment(locDate, Pos.CENTER);
     root.setTop(locDate);
+    root.setMargin(locDate, new Insets(10, 0, 0, 0));
     root.setCenter(tile);
+    root.setAlignment(locDate, Pos.CENTER);
+    root.setMargin(tile, new Insets(20));
 
     addEventHandlers();
   }
@@ -109,7 +116,7 @@ public class SizeUpView extends Scene {
             break;
 
           case ESCAPE:
-            AZTrailView.escapePressed(false);
+            AZTrailView.escapePressed(true);
             break;
 
           case S:
@@ -135,7 +142,7 @@ public class SizeUpView extends Scene {
    * @param num [description]
    */
    private void updateInputText(int num) {
-    if (input.length() == 1) {
+    if (input.length() == 1 && (num >= MIN_INPUT && num <= MAX_INPUT)) {
       input = input.substring(0, input.length() - 1);
       input += num + "_";
       body.setText(contents + input);
@@ -148,13 +155,30 @@ public class SizeUpView extends Scene {
    * @return        [description]
    */
   private Scene getNextView(int choice) {
-    if (choice < 1 || choice > NUM_OPTS) {
+    if (choice < MIN_INPUT || choice > MAX_INPUT) {
       throw new IllegalStateException();
     }
     switch (choice) {
       case 1:
         // Travel the trail
         return new TrailTravelView();
+      case 2:
+        return new CheckSuppliesView();
+      case 3:
+        return new SizeUpView();
+      case 4:
+        return new SizeUpView();
+      case 5:
+        return new SizeUpView();
+      case 6:
+        return new SizeUpView();
+      case 7:
+        return new SizeUpView();
+      case 8:
+        return new SizeUpView();
+      case 9:
+        return new SizeUpView();
+
     }
     // return;
     return null;

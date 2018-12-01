@@ -8,8 +8,10 @@ public class MapModel implements Serializable {
   private String currentCity;
   private String nextCity;
   private int milesFromLastCity;
+  private int totalMiles;
   private Map<String, Integer> milesToCityMap;
-  private String[] citiesInOrder = {"Nogales", "Tombstone", "Tucson","Phoenix", "Sedona", "Flagstaff", "Page"};
+  private String[] citiesInOrder = {"Nogales", "Tombstone", "Tucson","Phoenix",
+    "Sedona", "Flagstaff", "Page"};
 
   public MapModel() {
     currentCity = "Nogales";
@@ -22,6 +24,7 @@ public class MapModel implements Serializable {
 
   public void advancePosition(int distanceTraveled) {
     if (!atDestination) {
+      this.totalMiles += distanceTraveled;
       int totalTraveled = milesFromLastCity + distanceTraveled;
       if (totalTraveled < milesToCityMap.get(nextCity)) {
         milesFromLastCity = totalTraveled;
@@ -58,12 +61,23 @@ public class MapModel implements Serializable {
     return (double) milesFromLastCity / (double) milesToCityMap.get(nextCity);
   }
 
+  public int milesToLandmark() {
+    if (atDestination) {
+      return 0;
+    }
+    return milesToCityMap.get(nextCity) - milesFromLastCity;
+  }
+
   public int getMilesFromLastCity() {
     return milesFromLastCity;
   }
 
   public String getCurrentCity() {
     return currentCity;
+  }
+
+  public int getTotalMiles() {
+    return this.totalMiles;
   }
 
   private void createMilesToCityMap() {

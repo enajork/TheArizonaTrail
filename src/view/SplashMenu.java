@@ -183,7 +183,7 @@ public class SplashMenu extends Scene {
             new Runnable() {
               @Override
               public void run() {
-                AZTrailView.controller.resetModel();
+                AZTrailView.controller.resetGame();
                 AZTrailView.stage.setScene(new ProfMenu());
               }
             },

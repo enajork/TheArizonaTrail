@@ -214,7 +214,7 @@ public class PartyNamesMenu extends Scene {
             break;
 
           case ESCAPE:
-            AZTrailView.escapePressed(true);
+            AZTrailView.escapePressed(false);
             break;
 
           case S:

@@ -131,7 +131,7 @@ public class ClerkInfoMenu extends Scene {
             break;
 
           case ESCAPE:
-            AZTrailView.escapePressed(true);
+            AZTrailView.escapePressed(false);
             break;
 
           case S:

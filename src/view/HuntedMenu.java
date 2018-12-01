@@ -103,7 +103,7 @@ public class HuntedMenu extends Scene {
 
           case ENTER:
             AZTrailController.escape = false;
-            if (fadeStart) {
+            if (input.length() == 1 || fadeStart) {
               return;
             }
             boolean yesTrue = true;
@@ -157,7 +157,7 @@ public class HuntedMenu extends Scene {
             if (fadeStart) {
               return;
             }
-            AZTrailView.escapePressed(true);
+            AZTrailView.escapePressed(false);
             break;
 
           case S:

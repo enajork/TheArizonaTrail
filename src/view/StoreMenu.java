@@ -61,6 +61,7 @@ public class StoreMenu extends Scene {
    */
   private StoreMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    System.out.println(AZTrailView.controller.toString());
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane receiptBody = new BorderPane();
@@ -256,7 +257,7 @@ public class StoreMenu extends Scene {
             break;
 
           case ESCAPE:
-            AZTrailView.escapePressed(true);
+            AZTrailView.escapePressed(false);
             break;
 
           case S:
