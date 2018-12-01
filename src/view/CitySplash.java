@@ -95,7 +95,7 @@ public class CitySplash extends Scene {
             break;
 
           case ESCAPE:
-            AZTrailView.escapePressed(false);
+            AZTrailView.escapePressed(true);
             break;
           case S:
             AZTrailController.escape = false;

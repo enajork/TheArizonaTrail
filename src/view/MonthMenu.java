@@ -116,7 +116,7 @@ public class MonthMenu extends Scene {
             break;
 
           case ESCAPE:
-            AZTrailView.escapePressed(true);
+            AZTrailView.escapePressed(false);
             break;
 
           case S:

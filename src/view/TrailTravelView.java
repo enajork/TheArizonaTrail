@@ -40,6 +40,12 @@ public class TrailTravelView extends Scene {
   public TrailTravelView() {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
+    if (AZTrailView.controller.getHunted()) {
+      // AZTrailView.sounds.cricketsSFX();
+      AZTrailView.sounds.huntBackgroundSFX();
+    } else {
+      AZTrailView.sounds.birdsSFX();
+    }
   }
 
   /**
@@ -185,6 +191,7 @@ public class TrailTravelView extends Scene {
           case SPACE:
             AZTrailController.escape = false;
             ox.play();
+            AZTrailView.sounds.movingSFX();
             movementBack.setRate(-1.0);
             movementMid.setRate(-1.0);
             movementFore.setRate(-1.0);
@@ -195,7 +202,7 @@ public class TrailTravelView extends Scene {
             break;
 
           case ESCAPE:
-            AZTrailView.escapePressed(false);
+            AZTrailView.escapePressed(true);
             break;
 
           case S:
@@ -222,6 +229,7 @@ public class TrailTravelView extends Scene {
           case SPACE:
             AZTrailController.escape = false;
             ox.pause();
+            AZTrailView.sounds.stopMovingSFX();
             movementBack.pause();
             movementMid.pause();
             movementFore.pause();
