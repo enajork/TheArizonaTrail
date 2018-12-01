@@ -44,6 +44,7 @@ public class SizeUpView extends Scene {
   public SizeUpView() {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
+    AZTrailView.sounds.startThemeLoop();
   }
 
   /**

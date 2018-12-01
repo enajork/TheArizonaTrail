@@ -10,6 +10,7 @@ public class Sounds {
   private static final ObservableList<Media> themes = FXCollections.observableArrayList();
   private static final HashMap<String, ObservableList<Media>> music = new HashMap<String, ObservableList<Media>>();
   private static final HashMap<String, AudioClip> sounds = new HashMap<String, AudioClip>();
+  private static boolean isPlayingTheme;
   private static boolean isPlayingBackgroundSFX;
   private static final double MAX_EFFECT_VOLUME = 0.4;
   private static final double MAX_MUSIC_VOLUME = 0.2;
@@ -62,111 +63,132 @@ public class Sounds {
   }
 
   public static void startThemeLoop() {
-    ObservableList<Media> themes = music.get("themes");
-    Media theme = themes.remove(0);
-    musicPlayer = new MediaPlayer(theme);
-    musicPlayer.play();
-    musicPlayer.setVolume(MAX_MUSIC_VOLUME);
-    if (!AZTrailController.sound) {
-      musicPlayer.setVolume(0);
-    }
-    themes.add(theme);
-    musicPlayer.setOnEndOfMedia(new Runnable() {
-      @Override
-      public void run() {
-        startThemeLoop();
+    if (!isPlayingTheme) {
+      isPlayingTheme = true;
+      ObservableList<Media> themes = music.get("themes");
+      Media theme = themes.remove(0);
+      musicPlayer = new MediaPlayer(theme);
+      musicPlayer.play();
+      musicPlayer.setVolume(MAX_MUSIC_VOLUME);
+      if (!AZTrailController.sound) {
+        musicPlayer.setVolume(0);
       }
-    });
+      themes.add(theme);
+      musicPlayer.setOnEndOfMedia(new Runnable() {
+        @Override
+        public void run() {
+          startThemeLoop();
+        }
+      });
+    }
   }
 
   public static void huntedMenuTheme() {
-    musicPlayer = new MediaPlayer(huntedMenu);
-    musicPlayer.setVolume(MAX_MUSIC_VOLUME);
-    if (!AZTrailController.sound) {
-      musicPlayer.setVolume(0);
-    }
-    musicPlayer.play();
-    musicPlayer.setOnEndOfMedia(new Runnable() {
-      @Override
-      public void run() {
-        huntedMenuTheme();
+    if (!isPlayingTheme) {
+      isPlayingTheme = true;
+      musicPlayer = new MediaPlayer(huntedMenu);
+      musicPlayer.setVolume(MAX_MUSIC_VOLUME);
+      if (!AZTrailController.sound) {
+        musicPlayer.setVolume(0);
       }
-    });
+      musicPlayer.play();
+      musicPlayer.setOnEndOfMedia(new Runnable() {
+        @Override
+        public void run() {
+          huntedMenuTheme();
+        }
+      });
+    }
   }
 
   public static void huntedInitialTheme() {
-    musicPlayer = new MediaPlayer(huntedTheme);
-    musicPlayer.setVolume(MAX_MUSIC_VOLUME);
-    if (!AZTrailController.sound) {
-      musicPlayer.setVolume(0);
-    }
-    musicPlayer.play();
-    musicPlayer.setOnEndOfMedia(new Runnable() {
-      @Override
-      public void run() {
-        huntedInitialTheme();
+    if (!isPlayingTheme) {
+      isPlayingTheme = true;
+      musicPlayer = new MediaPlayer(huntedTheme);
+      musicPlayer.setVolume(MAX_MUSIC_VOLUME);
+      if (!AZTrailController.sound) {
+        musicPlayer.setVolume(0);
       }
-    });
+      musicPlayer.play();
+      musicPlayer.setOnEndOfMedia(new Runnable() {
+        @Override
+        public void run() {
+          huntedInitialTheme();
+        }
+      });
+    }
   }
 
   public static void huntedFinalTheme() {
-    musicPlayer = new MediaPlayer(huntedFinal);
-    musicPlayer.setVolume(MAX_MUSIC_VOLUME);
-    if (!AZTrailController.sound) {
-      musicPlayer.setVolume(0);
-    }
-    musicPlayer.play();
-    musicPlayer.setOnEndOfMedia(new Runnable() {
-      @Override
-      public void run() {
-        huntedFinalTheme();
+    if (!isPlayingTheme) {
+      isPlayingTheme = true;
+      musicPlayer = new MediaPlayer(huntedFinal);
+      musicPlayer.setVolume(MAX_MUSIC_VOLUME);
+      if (!AZTrailController.sound) {
+        musicPlayer.setVolume(0);
       }
-    });
+      musicPlayer.play();
+      musicPlayer.setOnEndOfMedia(new Runnable() {
+        @Override
+        public void run() {
+          huntedFinalTheme();
+        }
+      });
+    }
   }
 
   public static void huntedCreditsTheme() {
-    musicPlayer = new MediaPlayer(huntedCredits);
-    musicPlayer.setVolume(MAX_MUSIC_VOLUME);
-    if (!AZTrailController.sound) {
-      musicPlayer.setVolume(0);
-    }
-    musicPlayer.play();
-    musicPlayer.setOnEndOfMedia(new Runnable() {
-      @Override
-      public void run() {
-        huntedCreditsTheme();
+    if (!isPlayingTheme) {
+      isPlayingTheme = true;
+      musicPlayer = new MediaPlayer(huntedCredits);
+      musicPlayer.setVolume(MAX_MUSIC_VOLUME);
+      if (!AZTrailController.sound) {
+        musicPlayer.setVolume(0);
       }
-    });
+      musicPlayer.play();
+      musicPlayer.setOnEndOfMedia(new Runnable() {
+        @Override
+        public void run() {
+          huntedCreditsTheme();
+        }
+      });
+    }
   }
 
   public static void homeStretchTheme() {
-    musicPlayer = new MediaPlayer(homeStretch);
-    musicPlayer.setVolume(MAX_MUSIC_VOLUME);
-    if (!AZTrailController.sound) {
-      musicPlayer.setVolume(0);
-    }
-    musicPlayer.play();
-    musicPlayer.setOnEndOfMedia(new Runnable() {
-      @Override
-      public void run() {
-        homeStretchTheme();
+    if (!isPlayingTheme) {
+      isPlayingTheme = true;
+      musicPlayer = new MediaPlayer(homeStretch);
+      musicPlayer.setVolume(MAX_MUSIC_VOLUME);
+      if (!AZTrailController.sound) {
+        musicPlayer.setVolume(0);
       }
-    });
+      musicPlayer.play();
+      musicPlayer.setOnEndOfMedia(new Runnable() {
+        @Override
+        public void run() {
+          homeStretchTheme();
+        }
+      });
+    }
   }
 
   public static void huntingSong() {
-    musicPlayer = new MediaPlayer(huntingSong);
-    musicPlayer.setVolume(MAX_MUSIC_VOLUME);
-    if (!AZTrailController.sound) {
-      musicPlayer.setVolume(0);
-    }
-    musicPlayer.play();
-    musicPlayer.setOnEndOfMedia(new Runnable() {
-      @Override
-      public void run() {
-        huntingSong();
+    if (!isPlayingTheme) {
+      isPlayingTheme = true;
+      musicPlayer = new MediaPlayer(huntingSong);
+      musicPlayer.setVolume(MAX_MUSIC_VOLUME);
+      if (!AZTrailController.sound) {
+        musicPlayer.setVolume(0);
       }
-    });
+      musicPlayer.play();
+      musicPlayer.setOnEndOfMedia(new Runnable() {
+        @Override
+        public void run() {
+          huntingSong();
+        }
+      });
+    }
   }
 
   public static void huntedModeSFX() {

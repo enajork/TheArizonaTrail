@@ -46,6 +46,7 @@ public class TrailTravelView extends Scene {
     } else {
       AZTrailView.sounds.daytimeSFX();
     }
+    AZTrailView.sounds.startThemeLoop();
   }
 
   /**

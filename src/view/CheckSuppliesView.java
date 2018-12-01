@@ -28,6 +28,7 @@ public class CheckSuppliesView extends Scene {
    */
   public CheckSuppliesView() {
     this(new BorderPane());
+    AZTrailView.sounds.startThemeLoop();
   }
 
   /**
