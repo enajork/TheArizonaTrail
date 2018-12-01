@@ -252,7 +252,7 @@ public class TrailTravelView extends Scene {
       @Override
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
-          case SPACE:
+          default:
             moving = false;
             AZTrailController.escape = false;
             ox.pause();
