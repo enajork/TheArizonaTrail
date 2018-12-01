@@ -22,7 +22,8 @@ import java.io.*;
 import controller.*;
 
 public class SizeUpView extends Scene {
-  private final int NUM_OPTS = 9;
+  private final int MIN_INPUT = 1;
+  private final int MAX_INPUT = 9;
   private Text body;
   private String contents = "You may:\n\n"
     + "  1. Continue on the trail\n"
@@ -140,7 +141,7 @@ public class SizeUpView extends Scene {
    * @param num [description]
    */
    private void updateInputText(int num) {
-    if (input.length() == 1) {
+    if (input.length() == 1 && (num >= MIN_INPUT && num <= MAX_INPUT)) {
       input = input.substring(0, input.length() - 1);
       input += num + "_";
       body.setText(contents + input);
@@ -153,7 +154,7 @@ public class SizeUpView extends Scene {
    * @return        [description]
    */
   private Scene getNextView(int choice) {
-    if (choice < 1 || choice > NUM_OPTS) {
+    if (choice < MIN_INPUT || choice > MAX_INPUT) {
       throw new IllegalStateException();
     }
     switch (choice) {
