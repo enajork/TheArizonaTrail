@@ -24,6 +24,7 @@ public class Sounds {
   private static Media huntedCredits;
   private static Media homeStretch;
   private static Media huntingSong;
+  private static boolean isPlayingBackgroundSFX;
   private static Media crickets;
   private static Media coyote;
   private static Media chirp;
@@ -215,10 +216,7 @@ public class Sounds {
     });
   }
 
-  public static void birdsSFX() {
-    chirpSFX();
-    eagleSFX();
-  }
+
 
   public static void chirpSFX() {
     sfxPlayer1 = new MediaPlayer(chirp);
@@ -250,6 +248,21 @@ public class Sounds {
     });
   }
 
+  public static void nighttimeSFX() {
+    if (!isPlayingBackgroundSFX) {
+      isPlayingBackgroundSFX = true;
+      cricketsSFX();
+      coyotesSFX();
+    }
+  }
+
+  public static void daytimeSFX() {
+    if (!isPlayingBackgroundSFX) {
+      isPlayingBackgroundSFX = true;
+      chirpSFX();
+      eagleSFX();
+    }
+  }
 
 
   public static void musketSFX() {
@@ -304,11 +317,6 @@ public class Sounds {
     if (AZTrailController.sound) {
       sounds.get("sizzle").play(MAX_EFFECT_VOLUME);
     }
-  }
-
-  public static void huntBackgroundSFX() {
-    cricketsSFX();
-    coyotesSFX();
   }
 
   public static void ow1SFX() {

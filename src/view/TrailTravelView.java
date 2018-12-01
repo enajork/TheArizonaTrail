@@ -26,6 +26,7 @@ import javafx.util.Duration;
 import controller.*;
 
 public class TrailTravelView extends Scene {
+  private boolean moving;
   private ParallelTransition movementBack;
   private ParallelTransition movementMid;
   private ParallelTransition movementFore;
@@ -41,10 +42,9 @@ public class TrailTravelView extends Scene {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
     if (AZTrailView.controller.getHunted()) {
-      // AZTrailView.sounds.cricketsSFX();
-      AZTrailView.sounds.huntBackgroundSFX();
+      AZTrailView.sounds.nighttimeSFX();
     } else {
-      AZTrailView.sounds.birdsSFX();
+      AZTrailView.sounds.daytimeSFX();
     }
   }
 
@@ -189,6 +189,7 @@ public class TrailTravelView extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            moving = true;
             AZTrailController.escape = false;
             ox.play();
             AZTrailView.sounds.movingSFX();
@@ -203,6 +204,12 @@ public class TrailTravelView extends Scene {
 
           case ESCAPE:
             AZTrailView.escapePressed(true);
+            moving = false;
+            ox.pause();
+            AZTrailView.sounds.stopMovingSFX();
+            movementBack.pause();
+            movementMid.pause();
+            movementFore.pause();
             break;
 
           case S:
@@ -210,14 +217,32 @@ public class TrailTravelView extends Scene {
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
+            moving = false;
+            ox.pause();
+            AZTrailView.sounds.stopMovingSFX();
+            movementBack.pause();
+            movementMid.pause();
+            movementFore.pause();
             break;
 
           case ENTER:
+            moving = false;
             AZTrailController.escape = false;
+            ox.pause();
+            AZTrailView.sounds.stopMovingSFX();
+            movementBack.pause();
+            movementMid.pause();
+            movementFore.pause();
+            AZTrailView.stage.setScene(new SizeUpView());
             break;
-
           default:
+            moving = false;
             AZTrailController.escape = false;
+            ox.pause();
+            AZTrailView.sounds.stopMovingSFX();
+            movementBack.pause();
+            movementMid.pause();
+            movementFore.pause();
             break;
         }
       }
@@ -227,6 +252,7 @@ public class TrailTravelView extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            moving = false;
             AZTrailController.escape = false;
             ox.pause();
             AZTrailView.sounds.stopMovingSFX();
