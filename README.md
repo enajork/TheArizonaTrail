@@ -1,5 +1,5 @@
-# **Authors**
-David Najork, Eric Najork, Jared Grady, & Jordan Bridgewater
+# Authors
+**David Najork, Eric Najork, Jared Grady, & Jordan Bridgewater**
 
 # The Arizona Trail
 In order to build and run the game, you must first navigate to the top level of
@@ -14,7 +14,7 @@ this repo and run the following commands in your terminal:
 # IMPORTANT NOTE
 You must not have any whitespace in your path, otherwise you will run into build issues.
 
-# **LEGAL DISCLAIMER**
+# LEGAL DISCLAIMER
 **This game was made for educational purposes; elements of satire and parody are present.**
 
 **All copyright sights and sounds are, therefore, considered "fair use" and their exhibition in this project is proctected under parody law.**
