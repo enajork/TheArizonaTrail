@@ -161,7 +161,7 @@ public class SizeUpView extends Scene {
         // Travel the trail
         return new TrailTravelView();
       case 2:
-        return new SizeUpView();
+        return new CheckSuppliesView();
       case 3:
         return new SizeUpView();
       case 4:
