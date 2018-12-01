@@ -58,6 +58,7 @@ public class AZTrailController {
       FileOutputStream save = new FileOutputStream(savePath);
       ObjectOutputStream load = new ObjectOutputStream(save);
       load.writeObject(model);
+      hasSave = true;
       if (SAVE_DEBUG) {
         System.out.println("game saved");
         System.out.println(toString());
@@ -75,6 +76,7 @@ public class AZTrailController {
     File save = new File(savePath);
     if (save.exists()) {
       save.delete();
+      hasSave = false;
       if (SAVE_DEBUG) {
         System.out.println("save deleted");
       }

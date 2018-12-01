@@ -16,6 +16,7 @@ import javafx.beans.value.*;
 import javafx.geometry.*;
 import javafx.stage.*;
 import javafx.event.*;
+import java.text.*;
 import java.util.*;
 import java.io.*;
 
@@ -163,7 +164,29 @@ public class SizeUpView extends Scene {
         // Travel the trail
         return new TrailTravelView();
       case 2:
-        return new CheckSuppliesView();
+        return new GenericInfoMenu(
+        new Runnable() {
+          @Override
+          public void run() {
+            AZTrailView.stage.setScene(new SizeUpView());
+          }
+        },
+        new String[]{
+          "Your Supplies\n"
+          + " 1. Money - " + new DecimalFormat("'$'###,##0.00")
+            .format(AZTrailView.controller.getMoney())
+          + "\n 2. Oxen - " + AZTrailView.controller.getOxen()
+          + "\n 3. Clothes - " + AZTrailView.controller.getClothes()
+          + "\n 4. Blankets - " + AZTrailView.controller.getClothes()
+          + "\n 5. Bullets - " + AZTrailView.controller.getBullets()
+          + "\n 6. Wheels - " + AZTrailView.controller.getWheels()
+          + "\n 7. Axles - " + AZTrailView.controller.getAxles()
+          + "\n 8. Tongues - " + AZTrailView.controller.getTongues()
+          + "\n 9. Food - " + AZTrailView.controller.getFood() + " lbs"
+          + "\n 10. Water - " + AZTrailView.controller.getWater()
+        }
+      );
+
       case 3:
         return new SizeUpView();
       case 4:

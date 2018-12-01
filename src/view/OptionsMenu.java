@@ -171,7 +171,6 @@ public class OptionsMenu extends Scene {
               public void run() {
                 AZTrailView.stage.setScene(new OptionsMenu());
                 AZTrailView.controller.deleteSave();
-                AZTrailView.controller.hasSave = false;
               }
             },
             new Runnable() {
@@ -180,7 +179,7 @@ public class OptionsMenu extends Scene {
                 AZTrailView.stage.setScene(new OptionsMenu());
               }
             },
-            "Are you sure?",
+            "    Are you sure?",
             "",
             true,
             true
