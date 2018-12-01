@@ -188,18 +188,25 @@ public class SizeUpView extends Scene {
       );
 
       case 3:
+        // Look at map
         return new SizeUpView();
       case 4:
+        // Change pace
         return new SizeUpView();
       case 5:
+        // Change  food rations
         return new SizeUpView();
       case 6:
+        // Stop to rest
         return new SizeUpView();
       case 7:
+        // Talk to people
         return new SizeUpView();
       case 8:
+        // Talk to people
         return new SizeUpView();
       case 9:
+        // Buy supplies
         return new SizeUpView();
 
     }
