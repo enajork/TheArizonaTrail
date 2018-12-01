@@ -389,12 +389,15 @@ public class Sounds {
   public static void stop() {
     if (musicPlayer != null) {
       musicPlayer.stop();
+      isPlayingTheme = false;
     }
     if (sfxPlayer1 != null) {
       sfxPlayer1.stop();
+      isPlayingBackgroundSFX = false;
     }
     if (sfxPlayer2 != null) {
       sfxPlayer2.stop();
+      isPlayingBackgroundSFX = false;
     }
   }
 }
