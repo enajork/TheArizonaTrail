@@ -85,7 +85,7 @@ public class AZTrailController {
     }
   }
 
-  public void resetModel() {
+  public void resetGame() {
     model = new AZTrailModel();
     if (SAVE_DEBUG) {
       System.out.println(toString());
