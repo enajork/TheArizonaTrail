@@ -23,8 +23,8 @@ public class MapModel implements Serializable {
   }
 
   public void advancePosition(int distanceTraveled) {
-    this.totalMiles += distanceTraveled;
     if (!atDestination) {
+      this.totalMiles += distanceTraveled;
       int totalTraveled = milesFromLastCity + distanceTraveled;
       if (totalTraveled < milesToCityMap.get(nextCity)) {
         milesFromLastCity = totalTraveled;
@@ -62,6 +62,9 @@ public class MapModel implements Serializable {
   }
 
   public int milesToLandmark() {
+    if (atDestination) {
+      return 0;
+    }
     return milesToCityMap.get(nextCity) - milesFromLastCity;
   }
 
