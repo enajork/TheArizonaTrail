@@ -63,6 +63,44 @@ public class Calendar implements Serializable {
     }
   }
 
+  public String getWeather() {
+    Random rand = new Random();
+    int p = rand.nextInt(9);
+
+    String season = this.getSeason();
+
+    if (season.equals("winter")) {
+      if (p < 2) {
+        return "cold";
+      } else {
+        return "cool";
+      }
+    }
+    else if (season.equals("spring")) {
+      if (p == 0) {
+        return "cool";
+      } else {
+        return "warm";
+      }
+    }
+    else if (season.equals("summer")) {
+      if (p < 5) {
+        return "hot";
+      } else {
+        return "scorching";
+      }
+    }
+    else {
+      if (p < 2) {
+        return "hot";
+      } else if (p >= 2 && p < 7){
+        return "warm";
+      } else {
+        return "cool";
+      }
+    }
+  }
+
   public String getSeason() {
     if ((0 <= month && month <= 1) || month == (TOTAL_MONTHS - 1)) {
       return "winter";

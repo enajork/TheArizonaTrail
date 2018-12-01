@@ -486,4 +486,8 @@ public class AZTrailModel implements Serializable {
   public double milesToLandmark() {
     return mapModel.milesToLandmark();
   }
+
+  public String getWeather() {
+    return calendar.getWeather();
+  }
 }
