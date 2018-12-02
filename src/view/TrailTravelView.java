@@ -34,6 +34,7 @@ public class TrailTravelView extends Scene {
   private BorderPane root;
   private OxenSprite ox;
   private Text stats;
+  private static int time = 0;
 
   /**
    * [TrailTravelView description]
@@ -200,7 +201,10 @@ public class TrailTravelView extends Scene {
             movementBack.play();
             movementMid.play();
             movementFore.play();
-            updateStats();
+            increment();
+            if (time % 50 == 0) {
+              updateStats();
+            }
             break;
 
           case ESCAPE:
@@ -271,14 +275,16 @@ public class TrailTravelView extends Scene {
    */
   private String buildStatsString() {
 
-    String res = "Date: %s\nWeather: %s\nHealth: %s\nWater: %d Gallons\nNext landmark: %.0f miles\nMiles Traveled: %d miles";
+    String res = "Date: %s\nWeather: %s\nHealth: %s\nWater: %d Gallons\nNext "
+      + "landmark: %.0f miles\nMiles Traveled: %d miles";
     String date = AZTrailView.controller.getDateStr();
     String weather = AZTrailView.controller.getWeather();
     // String health = AZTrailView.controller.getHealth();
     int water = AZTrailView.controller.getWater();
     double remaining = AZTrailView.controller.milesToLandmark();
     int totalMiles = AZTrailView.controller.getTotalMiles();
-    return String.format(res, date, weather, "good", water, remaining, totalMiles);
+    return String.format(res, date, weather, "good", water, remaining,
+      totalMiles);
   }
 
   /**
@@ -287,6 +293,14 @@ public class TrailTravelView extends Scene {
   private void updateStats() {
     AZTrailView.controller.advance();
     this.stats.setText(buildStatsString());
+  }
+
+  private static void increment() {
+    if (time == Integer.MAX_VALUE) {
+      time = 0;
+    } else {
+      time++;
+    }
   }
 
   private class OxenSprite {

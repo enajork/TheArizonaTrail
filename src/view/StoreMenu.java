@@ -97,7 +97,6 @@ public class StoreMenu extends Scene {
     receiptBody.setMargin(rect3, new Insets(5));
     receiptBody.setMaxHeight(0);
 
-
     // Create the image;
     Image img = new Image("file:view/assets/graphics/menuclerk.png");
     ImageView decor = new ImageView(img);
