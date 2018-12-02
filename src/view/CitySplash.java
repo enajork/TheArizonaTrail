@@ -87,6 +87,7 @@ public class CitySplash extends Scene {
         switch (event.getCode()) {
           case SPACE:
             AZTrailController.escape = false;
+            System.out.println("function called");
             AZTrailView.stage.setScene(getNextScene());
             break;
 
