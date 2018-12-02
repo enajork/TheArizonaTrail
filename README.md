@@ -1,6 +1,6 @@
 # The Arizona Trail
 
-# Authors
+# Credits
 **David Najork, Eric Najork, Jared Grady, & Jordan Bridgewater**
 
 # INSTRUCTIONS
