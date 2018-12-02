@@ -38,14 +38,18 @@ public class StoreClothesMenu extends Scene {
     + "recommend\ntaking at least 2 sets of\nclothes per person. Each\nset "
     + "is $10.00.\n\nHow many sets of clothes do\nyou want? ";
   private String input = "_";
+  private String name;
+  private boolean start;
 
   /**
    * [StoreClothesMenu description]
    */
-  public StoreClothesMenu() {
+  public StoreClothesMenu(String name, boolean start) {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
+    this.name = name;
+    this.start = start;
   }
 
   /**
@@ -92,7 +96,7 @@ public class StoreClothesMenu extends Scene {
     tile.setAlignment(decor2, Pos.CENTER);
 
     // Create the text for the menu options
-    Text header = new Text("Matt's General Store\n"
+    Text header = new Text(name + " General Store\n"
       + AZTrailView.controller.getCurrentCity()
       + ", Arizona");
     header.setId("text12");
@@ -182,6 +186,6 @@ public class StoreClothesMenu extends Scene {
   private Scene getNextView(int choice) {
     AZTrailView.controller.addClothes(choice);
     AZTrailView.controller.setCartClothes(choice * 10.0);
-    return new StoreMenu();
+    return new StoreMenu(name, start);
   }
 }

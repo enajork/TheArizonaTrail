@@ -36,14 +36,18 @@ public class StoreOxenMenu extends Scene {
   private String prompt = "There are 2 oxen in a yoke;\nI recommend at least "
     + "3 yoke.\nI charge $40 a yoke.\n\nHow many yoke do you\nwant? ";
   private String input = "_";
+  private String name;
+  private boolean start;
 
   /**
    * [StoreOxenMenu description]
    */
-  public StoreOxenMenu() {
+  public StoreOxenMenu(String name, boolean start) {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
+    this.name = name;
+    this.start = start;
   }
 
   /**
@@ -90,7 +94,7 @@ public class StoreOxenMenu extends Scene {
     tile.setAlignment(decor2, Pos.CENTER);
 
     // Create the text for the menu options
-    Text header = new Text("Matt's General Store\n"
+    Text header = new Text(name + " General Store\n"
       + AZTrailView.controller.getCurrentCity()
       + ", Arizona");
     header.setId("text12");
@@ -183,6 +187,6 @@ public class StoreOxenMenu extends Scene {
     }
     AZTrailView.controller.addOxen(choice);
     AZTrailView.controller.setCartOxen(choice * 40.0);
-    return new StoreMenu();
+    return new StoreMenu(name, start);
   }
 }

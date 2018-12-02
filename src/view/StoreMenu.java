@@ -45,12 +45,23 @@ public class StoreMenu extends Scene {
   private Text body;
   private String prompt = "  Which item would you\n  like to buy? ";
   private String input = "_";
+  private boolean start;
+  private String name;
 
   /**
    * [StoreMenu description]
    */
-  public StoreMenu() {
-    this(new BorderPane());
+  public StoreMenu(String name) {
+    this(new BorderPane(), name, false);
+    getStylesheets().add(AZTrailView.styleSheet);
+    AZTrailController.escape = false;
+  }
+
+  /**
+   * [StoreMenu description]
+   */
+  public StoreMenu(String name, boolean start) {
+    this(new BorderPane(), name, start);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
   }
@@ -59,8 +70,10 @@ public class StoreMenu extends Scene {
    * [StoreMenu description]
    * @param root [description]
    */
-  private StoreMenu(BorderPane root) {
+  private StoreMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    this.name = name;
+    this.start = start;
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane receiptBody = new BorderPane();
@@ -111,7 +124,7 @@ public class StoreMenu extends Scene {
     body.setFill(Color.WHITE);
 
     // Create the text for the menu options
-    Text header = new Text("Matt's General Store\n"
+    Text header = new Text(name + " General Store\n"
       + AZTrailView.controller.getCurrentCity()
       + ", Arizona\n\n     "
       + AZTrailView.controller.getDateStr());
@@ -189,8 +202,8 @@ public class StoreMenu extends Scene {
           case SPACE:
             AZTrailController.escape = false;
             if (warn) {
-              AZTrailView.stage.setScene(new StoreMenu());
-            } else if (AZTrailView.controller.getOxen() == 0 && !warn) {
+              AZTrailView.stage.setScene(new StoreMenu(name, start));
+            } else if (start && AZTrailView.controller.getOxen() == 0 && !warn) {
               Text warning= new Text("Don't forget, you'll need\noxen to pull "
                 + "your wagon.");
               warning.setId("text12");
@@ -214,7 +227,7 @@ public class StoreMenu extends Scene {
               tile.setMargin(warning, new Insets(40));
               footer.setText("Press SPACE BAR to continue");
               warn = true;
-            } else {
+            } else if (start) {
               AZTrailView.controller.addWater(500);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
@@ -231,6 +244,21 @@ public class StoreMenu extends Scene {
                 "Well then, you're ready\nto start. Good luck!\nYou have a long"
                  + " and\ndifficult journey ahead\nof you."
               }));
+            } else if (!start) {
+              AZTrailView.controller.addWater(500);
+              AZTrailView.controller.removeMoney(AZTrailView.controller
+                .getCartTotal());
+              AZTrailView.controller.resetCart();
+              AZTrailView.sounds.cashOutSFX();
+              AZTrailView.stage.setScene(new ClerkInfoMenu(
+                new Runnable() {
+                  @Override
+                  public void run() {
+                    AZTrailView.stage.setScene(getNextView());
+                  }
+                },
+                "", new String[]{"Here take some water. Good luck, stranger!"
+              }));
             }
             break;
 
@@ -246,7 +274,7 @@ public class StoreMenu extends Scene {
           case ENTER:
             AZTrailController.escape = false;
             if (warn) {
-              AZTrailView.stage.setScene(new StoreMenu());
+              AZTrailView.stage.setScene(new StoreMenu(name, start));
             }
             if (input.length() == 2) {
               AZTrailView.stage.setScene(getNextMenu(Integer.parseInt(input
@@ -299,15 +327,15 @@ public class StoreMenu extends Scene {
     }
     switch (choice) {
       case 1:
-        return new StoreOxenMenu();
+        return new StoreOxenMenu(name, start);
       case 2:
-        return new StoreFoodMenu();
+        return new StoreFoodMenu(name, start);
       case 3:
-        return new StoreClothesMenu();
+        return new StoreClothesMenu(name, start);
       case 4:
-        return new StoreAmmoMenu();
+        return new StoreAmmoMenu(name, start);
       case 5:
-        return new StoreWheelMenu();
+        return new StoreWheelMenu(name, start);
     }
     // return;
     return null;

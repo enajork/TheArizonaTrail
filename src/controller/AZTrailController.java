@@ -182,9 +182,10 @@ public class AZTrailController {
   /**
    * [advance description]
    */
-  public void advance() {
+  public boolean advance() {
     this.model.advanceCalendar();
     this.model.advancePosition();
+    return false;
   }
 
   /**

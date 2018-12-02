@@ -31,7 +31,6 @@ public class TrailTravelView extends Scene {
   private ParallelTransition movementMid;
   private ParallelTransition movementFore;
   private final int SCENE_WIDTH = 650;
-  private boolean moving;
   private BorderPane root;
   private OxenSprite ox;
   private Text stats;
@@ -198,7 +197,6 @@ public class TrailTravelView extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
-            moving = true;
             AZTrailController.escape = false;
             ox.play();
             AZTrailView.sounds.movingSFX();
@@ -208,15 +206,11 @@ public class TrailTravelView extends Scene {
             movementBack.play();
             movementMid.play();
             movementFore.play();
-            increment();
-            if (time % TIME_DILATION == 0) {
-              updateStats();
-            }
+            tick();
             break;
 
           case ESCAPE:
             AZTrailView.escapePressed(true);
-            moving = false;
             ox.pause();
             AZTrailView.sounds.stopMovingSFX();
             movementBack.pause();
@@ -229,7 +223,6 @@ public class TrailTravelView extends Scene {
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
-            moving = false;
             ox.pause();
             AZTrailView.sounds.stopMovingSFX();
             movementBack.pause();
@@ -238,7 +231,6 @@ public class TrailTravelView extends Scene {
             break;
 
           case ENTER:
-            moving = false;
             AZTrailController.escape = false;
             ox.pause();
             AZTrailView.sounds.stopMovingSFX();
@@ -248,7 +240,6 @@ public class TrailTravelView extends Scene {
             AZTrailView.stage.setScene(new SizeUpView());
             break;
           default:
-            moving = false;
             AZTrailController.escape = false;
             ox.pause();
             AZTrailView.sounds.stopMovingSFX();
@@ -264,7 +255,6 @@ public class TrailTravelView extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           default:
-            moving = false;
             AZTrailController.escape = false;
             ox.pause();
             AZTrailView.sounds.stopMovingSFX();
@@ -297,17 +287,19 @@ public class TrailTravelView extends Scene {
   /**
    * [updateStats description]
    */
-  private void updateStats() {
-    AZTrailView.controller.advance();
-    this.stats.setText(buildStatsString());
-  }
-
-  private static void increment() {
+  private void tick() {
     if (time == Integer.MAX_VALUE) {
       time = 0;
     } else {
       time++;
     }
+    if (time % TIME_DILATION == 0) {
+      if (AZTrailView.controller.advance()) {
+        AZTrailView.stage.setScene(new CitySplash(AZTrailView.controller
+          .getCurrentCity()));
+      }
+    }
+    this.stats.setText(buildStatsString());
   }
 
   private class OxenSprite {

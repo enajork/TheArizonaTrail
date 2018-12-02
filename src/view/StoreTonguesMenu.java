@@ -38,15 +38,19 @@ public class StoreTonguesMenu extends Scene {
   private String prompt = "\n\nHow many wagon tongues? ";
   private String input = "_";
   private int parts;
+  private String name;
+  private boolean start;
 
   /**
    * [StoreTonguesMenu description]
    */
-  public StoreTonguesMenu(int parts) {
+  public StoreTonguesMenu(int parts, String name, boolean start) {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
     this.parts = parts;
+    this.name = name;
+    this.start = start;
   }
 
   /**
@@ -101,7 +105,7 @@ public class StoreTonguesMenu extends Scene {
     tile.setAlignment(decor2, Pos.CENTER);
 
     // Create the text for the menu options
-    Text header = new Text("Matt's General Store\n"
+    Text header = new Text(name + " General Store\n"
       + AZTrailView.controller.getCurrentCity()
       + ", Arizona");
     header.setId("text12");
@@ -154,7 +158,8 @@ public class StoreTonguesMenu extends Scene {
           case SPACE:
             AZTrailController.escape = false;
             if (warn) {
-              AZTrailView.stage.setScene(new StoreTonguesMenu(parts));
+              AZTrailView.stage.setScene(new StoreTonguesMenu(parts, name,
+                start));
             }
             break;
           case BACK_SPACE:
@@ -175,7 +180,8 @@ public class StoreTonguesMenu extends Scene {
               return;
             }
             if (warn) {
-              AZTrailView.stage.setScene(new StoreTonguesMenu(parts));
+              AZTrailView.stage.setScene(new StoreTonguesMenu(parts, name,
+                start));
             } else {
               int i = Integer.parseInt(input.replace("_", ""));
               if (i >= 0 && i <= MAX_PARTS) {
@@ -233,6 +239,6 @@ public class StoreTonguesMenu extends Scene {
     parts += choice;
     AZTrailView.controller.addTongues(choice);
     AZTrailView.controller.setCartParts(parts * 10);
-    return new StoreMenu();
+    return new StoreMenu(name, start);
   }
 }

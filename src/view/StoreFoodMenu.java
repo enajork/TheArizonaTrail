@@ -40,14 +40,18 @@ public class StoreFoodMenu extends Scene {
     + "You'll need\nflour, sugar, bacon, and\ncofee. My price is 20\ncents a "
     + "pound.\n\nHow many pounds of food do\nyou want? ";
   private String input = "_";
+  private String name;
+  private boolean start;
 
   /**
    * [StoreFoodMenu description]
    */
-  public StoreFoodMenu() {
+  public StoreFoodMenu(String name, boolean start) {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
+    this.name = name;
+    this.start = start;
   }
 
   /**
@@ -93,7 +97,7 @@ public class StoreFoodMenu extends Scene {
     tile.setAlignment(decor2, Pos.CENTER);
 
     // Create the text for the menu options
-    Text header = new Text("Matt's General Store\n"
+    Text header = new Text(name + " General Store\n"
       + AZTrailView.controller.getCurrentCity()
       + ", Arizona");
     header.setId("text12");
@@ -126,7 +130,7 @@ public class StoreFoodMenu extends Scene {
           case SPACE:
             AZTrailController.escape = false;
             if (warn) {
-              AZTrailView.stage.setScene(new StoreFoodMenu());
+              AZTrailView.stage.setScene(new StoreFoodMenu(name, start));
             }
             break;
           case BACK_SPACE:
@@ -147,7 +151,7 @@ public class StoreFoodMenu extends Scene {
               return;
             }
             if (warn) {
-              AZTrailView.stage.setScene(new StoreFoodMenu());
+              AZTrailView.stage.setScene(new StoreFoodMenu(name, start));
             } else {
               int i = Integer.parseInt(input.replace("_", ""));
               if (i >= 0 && i <= MAX_FOOD) {
@@ -204,6 +208,6 @@ public class StoreFoodMenu extends Scene {
   private Scene getNextView(int choice) {
     AZTrailView.controller.addFood(choice);
     AZTrailView.controller.setCartFood(choice * 0.2);
-    return new StoreMenu();
+    return new StoreMenu(name, start);
   }
 }
