@@ -21,7 +21,6 @@ import java.io.*;
 import controller.*;
 
 public class CitySplash extends Scene {
-  private Scene nextScene;
   private BorderPane root;
   private String city;
 
@@ -43,12 +42,11 @@ public class CitySplash extends Scene {
     AZTrailView.controller.setCheckpoint();
     AZTrailView.sounds.stop();
     AZTrailView.sounds.startThemeLoop();
-    this.nextScene = new SizeUpView();
     this.root = root;
     this.city = city;
     root.setStyle("-fx-background-color: black;");
 
-    setSplash(city);
+    setSplash();
     Rectangle rect = new Rectangle(400, 40, Color.WHITE);
     BorderPane innerText = new BorderPane();
     Text title = new Text(city);
@@ -89,12 +87,12 @@ public class CitySplash extends Scene {
         switch (event.getCode()) {
           case SPACE:
             AZTrailController.escape = false;
-            AZTrailView.stage.setScene(nextScene);
+            AZTrailView.stage.setScene(getNextScene());
             break;
 
           case ENTER:
             AZTrailController.escape = false;
-            AZTrailView.stage.setScene(nextScene);
+            AZTrailView.stage.setScene(getNextScene());
             break;
 
           case ESCAPE:
@@ -115,33 +113,27 @@ public class CitySplash extends Scene {
     });
   }
 
-  private void setSplash(String city) {
-    ImageView splash;
-    Image img;
+  private void setSplash() {
+    Image img = new Image((AZTrailView.controller.getHunted())
+      ? "file:view/assets/graphics/locations/" + city.toLowerCase()
+        + "_splash-hunted.png"
+      : "file:view/assets/graphics/locations/" + city.toLowerCase()
+        + "_splash.png");
+    ImageView splash = new ImageView(img);
+    splash.setPreserveRatio(true);
+    splash.setFitWidth(AZTrailView.WIDTH * 0.985);
+    root.setMargin(splash, new Insets(5, 5, 0, 5));
+    root.setAlignment(splash, Pos.CENTER);
+    root.setTop(splash);
+    return;
+  }
+
+  private Scene getNextScene() {
     switch (city) {
       case "Nogales":
-        img = new Image((AZTrailView.controller.getHunted())
-          ? "file:view/assets/graphics/locations/nogales_splash-hunted.png"
-          : "file:view/assets/graphics/locations/nogales_splash.png");
-        splash = new ImageView(img);
-        splash.setPreserveRatio(true);
-        splash.setFitWidth(AZTrailView.WIDTH * 0.985);
-        root.setMargin(splash, new Insets(5, 5, 0, 5));
-        root.setAlignment(splash, Pos.CENTER);
-        root.setTop(splash);
-        return;
-
+        return new SizeUpView();
       default:
-        img = new Image((AZTrailView.controller.getHunted())
-          ? "file:view/assets/graphics/locations/nogales_splash-hunted.png"
-          : "file:view/assets/graphics/locations/nogales_splash.png");
-        splash = new ImageView(img);
-        splash.setPreserveRatio(true);
-        splash.setFitWidth(AZTrailView.WIDTH * 0.985);
-        root.setMargin(splash, new Insets(5, 5, 0, 5));
-        root.setAlignment(splash, Pos.CENTER);
-        root.setTop(splash);
-        return;
+        return new StoreMenu(city, false);
     }
   }
 }

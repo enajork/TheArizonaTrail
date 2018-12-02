@@ -37,14 +37,18 @@ public class StoreAmmoMenu extends Scene {
   private String prompt = "I sell ammunition in boxes\nof 20 bullets. Each box"
     + "\ncosts $2.00.\n\nHow many boxes do you\nwant? ";
   private String input = "_";
+  private String name;
+  private boolean start;
 
   /**
    * [StoreAmmoMenu description]
    */
-  public StoreAmmoMenu() {
+  public StoreAmmoMenu(String name, boolean start) {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
+    this.name = name;
+    this.start = start;
   }
 
   /**
@@ -91,7 +95,7 @@ public class StoreAmmoMenu extends Scene {
     tile.setAlignment(decor2, Pos.CENTER);
 
     // Create the text for the menu options
-    Text header = new Text("Matt's General Store\n"
+    Text header = new Text(name + " General Store\n"
       + AZTrailView.controller.getCurrentCity()
       + ", Arizona");
     header.setId("text12");
@@ -181,6 +185,6 @@ public class StoreAmmoMenu extends Scene {
   private Scene getNextView(int choice) {
     AZTrailView.controller.addBullets(choice * 20);
     AZTrailView.controller.setCartAmmo(choice * 2.0);
-    return new StoreMenu();
+    return new StoreMenu(name, start);
   }
 }

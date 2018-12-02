@@ -182,9 +182,9 @@ public class AZTrailController {
   /**
    * [advance description]
    */
-  public void advance() {
-    this.model.advanceCalendar();
-    this.model.advancePosition();
+  public boolean advance() {
+    model.advanceCalendar();
+    return model.advancePosition();
   }
 
   /**
@@ -627,6 +627,10 @@ public class AZTrailController {
         return "cool";
       }
     }
+  }
+
+  public String getNextCity() {
+    return model.getNextCity();
   }
 
   public void setScore(int i, String name, int score) {

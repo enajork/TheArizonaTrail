@@ -22,12 +22,13 @@ public class MapModel implements Serializable {
     createMilesToCityMap();
   }
 
-  public void advancePosition(int distanceTraveled) {
+  public boolean advancePosition(int distanceTraveled) {
     if (!atDestination) {
       this.totalMiles += distanceTraveled;
       int totalTraveled = milesFromLastCity + distanceTraveled;
       if (totalTraveled < milesToCityMap.get(nextCity)) {
         milesFromLastCity = totalTraveled;
+        return false;
       } else {
         milesFromLastCity = totalTraveled - milesToCityMap.get(nextCity);
         currentCity = nextCity;
@@ -36,8 +37,10 @@ public class MapModel implements Serializable {
         if (currentCity.equals("Page")) {
           atDestination = true;
         }
+        return true;
       }
     }
+    return false;
   }
 
   private int getNextCityIndex(String city) {

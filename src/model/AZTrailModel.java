@@ -428,8 +428,13 @@ public class AZTrailModel implements Serializable {
     return mapModel.getCurrentCity();
   }
 
+
   public void setCurrentCity(String city) {
     mapModel.setCurrentCity(city);
+  }
+
+  public String getNextCity() {
+    return mapModel.getNextCity();
   }
 
   public void setHunted(boolean value) {
@@ -475,15 +480,15 @@ public class AZTrailModel implements Serializable {
     calendar.setYear(year);
   }
 
-  public void advancePosition() {
-    mapModel.advancePosition(travelRate);
+  public boolean advancePosition() {
+    return mapModel.advancePosition(travelRate);
   }
 
   public int getTotalMiles() {
     return mapModel.getTotalMiles();
   }
 
-  public double milesToLandmark() {
+  public int milesToLandmark() {
     return mapModel.milesToLandmark();
   }
 

@@ -202,7 +202,7 @@ public class MonthMenu extends Scene {
             new Runnable() {
               @Override
               public void run() {
-                AZTrailView.stage.setScene(new StoreMenu());
+                AZTrailView.stage.setScene(new StoreMenu("Matt's", true));
               }
             },
             "Hello, I'm Matt. So you're going\nto Utah! "

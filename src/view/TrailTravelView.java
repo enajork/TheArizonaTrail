@@ -26,7 +26,7 @@ import java.io.*;
 import controller.*;
 
 public class TrailTravelView extends Scene {
-  private static final int TIME_DILATION = 30;
+  private static final int TIME_DILATION = 10; // 30 seems good
   private ParallelTransition movementBack;
   private ParallelTransition movementMid;
   private ParallelTransition movementFore;
@@ -34,7 +34,6 @@ public class TrailTravelView extends Scene {
   private ImageView view[] = {null, null};
   Rectangle2D fore;
   private final int SCENE_WIDTH = 650;
-  private boolean moving;
   private BorderPane root;
   private OxenSprite ox;
   private Text stats;
@@ -65,8 +64,8 @@ public class TrailTravelView extends Scene {
 
     Text footer = new Text("Hold SPACE BAR to continue...\n");
     footer.setId("text12");
-    footer.setFill((AZTrailView.controller.getHunted()) ? Color.BLACK
-      : Color.WHITE);
+    footer.setFill((AZTrailView.controller.getHunted()) ? Color.WHITE
+      : Color.BLACK);
     BorderPane tooltip = new BorderPane();
     tooltip.setCenter(footer);
     tooltip.setAlignment(footer, Pos.CENTER);
@@ -173,9 +172,11 @@ public class TrailTravelView extends Scene {
           true));
 
       view[i] = new ImageView((AZTrailView.controller.getHunted())
-      ? new Image("file:view/assets/graphics/locations/page.png", 90, 50,
+      ? new Image("file:view/assets/graphics/locations/" +
+        AZTrailView.controller.getNextCity() + "-hunted.png", 90, 50,
       false, true)
-      : new Image("file:view/assets/graphics/locations/tombstone.png", 90, 50,
+      : new Image("file:view/assets/graphics/locations/" +
+        AZTrailView.controller.getNextCity() + ".png", 90, 50,
       false, true));
 
       // AnchorPane anchor = new AnchorPane();
@@ -212,7 +213,6 @@ public class TrailTravelView extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
-            moving = true;
             AZTrailController.escape = false;
             ox.play();
             AZTrailView.sounds.movingSFX();
@@ -222,17 +222,11 @@ public class TrailTravelView extends Scene {
             movementBack.play();
             movementMid.play();
             movementFore.play();
-            increment();
-            if (time % TIME_DILATION == 0) {
-              updateStats();
-            }
-            // city[0].getChildren().add(view[0]);
-            // view[0].setViewport(fore);
+            tick();
             break;
 
           case ESCAPE:
             AZTrailView.escapePressed(true);
-            moving = false;
             ox.pause();
             AZTrailView.sounds.stopMovingSFX();
             movementBack.pause();
@@ -245,7 +239,6 @@ public class TrailTravelView extends Scene {
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
-            moving = false;
             ox.pause();
             AZTrailView.sounds.stopMovingSFX();
             movementBack.pause();
@@ -254,7 +247,6 @@ public class TrailTravelView extends Scene {
             break;
 
           case ENTER:
-            moving = false;
             AZTrailController.escape = false;
             ox.pause();
             AZTrailView.sounds.stopMovingSFX();
@@ -264,7 +256,6 @@ public class TrailTravelView extends Scene {
             AZTrailView.stage.setScene(new SizeUpView());
             break;
           default:
-            moving = false;
             AZTrailController.escape = false;
             ox.pause();
             AZTrailView.sounds.stopMovingSFX();
@@ -280,7 +271,6 @@ public class TrailTravelView extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           default:
-            moving = false;
             AZTrailController.escape = false;
             ox.pause();
             AZTrailView.sounds.stopMovingSFX();
@@ -313,17 +303,24 @@ public class TrailTravelView extends Scene {
   /**
    * [updateStats description]
    */
-  private void updateStats() {
-    AZTrailView.controller.advance();
-    this.stats.setText(buildStatsString());
-  }
-
-  private static void increment() {
+  private void tick() {
     if (time == Integer.MAX_VALUE) {
       time = 0;
     } else {
       time++;
     }
+    if (time % TIME_DILATION == 0) {
+      if (AZTrailView.controller.advance()) {
+        AZTrailView.stage.setScene(new CitySplash(AZTrailView.controller
+          .getCurrentCity()));
+      }
+    }
+    this.stats.setText(buildStatsString());
+    // city[0].getChildren().add(view[0]);
+    // view[0].setViewport(fore);
+    // int i = () ? 0 : 1;
+    // city[i].getChildren().add(view[i]);
+    // view[i].setViewport(fore);
   }
 
   private class OxenSprite {
