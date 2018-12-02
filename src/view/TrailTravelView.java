@@ -18,9 +18,6 @@ import javafx.event.*;
 import java.util.*;
 import java.io.*;
 import javafx.scene.text.Text;
-import javafx.scene.input.KeyCode;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.util.Duration;
 
 import controller.*;
