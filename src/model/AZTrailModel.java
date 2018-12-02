@@ -6,9 +6,9 @@ public class AZTrailModel implements Serializable {
   private MapModel mapModel;
   private Calendar calendar;
   private boolean hunted;
+  private int travelRate;
   private Party party;
   private Cart cart;
-  private int travelRate;
 
   public AZTrailModel() {
     this.hunted = true;

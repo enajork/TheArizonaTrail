@@ -31,6 +31,7 @@ public class AZTrailView extends Application {
   protected static final int WIDTH = 650;
   protected static String styleSheet;
   protected static Stage stage;
+  protected static int time = 0;
 
   /**
    * Main entry point for the view
@@ -49,7 +50,7 @@ public class AZTrailView extends Application {
     this.stage.setResizable(false);
     // stage.initStyle(StageStyle.UNDECORATED);
 
-    this.stage.setScene(new SplashMenu());
+    this.stage.setScene(new TrailTravelView());
     this.stage.show();
   }
 

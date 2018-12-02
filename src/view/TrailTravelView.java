@@ -1,8 +1,14 @@
 package view;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert.*;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.input.KeyCode;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 import javafx.application.*;
 import javafx.scene.input.*;
 import javafx.scene.image.*;
@@ -13,24 +19,23 @@ import javafx.animation.*;
 import javafx.geometry.*;
 import javafx.stage.*;
 import javafx.scene.*;
-import javafx.scene.text.Font;
 import javafx.event.*;
 import java.util.*;
 import java.io.*;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 import controller.*;
 
 public class TrailTravelView extends Scene {
-  private boolean moving;
+  private static final int TIME_DILATION = 30;
   private ParallelTransition movementBack;
   private ParallelTransition movementMid;
   private ParallelTransition movementFore;
   private final int SCENE_WIDTH = 650;
+  private boolean moving;
   private BorderPane root;
   private OxenSprite ox;
   private Text stats;
+  private static int time = 0;
 
   /**
    * [TrailTravelView description]
@@ -57,9 +62,14 @@ public class TrailTravelView extends Scene {
 
     Text footer = new Text("Hold SPACE BAR to continue...\n");
     footer.setId("text12");
-    footer.setFill(Color.WHITE);
-    AnchorPane anchor = new AnchorPane(footer);
-    anchor.setLeftAnchor(footer, 110.0);
+    footer.setFill((AZTrailView.controller.getHunted()) ? Color.BLACK
+      : Color.WHITE);
+    BorderPane tooltip = new BorderPane();
+    tooltip.setCenter(footer);
+    tooltip.setAlignment(footer, Pos.CENTER);
+    tooltip.setMargin(footer, new Insets(10));
+    AnchorPane anchor = new AnchorPane(tooltip);
+    anchor.setLeftAnchor(tooltip, 110.0);
 
     // Create the pane containing the current stats
     BorderPane info = infoPane();
@@ -75,10 +85,14 @@ public class TrailTravelView extends Scene {
 
     // Create the sizeup box
     HBox sizeUpBox = new HBox();
-    Text sizeUp = new Text("Press ENTER to size up the situation");
+    BorderPane sizeUpPane = new BorderPane();
+    Text sizeUp = new Text("  Press ENTER to size up the situation");
     sizeUp.setId("text12");
     sizeUp.setFill(Color.WHITE);
-    sizeUpBox.getChildren().add(sizeUp);
+    sizeUpPane.setCenter(sizeUp);
+    sizeUpPane.setAlignment(sizeUp, Pos.CENTER);
+    sizeUpPane.setMargin(sizeUp, new Insets(5));
+    sizeUpBox.getChildren().add(sizeUpPane);
     sizeUpBox.setStyle("-fx-background-color: black;");
 
     // create the stats area
@@ -93,15 +107,12 @@ public class TrailTravelView extends Scene {
     statsArea.setStyle("-fx-background-color: " +
         ((AZTrailView.controller.getHunted()) ? "black" : "white") + ";");
 
-    statsArea.setMargin(stats, new Insets(0.5));
-
     // add them to the scene
     info.setAlignment(sizeUpBox, Pos.CENTER);
     info.setTop(sizeUpBox);
-    info.setAlignment(statsArea, Pos.CENTER);
     info.setCenter(statsArea);
     info.setAlignment(statsArea, Pos.CENTER);
-    statsArea.setMargin(stats, new Insets(10));
+    statsArea.setMargin(stats, new Insets(30, 20, 20, 40));
     return info;
   }
 
@@ -197,7 +208,10 @@ public class TrailTravelView extends Scene {
             movementBack.play();
             movementMid.play();
             movementFore.play();
-            updateStats();
+            increment();
+            if (time % TIME_DILATION == 0) {
+              updateStats();
+            }
             break;
 
           case ESCAPE:
@@ -267,15 +281,17 @@ public class TrailTravelView extends Scene {
    * [buildStatsString description]
    */
   private String buildStatsString() {
-
-    String res = "Date: %s\nWeather: %s\nHealth: %s\nWater: %d Gallons\nNext landmark: %.0f miles\nMiles Traveled: %d miles";
-    String date = AZTrailView.controller.getDateStr();
-    String weather = AZTrailView.controller.getWeather();
-    // String health = AZTrailView.controller.getHealth();
-    int water = AZTrailView.controller.getWater();
+    String res = "Date: %s\nWeather: %s\nHealth: %s\nFood: %d pounds\nWater: "
+      + "%d Gallons\nNext landmark: %.0f miles\nMiles Traveled: %d miles";
     double remaining = AZTrailView.controller.milesToLandmark();
+    String weather = AZTrailView.controller.getWeather();
+    String health = AZTrailView.controller.getHealth();
+    String date = AZTrailView.controller.getDateStr();
     int totalMiles = AZTrailView.controller.getTotalMiles();
-    return String.format(res, date, weather, "good", water, remaining, totalMiles);
+    int water = AZTrailView.controller.getWater();
+    int food = AZTrailView.controller.getFood();
+    return String.format(res, date, weather, health, food, water, remaining,
+      totalMiles);
   }
 
   /**
@@ -284,6 +300,14 @@ public class TrailTravelView extends Scene {
   private void updateStats() {
     AZTrailView.controller.advance();
     this.stats.setText(buildStatsString());
+  }
+
+  private static void increment() {
+    if (time == Integer.MAX_VALUE) {
+      time = 0;
+    } else {
+      time++;
+    }
   }
 
   private class OxenSprite {

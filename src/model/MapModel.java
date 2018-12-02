@@ -5,9 +5,9 @@ import java.io.*;
 
 public class MapModel implements Serializable {
   private boolean atDestination;
+  private int milesFromLastCity;
   private String currentCity;
   private String nextCity;
-  private int milesFromLastCity;
   private int totalMiles;
   private Map<String, Integer> milesToCityMap;
   private String[] citiesInOrder = {"Nogales", "Tombstone", "Tucson","Phoenix",
