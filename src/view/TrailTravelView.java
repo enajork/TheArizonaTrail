@@ -41,12 +41,6 @@ public class TrailTravelView extends Scene {
   public TrailTravelView() {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
-    if (AZTrailView.controller.getHunted()) {
-      AZTrailView.sounds.nighttimeSFX();
-    } else {
-      AZTrailView.sounds.daytimeSFX();
-    }
-    AZTrailView.sounds.startThemeLoop();
   }
 
   /**
@@ -55,6 +49,12 @@ public class TrailTravelView extends Scene {
    */
   private TrailTravelView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
+    if (AZTrailView.controller.getHunted()) {
+      AZTrailView.sounds.nighttimeSFX();
+    } else {
+      AZTrailView.sounds.daytimeSFX();
+    }
+    AZTrailView.sounds.startThemeLoop();
     this.root = root;
     root.setStyle("-fx-background-color: black;");
 
