@@ -173,10 +173,10 @@ public class TrailTravelView extends Scene {
 
       view[i] = new ImageView((AZTrailView.controller.getHunted())
       ? new Image("file:view/assets/graphics/locations/" +
-        AZTrailView.controller.getNextCity() + "-hunted.png", 90, 50,
+        AZTrailView.controller.getNextCity() + "-hunted.png", ICON_WIDTH, ICON_HEIGHT,
       false, true)
       : new Image("file:view/assets/graphics/locations/" +
-        AZTrailView.controller.getNextCity() + ".png", 90, 50,
+        AZTrailView.controller.getNextCity() + ".png", ICON_WIDTH, ICON_HEIGHT,
       false, true));
 
       // AnchorPane anchor = new AnchorPane();
