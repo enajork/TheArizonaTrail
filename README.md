@@ -15,7 +15,7 @@ this repo and run the following commands in your terminal:
 # IMPORTANT NOTE
 You must not have any whitespace in your path, otherwise you will run into build issues.
 
-# Credits
+# CREDITS
 **David Najork, Eric Najork, Jared Grady, & Jordan Bridgewater**
 
 # LEGAL DISCLAIMER
