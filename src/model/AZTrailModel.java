@@ -420,6 +420,10 @@ public class AZTrailModel implements Serializable {
     cart.setAmmo(amount);
   }
 
+  public void resetCart() {
+    cart.resetCart();
+  }
+
   public String getCurrentCity() {
     return mapModel.getCurrentCity();
   }

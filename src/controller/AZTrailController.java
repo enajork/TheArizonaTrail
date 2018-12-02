@@ -568,6 +568,10 @@ public class AZTrailController {
     model.setCartAmmo(amount);
   }
 
+  public void resetCart() {
+    model.resetCart();
+  }
+
   public String getCurrentCity() {
     return model.getCurrentCity();
   }

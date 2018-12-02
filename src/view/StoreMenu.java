@@ -39,6 +39,7 @@ public class StoreMenu extends Scene {
     .format(AZTrailView.controller.getCartAmmo());
   private String item5 = new DecimalFormat("'$'###,##0.00")
     .format(AZTrailView.controller.getCartParts());
+  private Runnable call;
   private BorderPane tile;
   private boolean warn = false;
   private Text footer;
@@ -49,8 +50,8 @@ public class StoreMenu extends Scene {
   /**
    * [StoreMenu description]
    */
-  public StoreMenu() {
-    this(new BorderPane());
+  public StoreMenu(Runnable call) {
+    this(new BorderPane(), call);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
   }
@@ -59,9 +60,9 @@ public class StoreMenu extends Scene {
    * [StoreMenu description]
    * @param root [description]
    */
-  private StoreMenu(BorderPane root) {
+  private StoreMenu(BorderPane root, Runnable call) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
-    System.out.println(AZTrailView.controller.toString());
+    this.call = call;
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane receiptBody = new BorderPane();
@@ -97,7 +98,6 @@ public class StoreMenu extends Scene {
     receiptBody.setAlignment(rect3, Pos.CENTER);
     receiptBody.setMargin(rect3, new Insets(5));
     receiptBody.setMaxHeight(0);
-
 
     // Create the image;
     Image img = new Image("file:view/assets/graphics/menuclerk.png");
@@ -221,18 +221,20 @@ public class StoreMenu extends Scene {
               AZTrailView.controller.addBlankets(5);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
+              AZTrailView.controller.resetCart();
               AZTrailView.sounds.cashOutSFX();
-              AZTrailView.stage.setScene(new ClerkInfoMenu(
-                new Runnable() {
-                  @Override
-                  public void run() {
-                    AZTrailView.stage.setScene(new HuntedMenu());
-                  }
-                },
-                "", new String[]{"Here, take these blankets\nand water. On the house!",
-                "Well then, you're ready\nto start. Good luck!\nYou have a long"
-                 + " and\ndifficult journey ahead\nof you."
-              }));
+              call.run();
+              // AZTrailView.stage.setScene(new ClerkInfoMenu(
+              //   new Runnable() {
+              //     @Override
+              //     public void run() {
+              //       AZTrailView.stage.setScene(new HuntedMenu());
+              //     }
+              //   },
+              //   "", new String[]{"Here, take these blankets\nand water. On the house!",
+              //   "Well then, you're ready\nto start. Good luck!\nYou have a long"
+              //    + " and\ndifficult journey ahead\nof you."
+              // }));
             }
             break;
 

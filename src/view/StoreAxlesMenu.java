@@ -231,7 +231,6 @@ public class StoreAxlesMenu extends Scene {
    */
   private Scene getNextView(int choice) {
     parts += choice;
-    AZTrailView.controller.removeAxles(AZTrailView.controller.getAxles());
     AZTrailView.controller.addAxles(choice);
     return new StoreTonguesMenu(parts);
   }

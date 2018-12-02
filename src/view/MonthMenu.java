@@ -202,7 +202,30 @@ public class MonthMenu extends Scene {
             new Runnable() {
               @Override
               public void run() {
-                AZTrailView.stage.setScene(new StoreMenu());
+                AZTrailView.stage.setScene(
+                  new StoreMenu(
+                    new Runnable() {
+                      @Override
+                      public void run() {
+                        AZTrailView.stage.setScene(new ClerkInfoMenu(
+                          new Runnable() {
+                            @Override
+                            public void run() {
+                              AZTrailView.stage.setScene(new HuntedMenu());
+                            }
+                          },
+                          "",
+                          new String[]{
+                            "Here, take these blankets\nand "
+                              + "water. On the house!",
+                            "Well then, you're ready\nto start. Good luck!\n"
+                              + "You have a long and\ndifficult journey "
+                              + "ahead\nof you."
+                        }));
+                      }
+                    }
+                  );
+                );
               }
             },
             "Hello, I'm Matt. So you're going\nto Utah! "
