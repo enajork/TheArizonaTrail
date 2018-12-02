@@ -23,7 +23,6 @@ import controller.*;
 public class HuntingSplash extends Scene {
   private Scene nextScene;
   private BorderPane root;
-  private String city;
 
   /**
    * [HuntingSplash description]
@@ -48,20 +47,36 @@ public class HuntingSplash extends Scene {
     BorderPane innerText = new BorderPane();
     Text title = new Text("Hunting Instructions");
     title.setId("text12");
+    title.setFill(Color.WHITE);
     innerText.setTop(title);
     innerText.setAlignment(title, Pos.CENTER);
     innerText.setMargin(title, new Insets(10, 0, 0, 0));
     innerText.setMaxHeight(100);
-    TilePane pane = new TilePane();
+    BorderPane pane = new BorderPane();
+
+    TilePane instructions = new TilePane();
+    instructions.setHgap(50);
+    instructions.setPrefColumns(2);
     Image keys = new Image("file:view/assets/graphics/hunt-instructions.png");
-    ImageView instructions = new ImageView(keys);
-    instructions.setPreserveRatio(true);
-    instructions.setFitWidth(104);
-    root.setMargin(instructions, new Insets(5, 5, 0, 5));
-    root.setAlignment(instructions, Pos.CENTER);
-    root.setTop(instructions);
+    ImageView diagram = new ImageView(keys);
+    diagram.setPreserveRatio(true);
+    diagram.setFitWidth(104);
+    Text directions = new Text("Move UP, LEFT, DOWN, and RIGHT\n\nusing the W,"
+        + " A, S, and D keys\n\n\n"
+        + "Aim by pointing and moving\n\nthe CURSOR\n\n\n"
+        + "Shoot by pressing the\n\nLEFT MOUSE BUTTON\n\n\n"
+        + "There is no prey in sight...\n\nJust a few tumbleweeds...");
+    directions.setId("text10");
+    directions.setFill(Color.WHITE);
+    instructions.getChildren().addAll(diagram, directions);
+    AnchorPane controls = new AnchorPane(diagram, directions);
+    root.setCenter(controls);
+    controls.setTopAnchor(diagram, 40.0);
+    controls.setLeftAnchor(diagram, 25.0);
+    controls.setTopAnchor(directions, 65.0);
+    controls.setLeftAnchor(directions, 150.0);
     pane.getChildren().add(innerText);
-    root.setCenter(pane);
+    root.setTop(innerText);
     root.setMargin(pane, new Insets(2));
 
     // Style the view

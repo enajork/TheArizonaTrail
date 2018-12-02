@@ -4,7 +4,6 @@ import javafx.scene.control.Alert.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.input.*;
-import javafx.scene.text.*;
 import javafx.application.*;
 import javafx.scene.input.*;
 import javafx.scene.image.*;
@@ -12,11 +11,13 @@ import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.scene.*;
 import javafx.beans.value.*;
+import javafx.animation.*;
 import javafx.geometry.*;
 import javafx.stage.*;
 import javafx.event.*;
 import java.util.*;
 import java.io.*;
+import javafx.util.Duration;
 
 import controller.*;
 
@@ -42,33 +43,12 @@ public class HuntingView extends Scene {
     this.nextScene = new SizeUpView();
     this.root = root;
     root.setStyle("-fx-background-color: black;");
-
-    BorderPane innerText = new BorderPane();
-    Text title = new Text("Hunting Instructions");
-    title.setId("text12");
-    innerText.setTop(title);
-    innerText.setAlignment(title, Pos.CENTER);
-    innerText.setMargin(title, new Insets(10, 0, 0, 0));
-    innerText.setMaxHeight(100);
-    TilePane pane = new TilePane();
-    Image keys = new Image("file:view/assets/graphics/hunt-instructions.png");
-    ImageView instructions = new ImageView(keys);
-    instructions.setPreserveRatio(true);
-    instructions.setFitWidth(104);
-    root.setMargin(instructions, new Insets(5, 5, 0, 5));
-    root.setAlignment(instructions, Pos.CENTER);
-    root.setTop(instructions);
-    pane.getChildren().add(innerText);
-    root.setCenter(pane);
-    root.setMargin(pane, new Insets(2));
-
-    // Style the view
-    Text footer = new Text("Press SPACE BAR to continue");
-    footer.setId("text12");
-    footer.setFill(Color.WHITE);
-    root.setBottom(footer);
-    root.setAlignment(footer, Pos.CENTER);
-    root.setMargin(footer, new Insets(0, 0, 20, 0));
+    // Text footer = new Text("Press SPACE BAR to continue");
+    // footer.setId("text12");
+    // footer.setFill(Color.WHITE);
+    // root.setBottom(footer);
+    // root.setAlignment(footer, Pos.CENTER);
+    // root.setMargin(footer, new Insets(0, 0, 20, 0));
 
     addEventHandlers();
   }
@@ -116,5 +96,47 @@ public class HuntingView extends Scene {
         }
       }
     });
+  }
+
+  private class HuntingSprite {
+    private final Image IMAGE = new Image((AZTrailView.controller.getHunted())
+      ? "file:view/assets/graphics/hunter-spritesheet-hunted.png"
+      : "file:view/assets/graphics/hunter-spritesheet.png",
+      600, 600, true, false);
+    private static final int COLUMNS  =   5;
+    private static final int COUNT    =   5;
+    private static final int OFFSET_X =   0;
+    private static final int OFFSET_Y =   0;
+    private static final int WIDTH    =  120;
+    private static final int HEIGHT   =  46;
+    private final Animation animation;
+    private ImageView imageView;
+
+    public HuntingSprite() {
+      this.imageView = new ImageView(IMAGE);
+      this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH,
+        HEIGHT));
+
+      this.animation = new SpriteAnimation(
+        this.imageView,
+        Duration.millis(500),
+        COUNT, COLUMNS,
+        OFFSET_X, OFFSET_Y,
+        WIDTH, HEIGHT
+      );
+      this.animation.setCycleCount(4);
+    }
+
+    public void play() {
+      this.animation.play();
+    }
+
+    public void pause() {
+      this.animation.pause();
+    }
+
+    public ImageView getSprite() {
+      return this.imageView;
+    }
   }
 }
