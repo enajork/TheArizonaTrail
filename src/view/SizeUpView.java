@@ -175,7 +175,7 @@ public class SizeUpView extends Scene {
           }
         },
         new String[]{
-          "Your Supplies\n"
+          "Your Supplies\n\n"
           + " 1. Money - " + new DecimalFormat("'$'###,##0.00")
             .format(AZTrailView.controller.getMoney())
           + "\n 2. Oxen - " + AZTrailView.controller.getOxen()

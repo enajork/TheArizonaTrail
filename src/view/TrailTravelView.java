@@ -30,6 +30,9 @@ public class TrailTravelView extends Scene {
   private ParallelTransition movementBack;
   private ParallelTransition movementMid;
   private ParallelTransition movementFore;
+  private StackPane city[] = {null, null};
+  private ImageView view[] = {null, null};
+  Rectangle2D fore;
   private final int SCENE_WIDTH = 650;
   private boolean moving;
   private BorderPane root;
@@ -162,14 +165,25 @@ public class TrailTravelView extends Scene {
     ImageView sand[] = {null, null};
     TranslateTransition transFore[] = {null, null};
     for (int i = 0; i < 2; ++i) {
-      Rectangle2D fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
+      fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
       sand[i] = new ImageView((AZTrailView.controller.getHunted())
         ? new Image("file:view/assets/graphics/sand-hunted.png", 1000, 50,
           false, true)
         : new Image("file:view/assets/graphics/sand.png", 1000, 50, false,
           true));
+
+      view[i] = new ImageView((AZTrailView.controller.getHunted())
+      ? new Image("file:view/assets/graphics/locations/page.png", 90, 50,
+      false, true)
+      : new Image("file:view/assets/graphics/locations/tombstone.png", 90, 50,
+      false, true));
+
+      // AnchorPane anchor = new AnchorPane();
+      // anchor.getChildren().add(view[i]);
+      // anchor.setLeftAnchor(view[i], -100.0);
+      city[i] = new StackPane(sand[i]);
       sand[i].setViewport(fore);
-      transFore[i] = new TranslateTransition(Duration.millis(30000), sand[i]);
+      transFore[i] = new TranslateTransition(Duration.millis(30000), city[i]);
       transFore[i].setFromX(0);
       transFore[i].setToX(-1 * SCENE_WIDTH);
       transFore[i].setInterpolator(Interpolator.LINEAR);
@@ -177,8 +191,8 @@ public class TrailTravelView extends Scene {
     movementFore = new ParallelTransition(transFore[1], transFore[0]);
     movementFore.setCycleCount(1);
 
-    tile.getChildren().addAll(mountains[1], scenery[1], sand[1], mountains[0],
-      scenery[0], sand[0]);
+    tile.getChildren().addAll(mountains[1], scenery[1], city[1], mountains[0],
+      scenery[0], city[0]);
 
     this.ox = new OxenSprite();
     this.ox.getSprite().setTranslateX(-200);
@@ -212,6 +226,8 @@ public class TrailTravelView extends Scene {
             if (time % TIME_DILATION == 0) {
               updateStats();
             }
+            // city[0].getChildren().add(view[0]);
+            // view[0].setViewport(fore);
             break;
 
           case ESCAPE:
