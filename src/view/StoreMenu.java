@@ -61,7 +61,6 @@ public class StoreMenu extends Scene {
    */
   private StoreMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
-    System.out.println(AZTrailView.controller.toString());
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane receiptBody = new BorderPane();
@@ -218,15 +217,15 @@ public class StoreMenu extends Scene {
               warn = true;
             } else {
               AZTrailView.controller.addWater(500);
-              AZTrailView.controller.addBlankets(5);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
+              AZTrailView.controller.resetCart();
               AZTrailView.sounds.cashOutSFX();
               AZTrailView.stage.setScene(new ClerkInfoMenu(
                 new Runnable() {
                   @Override
                   public void run() {
-                    AZTrailView.stage.setScene(new HuntedMenu());
+                    AZTrailView.stage.setScene(getNextView());
                   }
                 },
                 "", new String[]{"Here, take these blankets\nand water. On the house!",
@@ -251,7 +250,7 @@ public class StoreMenu extends Scene {
               AZTrailView.stage.setScene(new StoreMenu());
             }
             if (input.length() == 2) {
-              AZTrailView.stage.setScene(getNextView(Integer.parseInt(input
+              AZTrailView.stage.setScene(getNextMenu(Integer.parseInt(input
                 .substring(0, 1))));
             }
             break;
@@ -291,11 +290,11 @@ public class StoreMenu extends Scene {
   }
 
   /**
-   * [getNextView description]
+   * [getNextMenu description]
    * @param  choice [description]
    * @return        [description]
    */
-  private Scene getNextView(int choice) {
+  private Scene getNextMenu(int choice) {
     if (choice < 1 || choice > NUM_OPTS) {
       throw new IllegalStateException();
     }
@@ -313,5 +312,15 @@ public class StoreMenu extends Scene {
     }
     // return;
     return null;
+  }
+
+  private Scene getNextView() {
+    switch (AZTrailView.controller.getCurrentCity()) {
+      case "Nogales":
+        AZTrailView.controller.addBlankets(5);
+        return new HuntedMenu();
+      default:
+        return new SizeUpView();
+    }
   }
 }

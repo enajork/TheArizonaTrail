@@ -76,6 +76,10 @@ public class MapModel implements Serializable {
     return currentCity;
   }
 
+  public void setCurrentCity(String city) {
+    currentCity = city;
+  }
+
   public int getTotalMiles() {
     return this.totalMiles;
   }

@@ -230,7 +230,6 @@ public class StoreWheelMenu extends Scene {
    */
   private Scene getNextView(int choice) {
     parts += choice;
-    AZTrailView.controller.removeWheels(AZTrailView.controller.getWheels());
     AZTrailView.controller.addWheels(choice);
     return new StoreAxlesMenu(parts);
   }

@@ -3,26 +3,20 @@ package model;
 import java.io.*;
 
 public class AZTrailModel implements Serializable {
-  private boolean hunted;
-  private boolean gameStarted;
-  private Calendar calendar;
   private MapModel mapModel;
+  private Calendar calendar;
+  private boolean hunted;
   private Party party;
   private Cart cart;
   private int travelRate;
-  private String[] topTen = {"Me", "You", "Your brother", "Your mother",
-    "Your father", "Your sister", "Your dog", "Owen Wilson", "player1",
-    "guest"};
 
   public AZTrailModel() {
     this.hunted = true;
-    this.gameStarted = false;
     this.calendar = new Calendar();
     this.mapModel = new MapModel();
     this.party = new Party();
     this.cart = new Cart();
     this.travelRate = 6;
-    // this.topTen;
   }
 
   /**
@@ -63,6 +57,10 @@ public class AZTrailModel implements Serializable {
   }
 
   public int partySize() {
+    return party.totalSize();
+  }
+
+  public int currPartySize() {
     return party.size();
   }
 
@@ -378,16 +376,6 @@ public class AZTrailModel implements Serializable {
     return calendar.getDateStr();
   }
 
-  // -------------------- end new ----------------------------
-
-  /**
-   * [getTopTen description]
-   * @return [description]
-   */
-  public String[] getTopTen() {
-    return this.topTen;
-  }
-
   public double getCartClothes() {
     return cart.getClothes();
   }
@@ -432,16 +420,16 @@ public class AZTrailModel implements Serializable {
     cart.setAmmo(amount);
   }
 
+  public void resetCart() {
+    cart.resetCart();
+  }
+
   public String getCurrentCity() {
     return mapModel.getCurrentCity();
   }
 
-  public boolean isGameStarted() {
-    return gameStarted;
-  }
-
-  public void setGameStarted(boolean value) {
-    this.gameStarted = value;
+  public void setCurrentCity(String city) {
+    mapModel.setCurrentCity(city);
   }
 
   public void setHunted(boolean value) {
@@ -455,7 +443,7 @@ public class AZTrailModel implements Serializable {
   public String toString() {
     String result = "";
     result += "prof=" + getProf();
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < partySize(); i++) {
       result += "\nname" + i + "=" + getName(i);
     }
     result += "\nmoney=" + getMoney();
@@ -471,8 +459,20 @@ public class AZTrailModel implements Serializable {
     result += "\ndate=" + getDateStr();
     result += "\ncity=" + getCurrentCity();
     result += "\nhunted=" + getHunted();
-    result += "\nstarted=" + isGameStarted();
+    result += "\ntravelRate=" + travelRate;
     return result;
+  }
+
+  public void setDay(int day) {
+    calendar.setDay(day);
+  }
+
+  public void setMonth(int month) {
+    calendar.setMonth(month);
+  }
+
+  public void setYear(int year) {
+    calendar.setYear(year);
   }
 
   public void advancePosition() {
@@ -487,7 +487,11 @@ public class AZTrailModel implements Serializable {
     return mapModel.milesToLandmark();
   }
 
-  public String getWeather() {
-    return calendar.getWeather();
+  public int getTravelRate() {
+    return travelRate;
+  }
+
+  public void setTravelRate(int rate) {
+    travelRate = rate;
   }
 }

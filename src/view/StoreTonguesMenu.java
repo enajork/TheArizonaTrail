@@ -231,7 +231,6 @@ public class StoreTonguesMenu extends Scene {
    */
   private Scene getNextView(int choice) {
     parts += choice;
-    AZTrailView.controller.removeTongues(AZTrailView.controller.getTongues());
     AZTrailView.controller.addTongues(choice);
     AZTrailView.controller.setCartParts(parts * 10);
     return new StoreMenu();

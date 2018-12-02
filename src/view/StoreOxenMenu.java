@@ -181,7 +181,6 @@ public class StoreOxenMenu extends Scene {
     if (choice < 1 || choice > NUM_OPTS) {
       throw new IllegalStateException();
     }
-    AZTrailView.controller.removeOxen(AZTrailView.controller.getOxen());
     AZTrailView.controller.addOxen(choice);
     AZTrailView.controller.setCartOxen(choice * 40.0);
     return new StoreMenu();

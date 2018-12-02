@@ -70,4 +70,12 @@ public class Cart implements Serializable {
       ammo = amount;
     }
   }
+
+  public void resetCart() {
+    clothes = 0.0;
+    parts = 0.0;
+    oxen = 0.0;
+    food = 0.0;
+    ammo = 0.0;
+  }
 }

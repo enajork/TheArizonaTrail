@@ -180,7 +180,6 @@ public class StoreClothesMenu extends Scene {
    * @return        [description]
    */
   private Scene getNextView(int choice) {
-    AZTrailView.controller.removeClothes(AZTrailView.controller.getClothes());
     AZTrailView.controller.addClothes(choice);
     AZTrailView.controller.setCartClothes(choice * 10.0);
     return new StoreMenu();
