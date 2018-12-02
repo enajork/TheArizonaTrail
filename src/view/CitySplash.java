@@ -21,6 +21,7 @@ import java.io.*;
 import controller.*;
 
 public class CitySplash extends Scene {
+  private boolean released = false;
   private BorderPane root;
   private String city;
 
@@ -86,6 +87,9 @@ public class CitySplash extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            if (!released) {
+              return;
+            }
             AZTrailController.escape = false;
             System.out.println("function called");
             AZTrailView.stage.setScene(getNextScene());
@@ -109,6 +113,16 @@ public class CitySplash extends Scene {
           default:
             AZTrailController.escape = false;
             return;
+        }
+      }
+    });
+    this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case SPACE:
+            released = true;
+            break;
         }
       }
     });

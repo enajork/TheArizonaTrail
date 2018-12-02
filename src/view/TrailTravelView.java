@@ -262,7 +262,6 @@ public class TrailTravelView extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           default:
-            AZTrailController.escape = false;
             ox.pause();
             AZTrailView.sounds.stopMovingSFX();
             movementBack.pause();
@@ -302,8 +301,6 @@ public class TrailTravelView extends Scene {
     }
     if (time % TIME_DILATION == 0) {
       if (AZTrailView.controller.advance()) {
-        System.out.println(AZTrailView.controller
-          .getCurrentCity());
         AZTrailView.stage.setScene(new CitySplash(AZTrailView.controller
           .getCurrentCity()));
       }

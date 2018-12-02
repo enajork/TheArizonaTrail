@@ -40,6 +40,7 @@ public class StoreMenu extends Scene {
   private String item5 = new DecimalFormat("'$'###,##0.00")
     .format(AZTrailView.controller.getCartParts());
   private BorderPane tile;
+  private boolean released = false;
   private boolean warn = false;
   private Text footer;
   private Text body;
@@ -200,6 +201,9 @@ public class StoreMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            if (!released) {
+              return;
+            }
             AZTrailController.escape = false;
             if (warn) {
               AZTrailView.stage.setScene(new StoreMenu(name, start));
@@ -299,6 +303,16 @@ public class StoreMenu extends Scene {
                 && Character.isDigit(event.getText().charAt(0))) {
               updateInputText(Integer.parseInt(event.getText()));
             }
+        }
+      }
+    });
+    this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case SPACE:
+            released = true;
+            break;
         }
       }
     });
