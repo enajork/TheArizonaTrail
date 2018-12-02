@@ -134,14 +134,12 @@ public class AZTrailController {
       topTen = (TopTen) save.readObject();
       if (SCORE_DEBUG) {
         System.out.println("scores loaded");
-        System.out.println(toString());
       }
       save.close();
       load.close();
     } catch (IOException e) {
       if (SCORE_DEBUG) {
         System.err.println("failed to load scores");
-        System.out.println(toString());
       }
       topTen = new TopTen();
     } catch (ClassNotFoundException e) {
@@ -160,7 +158,6 @@ public class AZTrailController {
       load.writeObject(topTen);
       if (SCORE_DEBUG) {
         System.out.println("scores saved");
-        System.out.println(toString());
       }
       load.close();
       save.close();
