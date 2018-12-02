@@ -26,7 +26,7 @@ import java.io.*;
 import controller.*;
 
 public class TrailTravelView extends Scene {
-  private static final int TIME_DILATION = 30;
+  private static final int TIME_DILATION = 10; // 30 seems good
   private ParallelTransition movementBack;
   private ParallelTransition movementMid;
   private ParallelTransition movementFore;
@@ -64,8 +64,8 @@ public class TrailTravelView extends Scene {
 
     Text footer = new Text("Hold SPACE BAR to continue...\n");
     footer.setId("text12");
-    footer.setFill((AZTrailView.controller.getHunted()) ? Color.BLACK
-      : Color.WHITE);
+    footer.setFill((AZTrailView.controller.getHunted()) ? Color.WHITE
+      : Color.BLACK);
     BorderPane tooltip = new BorderPane();
     tooltip.setCenter(footer);
     tooltip.setAlignment(footer, Pos.CENTER);
@@ -172,9 +172,11 @@ public class TrailTravelView extends Scene {
           true));
 
       view[i] = new ImageView((AZTrailView.controller.getHunted())
-      ? new Image("file:view/assets/graphics/locations/page.png", 90, 50,
+      ? new Image("file:view/assets/graphics/locations/" +
+        AZTrailView.controller.getNextCity() + "-hunted.png", 90, 50,
       false, true)
-      : new Image("file:view/assets/graphics/locations/tombstone.png", 90, 50,
+      : new Image("file:view/assets/graphics/locations/" +
+        AZTrailView.controller.getNextCity() + ".png", 90, 50,
       false, true));
 
       // AnchorPane anchor = new AnchorPane();
@@ -316,6 +318,9 @@ public class TrailTravelView extends Scene {
     this.stats.setText(buildStatsString());
     // city[0].getChildren().add(view[0]);
     // view[0].setViewport(fore);
+    // int i = () ? 0 : 1;
+    // city[i].getChildren().add(view[i]);
+    // view[i].setViewport(fore);
   }
 
   private class OxenSprite {
