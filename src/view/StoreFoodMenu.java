@@ -202,7 +202,6 @@ public class StoreFoodMenu extends Scene {
    * @return        [description]
    */
   private Scene getNextView(int choice) {
-    AZTrailView.controller.removeFood(AZTrailView.controller.getFood());
     AZTrailView.controller.addFood(choice);
     AZTrailView.controller.setCartFood(choice * 0.2);
     return new StoreMenu();

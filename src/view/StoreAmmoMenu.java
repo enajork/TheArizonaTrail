@@ -179,7 +179,6 @@ public class StoreAmmoMenu extends Scene {
    * @return        [description]
    */
   private Scene getNextView(int choice) {
-    AZTrailView.controller.removeBullets(AZTrailView.controller.getBullets());
     AZTrailView.controller.addBullets(choice * 20);
     AZTrailView.controller.setCartAmmo(choice * 2.0);
     return new StoreMenu();
