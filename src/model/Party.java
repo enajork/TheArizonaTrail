@@ -338,5 +338,4 @@ public class Party implements Serializable {
   public int getTongues() {
     return inv.getTongues();
   }
-
 }

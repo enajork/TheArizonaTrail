@@ -12,8 +12,8 @@ public class AZTrailController {
   public static boolean escape = false;
   private AZTrailModel checkpoint;
   private AZTrailModel model;
-  private TopTen topTen;
   private static Random rand;
+  private TopTen topTen;
 
   // debug flag
   private static final boolean SAVE_DEBUG = false;
@@ -236,7 +236,7 @@ public class AZTrailController {
   }
 
   public int partySize() {
-    return model.partySize();
+    return model.currPartySize();
   }
 
   /**
@@ -651,5 +651,22 @@ public class AZTrailController {
       result += ((topTen.getScore(i) == 0) ? "" : topTen.getScore(i)) + "\n";
     }
     return result;
+  }
+
+  public String getHealth() {
+    switch(model.currPartySize()) {
+      case 1:
+        return "bad";
+      case 2:
+        return "poor";
+      case 3:
+        return "okay";
+      case 4:
+        return "good";
+      case 5:
+        return "great";
+      default:
+        return "";
+    }
   }
 }
