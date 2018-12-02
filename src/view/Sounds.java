@@ -77,6 +77,7 @@ public class Sounds {
       musicPlayer.setOnEndOfMedia(new Runnable() {
         @Override
         public void run() {
+          isPlayingTheme = false;
           startThemeLoop();
         }
       });
@@ -95,6 +96,7 @@ public class Sounds {
       musicPlayer.setOnEndOfMedia(new Runnable() {
         @Override
         public void run() {
+          isPlayingTheme = false;
           huntedMenuTheme();
         }
       });
@@ -113,6 +115,7 @@ public class Sounds {
       musicPlayer.setOnEndOfMedia(new Runnable() {
         @Override
         public void run() {
+          isPlayingTheme = false;
           huntedInitialTheme();
         }
       });
@@ -131,6 +134,7 @@ public class Sounds {
       musicPlayer.setOnEndOfMedia(new Runnable() {
         @Override
         public void run() {
+          isPlayingTheme = false;
           huntedFinalTheme();
         }
       });
@@ -149,6 +153,7 @@ public class Sounds {
       musicPlayer.setOnEndOfMedia(new Runnable() {
         @Override
         public void run() {
+          isPlayingTheme = false;
           huntedCreditsTheme();
         }
       });
@@ -167,6 +172,7 @@ public class Sounds {
       musicPlayer.setOnEndOfMedia(new Runnable() {
         @Override
         public void run() {
+          isPlayingTheme = false;
           homeStretchTheme();
         }
       });
@@ -185,6 +191,7 @@ public class Sounds {
       musicPlayer.setOnEndOfMedia(new Runnable() {
         @Override
         public void run() {
+          isPlayingTheme = false;
           huntingSong();
         }
       });
@@ -389,12 +396,22 @@ public class Sounds {
   public static void stop() {
     if (musicPlayer != null) {
       musicPlayer.stop();
+      isPlayingTheme = false;
     }
     if (sfxPlayer1 != null) {
       sfxPlayer1.stop();
+      isPlayingBackgroundSFX = false;
     }
     if (sfxPlayer2 != null) {
       sfxPlayer2.stop();
+      isPlayingBackgroundSFX = false;
+    }
+  }
+
+  public static void stopMusic() {
+    if (musicPlayer != null) {
+      musicPlayer.stop();
+      isPlayingTheme = false;
     }
   }
 }
