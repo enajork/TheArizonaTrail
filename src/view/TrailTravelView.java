@@ -311,6 +311,8 @@ public class TrailTravelView extends Scene {
     }
     if (time % TIME_DILATION == 0) {
       if (AZTrailView.controller.advance()) {
+        System.out.println(AZTrailView.controller
+          .getCurrentCity());
         AZTrailView.stage.setScene(new CitySplash(AZTrailView.controller
           .getCurrentCity()));
       }
