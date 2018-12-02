@@ -71,6 +71,10 @@ public class Party implements Serializable {
   }
 
   public int size() {
+    return names.size();
+  }
+
+  public int totalSize() {
     return SIZE;
   }
 

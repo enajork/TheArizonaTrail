@@ -1,26 +1,32 @@
 package controller;
 
+import java.util.*;
 import java.io.*;
 import model.*;
-// import java.util.Random;
 
 public class AZTrailController {
   private final String savePath = "model/save_game.dat";
+  private final String scoresPath = "model/topten.dat";
   public static boolean hasSave = false;
   public static boolean sound = true;
   public static boolean escape = false;
+  private AZTrailModel checkpoint;
   private AZTrailModel model;
-  // private static Random rand;
+  private TopTen topTen;
+  private static Random rand;
 
   // debug flag
-  private static final boolean SAVE_DEBUG = true;
+  private static final boolean SAVE_DEBUG = false;
+  private static final boolean SCORE_DEBUG = true;
 
   /**
    * [AZTrailController description]
    */
   public AZTrailController() {
+    this.rand = new Random(System.currentTimeMillis());
+    this.checkpoint = new AZTrailModel();
     this.model = new AZTrailModel();
-    // this.rand = new Random(System.currentTimeMillis());
+    this.topTen = new TopTen();
   }
 
   public void loadGame() {
@@ -57,7 +63,7 @@ public class AZTrailController {
     try {
       FileOutputStream save = new FileOutputStream(savePath);
       ObjectOutputStream load = new ObjectOutputStream(save);
-      load.writeObject(model);
+      load.writeObject(checkpoint);
       hasSave = true;
       if (SAVE_DEBUG) {
         System.out.println("game saved");
@@ -94,6 +100,88 @@ public class AZTrailController {
     }
   }
 
+  public void setCheckpoint() {
+    checkpoint = new AZTrailModel();
+    checkpoint.addMoney(model.getMoney());
+    checkpoint.addOxen(model.getOxen());
+    checkpoint.addFood(model.getFood());
+    checkpoint.addBlankets(model.getBlankets());
+    checkpoint.addClothes(model.getClothes());
+    checkpoint.addBullets(model.getBullets());
+    checkpoint.addWheels(model.getWheels());
+    checkpoint.addAxles(model.getAxles());
+    checkpoint.addTongues(model.getTongues());
+    checkpoint.addWater(model.getWater());
+    checkpoint.setDay(model.getDay());
+    checkpoint.setMonth(model.getMonth());
+    checkpoint.setYear(model.getYear());
+    checkpoint.setCurrentCity(model.getCurrentCity());
+    checkpoint.setHunted(model.getHunted());
+    checkpoint.setProf(model.getProf());
+    checkpoint.setTravelRate(model.getTravelRate());
+    for (int i = 0; i < model.currPartySize(); i++) {
+      checkpoint.setName(i, model.getName(i));
+    }
+  }
+
+  public void loadTopTen() {
+    try {
+      File file = new File(scoresPath);
+      file.createNewFile();
+      file.setWritable(true);
+      FileInputStream load = new FileInputStream(scoresPath);
+      ObjectInputStream save = new ObjectInputStream(load);
+      topTen = (TopTen) save.readObject();
+      if (SCORE_DEBUG) {
+        System.out.println("scores loaded");
+        System.out.println(toString());
+      }
+      save.close();
+      load.close();
+    } catch (IOException e) {
+      if (SCORE_DEBUG) {
+        System.err.println("failed to load scores");
+        System.out.println(toString());
+      }
+      topTen = new TopTen();
+    } catch (ClassNotFoundException e) {
+      System.err.println("Fatal error: " + e.getMessage());
+      System.exit(1);
+    } catch (ClassCastException e) {
+      System.err.println("Fatal error: " + e.getMessage());
+      System.exit(1);
+    }
+  }
+
+  public void saveTopTen() {
+    try {
+      FileOutputStream save = new FileOutputStream(scoresPath);
+      ObjectOutputStream load = new ObjectOutputStream(save);
+      load.writeObject(topTen);
+      if (SCORE_DEBUG) {
+        System.out.println("scores saved");
+        System.out.println(toString());
+      }
+      load.close();
+      save.close();
+    } catch (IOException e) {
+      if (SCORE_DEBUG) {
+        System.err.println("unable to save scores");
+      }
+    }
+  }
+
+  public void resetTopTen() {
+    File save = new File(scoresPath);
+    if (save.exists()) {
+      save.delete();
+      if (SCORE_DEBUG) {
+        System.out.println("scores reset");
+      }
+    }
+    topTen = new TopTen();
+  }
+
   /**
    * [advance description]
    */
@@ -124,6 +212,14 @@ public class AZTrailController {
       default:
         throw new IllegalStateException();
     }
+  }
+
+  public String toString() {
+    String result = "\n----------start-----------\n" + model.toString();
+    result += "\nhasSave=" + hasSave;
+    result += "\nsound=" + sound;
+    result += "\nescape=" + escape;
+    return result + "\n----------end------------\n";
   }
 
   /**
@@ -479,28 +575,12 @@ public class AZTrailController {
     return model.getCurrentCity();
   }
 
-  public boolean isGameStarted() {
-    return model.isGameStarted();
-  }
-
-  public void setGameStarted(boolean value) {
-    model.setGameStarted(value);
-  }
-
   public void setHunted(boolean value) {
     model.setHunted(value);
   }
 
   public boolean getHunted() {
     return model.getHunted();
-  }
-
-  public String toString() {
-    String result = "\n----------start-----------\n" + model.toString();
-    result += "\nhasSave=" + hasSave;
-    result += "\nsound=" + sound;
-    result += "\nescape=" + escape;
-    return result + "\n----------end------------\n";
   }
 
   public int getTotalMiles() {
@@ -512,6 +592,63 @@ public class AZTrailController {
   }
 
   public String getWeather() {
-    return model.getWeather();
+    int p = rand.nextInt(9);
+
+    String season = model.getSeason();
+
+    if (season.equals("winter")) {
+      if (p < 2) {
+        return "cold";
+      } else {
+        return "cool";
+      }
+    }
+    else if (season.equals("spring")) {
+      if (p == 0) {
+        return "cool";
+      } else {
+        return "warm";
+      }
+    }
+    else if (season.equals("summer")) {
+      if (p < 5) {
+        return "hot";
+      } else {
+        return "scorching";
+      }
+    }
+    else {
+      if (p < 2) {
+        return "hot";
+      } else if (p >= 2 && p < 7){
+        return "warm";
+      } else {
+        return "cool";
+      }
+    }
+  }
+
+  public void setScore(int i, String name, int score) {
+    topTen.setScore(i, name, score);
+  }
+
+  public String getTopTenNames() {
+    String result = "";
+    for (int i = 0; i < topTen.size(); i++) {
+      result += (i + 1)
+        + ". "
+        + ((topTen.getName(i) == null || topTen.getName(i).length() == 0)
+          ? "" : topTen.getName(i))
+        + "\n";
+    }
+    return result;
+  }
+
+  public String getTopTenScores() {
+    String result = "";
+    for (int i = 0; i < topTen.size(); i++) {
+      result += ((topTen.getScore(i) == 0) ? "" : topTen.getScore(i)) + "\n";
+    }
+    return result;
   }
 }

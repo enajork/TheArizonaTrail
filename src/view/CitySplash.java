@@ -40,6 +40,7 @@ public class CitySplash extends Scene {
   private CitySplash(BorderPane root, String city) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
+    AZTrailView.controller.setCheckpoint();
     this.nextScene = new SizeUpView();
     this.root = root;
     this.city = city;
@@ -126,7 +127,6 @@ public class CitySplash extends Scene {
         root.setMargin(splash, new Insets(5, 5, 0, 5));
         root.setAlignment(splash, Pos.CENTER);
         root.setTop(splash);
-        AZTrailView.controller.setGameStarted(true);
         return;
 
       default:
