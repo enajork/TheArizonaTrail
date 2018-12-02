@@ -80,7 +80,7 @@ public class ClerkInfoMenu extends Scene {
     body.setFill(Color.WHITE);
     tile.setAlignment(body, Pos.CENTER);
 
-    Text footer = new Text("Press SPACEBAR to continue...");
+    Text footer = new Text("Press SPACE BAR to continue...");
     footer.setFill(Color.WHITE);
     footer.setId("text12");
     tile.setCenter(body);
