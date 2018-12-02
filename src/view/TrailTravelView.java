@@ -27,6 +27,8 @@ import controller.*;
 
 public class TrailTravelView extends Scene {
   private static final int TIME_DILATION = 10; // 30 seems good
+  private int ICON_WIDTH = 90;
+  private int ICON_HEIGHT = 50;
   private ParallelTransition movementBack;
   private ParallelTransition movementMid;
   private ParallelTransition movementFore;
@@ -171,13 +173,15 @@ public class TrailTravelView extends Scene {
         : new Image("file:view/assets/graphics/sand.png", 1000, 50, false,
           true));
 
-      view[i] = new ImageView((AZTrailView.controller.getHunted())
-      ? new Image("file:view/assets/graphics/locations/" +
-        AZTrailView.controller.getNextCity() + "-hunted.png", ICON_WIDTH, ICON_HEIGHT,
-      false, true)
-      : new Image("file:view/assets/graphics/locations/" +
-        AZTrailView.controller.getNextCity() + ".png", ICON_WIDTH, ICON_HEIGHT,
-      false, true));
+      // view[i] = new ImageView((AZTrailView.controller.getHunted())
+      // ? new Image("file:view/assets/graphics/locations/" +
+      //   AZTrailView.controller.getNextCity().toLowerCase() + "-hunted.png",
+      //    ICON_WIDTH, ICON_HEIGHT,
+      // false, true)
+      // : new Image("file:view/assets/graphics/locations/" +
+      //   AZTrailView.controller.getNextCity().toLowerCase() + ".png",
+      //    ICON_WIDTH, ICON_HEIGHT,
+      // false, true));
 
       // AnchorPane anchor = new AnchorPane();
       // anchor.getChildren().add(view[i]);
@@ -318,9 +322,16 @@ public class TrailTravelView extends Scene {
       }
     }
     this.stats.setText(buildStatsString());
+    // int i = () ? 0 : 1;
+    // view[i] = new ImageView((AZTrailView.controller.getHunted())
+    // ? new Image("file:view/assets/graphics/locations/" +
+    //   AZTrailView.controller.getNextCity() + "-hunted.png", ICON_WIDTH, ICON_HEIGHT,
+    // false, true)
+    // : new Image("file:view/assets/graphics/locations/" +
+    //   AZTrailView.controller.getNextCity() + ".png", ICON_WIDTH, ICON_HEIGHT,
+    // false, true));
     // city[0].getChildren().add(view[0]);
     // view[0].setViewport(fore);
-    // int i = () ? 0 : 1;
     // city[i].getChildren().add(view[i]);
     // view[i].setViewport(fore);
   }
