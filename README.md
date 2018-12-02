@@ -1,6 +1,6 @@
 # The Arizona Trail
 
-# INSTRUCTIONS
+# Instructions
 In order to build and run the game, you must first navigate to the top level of
 this repo and run the following commands in your terminal:
 
@@ -12,13 +12,13 @@ this repo and run the following commands in your terminal:
   
     `./run_aztrail`
 
-# IMPORTANT NOTE
+# Important Note
 You must not have any whitespace in your path, otherwise you will run into build issues.
 
-# CREDITS
+# Credits
 **David Najork, Eric Najork, Jared Grady, & Jordan Bridgewater**
 
-# LEGAL DISCLAIMER
+# Legal Disclaimer
 This game was made for educational purposes; elements of satire and parody are present.
 
 All copyright sights and sounds are, therefore, considered "fair use" and their exhibition in this project is proctected under parody law.
