@@ -61,17 +61,19 @@ public class HuntingSplash extends Scene {
     ImageView diagram = new ImageView(keys);
     diagram.setPreserveRatio(true);
     diagram.setFitWidth(104);
-    Text directions = new Text("Move UP, LEFT, DOWN, and RIGHT \n\nusing the W," +
-        " A, S, and D keys\n\n\nAim by pointing and moving \n\nthe mouse\n\n\nShoot " +
-        "by pressing the \n\nLEFT MOUSE BUTTON");
+    Text directions = new Text("Move UP, LEFT, DOWN, and RIGHT\n\nusing the W,"
+        + " A, S, and D keys\n\n\n"
+        + "Aim by pointing and moving\n\nthe CURSOR\n\n\n"
+        + "Shoot by pressing the\n\nLEFT MOUSE BUTTON\n\n\n"
+        + "There is no prey in sight...\n\nJust a few tumbleweeds...");
     directions.setId("text10");
     directions.setFill(Color.WHITE);
     instructions.getChildren().addAll(diagram, directions);
     AnchorPane controls = new AnchorPane(diagram, directions);
     root.setCenter(controls);
-    controls.setTopAnchor(diagram, 65.0);
+    controls.setTopAnchor(diagram, 40.0);
     controls.setLeftAnchor(diagram, 25.0);
-    controls.setTopAnchor(directions, 90.0);
+    controls.setTopAnchor(directions, 65.0);
     controls.setLeftAnchor(directions, 150.0);
     pane.getChildren().add(innerText);
     root.setTop(innerText);
