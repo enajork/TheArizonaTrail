@@ -31,6 +31,14 @@ public class Calendar implements Serializable {
     return day;
   }
 
+  public void setYear(int year) {
+    this.year = year;
+  }
+
+  public void setDay(int day) {
+    this.day = day;
+  }
+
   public void setMonth(String month) {
     int i = monthNum.get(month);
     if (i >= 0 && i <= TOTAL_MONTHS - 1) {
@@ -43,6 +51,11 @@ public class Calendar implements Serializable {
   public int getMonth() {
     return month;
   }
+
+  public void setMonth(int month) {
+    this.month = month;
+  }
+
 
   public String getDateStr() {
     return months[month] + " " + day + ", " + year;
@@ -59,44 +72,6 @@ public class Calendar implements Serializable {
       // advance year
       if (month == 0) {
         year++;
-      }
-    }
-  }
-
-  public String getWeather() {
-    Random rand = new Random();
-    int p = rand.nextInt(9);
-
-    String season = this.getSeason();
-
-    if (season.equals("winter")) {
-      if (p < 2) {
-        return "cold";
-      } else {
-        return "cool";
-      }
-    }
-    else if (season.equals("spring")) {
-      if (p == 0) {
-        return "cool";
-      } else {
-        return "warm";
-      }
-    }
-    else if (season.equals("summer")) {
-      if (p < 5) {
-        return "hot";
-      } else {
-        return "scorching";
-      }
-    }
-    else {
-      if (p < 2) {
-        return "hot";
-      } else if (p >= 2 && p < 7){
-        return "warm";
-      } else {
-        return "cool";
       }
     }
   }

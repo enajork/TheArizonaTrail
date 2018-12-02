@@ -242,18 +242,7 @@ public class SplashMenu extends Scene {
         }, true, true);
       case 3:
         // See the Arizona top 10
-        return new GenericInfoMenu(
-          new Runnable() {
-            @Override
-            public void run() {
-              AZTrailView.stage.setScene(new SplashMenu());
-            }
-          }, new String[]{
-          "\tThe Arizona Top Ten\n\n  Name\t    Points\t   Rating\n\n"
-          + " Me\t     9999       Trail guide\n"
-          + " Myself\t     9999       Trail guide\n"
-          + " Eye\t     9999       Adventurer\n"
-        }, false, false);
+        return new TopTenMenu();
       case 4:
         // turn sound off
         AZTrailController.sound = !AZTrailController.sound;
@@ -263,11 +252,16 @@ public class SplashMenu extends Scene {
             public void run() {
               AZTrailView.stage.setScene(new SplashMenu());
             }
-          }, new String[]{
-          "The sound is now turned " + (AZTrailController.sound ? "on" : "off") + ". \n"
-            + "You may turn sound on or off\n"
-            + "during the program by pressing\nControl-S."
-        }, true, true);
+          },
+          new String[]{
+            "The sound is now turned " + (AZTrailController.sound ? "on"
+              : "off") + ". \n"
+              + "You may turn sound on or off\n"
+              + "during the program by pressing\nControl-S."
+          },
+          true,
+          true
+        );
       case 5:
         // choose management option
         return new OptionsMenu();

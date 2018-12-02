@@ -21,10 +21,11 @@ import java.io.*;
 import controller.*;
 
 public class OptionsMenu extends Scene {
-  private final int NUM_OPTS = 2;
+  private final int NUM_OPTS = 3;
   private String contents = "You may:\n\n  "
-    + "1. Delete save file\n  "
-    + "2. Travel the Trail\n\n"
+    + "1. Delete save file\n"
+    + "2. Reset the Arizona Top Ten\n"
+    + "3. Travel the Trail\n\n"
     + "What is your choice? ";
   private String input = "_";
   private Text body;
@@ -200,6 +201,26 @@ public class OptionsMenu extends Scene {
           );
         }
       case 2:
+        return new GenericYesNoMenu(
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.stage.setScene(new OptionsMenu());
+              AZTrailView.controller.resetTopTen();
+            }
+          },
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.stage.setScene(new OptionsMenu());
+            }
+          },
+          "    Are you sure?",
+          "",
+          true,
+          true
+        );
+      case 3:
         return new SplashMenu();
     }
     // return;
