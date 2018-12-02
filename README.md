@@ -13,7 +13,7 @@ this repo and run the following commands in your terminal:
     `./run_aztrail`
 
 # Important Note
-You must not have any whitespace in your path, otherwise you will run into build issues.
+**You must not have any whitespace in your path, otherwise you will run into build issues.**
 
 # Credits
 **David Najork, Eric Najork, Jared Grady, & Jordan Bridgewater**
