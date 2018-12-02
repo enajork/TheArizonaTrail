@@ -40,7 +40,8 @@ public class AZTrailView extends Application {
    */
   @Override
   public void start(Stage stage) throws Exception {
-    styleSheet = getClass().getResource("assets/font/style.css").toExternalForm();
+    styleSheet = getClass().getResource("assets/font/style.css")
+      .toExternalForm();
     this.stage = stage;
     controller = new AZTrailController();
     sounds = new Sounds();
