@@ -55,7 +55,7 @@ public class TrailTravelView extends Scene {
     this.root = root;
     root.setStyle("-fx-background-color: black;");
 
-    Text footer = new Text("Hold SPACEBAR to continue...\n");
+    Text footer = new Text("Hold SPACE BAR to continue...\n");
     footer.setId("text12");
     footer.setFill(Color.WHITE);
     AnchorPane anchor = new AnchorPane(footer);

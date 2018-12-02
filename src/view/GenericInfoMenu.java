@@ -117,7 +117,7 @@ public class GenericInfoMenu extends Scene {
       tile.setAlignment(accent2, Pos.CENTER);
     }
 
-    Text footer = new Text("Press SPACEBAR to continue...");
+    Text footer = new Text("Press SPACE BAR to continue...");
     footer.setFill(Color.WHITE);
     footer.setId("text12");
 
