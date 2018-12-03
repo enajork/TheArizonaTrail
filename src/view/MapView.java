@@ -54,7 +54,9 @@ public class MapView extends Scene {
       true, true);
     ImageView mapView = new ImageView(map);
     ImageView routeView = new ImageView(route);
-    StackPane topography = new StackPane(mapView, routeView);
+    Rectangle eclipse = new Rectangle(0, 0, SCENE_WIDTH, SCENE_HEIGHT - 300);
+    eclipse.setFill((AZTrailView.controller.getHunted()) ? Color.BLACK : Color.WHITE);
+    StackPane topography = new StackPane(mapView, eclipse, routeView);
     AnchorPane anchor = new AnchorPane(topography);
     BorderPane view = new BorderPane(anchor);
     Rectangle2D port = new Rectangle2D(0, 0, SCENE_WIDTH, SCENE_HEIGHT);

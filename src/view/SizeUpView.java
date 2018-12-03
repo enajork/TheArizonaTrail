@@ -188,7 +188,7 @@ public class SizeUpView extends Scene {
 
       case 3:
         // Look at map
-        return new SizeUpView();
+        return new MapView();
       case 4:
         // Change pace
         return new SizeUpView();
