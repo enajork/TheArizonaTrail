@@ -10,6 +10,7 @@ public class AZTrailController {
   private final int BREAK_AXLE = 1;
   private final int OXEN_DEATH = 1;
   private final int SICK = 1;
+  private final int LUCK = 100;
   private final String savePath = "model/save_game.dat";
   private final String scoresPath = "model/topten.dat";
   public static boolean hasSave = false;
@@ -734,7 +735,7 @@ public class AZTrailController {
   }
 
   public String randomEvent() {
-    int p = rand.nextInt(100);
+    int p = rand.nextInt(LUCK);
     if (p >= 0 && p <= (SICK * (model.currPartySize() - getClothes() + 1)
         * ((model.getSeason().equals("winter")) ? 2 : 1 ))) {
       removeBlankets(1);
@@ -746,7 +747,7 @@ public class AZTrailController {
       }
       return "0" + getName(model.currPartySize() - 1) + " has\nfallen ill.";
     }
-    p = rand.nextInt(100);
+    p = rand.nextInt(LUCK);
     if (p >= 0 && p <= BREAK_WHEEL) {
       removeWheels(1);
       if (getWheels() == 0) {
@@ -754,7 +755,7 @@ public class AZTrailController {
       }
       return "0One of your wheels broke.";
     }
-    p = rand.nextInt(100);
+    p = rand.nextInt(LUCK);
     if (p >= 0 && p <= BREAK_AXLE) {
       removeAxles(1);
       if (getAxles() == 0) {
@@ -762,7 +763,7 @@ public class AZTrailController {
       }
       return "0One of your axles broke.";
     }
-    p = rand.nextInt(100);
+    p = rand.nextInt(LUCK);
     if (p >= 0 && p <= BREAK_TONGUE) {
       removeTongues(1);
       if (getTongues() == 0) {
@@ -770,7 +771,7 @@ public class AZTrailController {
       }
       return "0One of your tongues broke.";
     }
-    p = rand.nextInt(100);
+    p = rand.nextInt(LUCK);
     if (p >= 0 && p <= OXEN_DEATH * ((getWeather().equals("summer")) ? 2 : 1)) {
       removeOxen(1);
       if (getOxen() == 0) {
