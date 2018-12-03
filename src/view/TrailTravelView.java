@@ -345,6 +345,53 @@ public class TrailTravelView extends Scene {
       time++;
     }
     if (time % TIME_DILATION == 0) {
+      String result = AZTrailView.controller.deplete();
+      if (result.length() != 0) {
+        AZTrailView.stage.setScene(new GenericInfoMenu(
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.stage.setScene(new GameOver());
+            }
+          },
+          new String[]{ result },
+          true,
+          false,
+          true
+        ));
+      }
+      result = AZTrailView.controller.randomEvent();
+      if (result.length() != 0) {
+        if (result.charAt(0) == '0') {
+          result = result.replace("0", "");
+          AZTrailView.stage.setScene(new GenericInfoMenu(
+            new Runnable() {
+              @Override
+              public void run() {
+                AZTrailView.stage.setScene(new TrailTravelView());
+              }
+            },
+            new String[]{ result },
+            true,
+            false,
+            true
+          ));
+        } else if (result.charAt(0) == '1') {
+          result = result.replace("1", "");
+          AZTrailView.stage.setScene(new GenericInfoMenu(
+            new Runnable() {
+              @Override
+              public void run() {
+                AZTrailView.stage.setScene(new GameOver());
+              }
+            },
+            new String[]{ result },
+            true,
+            false,
+            true
+          ));
+        }
+      }
       if (AZTrailView.controller.advance()) {
         AZTrailView.stage.setScene(new CitySplash(AZTrailView.controller
           .getCurrentCity(), true));
