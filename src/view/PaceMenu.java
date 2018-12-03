@@ -22,11 +22,11 @@ import controller.*;
 
 public class PaceMenu extends Scene {
   private final int NUM_OPTS = 3;
-  private String contents = "Change Pace:\n\n"
-    + "The pace at which you travel can change.\nYour choices are:\n\n"
-    + "  1. a steady pace\n"
-    + "  2. a strenuous pace\n"
-    + "  3. a grueling pace\n\n"
+  private String contents =
+    "Set the pace at which\nyour party travels.\nYour choices are:\n\n"
+    + "  1. A steady pace\n"
+    + "  2. A strenuous pace\n"
+    + "  3. A grueling pace\n\n"
     + "What is your choice? ";
   private String input = "_";
   private Text body;
@@ -55,6 +55,10 @@ public class PaceMenu extends Scene {
     body.setId("text12");
     body.setFill(Color.WHITE);
 
+    AnchorPane anchor = new AnchorPane(body);
+    anchor.setLeftAnchor(body, 160.0);
+    anchor.setTopAnchor(body, 80.0);
+
     // Create the first accent
     ImageView accent1 = menuAccent();
 
@@ -64,9 +68,9 @@ public class PaceMenu extends Scene {
     // Style the view
     root.setStyle("-fx-background-color: black;");
     root.setTop(accent1);
-    root.setCenter(body);
+    root.setCenter(anchor);
     root.setBottom(accent2);
-    root.setAlignment(body, Pos.CENTER);
+    root.setAlignment(anchor, Pos.CENTER);
     root.setAlignment(accent1, Pos.CENTER);
     root.setAlignment(accent2, Pos.CENTER);
 
