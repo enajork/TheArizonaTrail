@@ -696,7 +696,7 @@ public class AZTrailController {
         result *= 2;
         break;
       case "Farmer":
-        result *= 3;
+        result *= 4;
         break;
     }
     return result;
@@ -725,11 +725,11 @@ public class AZTrailController {
     removeWater((getTravelRate() / 3) * (getOxen() + model.currPartySize()
       + consumption) / 2);
     if (getFood() == 0 && getWater() == 0) {
-      return "You ran out of food\nand water.";
+      return "You party died from cannibalism.";
     } else if (getFood() == 0) {
-      return "You ran out of food.";
+      return "You party died from starvation.";
     } else if (getWater() == 0) {
-      return "You ran out of water.";
+      return "You party died from dehydration.";
     }
     return "";
   }
@@ -740,12 +740,13 @@ public class AZTrailController {
         * ((model.getSeason().equals("winter")) ? 2 : 1 ))) {
       removeBlankets(1);
       if (getBlankets() == 0) {
-        return "0" + model.removeName() + " has died.";
+        return "0" + model.removeName() + " died.";
       }
       if (model.currPartySize() == 0) {
         return "1All of your party members\nhave died.";
       }
-      return "0" + getName(model.currPartySize() - 1) + " has\nfallen ill.";
+      p = rand.nextInt(model.partySize());
+      return "0" + getName(p) + " has " + randomIllness() + ".";
     }
     p = rand.nextInt(LUCK);
     if (p >= 0 && p <= BREAK_WHEEL) {
@@ -780,5 +781,16 @@ public class AZTrailController {
       return "0One of your oxen has died.";
     }
     return "";
+  }
+
+  private String randomIllness() {
+    int p = rand.nextInt(2);
+    if (p == 0) {
+      return "pneumonia";
+    } else if (p == 1) {
+      return "dysentery";
+    } else {
+      return "";
+    }
   }
 }
