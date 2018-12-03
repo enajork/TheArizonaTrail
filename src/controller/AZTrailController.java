@@ -758,12 +758,15 @@ public class AZTrailController {
     removeFood((getTravelRate() / 3) * (getOxen() + model.currPartySize()) / 2);
     removeWater((getTravelRate() / 3) * (getOxen() + model.currPartySize()
       + consumption) / 2);
-    if (getFood() == 0 && getWater() == 0) {
-      return "You party died from cannibalism.";
+    if (getHunted() && ((getFood() == 0 && getWater() == 0)
+        || (getFood() == 0))) {
+      return "Your party died from cannibalism.";
+    } else if (getFood() == 0 && getWater() == 0) {
+      return "Your party died from starvation\nand dehydration.";
     } else if (getFood() == 0) {
-      return "You party died from starvation.";
+      return "Your party died from starvation.";
     } else if (getWater() == 0) {
-      return "You party died from dehydration.";
+      return "Your party died from dehydration.";
     }
     return "";
   }
