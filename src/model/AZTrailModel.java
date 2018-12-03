@@ -16,7 +16,7 @@ public class AZTrailModel implements Serializable {
     this.mapModel = new MapModel();
     this.party = new Party();
     this.cart = new Cart();
-    this.travelRate = 6;
+    this.travelRate = 4;
   }
 
   public MapModel getMap() {
@@ -530,6 +530,7 @@ public class AZTrailModel implements Serializable {
 
   public void setTravelRate(int rate) {
     travelRate = rate;
+    System.out.println(travelRate);
   }
 
   public boolean getAtDestination() {
