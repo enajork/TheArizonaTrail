@@ -252,6 +252,7 @@ public class SplashMenu extends Scene {
           new Runnable() {
             @Override
             public void run() {
+              AZTrailView.sounds.mute();
               AZTrailView.stage.setScene(new SplashMenu());
             }
           },

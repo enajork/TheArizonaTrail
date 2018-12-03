@@ -65,8 +65,14 @@ public class CitySplash extends Scene {
     innerText.setBottom(date);
     innerText.setAlignment(title, Pos.CENTER);
     innerText.setAlignment(date, Pos.CENTER);
-    innerText.setMargin(title, new Insets(10, 0, 0, 0));
-    innerText.setMargin(date, new Insets(0, 0, 10, 0));
+    if (city.equals("Nogales")) {
+      innerText.setMargin(title, new Insets(10, 0, 0, 0));
+      innerText.setMargin(date, new Insets(0, 0, 10, 0));
+    } else {
+      innerText.setMargin(title, new Insets(40, 0, 0, 0));
+      innerText.setMargin(date, new Insets(0, 0, 40, 0));
+    }
+
     innerText.setMaxHeight(100);
     StackPane stack = new StackPane();
     stack.getChildren().add(rect);
