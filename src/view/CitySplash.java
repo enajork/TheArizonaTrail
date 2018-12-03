@@ -23,12 +23,14 @@ import controller.*;
 public class CitySplash extends Scene {
   private BorderPane root;
   private String city;
+  private boolean released = false;
+  private boolean stop;
 
   /**
    * [CitySplash description]
    */
-  public CitySplash(String city) {
-    this(new BorderPane(), city);
+  public CitySplash(String city, boolean stop) {
+    this(new BorderPane(), city, stop);
     getStylesheets().add(AZTrailView.styleSheet);
   }
 
@@ -36,7 +38,7 @@ public class CitySplash extends Scene {
    * [CitySplash description]
    * @param root [description]
    */
-  private CitySplash(BorderPane root, String city) {
+  private CitySplash(BorderPane root, String city, boolean stop) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailView.controller.setCheckpoint();
@@ -44,6 +46,7 @@ public class CitySplash extends Scene {
     AZTrailView.sounds.startThemeLoop();
     this.root = root;
     this.city = city;
+    this.stop = stop;
     root.setStyle("-fx-background-color: black;");
 
     setSplash();
@@ -86,6 +89,9 @@ public class CitySplash extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            if (stop && !released) {
+              return;
+            }
             AZTrailController.escape = false;
             AZTrailView.stage.setScene(getNextScene());
             break;
@@ -108,6 +114,16 @@ public class CitySplash extends Scene {
           default:
             AZTrailController.escape = false;
             return;
+        }
+      }
+    });
+    this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case SPACE:
+            released = true;
+            break;
         }
       }
     });
@@ -147,7 +163,7 @@ public class CitySplash extends Scene {
       case "Nogales":
         return new SizeUpView();
       default:
-        return new StoreMenu(city, false, true);
+        return new StoreMenu(city, false);
     }
   }
 }

@@ -40,21 +40,19 @@ public class StoreMenu extends Scene {
   private String item5 = new DecimalFormat("'$'###,##0.00")
     .format(AZTrailView.controller.getCartParts());
   private BorderPane tile;
-  private boolean released = false;
   private boolean warn = false;
   private Text footer;
   private Text body;
   private String prompt = "  Which item would you\n  like to buy? ";
   private String input = "_";
   private boolean start;
-  private boolean stop;
   private String name;
 
   /**
    * [StoreMenu description]
    */
   public StoreMenu(String name) {
-    this(new BorderPane(), name, false, false);
+    this(new BorderPane(), name, false);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
   }
@@ -63,16 +61,7 @@ public class StoreMenu extends Scene {
    * [StoreMenu description]
    */
   public StoreMenu(String name, boolean start) {
-    this(new BorderPane(), name, start, false);
-    getStylesheets().add(AZTrailView.styleSheet);
-    AZTrailController.escape = false;
-  }
-
-  /**
-   * [StoreMenu description]
-   */
-  public StoreMenu(String name, boolean start, boolean stop) {
-    this(new BorderPane(), name, start, stop);
+    this(new BorderPane(), name, start);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
   }
@@ -81,11 +70,10 @@ public class StoreMenu extends Scene {
    * [StoreMenu description]
    * @param root [description]
    */
-  private StoreMenu(BorderPane root, String name, boolean start, boolean stop) {
+  private StoreMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     this.name = name;
     this.start = start;
-    this.stop = stop;
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane receiptBody = new BorderPane();
@@ -212,9 +200,6 @@ public class StoreMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
-            if (stop && !released) {
-              return;
-            }
             AZTrailController.escape = false;
             if (warn) {
               AZTrailView.stage.setScene(new StoreMenu(name, start));
@@ -314,16 +299,6 @@ public class StoreMenu extends Scene {
                 && Character.isDigit(event.getText().charAt(0))) {
               updateInputText(Integer.parseInt(event.getText()));
             }
-        }
-      }
-    });
-    this.setOnKeyReleased(new EventHandler<KeyEvent>() {
-      @Override
-      public void handle(KeyEvent event) {
-        switch (event.getCode()) {
-          case SPACE:
-            released = true;
-            break;
         }
       }
     });
