@@ -42,8 +42,13 @@ public class CitySplash extends Scene {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailView.controller.setCheckpoint();
-    AZTrailView.sounds.stopMovingSFX();
-    AZTrailView.sounds.startThemeLoop();
+    if (city.equals("Page")) {
+      AZTrailView.sounds.stopMovingSFX();
+      AZTrailView.sounds.creditsTheme();
+    } else {
+      AZTrailView.sounds.stopMovingSFX();
+      AZTrailView.sounds.startThemeLoop();
+    }
     this.root = root;
     this.city = city;
     this.stop = stop;

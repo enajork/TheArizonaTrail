@@ -180,10 +180,12 @@ public class Sounds {
     }
   }
 
-  public static void huntedCreditsTheme() {
+  public static void creditsTheme() {
     if (!isPlayingTheme) {
+      stop();
       isPlayingTheme = true;
-      musicPlayer = new MediaPlayer(huntedCredits);
+      musicPlayer = new MediaPlayer((AZTrailView.controller.getHunted()) ?
+          huntedCredits : gameOver);
       musicPlayer.setVolume(MAX_MUSIC_VOLUME);
       if (!AZTrailController.sound) {
         musicPlayer.setVolume(0);
@@ -193,14 +195,15 @@ public class Sounds {
         @Override
         public void run() {
           isPlayingTheme = false;
-          huntedCreditsTheme();
+          creditsTheme();
         }
       });
     }
   }
 
   public static void homeStretchTheme() {
-    if (!isPlayingTheme) {
+    if (!isPlayingTheme && !isPlayingHomeStretchTheme) {
+      isPlayingHomeStretchTheme = true;
       isPlayingTheme = true;
       musicPlayer = new MediaPlayer(homeStretch);
       musicPlayer.setVolume(MAX_MUSIC_VOLUME);
@@ -211,6 +214,7 @@ public class Sounds {
       musicPlayer.setOnEndOfMedia(new Runnable() {
         @Override
         public void run() {
+          isPlayingHomeStretchTheme = false;
           isPlayingTheme = false;
           homeStretchTheme();
         }

@@ -14,7 +14,7 @@ public class AZTrailController {
   private final String savePath = "model/save_game.dat";
   private final String scoresPath = "model/topten.dat";
   public static boolean hasSave = false;
-  public static boolean sound = false;
+  public static boolean sound = true;
   public static boolean escape = false;
   private AZTrailModel checkpoint;
   private AZTrailModel model;
@@ -22,9 +22,9 @@ public class AZTrailController {
   private TopTen topTen;
 
   // debug flag
-  private static final boolean SAVE_DEBUG = true;
+  private static final boolean SAVE_DEBUG = false;
   private static final boolean SCORE_DEBUG = false;
-  private static final boolean DAMAGE = false;
+  private static final boolean DAMAGE = true;
 
   /**
    * [AZTrailController description]
