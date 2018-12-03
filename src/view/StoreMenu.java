@@ -204,7 +204,7 @@ public class StoreMenu extends Scene {
             if (warn) {
               AZTrailView.stage.setScene(new StoreMenu(name, start));
             } else if (start && AZTrailView.controller.getOxen() == 0 && !warn) {
-              Text warning= new Text("Don't forget, you'll need\noxen to pull "
+              Text warning = new Text("Don't forget, you'll need\noxen to pull "
                 + "your wagon.");
               warning.setId("text12");
               warning.setFill(Color.WHITE);
@@ -214,7 +214,7 @@ public class StoreMenu extends Scene {
               warn = true;
             } else if (AZTrailView.controller.getCartTotal()
                 > AZTrailView.controller.getMoney()) {
-              Text warning= new Text("Okay, that comes to a total\nof "
+              Text warning = new Text("Okay, that comes to a total\nof "
                 + new DecimalFormat("'$'###,##0.00")
                 .format(AZTrailView.controller.getCartTotal())
                 + " But I see that\nyou only have "
@@ -231,8 +231,10 @@ public class StoreMenu extends Scene {
               AZTrailView.controller.addWater(500);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
+              if (AZTrailView.controller.getCartTotal() > 0) {
+                AZTrailView.sounds.cashOutSFX();
+              }
               AZTrailView.controller.resetCart();
-              AZTrailView.sounds.cashOutSFX();
               AZTrailView.stage.setScene(new ClerkInfoMenu(
                 new Runnable() {
                   @Override

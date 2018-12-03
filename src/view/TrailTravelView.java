@@ -26,12 +26,13 @@ import java.io.*;
 import controller.*;
 
 public class TrailTravelView extends Scene {
-  private static final int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10); // 30 seems good
-  // private static final int TIME_DILATION = 10;
+  // private static final int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10); // 30 seems good
+  private static final int TIME_DILATION = 1;
   private static final int BACK_SPEED = 10000 * TIME_DILATION;
   private static final int MID_SPEED = 5000 * TIME_DILATION;
   private static final int FORE_SPEED = 3000 * TIME_DILATION;
   private static final int OXEN_SPEED = 50 * TIME_DILATION;
+  private final int SCENE_WIDTH = AZTrailView.WIDTH;
   private int ICON_WIDTH = 50;
   private int ICON_HEIGHT = 50;
   private ParallelTransition movementBack;
@@ -39,8 +40,6 @@ public class TrailTravelView extends Scene {
   private ParallelTransition movementFore;
   private StackPane city[] = {null, null};
   private ImageView view[] = {null, null};
-  Rectangle2D fore;
-  private final int SCENE_WIDTH = 650;
   private BorderPane root;
   private OxenSprite ox;
   private Text stats;
@@ -195,7 +194,7 @@ public class TrailTravelView extends Scene {
     ImageView sand[] = {null, null};
     TranslateTransition transFore[] = {null, null};
     for (int i = 0; i < 2; ++i) {
-      fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
+      Rectangle2D fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
       sand[i] = new ImageView((AZTrailView.controller.getHunted())
         ? new Image("file:view/assets/graphics/sand-hunted.png", 1000, 50,
           false, true)

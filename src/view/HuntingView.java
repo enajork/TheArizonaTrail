@@ -22,9 +22,10 @@ import javafx.util.Duration;
 import controller.*;
 
 public class HuntingView extends Scene {
+  private final int SCENE_WIDTH = AZTrailView.WIDTH;
+  private final int SCENE_HEIGHT = AZTrailView.HEIGHT;
   private Scene nextScene;
   private BorderPane root;
-  private String city;
 
   /**
    * [HuntingView description]
@@ -43,6 +44,14 @@ public class HuntingView extends Scene {
     this.nextScene = new SizeUpView();
     this.root = root;
     root.setStyle("-fx-background-color: black;");
+    Image rock = new Image((AZTrailView.controller.getHunted())
+      ? "file:view/assets/graphics/rock1-hunted.png"
+      : "file:view/assets/graphics/rock1.png",
+      SCENE_WIDTH, SCENE_HEIGHT, true, true);
+    ImageView obstacle = new ImageView(rock);
+    StackPane layers = new StackPane(obstacle);
+    AnchorPane anchor = new AnchorPane(layers);
+    BorderPane view = new BorderPane(anchor);
     // Text footer = new Text("Press SPACE BAR to continue");
     // footer.setId("text12");
     // footer.setFill(Color.WHITE);
@@ -119,45 +128,45 @@ public class HuntingView extends Scene {
     });
   }
 
-  private class HuntingSprite {
-    private final Image IMAGE = new Image((AZTrailView.controller.getHunted())
-      ? "file:view/assets/graphics/hunter-spritesheet-hunted.png"
-      : "file:view/assets/graphics/hunter-spritesheet.png",
-      600, 600, true, false);
-    private static final int COLUMNS  =   5;
-    private static final int COUNT    =   5;
-    private static final int OFFSET_X =   0;
-    private static final int OFFSET_Y =   0;
-    private static final int WIDTH    =  120;
-    private static final int HEIGHT   =  46;
-    private final Animation animation;
-    private ImageView imageView;
-
-    public HuntingSprite() {
-      this.imageView = new ImageView(IMAGE);
-      this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH,
-        HEIGHT));
-
-      this.animation = new SpriteAnimation(
-        this.imageView,
-        Duration.millis(500),
-        COUNT, COLUMNS,
-        OFFSET_X, OFFSET_Y,
-        WIDTH, HEIGHT
-      );
-      this.animation.setCycleCount(4);
-    }
-
-    public void play() {
-      this.animation.play();
-    }
-
-    public void pause() {
-      this.animation.pause();
-    }
-
-    public ImageView getSprite() {
-      return this.imageView;
-    }
-  }
+  // private class HuntingSprite {
+  //   private final Image IMAGE = new Image((AZTrailView.controller.getHunted())
+  //     ? "file:view/assets/graphics/hunter-spritesheet-hunted.png"
+  //     : "file:view/assets/graphics/hunter-spritesheet.png",
+  //     600, 600, true, false);
+  //   private static final int COLUMNS  =   5;
+  //   private static final int COUNT    =   5;
+  //   private static final int OFFSET_X =   0;
+  //   private static final int OFFSET_Y =   0;
+  //   private static final int WIDTH    =  120;
+  //   private static final int HEIGHT   =  46;
+  //   private final Animation animation;
+  //   private ImageView imageView;
+  //
+  //   public HuntingSprite() {
+  //     this.imageView = new ImageView(IMAGE);
+  //     this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH,
+  //       HEIGHT));
+  //
+  //     this.animation = new SpriteAnimation(
+  //       this.imageView,
+  //       Duration.millis(500),
+  //       COUNT, COLUMNS,
+  //       OFFSET_X, OFFSET_Y,
+  //       WIDTH, HEIGHT
+  //     );
+  //     this.animation.setCycleCount(4);
+  //   }
+  //
+  //   public void play() {
+  //     this.animation.play();
+  //   }
+  //
+  //   public void pause() {
+  //     this.animation.pause();
+  //   }
+  //
+  //   public ImageView getSprite() {
+  //     return this.imageView;
+  //   }
+  // }
 }
