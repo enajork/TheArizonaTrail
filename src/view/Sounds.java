@@ -19,6 +19,8 @@ public class Sounds {
   private static MediaPlayer musicPlayer;
   private static MediaPlayer sfxPlayer1;
   private static MediaPlayer sfxPlayer2;
+  private static Media gameOver;
+  private static Media gameOverHunted;
   private static Media huntedMenu;
   private static Media huntedTheme;
   private static Media huntedFinal;
@@ -31,6 +33,8 @@ public class Sounds {
   private static Media eagle;
 
   public Sounds() {
+    gameOver = new Media(getClass().getResource("assets/sounds/music/gameover.wav").toExternalForm());
+    gameOverHunted = new Media(getClass().getResource("assets/sounds/music/gameover-hunted.wav").toExternalForm());
     huntedMenu = new Media(getClass().getResource("assets/sounds/music/hunted-menu.wav").toExternalForm());
     huntedTheme = new Media(getClass().getResource("assets/sounds/music/hunted-theme.wav").toExternalForm());
     huntedFinal = new Media(getClass().getResource("assets/sounds/music/hunted-final-battle.wav").toExternalForm());
@@ -112,6 +116,27 @@ public class Sounds {
         public void run() {
           isPlayingTheme = false;
           huntedMenuTheme();
+        }
+      });
+    }
+  }
+
+  public static void gameOverTheme() {
+    stop();
+    if (!isPlayingTheme) {
+      isPlayingTheme = true;
+      musicPlayer = new MediaPlayer((AZTrailView.controller.getHunted()) ?
+          gameOverHunted : gameOver);
+      musicPlayer.setVolume(MAX_MUSIC_VOLUME);
+      if (!AZTrailController.sound) {
+        musicPlayer.setVolume(0);
+      }
+      musicPlayer.play();
+      musicPlayer.setOnEndOfMedia(new Runnable() {
+        @Override
+        public void run() {
+          isPlayingTheme = false;
+          gameOverTheme();
         }
       });
     }
@@ -416,11 +441,7 @@ public class Sounds {
   }
 
   public static void stop() {
-    if (musicPlayer != null) {
-      musicPlayer.stop();
-      isPlayingTheme = false;
-      isPlayingHomeStretchTheme = false;
-    }
+    stopMusic();
     if (sfxPlayer1 != null) {
       sfxPlayer1.stop();
       isPlayingBackgroundSFX = false;
