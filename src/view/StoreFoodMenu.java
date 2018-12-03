@@ -20,6 +20,11 @@ import java.util.*;
 import java.io.*;
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class StoreFoodMenu extends Scene {
   private final Rectangle rect1 = new Rectangle(AZTrailView.WIDTH * 0.77 ,

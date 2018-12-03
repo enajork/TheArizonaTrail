@@ -22,6 +22,11 @@ import java.io.*;
 
 import controller.*;
 import model.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class AZTrailView extends Application {
   protected static AZTrailController controller;

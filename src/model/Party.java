@@ -2,6 +2,11 @@ package model;
 
 import java.util.*;
 import java.io.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class Party implements Serializable {
   public static enum Profession implements Serializable {

@@ -2,6 +2,11 @@ package model;
 
 import javafx.util.*;
 import java.util.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class TopTen {
   private static final int SIZE = 10;

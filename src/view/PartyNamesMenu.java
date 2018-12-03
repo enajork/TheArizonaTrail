@@ -20,6 +20,11 @@ import java.io.*;
 
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class PartyNamesMenu extends Scene {
   private final String PROMPT1 = "\nAre these names correct? ";

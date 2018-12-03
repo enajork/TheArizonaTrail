@@ -19,6 +19,11 @@ import java.util.*;
 import java.io.*;
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class GenericInfoMenu extends Scene {
   private boolean accentsOn;
@@ -96,7 +101,7 @@ public class GenericInfoMenu extends Scene {
     this.stop = stop;
     this.text = text;
     this.top = top;
-    
+
     AZTrailView.sounds.stopMovingSFX();
 
     // Create the title image;

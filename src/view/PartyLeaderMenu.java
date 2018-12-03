@@ -19,6 +19,11 @@ import java.util.*;
 import java.io.*;
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class PartyLeaderMenu extends Scene {
   private String contents = "What is the first name of the\nwagon leader? ";

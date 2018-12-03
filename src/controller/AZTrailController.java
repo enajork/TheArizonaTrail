@@ -3,6 +3,11 @@ package controller;
 import java.util.*;
 import java.io.*;
 import model.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class AZTrailController {
   private final int BREAK_TONGUE = 1;

@@ -2,6 +2,11 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Test;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class MapModelTest {
 	@Test

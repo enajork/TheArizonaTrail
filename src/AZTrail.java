@@ -1,5 +1,10 @@
 import javafx.application.Application;
 import view.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class AZTrail {
   /**
