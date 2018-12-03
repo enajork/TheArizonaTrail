@@ -672,6 +672,6 @@ public class AZTrailController {
   }
 
   public int getScore() {
-    return 1;
+    return 11;
   }
 }

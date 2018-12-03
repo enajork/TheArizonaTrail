@@ -177,7 +177,7 @@ public class SplashMenu extends Scene {
               public void run() {
                 AZTrailView.controller.loadGame();
                 AZTrailView.stage.setScene(new CitySplash(AZTrailView.controller
-                  .getCurrentCity()));
+                  .getCurrentCity(), false));
               }
             },
             new Runnable() {
@@ -193,6 +193,7 @@ public class SplashMenu extends Scene {
             true
           );
         } else {
+          AZTrailView.controller.resetGame();
           return new ProfMenu();
         }
         // return new ProfMenuView();

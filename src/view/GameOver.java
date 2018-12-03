@@ -20,22 +20,23 @@ import java.io.*;
 
 import controller.*;
 
-public class TombstoneMenu extends Scene {
+public class GameOver extends Scene {
   private BorderPane root;
+  private boolean released = false;
 
   /**
-   * [TombstoneMenu description]
+   * [GameOver description]
    */
-  public TombstoneMenu() {
+  public GameOver() {
     this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
   }
 
   /**
-   * [TombstoneMenu description]
+   * [GameOver description]
    * @param root [description]
    */
-  private TombstoneMenu(BorderPane root) {
+  private GameOver(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailView.sounds.stopMovingSFX();
@@ -82,6 +83,9 @@ public class TombstoneMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            if (!released) {
+              return;
+            }
             AZTrailController.escape = false;
             AZTrailView.stage.setScene(new SplashMenu());
             break;
@@ -104,6 +108,16 @@ public class TombstoneMenu extends Scene {
           default:
             AZTrailController.escape = false;
             return;
+        }
+      }
+    });
+    this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case SPACE:
+            released = true;
+            break;
         }
       }
     });

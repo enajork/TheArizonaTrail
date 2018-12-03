@@ -193,7 +193,7 @@ public class HuntedMenu extends Scene {
       @Override
       public void handle(ActionEvent event) {
         AZTrailView.stage.setScene(new CitySplash(AZTrailView.controller
-          .getCurrentCity()));
+          .getCurrentCity(), false));
       }
     });
     trans.play();
