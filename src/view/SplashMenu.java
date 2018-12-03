@@ -27,7 +27,8 @@ public class SplashMenu extends Scene {
     + "1. Travel the Trail\n  "
     + "2. Learn about the trail\n  "
     + "3. See the Arizona Top Ten\n  "
-    + "4. Turn sound off\n  "
+    + "4. Turn sound " + (AZTrailController.sound ? "off"
+      : "on") + "\n  "
     + "5. Choose Management Options\n  "
     + "6. End\n\n"
     + "What is your choice? ";
