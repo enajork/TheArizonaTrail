@@ -28,19 +28,21 @@ public class GenericInfoMenu extends Scene {
   private int curPage = 0;
   private String[] text;
   private int top;
+  private boolean stop;
+  private boolean released = false;
 
   /**
    * [GenericInfoMenu description]
    */
   public GenericInfoMenu(Runnable call, String[] text) {
-    this(new BorderPane(), call, text, false, false, 0);
+    this(new BorderPane(), call, text, false, false, 0, false);
   }
 
   /**
    * [GenericInfoMenu description]
    */
   public GenericInfoMenu(Runnable call, String[] text, boolean accentsOn) {
-    this(new BorderPane(), call, text, accentsOn, false, 0);
+    this(new BorderPane(), call, text, accentsOn, false, 0, false);
   }
 
   /**
@@ -48,7 +50,15 @@ public class GenericInfoMenu extends Scene {
    */
   public GenericInfoMenu(Runnable call, String[] text, boolean accentsOn,
       int top) {
-    this(new BorderPane(), call, text, accentsOn, false, top);
+    this(new BorderPane(), call, text, accentsOn, false, top, false);
+  }
+
+  /**
+   * [GenericInfoMenu description]
+   */
+  public GenericInfoMenu(Runnable call, String[] text, boolean accentsOn,
+      boolean titleOn) {
+    this(new BorderPane(), call, text, accentsOn, titleOn, 0, false);
   }
 
 
@@ -56,8 +66,8 @@ public class GenericInfoMenu extends Scene {
    * [GenericInfoMenu description]
    */
   public GenericInfoMenu(Runnable call, String[] text, boolean accentsOn,
-      boolean titleOn) {
-    this(new BorderPane(), call, text, accentsOn, titleOn, 0);
+      boolean titleOn, boolean stop) {
+    this(new BorderPane(), call, text, accentsOn, titleOn, 0, stop);
   }
 
   /**
@@ -65,13 +75,14 @@ public class GenericInfoMenu extends Scene {
    * @param root [description]
    */
   private GenericInfoMenu(BorderPane root, Runnable call, String[] text,
-      boolean accentsOn, boolean titleOn, int top) {
+      boolean accentsOn, boolean titleOn, int top, boolean stop) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
     this.call = call;
     this.accentsOn = accentsOn;
     this.titleOn = titleOn;
     this.root = root;
+    this.stop = stop;
     this.text = text;
     this.top = top;
 
@@ -146,6 +157,9 @@ public class GenericInfoMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            if (stop && !released) {
+              return;
+            }
             AZTrailController.escape = false;
             if (curPage < text.length - 1) {
               curPage++;
@@ -179,6 +193,16 @@ public class GenericInfoMenu extends Scene {
           default:
             AZTrailController.escape = false;
             return;
+        }
+      }
+    });
+    this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case SPACE:
+            released = true;
+            break;
         }
       }
     });
