@@ -66,13 +66,6 @@ public class HuntingView extends Scene {
       @Override
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
-          case SPACE:
-            AZTrailController.escape = false;
-            AZTrailView.stage.setScene(nextScene);
-            // VERY IMPORTANT! NEEDED TO STOP THEME AND START THE NEXT! DO NOT LEAVE THIS VIEW WITHOUT DOING THIS!!!
-            doneHunting();
-            break;
-
           case ENTER:
             AZTrailController.escape = false;
             AZTrailView.stage.setScene(nextScene);
@@ -83,6 +76,17 @@ public class HuntingView extends Scene {
           case ESCAPE:
             AZTrailView.escapePressed(true);
             break;
+
+          case W:
+            AZTrailController.escape = false;
+
+            break;
+
+          case A:
+            AZTrailController.escape = false;
+
+            break;
+
           case S:
             AZTrailController.escape = false;
             if (event.isControlDown()) {
@@ -90,10 +94,27 @@ public class HuntingView extends Scene {
             }
             break;
 
+          case D:
+            AZTrailController.escape = false;
+
+            break;
+
           default:
             AZTrailController.escape = false;
             return;
         }
+      }
+    });
+    this.setOnMouseMoved(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+
+      }
+    });
+    this.setOnMousePressed(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+
       }
     });
   }
