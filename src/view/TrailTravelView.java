@@ -179,7 +179,47 @@ public class TrailTravelView extends Scene {
       transFore[i].setFromX(0);
       transFore[i].setToX(-1 * SCENE_WIDTH);
       transFore[i].setInterpolator(Interpolator.LINEAR);
+      if (i == 0) {
+        view[i] = new ImageView((AZTrailView.controller.getHunted())
+        ? new Image("file:view/assets/graphics/locations/" +
+          AZTrailView.controller.getNextCity() + "-hunted.png", ICON_WIDTH, ICON_HEIGHT,
+        // view[i] = new ImageView((AZTrailView.controller.getHunted())
+        // ? new Image("file:view/assets/graphics/locations/" +
+        //   AZTrailView.controller.getNextCity() + "-hunted.png", ICON_WIDTH, ICON_HEIGHT,
+          false, true)
+        : new Image("file:view/assets/graphics/locations/" +
+          AZTrailView.controller.getNextCity() + ".png", ICON_WIDTH, ICON_HEIGHT,
+          false, true));
+        city[i].getChildren().add(view[i]);
+
+        if (!AZTrailView.controller.getNextCity().equals("Flagstaff") &&
+            !AZTrailView.controller.getNextCity().equals("Tombstone") &&
+            !AZTrailView.controller.getNextCity().equals("Tucson") ) {
+          view[i].setViewport(fore);
+        } else if (AZTrailView.controller.getNextCity().equals("Tombstone") || AZTrailView.controller.getNextCity().equals("Tucson")) {
+          city[i].setAlignment(sand[i], Pos.CENTER_LEFT);
+        }
+      }
     }
+
+    if (AZTrailView.controller.getNextCity().equals("Flagstaff") ||
+        AZTrailView.controller.getNextCity().equals("Tucson")) {
+      ICON_WIDTH = 50;
+      ICON_HEIGHT = 50;
+    } else if (AZTrailView.controller.getNextCity().equals("Sedona") ||
+               AZTrailView.controller.getNextCity().equals("Tombstone")) {
+      ICON_WIDTH = 90;
+      ICON_HEIGHT = 50;
+    } else if (AZTrailView.controller.getNextCity().equals("Page") ||
+               AZTrailView.controller.getNextCity().equals("Phoenix")) {
+      ICON_WIDTH = 110;
+      ICON_HEIGHT = 45;
+    }
+
+    // int i = () ? 0 : 1;
+    // city[i].getChildren().add(view[i]);
+    // view[i].setViewport(fore);
+
     movementFore = new ParallelTransition(transFore[1], transFore[0]);
     movementFore.setCycleCount(1);
 
@@ -327,41 +367,6 @@ public class TrailTravelView extends Scene {
       }
     }
     this.stats.setText(buildStatsString());
-
-    if (AZTrailView.controller.getNextCity().equals("Flagstaff") ||
-        AZTrailView.controller.getNextCity().equals("Tucson")) {
-      ICON_WIDTH = 50;
-      ICON_HEIGHT = 50;
-    } else if (AZTrailView.controller.getNextCity().equals("Sedona") ||
-               AZTrailView.controller.getNextCity().equals("Tombstone")) {
-      ICON_WIDTH = 90;
-      ICON_HEIGHT = 50;
-    } else if (AZTrailView.controller.getNextCity().equals("Page") ||
-               AZTrailView.controller.getNextCity().equals("Phoenix")) {
-      ICON_WIDTH = 110;
-      ICON_HEIGHT = 45;
-    }
-
-    // int i = () ? 0 : 1;
-    view[0] = new ImageView((AZTrailView.controller.getHunted())
-    ? new Image("file:view/assets/graphics/locations/" +
-      AZTrailView.controller.getNextCity() + "-hunted.png", ICON_WIDTH, ICON_HEIGHT,
-    // view[i] = new ImageView((AZTrailView.controller.getHunted())
-    // ? new Image("file:view/assets/graphics/locations/" +
-    //   AZTrailView.controller.getNextCity() + "-hunted.png", ICON_WIDTH, ICON_HEIGHT,
-      false, true)
-    : new Image("file:view/assets/graphics/locations/" +
-      AZTrailView.controller.getNextCity() + ".png", ICON_WIDTH, ICON_HEIGHT,
-      false, true));
-    city[0].getChildren().add(view[0]);
-
-    if (!(AZTrailView.controller.getNextCity().equals("Flagstaff") ||
-          AZTrailView.controller.getNextCity().equals("Tombstone"))) {
-      view[0].setViewport(fore);
-    }
-
-    // city[i].getChildren().add(view[i]);
-    // view[i].setViewport(fore);
   }
 
   private class OxenSprite {
