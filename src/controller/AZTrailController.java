@@ -5,6 +5,11 @@ import java.io.*;
 import model.*;
 
 public class AZTrailController {
+  private final int BREAK_TONGUE = 1;
+  private final int BREAK_WHEEL = 1;
+  private final int BREAK_AXLE = 1;
+  private final int OXEN_DEATH = 1;
+  private final int SICK = 1;
   private final String savePath = "model/save_game.dat";
   private final String scoresPath = "model/topten.dat";
   public static boolean hasSave = false;
@@ -672,6 +677,104 @@ public class AZTrailController {
   }
 
   public int getScore() {
-    return 11;
+    setCartAmmo(getBullets());
+    setCartFood(getFood());
+    setCartOxen(getOxen());
+    setCartParts(getWheels() + getAxles() + getTongues());
+    setCartClothes(getClothes());
+    int result = (int)getMoney() + (int)getCartTotal();
+    resetCart();
+    result += getWater() + getBlankets();
+    result *= model.currPartySize();
+    result *= ((getHunted()) ? 2 : 1);
+    switch (model.getProf()) {
+      case "Banker":
+        result *= 1;
+        break;
+      case "Carpenter":
+        result *= 2;
+        break;
+      case "Farmer":
+        result *= 3;
+        break;
+    }
+    return result;
+  }
+
+  private boolean deplete() {
+    int consumption = 0;
+    switch (getWeather()) {
+      case "cold":
+        consumption = 1;
+        break;
+      case "cool":
+        consumption = 2;
+        break;
+      case "warm":
+        consumption = 3;
+        break;
+      case "hot":
+        consumption = 4;
+        break;
+      case "scorching":
+        consumption = 5;
+        break;
+    }
+    removeFood((getTravelRate() / 3) * (getOxen() + model.currPartySize()) / 2);
+    removeWater((getTravelRate() / 3) * (getOxen() + model.currPartySize()
+      + consumption) / 2);
+    if (getFood() == 0 || getWater() == 0) {
+      return true;
+    }
+    return false;
+  }
+
+  private String randomEvent() {
+    String result = "";
+    int p = rand.nextInt(100);
+    if (p >= 0 && p <= (SICK * (model.currPartySize() - getClothes() + 1)
+        * ((model.getSeason().equals("winter")) ? 2 : 1 ))) {
+      removeBlankets(1);
+      if (getBlankets() == 0) {
+        return "1" + model.removeName() + " has died.";
+      }
+      if (model.currPartySize() == 0) {
+        return "2All of your party members\nhave died.";
+      }
+      return "1" + getName(model.currPartySize() - 1) + " has\nfallen ill.";
+    }
+    p = rand.nextInt(100);
+    if (p >= 0 && p <= BREAK_WHEEL) {
+      removeWheels(1);
+      if (getWheels() == 0) {
+        return "2Your wagon wheel broke\nand you don't have\nany spares.";
+      }
+      return "1One of your wheels broke.";
+    }
+    p = rand.nextInt(100);
+    if (p >= 0 && p <= BREAK_AXLE) {
+      removeAxles(1);
+      if (getAxles() == 0) {
+        return "2Your wagon axle broke\nand you don't have\nany spares.";
+      }
+      return "1One of your axles broke.";
+    }
+    p = rand.nextInt(100);
+    if (p >= 0 && p <= BREAK_TONGUE) {
+      removeTongues(1);
+      if (getTongues() == 0) {
+        return "2Your wagon tongue broke\nand you don't have\nany spares.";
+      }
+      return "1One of your tongues broke.";
+    }
+    p = rand.nextInt(100);
+    if (p >= 0 && p <= OXEN_DEATH * ((getWeather().equals("summer")) ? 2 : 1)) {
+      removeOxen(1);
+      if (getOxen() == 0) {
+        return "2All of your oxen have died.";
+      }
+      return "1One of your oxen has died.";
+    }
+    return result;
   }
 }

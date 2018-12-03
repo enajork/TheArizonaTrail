@@ -80,6 +80,10 @@ public class AZTrailModel implements Serializable {
     party.setName(i, name);
   }
 
+  public String removeName() {
+    return party.removeName();
+  }
+
   public int partySize() {
     return party.totalSize();
   }

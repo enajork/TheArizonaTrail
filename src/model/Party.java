@@ -70,6 +70,19 @@ public class Party implements Serializable {
     }
   }
 
+  /**
+   * [getNames description]
+   * @return [description]
+   */
+  public String removeName() {
+    if (names.size() > 0) {
+      String temp = names.get(names.size() - 1);
+      names.remove(names.size() - 1);
+      return temp;
+    }
+    return "";
+  }
+
   public int size() {
     return names.size();
   }
