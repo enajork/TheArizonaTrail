@@ -146,11 +146,11 @@ public class CitySplash extends Scene {
         return;
       default:
         img = new Image((AZTrailView.controller.getHunted())
-          ? "file:view/assets/graphics/locations/nogales_splash-hunted.png"
-          : "file:view/assets/graphics/locations/nogales_splash.png");
+          ? "file:view/assets/graphics/locations/" + city.toLowerCase() + "_splash-hunted.png"
+          : "file:view/assets/graphics/locations/" + city.toLowerCase() + "_splash.png");
         splash = new ImageView(img);
         splash.setPreserveRatio(true);
-        splash.setFitWidth(AZTrailView.WIDTH * 0.985);
+        splash.setFitWidth(AZTrailView.WIDTH * 0.5);
         root.setMargin(splash, new Insets(5, 5, 0, 5));
         root.setAlignment(splash, Pos.CENTER);
         root.setTop(splash);
