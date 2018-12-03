@@ -52,11 +52,7 @@ public class SizeUpView extends Scene {
    */
   private SizeUpView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
-    if (AZTrailView.controller.getHunted()) {
-      AZTrailView.sounds.nighttimeSFX();
-    } else {
-      AZTrailView.sounds.daytimeSFX();
-    }
+    AZTrailView.sounds.startBackgroundSFX();
     AZTrailView.sounds.startThemeLoop();
     // Create the text for the menu options
     body = new Text(contents + input);

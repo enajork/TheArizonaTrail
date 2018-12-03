@@ -63,6 +63,15 @@ public class Sounds {
   }
 
   public static void startThemeLoop() {
+    if (!AZTrailView.controller.getNextCity().equals("Page")) {
+      AZTrailView.sounds.mainThemes();
+    } else {
+      AZTrailView.sounds.stopMusic();
+      AZTrailView.sounds.homeStretchTheme();
+    }
+  }
+
+  public static void mainThemes() {
     if (!isPlayingTheme) {
       isPlayingTheme = true;
       ObservableList<Media> themes = music.get("themes");
@@ -78,7 +87,7 @@ public class Sounds {
         @Override
         public void run() {
           isPlayingTheme = false;
-          startThemeLoop();
+          mainThemes();
         }
       });
     }
@@ -270,6 +279,14 @@ public class Sounds {
         eagleSFX();
       }
     });
+  }
+
+  public static void startBackgroundSFX() {
+    if (AZTrailView.controller.getHunted()) {
+      AZTrailView.sounds.nighttimeSFX();
+    } else {
+      AZTrailView.sounds.daytimeSFX();
+    }
   }
 
   public static void nighttimeSFX() {
