@@ -96,6 +96,8 @@ public class GenericInfoMenu extends Scene {
     this.stop = stop;
     this.text = text;
     this.top = top;
+    
+    AZTrailView.sounds.stopMovingSFX();
 
     // Create the title image;
     if (titleOn) {
