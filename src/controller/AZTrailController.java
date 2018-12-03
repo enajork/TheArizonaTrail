@@ -618,8 +618,8 @@ public class AZTrailController {
     return model.getNextCity();
   }
 
-  public void setScore(int i, String name, int score) {
-    topTen.setScore(i, name, score);
+  public void setScore(String name, int score) {
+    topTen.setScore(name, score);
   }
 
   public String getTopTenNames() {
@@ -665,5 +665,13 @@ public class AZTrailController {
 
   public void setTravelRate(int rate) {
     model.setTravelRate(rate);
+  }
+
+  public boolean getAtDestination() {
+    return model.getAtDestination();
+  }
+
+  public int getScore() {
+    return 1;
   }
 }

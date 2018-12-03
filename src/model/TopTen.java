@@ -20,9 +20,9 @@ public class TopTen {
     return score[i];
   }
 
-  public void setScore(int i, String name, int score) {
-    this.score[i] = score;
-    this.names[i] = name;
+  public void setScore(String name, int score) {
+    this.score[0] = score;
+    this.names[0] = name;
   }
 
   public int size() {
