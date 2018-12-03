@@ -3,6 +3,8 @@ package tests;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Test;
 
+import model.MapModel;
+
 public class MapModelTest {
 	@Test
 	public void testAdvancePosition() {
@@ -10,6 +12,8 @@ public class MapModelTest {
 		MapModel map = new MapModel();
 		assertFalse(map.getAtDestination());
 		assertEquals(0, map.getMilesFromLastCity());
+		assertEquals(0, map.getTotalMiles());
+		assertEquals(70, map.milesToLandmark());
 		assertEquals("Nogales", map.getCurrentCity());
 		assertEquals("Tombstone", map.getNextCity());
 
@@ -17,6 +21,8 @@ public class MapModelTest {
 		map.advancePosition(5);
 		assertFalse(map.getAtDestination());
 		assertEquals(5, map.getMilesFromLastCity());
+		assertEquals(5, map.getTotalMiles());
+		assertEquals(65, map.milesToLandmark());
 		assertEquals("Nogales", map.getCurrentCity());
 		assertEquals("Tombstone", map.getNextCity());
 
@@ -24,6 +30,8 @@ public class MapModelTest {
 		map.advancePosition(65);
 		assertFalse(map.getAtDestination());
 		assertEquals(0, map.getMilesFromLastCity());
+		assertEquals(70, map.getTotalMiles());
+		assertEquals(72, map.milesToLandmark());
 		assertEquals("Tombstone", map.getCurrentCity());
 		assertEquals("Tucson", map.getNextCity());
 
@@ -31,24 +39,32 @@ public class MapModelTest {
 		map.advancePosition(72);
 		assertFalse(map.getAtDestination());
 		assertEquals(0, map.getMilesFromLastCity());
+		assertEquals(142, map.getTotalMiles());
+		assertEquals(114, map.milesToLandmark());
 		assertEquals("Tucson", map.getCurrentCity());
 		assertEquals("Phoenix", map.getNextCity());
 
 		map.advancePosition(115);
 		assertFalse(map.getAtDestination());
 		assertEquals(1, map.getMilesFromLastCity());
+		assertEquals(257, map.getTotalMiles());
+		assertEquals(115, map.milesToLandmark());
 		assertEquals("Phoenix", map.getCurrentCity());
 		assertEquals("Sedona", map.getNextCity());
 
 		map.advancePosition(115);
 		assertFalse(map.getAtDestination());
 		assertEquals(0, map.getMilesFromLastCity());
+		assertEquals(372, map.getTotalMiles());
+		assertEquals(30, map.milesToLandmark());
 		assertEquals("Sedona", map.getCurrentCity());
 		assertEquals("Flagstaff", map.getNextCity());
 
 		map.advancePosition(31);
 		assertFalse(map.getAtDestination());
 		assertEquals(1, map.getMilesFromLastCity());
+		assertEquals(403, map.getTotalMiles());
+		assertEquals(128, map.milesToLandmark());
 		assertEquals("Flagstaff", map.getCurrentCity());
 		assertEquals("Page", map.getNextCity());
 
@@ -56,6 +72,8 @@ public class MapModelTest {
 		map.advancePosition(128);
 		assertTrue(map.getAtDestination());
 		assertEquals(0, map.getMilesFromLastCity());
+		assertEquals(531, map.getTotalMiles());
+		assertEquals(0, map.milesToLandmark());
 		assertEquals("Page", map.getCurrentCity());
 		assertEquals("Page", map.getNextCity());
 
@@ -63,7 +81,16 @@ public class MapModelTest {
 		map.advancePosition(5);
 		assertTrue(map.getAtDestination());
 		assertEquals(0, map.getMilesFromLastCity());
+		assertEquals(531, map.getTotalMiles());
+		assertEquals(0, map.milesToLandmark());
 		assertEquals("Page", map.getCurrentCity());
 		assertEquals("Page", map.getNextCity());
+	}
+
+	@Test
+	public void testSetCity() {
+		MapModel map = new MapModel();
+		map.setCurrentCity("Flagstaff");
+		assertEquals("Flagstaff", map.getCurrentCity());
 	}
 }

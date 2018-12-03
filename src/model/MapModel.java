@@ -41,12 +41,13 @@ public class MapModel implements Serializable {
   }
 
   private int getNextCityIndex(String city) {
+	  int index = -1;
     for (int i = 0; i < citiesInOrder.length; i++) {
       if (citiesInOrder[i].equals(city)) {
-        return Math.min(i + 1, citiesInOrder.length - 1);
+        index = Math.min(i + 1, citiesInOrder.length - 1);
       }
     }
-    return citiesInOrder.length - 1;
+    return index;
   }
 
   public String getNextCity() {
@@ -55,10 +56,6 @@ public class MapModel implements Serializable {
 
   public boolean getAtDestination() {
     return atDestination;
-  }
-
-  public double getDistRatio() {
-    return (double) milesFromLastCity / (double) milesToCityMap.get(nextCity);
   }
 
   public int milesToLandmark() {
