@@ -26,9 +26,13 @@ import java.io.*;
 import controller.*;
 
 public class TrailTravelView extends Scene {
-
-  private static final int TIME_DILATION = 10; // 30 seems good
-  private int ICON_WIDTH = 90;
+  // private static final int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10); // 30 seems good
+  private static final int TIME_DILATION = 1;
+  private static final int BACK_SPEED = 10000 * TIME_DILATION;
+  private static final int MID_SPEED = 5000 * TIME_DILATION;
+  private static final int FORE_SPEED = 3000 * TIME_DILATION;
+  private static final int OXEN_SPEED = 50 * TIME_DILATION;
+  private int ICON_WIDTH = 50;
   private int ICON_HEIGHT = 50;
   private ParallelTransition movementBack;
   private ParallelTransition movementMid;
@@ -56,11 +60,7 @@ public class TrailTravelView extends Scene {
    */
   private TrailTravelView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
-    if (AZTrailView.controller.getHunted()) {
-      AZTrailView.sounds.nighttimeSFX();
-    } else {
-      AZTrailView.sounds.daytimeSFX();
-    }
+    AZTrailView.sounds.startBackgroundSFX();
     AZTrailView.sounds.startThemeLoop();
     this.root = root;
     root.setStyle("-fx-background-color: black;");
@@ -137,7 +137,7 @@ public class TrailTravelView extends Scene {
       : new Image("file:view/assets/graphics/mountain.png", 1000, 50, false,
         true));
       mountains[i].setViewport(back);
-      transBack[i] = new TranslateTransition(Duration.millis(100000),
+      transBack[i] = new TranslateTransition(Duration.millis(BACK_SPEED),
         mountains[i]);
       transBack[i].setFromX(0);
       transBack[i].setToX(-1 * SCENE_WIDTH);
@@ -156,7 +156,7 @@ public class TrailTravelView extends Scene {
         : new Image("file:view/assets/graphics/scenery.png", 700, 50, false,
           true));
       scenery[i].setViewport(mid);
-      transMid[i] = new TranslateTransition(Duration.millis(50000), scenery[i]);
+      transMid[i] = new TranslateTransition(Duration.millis(MID_SPEED), scenery[i]);
       transMid[i].setFromX(0);
       transMid[i].setToX(-1 * SCENE_WIDTH);
       transMid[i].setInterpolator(Interpolator.LINEAR);
@@ -175,7 +175,7 @@ public class TrailTravelView extends Scene {
           false, true));
       city[i] = new StackPane(sand[i]);
       sand[i].setViewport(fore);
-      transFore[i] = new TranslateTransition(Duration.millis(30000), city[i]);
+      transFore[i] = new TranslateTransition(Duration.millis(FORE_SPEED), city[i]);
       transFore[i].setFromX(0);
       transFore[i].setToX(-1 * SCENE_WIDTH);
       transFore[i].setInterpolator(Interpolator.LINEAR);
@@ -317,9 +317,10 @@ public class TrailTravelView extends Scene {
       ICON_HEIGHT = 50;
     } else if (AZTrailView.controller.getNextCity().equals("Page") ||
                AZTrailView.controller.getNextCity().equals("Phoenix")) {
-      ICON_WIDTH = 80;
-      ICON_HEIGHT = 35;
+      ICON_WIDTH = 110;
+      ICON_HEIGHT = 45;
     }
+
     // int i = () ? 0 : 1;
     view[0] = new ImageView((AZTrailView.controller.getHunted())
     ? new Image("file:view/assets/graphics/locations/" +
@@ -327,10 +328,10 @@ public class TrailTravelView extends Scene {
     // view[i] = new ImageView((AZTrailView.controller.getHunted())
     // ? new Image("file:view/assets/graphics/locations/" +
     //   AZTrailView.controller.getNextCity() + "-hunted.png", ICON_WIDTH, ICON_HEIGHT,
-    false, true)
+      false, true)
     : new Image("file:view/assets/graphics/locations/" +
       AZTrailView.controller.getNextCity() + ".png", ICON_WIDTH, ICON_HEIGHT,
-    false, true));
+      false, true));
     city[0].getChildren().add(view[0]);
     view[0].setViewport(fore);
     // city[i].getChildren().add(view[i]);
@@ -358,7 +359,7 @@ public class TrailTravelView extends Scene {
 
       this.animation = new SpriteAnimation(
         this.imageView,
-        Duration.millis(500),
+        Duration.millis(OXEN_SPEED),
         COUNT, COLUMNS,
         OFFSET_X, OFFSET_Y,
         WIDTH, HEIGHT

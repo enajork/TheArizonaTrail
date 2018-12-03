@@ -673,4 +673,12 @@ public class AZTrailController {
         return "";
     }
   }
+
+  public int getTravelRate() {
+    return model.getTravelRate();
+  }
+
+  public void setTravelRate(int rate) {
+    model.setTravelRate(rate);
+  }
 }
