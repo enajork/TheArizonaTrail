@@ -366,7 +366,7 @@ public class TrailTravelView extends Scene {
             new Runnable() {
               @Override
               public void run() {
-                AZTrailView.stage.setScene(new TrailTravelView());
+                AZTrailView.stage.setScene(AZTrailView.travel);
               }
             },
             new String[]{ result },

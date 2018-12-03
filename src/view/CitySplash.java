@@ -41,6 +41,7 @@ public class CitySplash extends Scene {
   private CitySplash(BorderPane root, String city, boolean stop) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
+    AZTrailView.resetTravelView();
     AZTrailView.controller.setCheckpoint();
     if (city.equals("Page")) {
       AZTrailView.sounds.stopMovingSFX();

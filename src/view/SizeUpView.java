@@ -158,7 +158,7 @@ public class SizeUpView extends Scene {
     switch (choice) {
       case 1:
         // Travel the trail
-        return new TrailTravelView();
+        return AZTrailView.travel;
       case 2:
         return new GenericInfoMenu(
         new Runnable() {
@@ -179,7 +179,7 @@ public class SizeUpView extends Scene {
           + "\n 7. Axles - " + AZTrailView.controller.getAxles()
           + "\n 8. Tongues - " + AZTrailView.controller.getTongues()
           + "\n 9. Food - " + AZTrailView.controller.getFood() + " lbs"
-          + "\n 10. Water - " + AZTrailView.controller.getWater()
+          + "\n 10. Water - " + AZTrailView.controller.getWater() + " gallons"
         }
       );
 
