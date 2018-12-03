@@ -187,11 +187,11 @@ public class AZTrailController {
 
     switch (pace) {
       case 1:
-        rate = 4;
+        rate = 2;
         break;
 
       case 2:
-        rate = 5;
+        rate = 4;
         break;
 
       case 3:
@@ -199,7 +199,7 @@ public class AZTrailController {
         break;
 
       default:
-        rate = 4;
+        rate = 2;
     }
 
     model.setTravelRate(rate);

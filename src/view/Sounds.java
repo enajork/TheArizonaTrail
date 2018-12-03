@@ -181,8 +181,8 @@ public class Sounds {
   }
 
   public static void creditsTheme() {
+    stop();
     if (!isPlayingTheme) {
-      stop();
       isPlayingTheme = true;
       musicPlayer = new MediaPlayer((AZTrailView.controller.getHunted()) ?
           huntedCredits : gameOver);

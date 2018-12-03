@@ -530,7 +530,6 @@ public class AZTrailModel implements Serializable {
 
   public void setTravelRate(int rate) {
     travelRate = rate;
-    System.out.println(travelRate);
   }
 
   public boolean getAtDestination() {

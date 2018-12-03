@@ -111,7 +111,7 @@ public class PaceMenu extends Scene {
             break;
 
           case ESCAPE:
-            AZTrailView.escapePressed(false);
+            AZTrailView.escapePressed(true);
             break;
 
           case S:
