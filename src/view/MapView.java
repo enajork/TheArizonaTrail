@@ -47,15 +47,21 @@ public class MapView extends Scene {
     AZTrailView.sounds.startBackgroundSFX();
     AZTrailView.sounds.startThemeLoop();
     this.root = root;
-    root.setStyle("-fx-background-color: black;");
-    Image map = new Image("file:view/assets/graphics/map-hunted.png", SCENE_WIDTH, SCENE_HEIGHT,
-      true, true);
-    Image route = new Image("file:view/assets/graphics/route-hunted.png", SCENE_WIDTH, SCENE_HEIGHT,
-      true, true);
+    root.setStyle("-fx-background-color: " + ((AZTrailView.controller
+      .getHunted()) ? "black" : "white") + ";");
+    Image map = new Image((AZTrailView.controller.getHunted())
+      ? "file:view/assets/graphics/map-hunted.png"
+      : "file:view/assets/graphics/map.png",
+        SCENE_WIDTH, SCENE_HEIGHT, true, true);
+    Image route = new Image((AZTrailView.controller.getHunted())
+      ? "file:view/assets/graphics/route-hunted.png"
+      : "file:view/assets/graphics/route.png",
+      SCENE_WIDTH, SCENE_HEIGHT, true, true);
     ImageView mapView = new ImageView(map);
     ImageView routeView = new ImageView(route);
     Rectangle eclipse = new Rectangle(0, 0, SCENE_WIDTH, getProgress());
-    eclipse.setFill(/*(AZTrailView.controller.getHunted()) ? Color.WHITE : Color.BLACK*/Color.RED);
+    eclipse.setFill((AZTrailView.controller.getHunted()) ? Color.BLACK
+      : Color.WHITE);
     AnchorPane eclipseAnchor = new AnchorPane(eclipse);
     eclipseAnchor.setTopAnchor(eclipse, 0.0);
     StackPane topography = new StackPane(routeView, eclipseAnchor, mapView);
@@ -112,6 +118,23 @@ public class MapView extends Scene {
   }
 
   private int getProgress() {
-    return SCENE_HEIGHT - 70;
+    int[] cities = {338, 318, 300, 240, 174, 158};
+    int[] distances = {20, 18, 60, 66, 16, 87};
+    double ratio = AZTrailView.controller.getDistRatio();
+    switch (AZTrailView.controller.getCurrentCity()) {
+      case "Nogales":
+        return (cities[0] - (int)((double)distances[0] * ratio));
+      case "Tombstone":
+        return (cities[1] - (int)((double)distances[1] * ratio));
+      case "Tucson":
+        return (cities[2] - (int)((double)distances[2] * ratio));
+      case "Phoenix":
+        return (cities[3] - (int)((double)distances[3] * ratio));
+      case "Sedona":
+        return (cities[4] - (int)((double)distances[4] * ratio));
+      case "Flagstaff":
+        return (cities[5] - (int)((double)distances[5] * ratio));
+    }
+    return 0;
   }
 }

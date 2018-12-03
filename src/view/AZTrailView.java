@@ -51,7 +51,7 @@ public class AZTrailView extends Application {
     this.stage.setResizable(false);
     // stage.initStyle(StageStyle.UNDECORATED);
 
-    this.stage.setScene(new MapView());
+    this.stage.setScene(new TrailTravelView());
     this.stage.show();
   }
 

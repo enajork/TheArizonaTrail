@@ -374,6 +374,7 @@ public class TrailTravelView extends Scene {
             new String[]{ result },
             true,
             false,
+            true,
             true
           ));
         } else if (result.charAt(0) == '1') {

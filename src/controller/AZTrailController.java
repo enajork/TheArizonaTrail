@@ -24,6 +24,7 @@ public class AZTrailController {
   // debug flag
   private static final boolean SAVE_DEBUG = true;
   private static final boolean SCORE_DEBUG = false;
+  private static final boolean DAMAGE = false;
 
   /**
    * [AZTrailController description]
@@ -567,6 +568,10 @@ public class AZTrailController {
     return model.getCurrentCity();
   }
 
+  public double getDistRatio() {
+    return model.getDistRatio();
+  }
+
   public void setHunted(boolean value) {
     model.setHunted(value);
   }
@@ -703,6 +708,9 @@ public class AZTrailController {
   }
 
   public String deplete() {
+    if (!DAMAGE) {
+      return "";
+    }
     int consumption = 0;
     switch (getWeather()) {
       case "cold":
@@ -735,6 +743,9 @@ public class AZTrailController {
   }
 
   public String randomEvent() {
+    if (!DAMAGE) {
+      return "";
+    }
     int p = rand.nextInt(LUCK);
     if (p >= 0 && p <= (SICK * (model.currPartySize() - getClothes() + 1)
         * ((model.getSeason().equals("winter")) ? 2 : 1 ))) {

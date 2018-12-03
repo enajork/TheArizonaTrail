@@ -24,16 +24,14 @@ import controller.*;
 
 public class SizeUpView extends Scene {
   private final int MIN_INPUT = 1;
-  private final int MAX_INPUT = 7;
+  private final int MAX_INPUT = 6;
   private Text body;
   private String contents = "You may:\n\n"
     + "  1. Continue on the trail\n"
     + "  2. Check supplies\n"
     + "  3. Look at map\n"
     + "  4. Change pace\n"
-    + "  5. Change food rations\n"
-    + "  6. Stop to rest\n"
-    + "  7. Hunt for food\n"
+    + "  5. Hunt for food\n"
     + "What is your choice? ";
 
   private String input = "_";
@@ -59,7 +57,6 @@ public class SizeUpView extends Scene {
     body.setId("text12");
     body.setFill(Color.WHITE);
 
-    // TODO get date and location from controller
     Text locDate = new Text(AZTrailView.controller.getCurrentCity()
       + "\n" + AZTrailView.controller.getDateStr() + "\n");
     locDate.setFill(Color.WHITE);
@@ -193,12 +190,6 @@ public class SizeUpView extends Scene {
         // Change pace
         return new SizeUpView();
       case 5:
-        // Change  food rations
-        return new SizeUpView();
-      case 6:
-        // Stop to rest
-        return new SizeUpView();
-      case 7:
         // Talk to people
         return new HuntingSplash();
     }

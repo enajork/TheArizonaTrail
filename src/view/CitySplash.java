@@ -177,7 +177,10 @@ public class CitySplash extends Scene {
           },
           new String[]{
             "Congratulations, you won!",
-            "Check the Top Ten to see\nif your name has been\nadded!"
+            "Check the Top Ten to see\nif your name has been\nadded!",
+            "The software team responsible for the\ncreation of "
+              + "this product includes:\n\n Jordan Bridgewater\n Jared Grady\n "
+              + "David Najork\n Eric Najork"
           },
           true,
           true

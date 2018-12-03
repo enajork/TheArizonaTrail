@@ -465,6 +465,10 @@ public class AZTrailModel implements Serializable {
     return mapModel.getNextCity();
   }
 
+  public double getDistRatio() {
+    return mapModel.getDistRatio();
+  }
+
   public void setHunted(boolean value) {
     this.hunted = value;
   }
