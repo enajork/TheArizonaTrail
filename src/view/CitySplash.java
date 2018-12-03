@@ -162,6 +162,26 @@ public class CitySplash extends Scene {
     switch (city) {
       case "Nogales":
         return new SizeUpView();
+      case "Page":
+        return new GenericInfoMenu(
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.controller.setScore(
+                AZTrailView.controller.getName(0),
+                AZTrailView.controller.getScore()
+              );
+              AZTrailView.controller.saveTopTen();
+              AZTrailView.stage.setScene(new SplashMenu());
+            }
+          },
+          new String[]{
+            "Congratulations, you won!",
+            "Check the Top Ten to see\nif your name has been\nadded!"
+          },
+          true,
+          true
+        );
       default:
         return new StoreMenu(city, false);
     }

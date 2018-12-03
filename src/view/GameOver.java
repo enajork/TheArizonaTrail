@@ -22,6 +22,7 @@ import controller.*;
 
 public class GameOver extends Scene {
   private BorderPane root;
+  private boolean released = false;
 
   /**
    * [GameOver description]
@@ -82,6 +83,9 @@ public class GameOver extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            if (!released) {
+              return;
+            }
             AZTrailController.escape = false;
             AZTrailView.stage.setScene(new SplashMenu());
             break;
@@ -104,6 +108,16 @@ public class GameOver extends Scene {
           default:
             AZTrailController.escape = false;
             return;
+        }
+      }
+    });
+    this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case SPACE:
+            released = true;
+            break;
         }
       }
     });
