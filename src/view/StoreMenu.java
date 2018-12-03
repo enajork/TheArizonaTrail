@@ -47,13 +47,14 @@ public class StoreMenu extends Scene {
   private String prompt = "  Which item would you\n  like to buy? ";
   private String input = "_";
   private boolean start;
+  private boolean stop;
   private String name;
 
   /**
    * [StoreMenu description]
    */
   public StoreMenu(String name) {
-    this(new BorderPane(), name, false);
+    this(new BorderPane(), name, false, false);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
   }
@@ -62,7 +63,16 @@ public class StoreMenu extends Scene {
    * [StoreMenu description]
    */
   public StoreMenu(String name, boolean start) {
-    this(new BorderPane(), name, start);
+    this(new BorderPane(), name, start, false);
+    getStylesheets().add(AZTrailView.styleSheet);
+    AZTrailController.escape = false;
+  }
+
+  /**
+   * [StoreMenu description]
+   */
+  public StoreMenu(String name, boolean start, boolean stop) {
+    this(new BorderPane(), name, start, stop);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
   }
@@ -71,10 +81,11 @@ public class StoreMenu extends Scene {
    * [StoreMenu description]
    * @param root [description]
    */
-  private StoreMenu(BorderPane root, String name, boolean start) {
+  private StoreMenu(BorderPane root, String name, boolean start, boolean stop) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     this.name = name;
     this.start = start;
+    this.stop = stop;
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane receiptBody = new BorderPane();
@@ -201,7 +212,7 @@ public class StoreMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
-            if (!start && !released) {
+            if (stop && !released) {
               return;
             }
             AZTrailController.escape = false;

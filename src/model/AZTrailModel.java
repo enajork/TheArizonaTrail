@@ -523,4 +523,8 @@ public class AZTrailModel implements Serializable {
   public void setTravelRate(int rate) {
     travelRate = rate;
   }
+
+  public boolean getAtDestination() {
+    return mapModel.getAtDestination();
+  }
 }

@@ -67,8 +67,8 @@ public class TrailTravelView extends Scene {
 
     Text footer = new Text("Hold SPACE BAR to continue...\n");
     footer.setId("text12");
-    footer.setFill((AZTrailView.controller.getHunted()) ? Color.WHITE
-      : Color.BLACK);
+    footer.setFill((AZTrailView.controller.getHunted()) ? Color.BLACK
+      : Color.WHITE);
     BorderPane tooltip = new BorderPane();
     tooltip.setCenter(footer);
     tooltip.setAlignment(footer, Pos.CENTER);
@@ -345,6 +345,27 @@ public class TrailTravelView extends Scene {
       time++;
     }
     if (time % TIME_DILATION == 0) {
+      if (AZTrailView.controller.getAtDestination()) {
+        AZTrailView.stage.setScene(new GenericInfoMenu(
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.controller.setScore(
+                AZTrailView.controller.getName(0),
+                AZTrailView.controller.getScore()
+              );
+              AZTrailView.controller.saveTopTen();
+              AZTrailView.stage.setScene(new SplashMenu());
+            }
+          },
+          new String[]{
+            "Congratulations, you won!",
+            "Check the Top Ten to see\nif your name has been\nadded!"
+          },
+          true,
+          true
+        ));
+      }
       if (AZTrailView.controller.advance()) {
         AZTrailView.stage.setScene(new CitySplash(AZTrailView.controller
           .getCurrentCity()));
