@@ -57,6 +57,7 @@ public class AZTrailView extends Application {
 
   public static void escapePressed(boolean saveAllowed) {
     if (AZTrailController.escape) {
+      AZTrailView.sounds.stopMovingSFX();
       if (saveAllowed) {
         stage.setScene(new GenericYesNoMenu(
           new Runnable() {

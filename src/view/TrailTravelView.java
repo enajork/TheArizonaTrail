@@ -67,8 +67,7 @@ public class TrailTravelView extends Scene {
 
     Text footer = new Text("Hold SPACE BAR to continue...\n");
     footer.setId("text12");
-    footer.setFill((AZTrailView.controller.getHunted()) ? Color.WHITE
-      : Color.BLACK);
+    footer.setFill(Color.WHITE);
     BorderPane tooltip = new BorderPane();
     tooltip.setCenter(footer);
     tooltip.setAlignment(footer, Pos.CENTER);
@@ -264,7 +263,6 @@ public class TrailTravelView extends Scene {
           case ESCAPE:
             AZTrailView.escapePressed(true);
             ox.pause();
-            AZTrailView.sounds.stopMovingSFX();
             movementBack.pause();
             movementMid.pause();
             movementFore.pause();
