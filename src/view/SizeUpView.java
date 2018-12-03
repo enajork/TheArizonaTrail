@@ -188,7 +188,7 @@ public class SizeUpView extends Scene {
         return new MapView();
       case 4:
         // Change pace
-        return new SizeUpView();
+        return new PaceMenu();
       case 5:
         // Talk to people
         return new HuntingSplash();

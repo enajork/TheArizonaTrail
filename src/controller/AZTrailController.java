@@ -180,6 +180,32 @@ public class AZTrailController {
   }
 
   /**
+   * [changePace description]
+   */
+  public void changePace(int pace) {
+    int rate;
+
+    switch (pace) {
+      case 1:
+        rate = 4;
+        break;
+
+      case 2:
+        rate = 5;
+        break;
+
+      case 3:
+        rate = 6;
+        break;
+
+      default:
+        rate = 4;
+    }
+
+    model.setTravelRate(rate);
+  }
+
+  /**
    * [profMenu description]
    * @param choice [description]
    */
