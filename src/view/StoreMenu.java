@@ -261,7 +261,7 @@ public class StoreMenu extends Scene {
                     AZTrailView.stage.setScene(getNextView());
                   }
                 },
-                "", new String[]{"Here take some water. Good luck, stranger!"
+                "", new String[]{"Here take some water.\nGood luck, stranger!"
               }));
             }
             break;

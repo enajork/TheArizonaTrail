@@ -16,8 +16,8 @@ public class AZTrailController {
   private TopTen topTen;
 
   // debug flag
-  private static final boolean SAVE_DEBUG = false;
-  private static final boolean SCORE_DEBUG = true;
+  private static final boolean SAVE_DEBUG = true;
+  private static final boolean SCORE_DEBUG = false;
 
   /**
    * [AZTrailController description]
