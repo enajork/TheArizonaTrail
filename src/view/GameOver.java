@@ -39,8 +39,6 @@ public class GameOver extends Scene {
   private GameOver(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
-    AZTrailView.sounds.stopMovingSFX();
-    AZTrailView.sounds.startThemeLoop();
     this.root = root;
     root.setStyle("-fx-background-color: black;");
 
@@ -87,10 +85,12 @@ public class GameOver extends Scene {
               return;
             }
             AZTrailController.escape = false;
+            AZTrailView.sounds.stop();
             AZTrailView.stage.setScene(new SplashMenu());
             break;
 
           case ENTER:
+            AZTrailView.sounds.stop();
             AZTrailController.escape = false;
             AZTrailView.stage.setScene(new SplashMenu());
             break;

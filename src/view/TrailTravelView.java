@@ -26,8 +26,8 @@ import java.io.*;
 import controller.*;
 
 public class TrailTravelView extends Scene {
-  // private static final int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10); // 30 seems good
-  private static final int TIME_DILATION = 10;
+  private static final int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10); // 30 seems good
+  // private static final int TIME_DILATION = 10;
   private static final int BACK_SPEED = 10000 * TIME_DILATION;
   private static final int MID_SPEED = 5000 * TIME_DILATION;
   private static final int FORE_SPEED = 3000 * TIME_DILATION;
@@ -345,6 +345,7 @@ public class TrailTravelView extends Scene {
     if (time % TIME_DILATION == 0) {
       String result = AZTrailView.controller.deplete();
       if (result.length() != 0) {
+        AZTrailView.sounds.gameOverTheme();
         AZTrailView.stage.setScene(new GenericInfoMenu(
           new Runnable() {
             @Override
@@ -376,6 +377,7 @@ public class TrailTravelView extends Scene {
             true
           ));
         } else if (result.charAt(0) == '1') {
+          AZTrailView.sounds.gameOverTheme();
           result = result.replace("1", "");
           AZTrailView.stage.setScene(new GenericInfoMenu(
             new Runnable() {
