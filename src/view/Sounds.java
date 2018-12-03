@@ -11,6 +11,7 @@ public class Sounds {
   private static final HashMap<String, ObservableList<Media>> music = new HashMap<String, ObservableList<Media>>();
   private static final HashMap<String, AudioClip> sounds = new HashMap<String, AudioClip>();
   private static boolean isPlayingTheme;
+  private static boolean isPlayingHomeStretchTheme;
   private static boolean isPlayingBackgroundSFX;
   private static final double MAX_EFFECT_VOLUME = 0.4;
   private static final double MAX_MUSIC_VOLUME = 0.2;
@@ -66,6 +67,10 @@ public class Sounds {
     if (!AZTrailView.controller.getNextCity().equals("Page")) {
       AZTrailView.sounds.mainThemes();
     } else {
+      if (isPlayingHomeStretchTheme) {
+        return;
+      }
+      isPlayingHomeStretchTheme = true;
       AZTrailView.sounds.stopMusic();
       AZTrailView.sounds.homeStretchTheme();
     }
@@ -414,6 +419,7 @@ public class Sounds {
     if (musicPlayer != null) {
       musicPlayer.stop();
       isPlayingTheme = false;
+      isPlayingHomeStretchTheme = false;
     }
     if (sfxPlayer1 != null) {
       sfxPlayer1.stop();
@@ -429,6 +435,7 @@ public class Sounds {
     if (musicPlayer != null) {
       musicPlayer.stop();
       isPlayingTheme = false;
+      isPlayingHomeStretchTheme = false;
     }
   }
 }
