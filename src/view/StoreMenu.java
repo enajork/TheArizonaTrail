@@ -201,7 +201,7 @@ public class StoreMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
-            if (!released) {
+            if (!start && !released) {
               return;
             }
             AZTrailController.escape = false;

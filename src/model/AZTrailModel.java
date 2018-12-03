@@ -19,6 +19,30 @@ public class AZTrailModel implements Serializable {
     this.travelRate = 6;
   }
 
+  public MapModel getMap() {
+    return mapModel;
+  }
+
+  public void setMap(MapModel map) {
+    this.mapModel = map;
+  }
+
+  public Calendar getCalendar() {
+    return calendar;
+  }
+
+  public void setCalendar(Calendar cal) {
+    this.calendar = cal;
+  }
+
+  public Party getParty() {
+    return party;
+  }
+
+  public void setParty(Party party) {
+    this.party = party;
+  }
+
   /**
    * [getProf description]
    * @return [description]

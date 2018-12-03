@@ -102,26 +102,11 @@ public class AZTrailController {
 
   public void setCheckpoint() {
     checkpoint = new AZTrailModel();
-    checkpoint.addMoney(model.getMoney());
-    checkpoint.addOxen(model.getOxen());
-    checkpoint.addFood(model.getFood());
-    checkpoint.addBlankets(model.getBlankets());
-    checkpoint.addClothes(model.getClothes());
-    checkpoint.addBullets(model.getBullets());
-    checkpoint.addWheels(model.getWheels());
-    checkpoint.addAxles(model.getAxles());
-    checkpoint.addTongues(model.getTongues());
-    checkpoint.addWater(model.getWater());
-    checkpoint.setDay(model.getDay());
-    checkpoint.setMonth(model.getMonth());
-    checkpoint.setYear(model.getYear());
-    checkpoint.setCurrentCity(model.getCurrentCity());
+    checkpoint.setMap(model.getMap());
+    checkpoint.setParty(model.getParty());
     checkpoint.setHunted(model.getHunted());
-    checkpoint.setProf(model.getProf());
+    checkpoint.setCalendar(model.getCalendar());
     checkpoint.setTravelRate(model.getTravelRate());
-    for (int i = 0; i < model.currPartySize(); i++) {
-      checkpoint.setName(i, model.getName(i));
-    }
   }
 
   public void loadTopTen() {

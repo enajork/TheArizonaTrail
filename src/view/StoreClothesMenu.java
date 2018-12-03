@@ -45,19 +45,19 @@ public class StoreClothesMenu extends Scene {
    * [StoreClothesMenu description]
    */
   public StoreClothesMenu(String name, boolean start) {
-    this(new BorderPane());
+    this(new BorderPane(), name, start);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
-    this.name = name;
-    this.start = start;
   }
 
   /**
    * [StoreClothesMenu description]
    * @param root [description]
    */
-  private StoreClothesMenu(BorderPane root) {
+  private StoreClothesMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    this.name = name;
+    this.start = start;
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane banner = new BorderPane();

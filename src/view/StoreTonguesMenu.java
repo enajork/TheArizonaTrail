@@ -45,20 +45,20 @@ public class StoreTonguesMenu extends Scene {
    * [StoreTonguesMenu description]
    */
   public StoreTonguesMenu(int parts, String name, boolean start) {
-    this(new BorderPane());
+    this(new BorderPane(), name, start);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
     this.parts = parts;
-    this.name = name;
-    this.start = start;
   }
 
   /**
    * [StoreTonguesMenu description]
    * @param root [description]
    */
-  private StoreTonguesMenu(BorderPane root) {
+  private StoreTonguesMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    this.name = name;
+    this.start = start;
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane banner = new BorderPane();
