@@ -27,7 +27,7 @@ import controller.*;
 
 public class TrailTravelView extends Scene {
   // private static final int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10); // 30 seems good
-  private static final int TIME_DILATION = 5;
+  private static final int TIME_DILATION = 10;
   private static final int BACK_SPEED = 10000 * TIME_DILATION;
   private static final int MID_SPEED = 5000 * TIME_DILATION;
   private static final int FORE_SPEED = 3000 * TIME_DILATION;
