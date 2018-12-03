@@ -333,7 +333,12 @@ public class TrailTravelView extends Scene {
       AZTrailView.controller.getNextCity() + ".png", ICON_WIDTH, ICON_HEIGHT,
       false, true));
     city[0].getChildren().add(view[0]);
-    view[0].setViewport(fore);
+
+    if (!(AZTrailView.controller.getNextCity().equals("Flagstaff") ||
+          AZTrailView.controller.getNextCity().equals("Tombstone"))) {
+      view[0].setViewport(fore);
+    }
+
     // city[i].getChildren().add(view[i]);
     // view[i].setViewport(fore);
   }
