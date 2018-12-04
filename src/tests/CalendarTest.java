@@ -55,7 +55,8 @@ public class CalendarTest {
 
 	  // invalid month (int)
 	  Calendar cal2 = new Calendar();
-	  assertThrows(IllegalStateException.class, () -> {cal2.setMonth(12);});
+	  cal2.setMonth(12);
+	  assertEquals(12, cal2.getMonth());
 
 	  // valid month (String)
 	  Calendar cal3 = new Calendar();
@@ -64,7 +65,7 @@ public class CalendarTest {
 
 	  // invalid month(String)
 	  Calendar cal4 = new Calendar();
-	  assertThrows(IllegalStateException.class, () -> {cal4.setMonth("Invalid");});
+	  assertThrows(NullPointerException.class, () -> {cal4.setMonth("Invalid");});
   }
 
   @Test

@@ -40,13 +40,12 @@ public class Calendar implements Serializable {
   }
 
   public void setMonth(String month) {
-	  int i;
-	  try {
-		  i = monthNum.get(month);
-	  } catch (NullPointerException ex) {
-		  throw new IllegalStateException();
-	  }
-	  this.month = i;
+    int i = monthNum.get(month);
+    if (i >= 0 && i <= TOTAL_MONTHS - 1) {
+      this.month = i;
+    } else {
+      throw new IllegalStateException();
+    }
   }
 
   public int getMonth() {
@@ -54,13 +53,7 @@ public class Calendar implements Serializable {
   }
 
   public void setMonth(int month) {
-	  if (month >= 0 && month <= TOTAL_MONTHS - 1) {
-		  this.month = month;
-	  } else {
-		  throw new IllegalStateException();
-	  }
     this.month = month;
-
   }
 
 
