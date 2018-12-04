@@ -30,6 +30,7 @@ public class HuntingView extends Scene {
   private boolean sDown = false;
   private boolean dDown = false;
 
+  private final boolean INFINITE_AMMO = true;
   private final int COOLDOWN_TIME = 300;
   private final int MAX_SHOTS = 10;
   private double score = 0.0;
@@ -202,7 +203,7 @@ public class HuntingView extends Scene {
     ammo.setFill(Color.BLACK);
     info = new AnchorPane(ammo);
     info.setTopAnchor(ammo, 380.0);
-    info.setLeftAnchor(ammo, 500.0);
+    info.setLeftAnchor(ammo, 450.0);
     layers.getChildren().add(info);
     root.setCenter(layers);
     gc.drawImage(img, 0, 0, width, height, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2,
@@ -345,6 +346,9 @@ public class HuntingView extends Scene {
       }
     });
     path.play();
+    if (INFINITE_AMMO) {
+      return;
+    }
     shots++;
     AZTrailView.controller.removeBullets(1);
     ammo.setText(AZTrailView.controller.getBullets() + " bullets");
@@ -476,13 +480,13 @@ public class HuntingView extends Scene {
     private final Image IMAGE = new Image((AZTrailView.controller.getHunted())
       ? "file:view/assets/graphics/tumbleweedmoving-hunted.png"
       : "file:view/assets/graphics/tumbleweedmoving.png",
-      (int) (288), (int) (41), true, false);
-    private static final int COLUMNS  =   5;
-    private static final int COUNT    =   5;
+      (int) (129), (int) (89), true, false);
+    private static final int COLUMNS  =   3;
+    private static final int COUNT    =   6;
     private static final int OFFSET_X =   0;
     private static final int OFFSET_Y =   0;
-    private static final int WIDTH    =  (int) (36);
-    private static final int HEIGHT   =  (int) (41);
+    private static final int WIDTH    =  (int) (43);
+    private static final int HEIGHT   =  (int) (43);
     private final Animation animation;
     private ImageView imageView;
 
@@ -493,12 +497,12 @@ public class HuntingView extends Scene {
 
       this.animation = new SpriteAnimation(
         this.imageView,
-        Duration.millis(1000),
+        Duration.millis(800),
         COUNT, COLUMNS,
         OFFSET_X, OFFSET_Y,
         WIDTH, HEIGHT
       );
-      this.animation.setCycleCount(8);
+      this.animation.setCycleCount(Animation.INDEFINITE);
     }
 
     public void play() {
@@ -518,13 +522,13 @@ public class HuntingView extends Scene {
     private final Image IMAGE = new Image((AZTrailView.controller.getHunted())
       ? "file:view/assets/graphics/tumbleweedtest.png"
       : "file:view/assets/graphics/tumbleweedtest.png",
-      (int) (192), (int) (144), true, false);
+      (int) (258), (int) (178), true, false);
     private static final int COLUMNS  =   3;
-    private static final int COUNT    =   2;
+    private static final int COUNT    =   6;
     private static final int OFFSET_X =   0;
     private static final int OFFSET_Y =   0;
-    private static final int WIDTH    =  (int) (72);
-    private static final int HEIGHT   =  (int) (64);
+    private static final int WIDTH    =  (int) (86);
+    private static final int HEIGHT   =  (int) (86);
     private final Animation animation;
     private ImageView imageView;
 
@@ -541,7 +545,7 @@ public class HuntingView extends Scene {
         WIDTH, HEIGHT
       );
 
-      this.animation.setCycleCount(8);
+      this.animation.setCycleCount(Animation.INDEFINITE);
     }
 
     public void play() {
