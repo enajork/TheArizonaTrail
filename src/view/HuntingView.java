@@ -10,6 +10,7 @@ import javafx.scene.input.*;
 import javafx.scene.image.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
+import javafx.scene.text.*;
 import javafx.scene.*;
 import javafx.beans.value.*;
 import javafx.animation.*;
@@ -72,6 +73,8 @@ public class HuntingView extends Scene {
   private Circle bullet;
   private GraphicsContext gc = canvas.getGraphicsContext2D();
   private BorderPane root;
+  private AnchorPane info;
+  private Text ammo = new Text(AZTrailView.controller.getBullets() + " bullets");
 
   /**
    * [HuntingView description]
@@ -191,6 +194,12 @@ public class HuntingView extends Scene {
     }
     layers.getChildren().add(bullets);
     layers.getChildren().add(canvas);
+    ammo.setId("text10");
+    ammo.setFill(Color.BLACK);
+    info = new AnchorPane(ammo);
+    info.setTopAnchor(ammo, 380.0);
+    info.setLeftAnchor(ammo, 500.0);
+    layers.getChildren().add(info);
     root.setCenter(layers);
     gc.drawImage(img, 0, 0, width, height, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2,
       width, height);
@@ -333,6 +342,8 @@ public class HuntingView extends Scene {
     });
     path.play();
     shots++;
+    AZTrailView.controller.removeBullets(1);
+    ammo.setText(AZTrailView.controller.getBullets() + " bullets");
   }
 
   private void gameOver() {
