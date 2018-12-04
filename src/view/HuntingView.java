@@ -520,8 +520,8 @@ public class HuntingView extends Scene {
 
   private class LargeTumbleweedSprite {
     private final Image IMAGE = new Image((AZTrailView.controller.getHunted())
-      ? "file:view/assets/graphics/tumbleweedtest.png"
-      : "file:view/assets/graphics/tumbleweedtest.png",
+      ? "file:view/assets/graphics/tumbleweedmoving-hunted.png"
+      : "file:view/assets/graphics/tumbleweedmoving.png",
       (int) (258), (int) (178), true, false);
     private static final int COLUMNS  =   3;
     private static final int COUNT    =   6;

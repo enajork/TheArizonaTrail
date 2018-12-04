@@ -171,6 +171,7 @@ public class SplashMenu extends Scene {
     switch (choice) {
       case 1:
         // Travel the trail
+        AZTrailView.sounds.stop();
         if (AZTrailController.hasSave) {
           return new GenericYesNoMenu(
             new Runnable() {
