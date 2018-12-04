@@ -69,54 +69,95 @@ public class HuntingView extends Scene {
   private HuntingView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     this.root = root;
-    root.setStyle("-fx-background-color: black;");
+    root.setStyle("-fx-background-color: " + ((AZTrailView.controller.getHunted())
+        ? "rgb(142, 141, 117)" : "rgb(245, 237, 149)") + ";");
     Image rock1 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/rock1-hunted.png"
-        : "file:view/assets/graphics/rock1.png",
+        ? "file:view/assets/graphics/terrain/rock1-hunted.png"
+        : "file:view/assets/graphics/terrain/rock1.png",
         60, 35, false, true);
     Image rock2 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/rock2-hunted.png"
-        : "file:view/assets/graphics/rock2.png",
+        ? "file:view/assets/graphics/terrain/rock2-hunted.png"
+        : "file:view/assets/graphics/terrain/rock2.png",
         50, 50, false, true);
     Image rock3 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/rock1-hunted.png"
-        : "file:view/assets/graphics/rock1.png",
+        ? "file:view/assets/graphics/terrain/rock1-hunted.png"
+        : "file:view/assets/graphics/terrain/rock1.png",
         50, 30, false, true);
     Image rock4 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/rock2-hunted.png"
-        : "file:view/assets/graphics/rock2.png",
+        ? "file:view/assets/graphics/terrain/rock2-hunted.png"
+        : "file:view/assets/graphics/terrain/rock2.png",
+        70, 70, false, true);
+    Image rock5 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/terrain/rock1-mirrored-hunted.png"
+        : "file:view/assets/graphics/terrain/rock1-mirrored.png",
+        60, 35, false, true);
+    Image rock6 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/terrain/rock2-mirrored-hunted.png"
+        : "file:view/assets/graphics/terrain/rock2-mirrored.png",
+        50, 50, false, true);
+    Image rock7 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/terrain/rock1-mirrored-hunted.png"
+        : "file:view/assets/graphics/terrain/rock1-mirrored.png",
+        50, 30, false, true);
+    Image rock8 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/terrain/rock2-mirrored-hunted.png"
+        : "file:view/assets/graphics/terrain/rock2-mirrored.png",
         70, 70, false, true);
     Image cactus1 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/cactus1-hunted.png"
-        : "file:view/assets/graphics/cactus1.png",
+        ? "file:view/assets/graphics/terrain/cactus1-hunted.png"
+        : "file:view/assets/graphics/terrain/cactus1.png",
         50, 70, false, true);
     Image cactus2 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/cactus2-hunted.png"
-        : "file:view/assets/graphics/cactus2.png",
+        ? "file:view/assets/graphics/terrain/cactus2-hunted.png"
+        : "file:view/assets/graphics/terrain/cactus2.png",
         40, 68, false, true);
     Image cactus3 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/cactus1-hunted.png"
-        : "file:view/assets/graphics/cactus1.png",
+        ? "file:view/assets/graphics/terrain/cactus1-hunted.png"
+        : "file:view/assets/graphics/terrain/cactus1.png",
         40, 56, false, true);
     Image cactus4 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/cactus2-hunted.png"
-        : "file:view/assets/graphics/cactus2.png",
+        ? "file:view/assets/graphics/terrain/cactus2-hunted.png"
+        : "file:view/assets/graphics/terrain/cactus2.png",
+        50, 85, false, true);
+    Image cactus5 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/terrain/cactus1-mirrored-hunted.png"
+        : "file:view/assets/graphics/terrain/cactus1-mirrored.png",
+        50, 70, false, true);
+    Image cactus6 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/terrain/cactus2-mirrored-hunted.png"
+        : "file:view/assets/graphics/terrain/cactus2-mirrored.png",
+        40, 68, false, true);
+    Image cactus7 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/terrain/cactus1-mirrored-hunted.png"
+        : "file:view/assets/graphics/terrain/cactus1-mirrored.png",
+        40, 56, false, true);
+    Image cactus8 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/terrain/cactus2-mirrored-hunted.png"
+        : "file:view/assets/graphics/terrain/cactus2-mirrored.png",
         50, 85, false, true);
     ArrayList<Image> propList = new ArrayList<Image>();
     propList.add(rock1);
     propList.add(rock2);
     propList.add(rock3);
     propList.add(rock4);
+    propList.add(rock5);
+    propList.add(rock6);
+    propList.add(rock7);
+    propList.add(rock8);
     propList.add(cactus1);
     propList.add(cactus2);
     propList.add(cactus3);
     propList.add(cactus4);
-    ImageView[] props = new ImageView[64];
+    propList.add(cactus5);
+    propList.add(cactus6);
+    propList.add(cactus7);
+    propList.add(cactus8);
+    ImageView[] props = new ImageView[TERRAIN_DENSITY];
     for (int i = 0; i < props.length; ++i) {
       Random rand = new Random();
       props[i] = new ImageView(propList.get(rand.nextInt(propList.size())));
     }
-    AnchorPane positions[] = new AnchorPane[64];
+    AnchorPane positions[] = new AnchorPane[TERRAIN_DENSITY];
     for (int i = 0; i < positions.length; ++i) {
       positions[i] = new AnchorPane(props[i]);
     }
