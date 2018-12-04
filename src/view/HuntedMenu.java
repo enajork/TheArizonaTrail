@@ -38,7 +38,6 @@ public class HuntedMenu extends Scene {
   */
   public HuntedMenu() {
     this(new BorderPane());
-    AZTrailView.sounds.huntedMenuTheme();
   }
 
   /**
@@ -145,7 +144,7 @@ public class HuntedMenu extends Scene {
                 AZTrailView.sounds.stop();
                 AZTrailView.sounds.huntedModeSFX();
                 AZTrailView.controller.setHunted(true);
-                fadeOut(14000);
+                fadeOut(5000);
                 return;
               }
             }
