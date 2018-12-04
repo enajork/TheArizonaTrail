@@ -22,11 +22,6 @@ import java.io.*;
 
 import controller.*;
 import model.*;
-/**
- * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
- * @version     1.0
- * @since       1.0
- */
 
 public class AZTrailView extends Application {
   protected static AZTrailController controller;
@@ -55,17 +50,12 @@ public class AZTrailView extends Application {
     controller.loadTopTen();
     this.stage.setTitle("Arizona Trail");
     this.stage.setResizable(false);
-    // stage.initStyle(StageStyle.UNDECORATED);
+    stage.initStyle(StageStyle.UNDECORATED);
 
-    this.stage.setScene(new HuntedView());
+    this.stage.setScene(new SplashMenu());
     this.stage.show();
   }
 
-  /**
-   * handler for exiting the game with a save
-   *
-   * @param saveAllowed true if the player is allowed to save the game
-   */
   public static void escapePressed(boolean saveAllowed) {
     if (AZTrailController.escape) {
       AZTrailView.sounds.stopMovingSFX();

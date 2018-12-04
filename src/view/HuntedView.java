@@ -48,22 +48,14 @@ public class HuntedView extends Scene {
   private static Canvas canvas = new Canvas(AZTrailView.WIDTH,
     AZTrailView.HEIGHT);
   private boolean hunted = AZTrailView.controller.getHunted();
-  private Image up = new Image("file:view/assets/graphics/hunter/up"
-    + ((hunted) ? "-hunted" : "") + ".png");
-  private Image down = new Image("file:view/assets/graphics/hunter/down"
-    + ((hunted) ? "-hunted" : "") + ".png");
-  private Image left = new Image("file:view/assets/graphics/hunter/left"
-    + ((hunted) ? "-hunted" : "") + ".png");
-  private Image right = new Image("file:view/assets/graphics/hunter/right"
-    + ((hunted) ? "-hunted" : "") + ".png");
-  private Image downleft = new Image("file:view/assets/graphics/hunter/downleft"
-    + ((hunted) ? "-hunted" : "") + ".png");
-  private Image downright = new Image("file:view/assets/graphics/hunter/downright"
-    + ((hunted) ? "-hunted" : "") + ".png");
-  private Image upleft = new Image("file:view/assets/graphics/hunter/upleft"
-    + ((hunted) ? "-hunted" : "") + ".png");
-  private Image upright = new Image("file:view/assets/graphics/hunter/upright"
-    + ((hunted) ? "-hunted" : "") + ".png");
+  private Image up = new Image("file:view/assets/graphics/hunter/up.png");
+  private Image down = new Image("file:view/assets/graphics/hunter/down.png");
+  private Image left = new Image("file:view/assets/graphics/hunter/left.png");
+  private Image right = new Image("file:view/assets/graphics/hunter/right.png");
+  private Image downleft = new Image("file:view/assets/graphics/hunter/downleft.png");
+  private Image downright = new Image("file:view/assets/graphics/hunter/downright.png");
+  private Image upleft = new Image("file:view/assets/graphics/hunter/upleft.png");
+  private Image upright = new Image("file:view/assets/graphics/hunter/upright.png");
   private Image owenUnhurt = new Image("file:view/assets/graphics/hunter/wilson/undamaged/downleft.png");
   private Image owenHurt = new Image("file:view/assets/graphics/hunter/wilson/damaged/downleft.png");
   private Image owen = owenUnhurt;
@@ -100,71 +92,38 @@ public class HuntedView extends Scene {
   private HuntedView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     this.root = root;
-    root.setStyle("-fx-background-color: " + ((AZTrailView.controller.getHunted())
-        ? "rgb(142, 141, 117)" : "rgb(245, 237, 149)") + ";");
-    Image rock1 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/rock1-hunted.png"
-        : "file:view/assets/graphics/terrain/rock1.png",
+    root.setStyle("-fx-background-color: rgb(142, 141, 117);");
+    Image rock1 = new Image("file:view/assets/graphics/terrain/rock1-hunted.png",
         60, 35, false, true);
-    Image rock2 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/rock2-hunted.png"
-        : "file:view/assets/graphics/terrain/rock2.png",
+    Image rock2 = new Image("file:view/assets/graphics/terrain/rock2-hunted.png",
         50, 50, false, true);
-    Image rock3 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/rock1-hunted.png"
-        : "file:view/assets/graphics/terrain/rock1.png",
+    Image rock3 = new Image("file:view/assets/graphics/terrain/rock1-hunted.png",
         50, 30, false, true);
-    Image rock4 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/rock2-hunted.png"
-        : "file:view/assets/graphics/terrain/rock2.png",
+    Image rock4 = new Image("file:view/assets/graphics/terrain/rock2-hunted.png",
         70, 70, false, true);
-    Image rock5 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/rock1-mirrored-hunted.png"
-        : "file:view/assets/graphics/terrain/rock1-mirrored.png",
+    Image rock5 = new Image("file:view/assets/graphics/terrain/rock1-mirrored-hunted.png",
         60, 35, false, true);
-    Image rock6 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/rock2-mirrored-hunted.png"
-        : "file:view/assets/graphics/terrain/rock2-mirrored.png",
+    Image rock6 = new Image("file:view/assets/graphics/terrain/rock2-mirrored-hunted.png",
         50, 50, false, true);
-    Image rock7 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/rock1-mirrored-hunted.png"
-        : "file:view/assets/graphics/terrain/rock1-mirrored.png",
+    Image rock7 = new Image("file:view/assets/graphics/terrain/rock1-mirrored-hunted.png",
         50, 30, false, true);
-    Image rock8 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/rock2-mirrored-hunted.png"
-        : "file:view/assets/graphics/terrain/rock2-mirrored.png",
+    Image rock8 = new Image("file:view/assets/graphics/terrain/rock2-mirrored-hunted.png",
         70, 70, false, true);
-    Image cactus1 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/cactus1-hunted.png"
-        : "file:view/assets/graphics/terrain/cactus1.png",
+    Image cactus1 = new Image("file:view/assets/graphics/terrain/cactus1-hunted.png",
         50, 70, false, true);
-    Image cactus2 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/cactus2-hunted.png"
-        : "file:view/assets/graphics/terrain/cactus2.png",
+    Image cactus2 = new Image("file:view/assets/graphics/terrain/cactus2-hunted.png",
         40, 68, false, true);
-    Image cactus3 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/cactus1-hunted.png"
-        : "file:view/assets/graphics/terrain/cactus1.png",
+    Image cactus3 = new Image("file:view/assets/graphics/terrain/cactus1-hunted.png",
         40, 56, false, true);
-    Image cactus4 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/cactus2-hunted.png"
-        : "file:view/assets/graphics/terrain/cactus2.png",
+    Image cactus4 = new Image("file:view/assets/graphics/terrain/cactus2-hunted.png",
         50, 85, false, true);
-    Image cactus5 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/cactus1-mirrored-hunted.png"
-        : "file:view/assets/graphics/terrain/cactus1-mirrored.png",
+    Image cactus5 = new Image("file:view/assets/graphics/terrain/cactus1-mirrored-hunted.png",
         50, 70, false, true);
-    Image cactus6 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/cactus2-mirrored-hunted.png"
-        : "file:view/assets/graphics/terrain/cactus2-mirrored.png",
+    Image cactus6 = new Image("file:view/assets/graphics/terrain/cactus2-mirrored-hunted.png",
         40, 68, false, true);
-    Image cactus7 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/cactus1-mirrored-hunted.png"
-        : "file:view/assets/graphics/terrain/cactus1-mirrored.png",
+    Image cactus7 = new Image("file:view/assets/graphics/terrain/cactus1-mirrored-hunted.png",
         40, 56, false, true);
-    Image cactus8 = new Image((AZTrailView.controller.getHunted())
-        ? "file:view/assets/graphics/terrain/cactus2-mirrored-hunted.png"
-        : "file:view/assets/graphics/terrain/cactus2-mirrored.png",
+    Image cactus8 = new Image("file:view/assets/graphics/terrain/cactus2-mirrored-hunted.png",
         50, 85, false, true);
     ArrayList<Image> propList = new ArrayList<Image>();
     propList.add(rock1);
@@ -398,7 +357,18 @@ public class HuntedView extends Scene {
     } else {
       AZTrailView.sounds.stopMusic();
       AZTrailView.sounds.startThemeLoop();
-      AZTrailView.stage.setScene(new GameOver());
+      AZTrailView.stage.setScene(
+        new GenericInfoMenu(new Runnable() {
+          @Override
+          public void run() {
+            AZTrailView.stage.setScene(new GameOver());
+          }
+        },
+        new String[]{
+          "You took too long...\nOwen Wilson captured and\nkilled your party."
+        },
+        true
+      ));
     }
   }
 
