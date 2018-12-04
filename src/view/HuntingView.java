@@ -564,7 +564,7 @@ public class HuntingView extends Scene {
       rand = random.nextInt(2);
       if (rand == 0) {
         if (smallX > 0) {
-          smallX -= SMALL_SPEED * 2;
+          smallX -= smallSpeed * 2;
         }
       } else if (rand == 1) {
         if (smallX + smallSpeed < CANVAS_WIDTH) {
