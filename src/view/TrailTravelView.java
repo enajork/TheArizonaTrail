@@ -26,21 +26,24 @@ import java.io.*;
 import controller.*;
 
 public class TrailTravelView extends Scene {
-  private static final int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10); // 30 seems good
-  // private static final int TIME_DILATION = 10;
-  private static final int BACK_SPEED = 10000 * TIME_DILATION;
-  private static final int MID_SPEED = 5000 * TIME_DILATION;
-  private static final int FORE_SPEED = 3000 * TIME_DILATION;
-  private static final int OXEN_SPEED = 50 * TIME_DILATION;
+  private static int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10); // 30 seems good
+  // private static int TIME_DILATION = 10;
+  private static int BACK_SPEED = 10000 * TIME_DILATION;
+  private static int MID_SPEED = 5000 * TIME_DILATION;
+  private static int FORE_SPEED = 3000 * TIME_DILATION;
+  private static int OXEN_SPEED = 50 * TIME_DILATION;
+  private final int SCENE_WIDTH = AZTrailView.WIDTH;
+  private boolean updatePace = false;
   private int ICON_WIDTH = 50;
   private int ICON_HEIGHT = 50;
+  // private TranslateTransition transBack[];
+  // private TranslateTransition transMid[];
+  // private TranslateTransition transFore[];
   private ParallelTransition movementBack;
   private ParallelTransition movementMid;
   private ParallelTransition movementFore;
   private StackPane city[] = {null, null};
   private ImageView view[] = {null, null};
-  Rectangle2D fore;
-  private final int SCENE_WIDTH = 650;
   private BorderPane root;
   private OxenSprite ox;
   private Text stats;
@@ -195,7 +198,7 @@ public class TrailTravelView extends Scene {
     ImageView sand[] = {null, null};
     TranslateTransition transFore[] = {null, null};
     for (int i = 0; i < 2; ++i) {
-      fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
+      Rectangle2D fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
       sand[i] = new ImageView((AZTrailView.controller.getHunted())
         ? new Image("file:view/assets/graphics/sand-hunted.png", 1000, 50,
           false, true)
@@ -217,8 +220,7 @@ public class TrailTravelView extends Scene {
           false, true));
         city[i].getChildren().add(view[i]);
 
-        if (!AZTrailView.controller.getNextCity().equals("Flagstaff") &&
-            !AZTrailView.controller.getNextCity().equals("Tombstone")) {
+        if (!AZTrailView.controller.getNextCity().equals("Flagstaff")) {
           view[i].setViewport(fore);
         }
       }
@@ -401,6 +403,28 @@ public class TrailTravelView extends Scene {
     this.stats.setText(buildStatsString());
   }
 
+  public void updatePace() {
+    TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10);
+    BACK_SPEED = 10000 * TIME_DILATION;
+    MID_SPEED = 5000 * TIME_DILATION;
+    FORE_SPEED = 3000 * TIME_DILATION;
+    movementBack.stop();
+    movementMid.stop();
+    movementFore.stop();
+    List back = movementBack.getChildren();
+    List mid = movementMid.getChildren();
+    List fore = movementFore.getChildren();
+    for (int i = 0; i < back.size(); ++i) {
+      ((TranslateTransition) back.get(i)).setDuration(Duration.millis(BACK_SPEED));
+    }
+    for (int i = 0; i < mid.size(); ++i) {
+      ((TranslateTransition)mid.get(i)).setDuration(Duration.millis(MID_SPEED));
+    }
+    for (int i = 0; i < fore.size(); ++i) {
+      ((TranslateTransition)fore.get(i)).setDuration(Duration.millis(FORE_SPEED));
+    }
+  }
+
   private class OxenSprite {
     private final Image IMAGE = new Image((AZTrailView.controller.getHunted())
       ? "file:view/assets/graphics/oxenwalk-hunted.png"
@@ -431,6 +455,10 @@ public class TrailTravelView extends Scene {
     }
 
     public void play() {
+      OXEN_SPEED = 50 * TIME_DILATION;
+      // this.animation.stop();
+      // this.animation.setCycleDuration(Duration.millis(OXEN_SPEED));
+      // this.animation.rate(1.0);
       this.animation.play();
     }
 

@@ -158,6 +158,7 @@ public class SizeUpView extends Scene {
     switch (choice) {
       case 1:
         // Travel the trail
+        AZTrailView.travel.updatePace();
         return AZTrailView.travel;
       case 2:
         return new GenericInfoMenu(
