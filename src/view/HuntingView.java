@@ -72,6 +72,7 @@ public class HuntingView extends Scene {
   private int mouseY = 0;
   private AnchorPane bullets = new AnchorPane();
   private Circle bullet;
+  private LargeTumbleweedSprite tumble = new LargeTumbleweedSprite();
   private GraphicsContext gc = canvas.getGraphicsContext2D();
   private BorderPane root;
   private AnchorPane info;
@@ -193,9 +194,7 @@ public class HuntingView extends Scene {
     for (int i = 0; i < positions.length; ++i) {
       layers.getChildren().add(positions[i]);
     }
-    LargeTumbleweedSprite tumble = new LargeTumbleweedSprite();
-    BorderPane pane = new BorderPane(tumble.getSprite());
-    layers.getChildren().add(pane);
+    layers.getChildren().add(tumble.getSprite());
     tumble.play();
     layers.getChildren().add(bullets);
     layers.getChildren().add(canvas);
@@ -340,6 +339,9 @@ public class HuntingView extends Scene {
       public void handle(ActionEvent actionEvent) {
         bullets.getChildren().remove(bullet);
         cooldown = false;
+        if (bullet.getBoundsInParent().intersects(tumble.getBoundsInParent())) {
+          System.out.println("hit");
+        }
         if (shots == MAX_SHOTS) {
           gameOver();
         }
@@ -558,6 +560,10 @@ public class HuntingView extends Scene {
 
     public ImageView getSprite() {
       return this.imageView;
+    }
+
+    public Bounds getBoundsInParent() {
+      return imageView.getBoundsInParent();
     }
   }
 }
