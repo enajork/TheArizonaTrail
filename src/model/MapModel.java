@@ -5,12 +5,12 @@ import java.io.*;
 
 public class MapModel implements Serializable {
   private boolean atDestination;
+  private int milesFromLastCity;
   private String currentCity;
   private String nextCity;
-  private int milesFromLastCity;
   private int totalMiles;
   private Map<String, Integer> milesToCityMap;
-  private String[] citiesInOrder = {"Nogales", "Tombstone", "Tucson","Phoenix",
+  private String[] citiesInOrder = {"Nogales", "Tombstone", "Tucson", "Phoenix",
     "Sedona", "Flagstaff", "Page"};
 
   public MapModel() {
@@ -22,12 +22,13 @@ public class MapModel implements Serializable {
     createMilesToCityMap();
   }
 
-  public void advancePosition(int distanceTraveled) {
+  public boolean advancePosition(int distanceTraveled) {
     if (!atDestination) {
       this.totalMiles += distanceTraveled;
       int totalTraveled = milesFromLastCity + distanceTraveled;
       if (totalTraveled < milesToCityMap.get(nextCity)) {
         milesFromLastCity = totalTraveled;
+        return false;
       } else {
         milesFromLastCity = totalTraveled - milesToCityMap.get(nextCity);
         currentCity = nextCity;
@@ -36,18 +37,19 @@ public class MapModel implements Serializable {
         if (currentCity.equals("Page")) {
           atDestination = true;
         }
+        return true;
       }
     }
+    return false;
   }
 
   private int getNextCityIndex(String city) {
-	  int index = -1;
     for (int i = 0; i < citiesInOrder.length; i++) {
       if (citiesInOrder[i].equals(city)) {
-        index = Math.min(i + 1, citiesInOrder.length - 1);
+        return Math.min(i + 1, citiesInOrder.length - 1);
       }
     }
-    return index;
+    return citiesInOrder.length - 1;
   }
 
   public String getNextCity() {
@@ -56,6 +58,10 @@ public class MapModel implements Serializable {
 
   public boolean getAtDestination() {
     return atDestination;
+  }
+
+  public double getDistRatio() {
+    return (double) milesFromLastCity / (double) milesToCityMap.get(nextCity);
   }
 
   public int milesToLandmark() {

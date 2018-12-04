@@ -7,6 +7,20 @@ import model.MapModel;
 
 public class MapModelTest {
 	@Test
+	public void testGetDistRatio() {
+		MapModel map = new MapModel();
+		map.advancePosition(35);
+		assertEquals(0.5, map.getDistRatio());
+
+		map.advancePosition(35);
+		assertEquals(0.0, map.getDistRatio());
+
+		map.advancePosition(70);
+		double expected = 70.0 / 72.0;
+		assertEquals(expected, map.getDistRatio());
+	}
+
+	@Test
 	public void testAdvancePosition() {
 		// no changes to new map
 		MapModel map = new MapModel();
@@ -92,5 +106,11 @@ public class MapModelTest {
 		MapModel map = new MapModel();
 		map.setCurrentCity("Flagstaff");
 		assertEquals("Flagstaff", map.getCurrentCity());
+		assertFalse(map.getAtDestination());
+
+		MapModel map2 = new MapModel();
+		map2.setCurrentCity("Page");
+		assertEquals("Page", map2.getCurrentCity());
+		assertTrue(map2.getAtDestination());
 	}
 }
