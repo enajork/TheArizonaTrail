@@ -176,6 +176,10 @@ public class HuntingView extends Scene {
     for (int i = 0; i < positions.length; ++i) {
       layers.getChildren().add(positions[i]);
     }
+    LargeTumbleweedSprite tumble = new LargeTumbleweedSprite();
+    BorderPane pane = new BorderPane(tumble.getSprite());
+    layers.getChildren().add(pane);
+    tumble.play();
     layers.getChildren().add(bullets);
     layers.getChildren().add(canvas);
     root.setCenter(layers);
@@ -350,6 +354,90 @@ public class HuntingView extends Scene {
       img = upright;
     } else if (angle >= 345 && angle <= 360) {
       img = right;
+    }
+  }
+
+  private class SmallTumbleweedSprite {
+    private final Image IMAGE = new Image((AZTrailView.controller.getHunted())
+      ? "file:view/assets/graphics/tumbleweedmoving-hunted.png"
+      : "file:view/assets/graphics/tumbleweedmoving.png",
+      (int) (288), (int) (41), true, false);
+    private static final int COLUMNS  =   5;
+    private static final int COUNT    =   5;
+    private static final int OFFSET_X =   0;
+    private static final int OFFSET_Y =   0;
+    private static final int WIDTH    =  (int) (36);
+    private static final int HEIGHT   =  (int) (41);
+    private final Animation animation;
+    private ImageView imageView;
+
+    public SmallTumbleweedSprite() {
+      this.imageView = new ImageView(IMAGE);
+      this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH,
+        HEIGHT));
+
+      this.animation = new SpriteAnimation(
+        this.imageView,
+        Duration.millis(1000),
+        COUNT, COLUMNS,
+        OFFSET_X, OFFSET_Y,
+        WIDTH, HEIGHT
+      );
+      this.animation.setCycleCount(8);
+    }
+
+    public void play() {
+      this.animation.play();
+    }
+
+    public void pause() {
+      this.animation.pause();
+    }
+
+    public ImageView getSprite() {
+      return this.imageView;
+    }
+  }
+
+  private class LargeTumbleweedSprite {
+    private final Image IMAGE = new Image((AZTrailView.controller.getHunted())
+      ? "file:view/assets/graphics/tumbleweedtest.png"
+      : "file:view/assets/graphics/tumbleweedtest.png",
+      (int) (192), (int) (144), true, false);
+    private static final int COLUMNS  =   3;
+    private static final int COUNT    =   2;
+    private static final int OFFSET_X =   0;
+    private static final int OFFSET_Y =   0;
+    private static final int WIDTH    =  (int) (72);
+    private static final int HEIGHT   =  (int) (64);
+    private final Animation animation;
+    private ImageView imageView;
+
+    public LargeTumbleweedSprite() {
+      this.imageView = new ImageView(IMAGE);
+      this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH,
+        HEIGHT));
+
+      this.animation = new SpriteAnimation(
+        this.imageView,
+        Duration.millis(1000),
+        COUNT, COLUMNS,
+        OFFSET_X, OFFSET_Y,
+        WIDTH, HEIGHT
+      );
+      this.animation.setCycleCount(8);
+    }
+
+    public void play() {
+      this.animation.play();
+    }
+
+    public void pause() {
+      this.animation.pause();
+    }
+
+    public ImageView getSprite() {
+      return this.imageView;
     }
   }
 }
