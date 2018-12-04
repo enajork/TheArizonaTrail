@@ -5,6 +5,12 @@ import java.io.*;
 import model.*;
 
 public class AZTrailController {
+  private final int BREAK_TONGUE = 1;
+  private final int BREAK_WHEEL = 1;
+  private final int BREAK_AXLE = 1;
+  private final int OXEN_DEATH = 1;
+  private final int SICK = 1;
+  private final int LUCK = 100;
   private final String savePath = "model/save_game.dat";
   private final String scoresPath = "model/topten.dat";
   public static boolean hasSave = false;
@@ -12,12 +18,13 @@ public class AZTrailController {
   public static boolean escape = false;
   private AZTrailModel checkpoint;
   private AZTrailModel model;
-  private TopTen topTen;
   private static Random rand;
+  private TopTen topTen;
 
-  // debug flag
+  // debug flags
   private static final boolean SAVE_DEBUG = false;
-  private static final boolean SCORE_DEBUG = true;
+  private static final boolean SCORE_DEBUG = false;
+  private static final boolean DAMAGE = true;
 
   /**
    * [AZTrailController description]
@@ -102,26 +109,11 @@ public class AZTrailController {
 
   public void setCheckpoint() {
     checkpoint = new AZTrailModel();
-    checkpoint.addMoney(model.getMoney());
-    checkpoint.addOxen(model.getOxen());
-    checkpoint.addFood(model.getFood());
-    checkpoint.addBlankets(model.getBlankets());
-    checkpoint.addClothes(model.getClothes());
-    checkpoint.addBullets(model.getBullets());
-    checkpoint.addWheels(model.getWheels());
-    checkpoint.addAxles(model.getAxles());
-    checkpoint.addTongues(model.getTongues());
-    checkpoint.addWater(model.getWater());
-    checkpoint.setDay(model.getDay());
-    checkpoint.setMonth(model.getMonth());
-    checkpoint.setYear(model.getYear());
-    checkpoint.setCurrentCity(model.getCurrentCity());
+    checkpoint.setMap(model.getMap());
+    checkpoint.setParty(model.getParty());
     checkpoint.setHunted(model.getHunted());
-    checkpoint.setProf(model.getProf());
+    checkpoint.setCalendar(model.getCalendar());
     checkpoint.setTravelRate(model.getTravelRate());
-    for (int i = 0; i < model.currPartySize(); i++) {
-      checkpoint.setName(i, model.getName(i));
-    }
   }
 
   public void loadTopTen() {
@@ -182,9 +174,35 @@ public class AZTrailController {
   /**
    * [advance description]
    */
-  public void advance() {
-    this.model.advanceCalendar();
-    this.model.advancePosition();
+  public boolean advance() {
+    model.advanceCalendar();
+    return model.advancePosition();
+  }
+
+  /**
+   * [changePace description]
+   */
+  public void changePace(int pace) {
+    int rate;
+
+    switch (pace) {
+      case 1:
+        rate = 2;
+        break;
+
+      case 2:
+        rate = 4;
+        break;
+
+      case 3:
+        rate = 6;
+        break;
+
+      default:
+        rate = 2;
+    }
+
+    model.setTravelRate(rate);
   }
 
   /**
@@ -236,7 +254,7 @@ public class AZTrailController {
   }
 
   public int partySize() {
-    return model.partySize();
+    return model.currPartySize();
   }
 
   /**
@@ -576,6 +594,10 @@ public class AZTrailController {
     return model.getCurrentCity();
   }
 
+  public double getDistRatio() {
+    return model.getDistRatio();
+  }
+
   public void setHunted(boolean value) {
     model.setHunted(value);
   }
@@ -629,8 +651,12 @@ public class AZTrailController {
     }
   }
 
-  public void setScore(int i, String name, int score) {
-    topTen.setScore(i, name, score);
+  public String getNextCity() {
+    return model.getNextCity();
+  }
+
+  public void setScore(String name, int score) {
+    topTen.setScore(name, score);
   }
 
   public String getTopTenNames() {
@@ -651,5 +677,162 @@ public class AZTrailController {
       result += ((topTen.getScore(i) == 0) ? "" : topTen.getScore(i)) + "\n";
     }
     return result;
+  }
+
+  public String getHealth() {
+    switch(model.currPartySize()) {
+      case 1:
+        return "bad";
+      case 2:
+        return "poor";
+      case 3:
+        return "okay";
+      case 4:
+        return "good";
+      case 5:
+        return "great";
+      default:
+        return "";
+    }
+  }
+
+  public int getTravelRate() {
+    return model.getTravelRate();
+  }
+
+  public void setTravelRate(int rate) {
+    model.setTravelRate(rate);
+  }
+
+  public boolean getAtDestination() {
+    return model.getAtDestination();
+  }
+
+  public int getScore() {
+    setCartAmmo(getBullets());
+    setCartFood(getFood());
+    setCartOxen(getOxen());
+    setCartParts(getWheels() + getAxles() + getTongues());
+    setCartClothes(getClothes());
+    int result = (int)getMoney() + (int)getCartTotal();
+    resetCart();
+    result += getWater() + getBlankets();
+    result *= model.currPartySize();
+    result *= ((getHunted()) ? 2 : 1);
+    switch (model.getProf()) {
+      case "Banker":
+        result *= 1;
+        break;
+      case "Carpenter":
+        result *= 2;
+        break;
+      case "Farmer":
+        result *= 4;
+        break;
+    }
+    return result;
+  }
+
+  public String deplete() {
+    if (!DAMAGE) {
+      return "";
+    }
+    int consumption = 0;
+    switch (getWeather()) {
+      case "cold":
+        consumption = 1;
+        break;
+      case "cool":
+        consumption = 2;
+        break;
+      case "warm":
+        consumption = 3;
+        break;
+      case "hot":
+        consumption = 4;
+        break;
+      case "scorching":
+        consumption = 5;
+        break;
+    }
+    int eat = (getTravelRate() / 2) * (getOxen() + model.currPartySize()) / 2;
+    int drink = (getTravelRate() / 2) * (getOxen() + model.currPartySize()
+      + consumption) / 2;
+    if (getHunted() && ((getFood() <= eat && getWater() <= drink)
+        || (getFood() <= eat))) {
+      return "Your party died from cannibalism.";
+    } else if (getFood() <= eat && getWater() <= drink) {
+      return "Your party died from starvation\nand dehydration.";
+    } else if (getFood() <= eat) {
+      return "Your party died from starvation.";
+    } else if (getWater() <= drink) {
+      return "Your party died from dehydration.";
+    }
+    removeFood(eat);
+    removeWater(drink);
+    return "";
+  }
+
+  public String randomEvent() {
+    if (!DAMAGE) {
+      return "";
+    }
+    int p = rand.nextInt(LUCK);
+    if (p >= 0 && p <= (SICK * (model.currPartySize() - getClothes() + 1)
+        * ((model.getSeason().equals("winter")) ? 2 : 1 ))) {
+      removeBlankets(1);
+      if (getBlankets() == 0) {
+        return "0" + model.removeName() + " died.";
+      }
+      if (model.currPartySize() == 0) {
+        return "1All of your party members\nhave died.";
+      }
+      p = rand.nextInt(model.partySize());
+      return "0" + getName(p) + " has " + randomIllness() + ".";
+    }
+    p = rand.nextInt(LUCK);
+    if (p >= 0 && p <= BREAK_WHEEL) {
+      removeWheels(1);
+      if (getWheels() == 0) {
+        return "1Your wagon wheel broke\nand you don't have\nany spares.";
+      }
+      return "0One of your wheels broke.";
+    }
+    p = rand.nextInt(LUCK);
+    if (p >= 0 && p <= BREAK_AXLE) {
+      removeAxles(1);
+      if (getAxles() == 0) {
+        return "1Your wagon axle broke\nand you don't have\nany spares.";
+      }
+      return "0One of your axles broke.";
+    }
+    p = rand.nextInt(LUCK);
+    if (p >= 0 && p <= BREAK_TONGUE) {
+      removeTongues(1);
+      if (getTongues() == 0) {
+        return "1Your wagon tongue broke\nand you don't have\nany spares.";
+      }
+      return "0One of your tongues broke.";
+    }
+    p = rand.nextInt(LUCK);
+    if (p >= 0 && p <= OXEN_DEATH * ((getWeather().equals("summer")) ? 2 : 1)) {
+      removeOxen(1);
+      if (getOxen() == 0) {
+        return "1All of your oxen have died.";
+      }
+      return "0One of your oxen has died.";
+    }
+    return "";
+  }
+
+  private String randomIllness() {
+    int p = rand.nextInt(2);
+    if (p == 0) {
+      return "pneumonia";
+    } else if (p == 1) {
+      return "dysentery";
+    } else {
+      return "";
+    }
   }
 }

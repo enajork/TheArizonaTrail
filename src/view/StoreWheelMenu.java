@@ -38,12 +38,14 @@ public class StoreWheelMenu extends Scene {
   private String prompt = "\n\nHow many wagon wheels? ";
   private String input = "_";
   private int parts = 0;
+  private String name;
+  private boolean start;
 
   /**
    * [StoreWheelMenu description]
    */
-  public StoreWheelMenu() {
-    this(new BorderPane());
+  public StoreWheelMenu(String name, boolean start) {
+    this(new BorderPane(), name, start);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
   }
@@ -52,8 +54,10 @@ public class StoreWheelMenu extends Scene {
    * [StoreWheelMenu description]
    * @param root [description]
    */
-  private StoreWheelMenu(BorderPane root) {
+  private StoreWheelMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    this.name = name;
+    this.start = start;
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane banner = new BorderPane();
@@ -100,7 +104,7 @@ public class StoreWheelMenu extends Scene {
     tile.setAlignment(decor2, Pos.CENTER);
 
     // Create the text for the menu options
-    Text header = new Text("Matt's General Store\n"
+    Text header = new Text(name + " General Store\n"
       + AZTrailView.controller.getCurrentCity()
       + ", Arizona");
     header.setId("text12");
@@ -153,7 +157,7 @@ public class StoreWheelMenu extends Scene {
           case SPACE:
             AZTrailController.escape = false;
             if (warn) {
-              AZTrailView.stage.setScene(new StoreWheelMenu());
+              AZTrailView.stage.setScene(new StoreWheelMenu(name, start));
             }
             break;
           case BACK_SPACE:
@@ -174,7 +178,7 @@ public class StoreWheelMenu extends Scene {
               return;
             }
             if (warn) {
-              AZTrailView.stage.setScene(new StoreWheelMenu());
+              AZTrailView.stage.setScene(new StoreWheelMenu(name, start));
             } else {
               int i = Integer.parseInt(input.replace("_", ""));
               if (i >= 0 && i <= MAX_PARTS) {
@@ -231,6 +235,6 @@ public class StoreWheelMenu extends Scene {
   private Scene getNextView(int choice) {
     parts += choice;
     AZTrailView.controller.addWheels(choice);
-    return new StoreAxlesMenu(parts);
+    return new StoreAxlesMenu(parts, name, start);
   }
 }

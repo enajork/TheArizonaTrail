@@ -24,16 +24,14 @@ import controller.*;
 
 public class SizeUpView extends Scene {
   private final int MIN_INPUT = 1;
-  private final int MAX_INPUT = 7;
+  private final int MAX_INPUT = 6;
   private Text body;
   private String contents = "You may:\n\n"
     + "  1. Continue on the trail\n"
     + "  2. Check supplies\n"
     + "  3. Look at map\n"
     + "  4. Change pace\n"
-    + "  5. Change food rations\n"
-    + "  6. Stop to rest\n"
-    + "  7. Hunt for food\n"
+    + "  5. Hunt for food\n"
     + "What is your choice? ";
 
   private String input = "_";
@@ -52,18 +50,13 @@ public class SizeUpView extends Scene {
    */
   private SizeUpView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
-    if (AZTrailView.controller.getHunted()) {
-      AZTrailView.sounds.nighttimeSFX();
-    } else {
-      AZTrailView.sounds.daytimeSFX();
-    }
+    AZTrailView.sounds.startBackgroundSFX();
     AZTrailView.sounds.startThemeLoop();
     // Create the text for the menu options
     body = new Text(contents + input);
     body.setId("text12");
     body.setFill(Color.WHITE);
 
-    // TODO get date and location from controller
     Text locDate = new Text(AZTrailView.controller.getCurrentCity()
       + "\n" + AZTrailView.controller.getDateStr() + "\n");
     locDate.setFill(Color.WHITE);
@@ -165,7 +158,8 @@ public class SizeUpView extends Scene {
     switch (choice) {
       case 1:
         // Travel the trail
-        return new TrailTravelView();
+        AZTrailView.travel.updatePace();
+        return AZTrailView.travel;
       case 2:
         return new GenericInfoMenu(
         new Runnable() {
@@ -175,7 +169,7 @@ public class SizeUpView extends Scene {
           }
         },
         new String[]{
-          "Your Supplies\n"
+          "Your Supplies\n\n"
           + " 1. Money - " + new DecimalFormat("'$'###,##0.00")
             .format(AZTrailView.controller.getMoney())
           + "\n 2. Oxen - " + AZTrailView.controller.getOxen()
@@ -186,23 +180,17 @@ public class SizeUpView extends Scene {
           + "\n 7. Axles - " + AZTrailView.controller.getAxles()
           + "\n 8. Tongues - " + AZTrailView.controller.getTongues()
           + "\n 9. Food - " + AZTrailView.controller.getFood() + " lbs"
-          + "\n 10. Water - " + AZTrailView.controller.getWater()
+          + "\n 10. Water - " + AZTrailView.controller.getWater() + " gallons"
         }
       );
 
       case 3:
         // Look at map
-        return new SizeUpView();
+        return new MapView();
       case 4:
         // Change pace
-        return new SizeUpView();
+        return new PaceMenu();
       case 5:
-        // Change  food rations
-        return new SizeUpView();
-      case 6:
-        // Stop to rest
-        return new SizeUpView();
-      case 7:
         // Talk to people
         return new HuntingSplash();
     }

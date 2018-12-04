@@ -27,7 +27,8 @@ public class SplashMenu extends Scene {
     + "1. Travel the Trail\n  "
     + "2. Learn about the trail\n  "
     + "3. See the Arizona Top Ten\n  "
-    + "4. Turn sound off\n  "
+    + "4. Turn sound " + (AZTrailController.sound ? "off"
+      : "on") + "\n  "
     + "5. Choose Management Options\n  "
     + "6. End\n\n"
     + "What is your choice? ";
@@ -170,6 +171,7 @@ public class SplashMenu extends Scene {
     switch (choice) {
       case 1:
         // Travel the trail
+        AZTrailView.sounds.stop();
         if (AZTrailController.hasSave) {
           return new GenericYesNoMenu(
             new Runnable() {
@@ -177,7 +179,7 @@ public class SplashMenu extends Scene {
               public void run() {
                 AZTrailView.controller.loadGame();
                 AZTrailView.stage.setScene(new CitySplash(AZTrailView.controller
-                  .getCurrentCity()));
+                  .getCurrentCity(), false));
               }
             },
             new Runnable() {
@@ -193,6 +195,7 @@ public class SplashMenu extends Scene {
             true
           );
         } else {
+          AZTrailView.controller.resetGame();
           return new ProfMenu();
         }
         // return new ProfMenuView();
@@ -250,6 +253,7 @@ public class SplashMenu extends Scene {
           new Runnable() {
             @Override
             public void run() {
+              AZTrailView.sounds.mute();
               AZTrailView.stage.setScene(new SplashMenu());
             }
           },

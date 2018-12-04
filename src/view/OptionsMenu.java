@@ -22,10 +22,10 @@ import controller.*;
 
 public class OptionsMenu extends Scene {
   private final int NUM_OPTS = 3;
-  private String contents = "You may:\n\n  "
-    + "1. Delete save file\n"
-    + "2. Reset the Arizona Top Ten\n"
-    + "3. Travel the Trail\n\n"
+  private String contents = "You may:\n\n"
+    + "  1. Delete save file\n"
+    + "  2. Reset the Top Ten\n"
+    + "  3. Travel the Trail\n\n"
     + "What is your choice? ";
   private String input = "_";
   private Text body;

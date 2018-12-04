@@ -30,7 +30,9 @@ public class AZTrailView extends Application {
   protected static final int HEIGHT = 408;
   protected static final int WIDTH = 650;
   protected static String styleSheet;
+  protected static TrailTravelView travel;
   protected static Stage stage;
+  protected static int time = 0;
 
   /**
    * Main entry point for the view
@@ -39,7 +41,8 @@ public class AZTrailView extends Application {
    */
   @Override
   public void start(Stage stage) throws Exception {
-    styleSheet = getClass().getResource("assets/font/style.css").toExternalForm();
+    styleSheet = getClass().getResource("assets/font/style.css")
+      .toExternalForm();
     this.stage = stage;
     controller = new AZTrailController();
     sounds = new Sounds();
@@ -55,6 +58,7 @@ public class AZTrailView extends Application {
 
   public static void escapePressed(boolean saveAllowed) {
     if (AZTrailController.escape) {
+      AZTrailView.sounds.stopMovingSFX();
       if (saveAllowed) {
         stage.setScene(new GenericYesNoMenu(
           new Runnable() {
@@ -94,5 +98,9 @@ public class AZTrailView extends Application {
     } else {
       AZTrailController.escape = true;
     }
+  }
+
+  public static void resetTravelView() {
+    travel = new TrailTravelView();
   }
 }

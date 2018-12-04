@@ -36,12 +36,14 @@ public class StoreOxenMenu extends Scene {
   private String prompt = "There are 2 oxen in a yoke;\nI recommend at least "
     + "3 yoke.\nI charge $40 a yoke.\n\nHow many yoke do you\nwant? ";
   private String input = "_";
+  private String name;
+  private boolean start;
 
   /**
    * [StoreOxenMenu description]
    */
-  public StoreOxenMenu() {
-    this(new BorderPane());
+  public StoreOxenMenu(String name, boolean start) {
+    this(new BorderPane(), name, start);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
   }
@@ -50,8 +52,10 @@ public class StoreOxenMenu extends Scene {
    * [StoreOxenMenu description]
    * @param root [description]
    */
-  private StoreOxenMenu(BorderPane root) {
+  private StoreOxenMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    this.name = name;
+    this.start = start;
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane banner = new BorderPane();
@@ -90,7 +94,7 @@ public class StoreOxenMenu extends Scene {
     tile.setAlignment(decor2, Pos.CENTER);
 
     // Create the text for the menu options
-    Text header = new Text("Matt's General Store\n"
+    Text header = new Text(name + " General Store\n"
       + AZTrailView.controller.getCurrentCity()
       + ", Arizona");
     header.setId("text12");
@@ -165,7 +169,8 @@ public class StoreOxenMenu extends Scene {
    * @param num [description]
    */
   private void updateInputText(int num) {
-    if (input.length() <= INPUT_SIZE && num >= 1 && num <= NUM_OPTS) {
+    if (input.length() <= INPUT_SIZE && num >= (start ? 1 : 0)
+        && num <= NUM_OPTS) {
       input = input.substring(0, input.length() - 1);
       input += num + "_";
       body.setText(prompt + input);
@@ -178,11 +183,11 @@ public class StoreOxenMenu extends Scene {
    * @return        [description]
    */
   private Scene getNextView(int choice) {
-    if (choice < 1 || choice > NUM_OPTS) {
+    if (choice < 0 || choice > NUM_OPTS) {
       throw new IllegalStateException();
     }
     AZTrailView.controller.addOxen(choice);
     AZTrailView.controller.setCartOxen(choice * 40.0);
-    return new StoreMenu();
+    return new StoreMenu(name, start);
   }
 }

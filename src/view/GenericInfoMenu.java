@@ -28,19 +28,22 @@ public class GenericInfoMenu extends Scene {
   private int curPage = 0;
   private String[] text;
   private int top;
+  private boolean stop;
+  private boolean released = false;
+  private boolean allowSaving;
 
   /**
    * [GenericInfoMenu description]
    */
   public GenericInfoMenu(Runnable call, String[] text) {
-    this(new BorderPane(), call, text, false, false, 0);
+    this(new BorderPane(), call, text, false, false, 0, false, false);
   }
 
   /**
    * [GenericInfoMenu description]
    */
   public GenericInfoMenu(Runnable call, String[] text, boolean accentsOn) {
-    this(new BorderPane(), call, text, accentsOn, false, 0);
+    this(new BorderPane(), call, text, accentsOn, false, 0, false, false);
   }
 
   /**
@@ -48,16 +51,32 @@ public class GenericInfoMenu extends Scene {
    */
   public GenericInfoMenu(Runnable call, String[] text, boolean accentsOn,
       int top) {
-    this(new BorderPane(), call, text, accentsOn, false, top);
+    this(new BorderPane(), call, text, accentsOn, false, top, false, false);
   }
-
 
   /**
    * [GenericInfoMenu description]
    */
   public GenericInfoMenu(Runnable call, String[] text, boolean accentsOn,
       boolean titleOn) {
-    this(new BorderPane(), call, text, accentsOn, titleOn, 0);
+    this(new BorderPane(), call, text, accentsOn, titleOn, 0, false, false);
+  }
+
+  /**
+   * [GenericInfoMenu description]
+   */
+  public GenericInfoMenu(Runnable call, String[] text, boolean accentsOn,
+      boolean titleOn, boolean stop) {
+    this(new BorderPane(), call, text, accentsOn, titleOn, 0, stop, true);
+  }
+
+  /**
+   * [GenericInfoMenu description]
+   */
+  public GenericInfoMenu(Runnable call, String[] text, boolean accentsOn,
+      boolean titleOn, boolean stop, boolean allowSaving) {
+    this(new BorderPane(), call, text, accentsOn, titleOn, 0, stop,
+      allowSaving);
   }
 
   /**
@@ -65,15 +84,20 @@ public class GenericInfoMenu extends Scene {
    * @param root [description]
    */
   private GenericInfoMenu(BorderPane root, Runnable call, String[] text,
-      boolean accentsOn, boolean titleOn, int top) {
+      boolean accentsOn, boolean titleOn, int top, boolean stop,
+      boolean allowSaving) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
     this.call = call;
+    this.allowSaving = allowSaving;
     this.accentsOn = accentsOn;
     this.titleOn = titleOn;
     this.root = root;
+    this.stop = stop;
     this.text = text;
     this.top = top;
+    
+    AZTrailView.sounds.stopMovingSFX();
 
     // Create the title image;
     if (titleOn) {
@@ -117,7 +141,7 @@ public class GenericInfoMenu extends Scene {
       tile.setAlignment(accent2, Pos.CENTER);
     }
 
-    Text footer = new Text("Press SPACEBAR to continue...");
+    Text footer = new Text("Press SPACE BAR to continue...");
     footer.setFill(Color.WHITE);
     footer.setId("text12");
 
@@ -146,6 +170,9 @@ public class GenericInfoMenu extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            if (stop && !released) {
+              return;
+            }
             AZTrailController.escape = false;
             if (curPage < text.length - 1) {
               curPage++;
@@ -166,7 +193,7 @@ public class GenericInfoMenu extends Scene {
             break;
 
           case ESCAPE:
-            AZTrailView.escapePressed(false);
+            AZTrailView.escapePressed(allowSaving);
             break;
 
           case S:
@@ -179,6 +206,16 @@ public class GenericInfoMenu extends Scene {
           default:
             AZTrailController.escape = false;
             return;
+        }
+      }
+    });
+    this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case SPACE:
+            released = true;
+            break;
         }
       }
     });

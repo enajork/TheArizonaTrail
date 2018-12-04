@@ -85,7 +85,7 @@ public class HuntingSplash extends Scene {
     footer.setFill(Color.WHITE);
     root.setBottom(footer);
     root.setAlignment(footer, Pos.CENTER);
-    root.setMargin(footer, new Insets(0, 0, 20, 0));
+    root.setMargin(footer, new Insets(0, 0, 20, 10));
 
     addEventHandlers();
   }

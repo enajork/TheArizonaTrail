@@ -42,15 +42,15 @@ public class Party implements Serializable {
     if (name.toLowerCase().equals("banker")) {
       this.prof = Profession.BANKER;
       inv.removeMoney(inv.getMoney());
-      inv.addMoney(1600);
+      inv.addMoney(400);
     } else if (name.toLowerCase().equals("carpenter")) {
       this.prof = Profession.CARPENTER;
       inv.removeMoney(inv.getMoney());
-      inv.addMoney(800);
+      inv.addMoney(200);
     } else if (name.toLowerCase().equals("farmer")) {
       this.prof = Profession.FARMER;
       inv.removeMoney(inv.getMoney());
-      inv.addMoney(400);
+      inv.addMoney(100);
     } else {
       throw new IllegalStateException();
     }
@@ -68,6 +68,19 @@ public class Party implements Serializable {
     if (i >= 0 && i < SIZE) {
       names.set(i, name);
     }
+  }
+
+  /**
+   * [getNames description]
+   * @return [description]
+   */
+  public String removeName() {
+    if (names.size() > 0) {
+      String temp = names.get(names.size() - 1);
+      names.remove(names.size() - 1);
+      return temp;
+    }
+    return "";
   }
 
   public int size() {
@@ -338,5 +351,4 @@ public class Party implements Serializable {
   public int getTongues() {
     return inv.getTongues();
   }
-
 }

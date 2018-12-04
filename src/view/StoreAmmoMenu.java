@@ -26,7 +26,7 @@ public class StoreAmmoMenu extends Scene {
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
-  private final int INPUT_SIZE = 2;
+  private final int INPUT_SIZE = 1;
   private final int START_OPT = 0;
   private final int NUM_OPTS = 9;
   private String cost = new DecimalFormat("'$'###,##0.00")
@@ -34,15 +34,17 @@ public class StoreAmmoMenu extends Scene {
   private BorderPane tile;
   private Text footer;
   private Text body;
-  private String prompt = "I sell ammunition in boxes\nof 20 bullets. Each box"
+  private String prompt = "I sell ammunition in boxes\nof 5 bullets. Each box"
     + "\ncosts $2.00.\n\nHow many boxes do you\nwant? ";
   private String input = "_";
+  private String name;
+  private boolean start;
 
   /**
    * [StoreAmmoMenu description]
    */
-  public StoreAmmoMenu() {
-    this(new BorderPane());
+  public StoreAmmoMenu(String name, boolean start) {
+    this(new BorderPane(), name, start);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
   }
@@ -51,8 +53,10 @@ public class StoreAmmoMenu extends Scene {
    * [StoreAmmoMenu description]
    * @param root [description]
    */
-  private StoreAmmoMenu(BorderPane root) {
+  private StoreAmmoMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    this.name = name;
+    this.start = start;
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane banner = new BorderPane();
@@ -91,7 +95,7 @@ public class StoreAmmoMenu extends Scene {
     tile.setAlignment(decor2, Pos.CENTER);
 
     // Create the text for the menu options
-    Text header = new Text("Matt's General Store\n"
+    Text header = new Text(name + " General Store\n"
       + AZTrailView.controller.getCurrentCity()
       + ", Arizona");
     header.setId("text12");
@@ -179,8 +183,8 @@ public class StoreAmmoMenu extends Scene {
    * @return        [description]
    */
   private Scene getNextView(int choice) {
-    AZTrailView.controller.addBullets(choice * 20);
+    AZTrailView.controller.addBullets(choice * 5);
     AZTrailView.controller.setCartAmmo(choice * 2.0);
-    return new StoreMenu();
+    return new StoreMenu(name, start);
   }
 }

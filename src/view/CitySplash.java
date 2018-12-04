@@ -21,15 +21,16 @@ import java.io.*;
 import controller.*;
 
 public class CitySplash extends Scene {
-  private Scene nextScene;
   private BorderPane root;
   private String city;
+  private boolean released = false;
+  private boolean stop;
 
   /**
    * [CitySplash description]
    */
-  public CitySplash(String city) {
-    this(new BorderPane(), city);
+  public CitySplash(String city, boolean stop) {
+    this(new BorderPane(), city, stop);
     getStylesheets().add(AZTrailView.styleSheet);
   }
 
@@ -37,18 +38,24 @@ public class CitySplash extends Scene {
    * [CitySplash description]
    * @param root [description]
    */
-  private CitySplash(BorderPane root, String city) {
+  private CitySplash(BorderPane root, String city, boolean stop) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     getStylesheets().add(AZTrailView.styleSheet);
+    AZTrailView.resetTravelView();
     AZTrailView.controller.setCheckpoint();
-    AZTrailView.sounds.stop();
-    AZTrailView.sounds.startThemeLoop();
-    this.nextScene = new SizeUpView();
+    if (city.equals("Page")) {
+      AZTrailView.sounds.stopMovingSFX();
+      AZTrailView.sounds.creditsTheme();
+    } else {
+      AZTrailView.sounds.stopMovingSFX();
+      AZTrailView.sounds.startThemeLoop();
+    }
     this.root = root;
     this.city = city;
+    this.stop = stop;
     root.setStyle("-fx-background-color: black;");
 
-    setSplash(city);
+    setSplash();
     Rectangle rect = new Rectangle(400, 40, Color.WHITE);
     BorderPane innerText = new BorderPane();
     Text title = new Text(city);
@@ -59,8 +66,14 @@ public class CitySplash extends Scene {
     innerText.setBottom(date);
     innerText.setAlignment(title, Pos.CENTER);
     innerText.setAlignment(date, Pos.CENTER);
-    innerText.setMargin(title, new Insets(10, 0, 0, 0));
-    innerText.setMargin(date, new Insets(0, 0, 10, 0));
+    if (city.equals("Nogales")) {
+      innerText.setMargin(title, new Insets(10, 0, 0, 0));
+      innerText.setMargin(date, new Insets(0, 0, 10, 0));
+    } else {
+      innerText.setMargin(title, new Insets(40, 0, 0, 0));
+      innerText.setMargin(date, new Insets(0, 0, 40, 0));
+    }
+
     innerText.setMaxHeight(100);
     StackPane stack = new StackPane();
     stack.getChildren().add(rect);
@@ -88,13 +101,16 @@ public class CitySplash extends Scene {
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
           case SPACE:
+            if (stop && !released) {
+              return;
+            }
             AZTrailController.escape = false;
-            AZTrailView.stage.setScene(nextScene);
+            AZTrailView.stage.setScene(getNextScene());
             break;
 
           case ENTER:
             AZTrailController.escape = false;
-            AZTrailView.stage.setScene(nextScene);
+            AZTrailView.stage.setScene(getNextScene());
             break;
 
           case ESCAPE:
@@ -113,11 +129,21 @@ public class CitySplash extends Scene {
         }
       }
     });
+    this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case SPACE:
+            released = true;
+            break;
+        }
+      }
+    });
   }
 
-  private void setSplash(String city) {
-    ImageView splash;
+  private void setSplash() {
     Image img;
+    ImageView splash;
     switch (city) {
       case "Nogales":
         img = new Image((AZTrailView.controller.getHunted())
@@ -130,18 +156,49 @@ public class CitySplash extends Scene {
         root.setAlignment(splash, Pos.CENTER);
         root.setTop(splash);
         return;
-
       default:
         img = new Image((AZTrailView.controller.getHunted())
-          ? "file:view/assets/graphics/locations/nogales_splash-hunted.png"
-          : "file:view/assets/graphics/locations/nogales_splash.png");
+          ? "file:view/assets/graphics/locations/" + city.toLowerCase() + "_splash-hunted.png"
+          : "file:view/assets/graphics/locations/" + city.toLowerCase() + "_splash.png");
         splash = new ImageView(img);
         splash.setPreserveRatio(true);
-        splash.setFitWidth(AZTrailView.WIDTH * 0.985);
+        splash.setFitWidth(AZTrailView.WIDTH * 0.5);
         root.setMargin(splash, new Insets(5, 5, 0, 5));
         root.setAlignment(splash, Pos.CENTER);
         root.setTop(splash);
         return;
+    }
+  }
+
+  private Scene getNextScene() {
+    switch (city) {
+      case "Nogales":
+        return new SizeUpView();
+      case "Page":
+        return new GenericInfoMenu(
+          new Runnable() {
+            @Override
+            public void run() {
+              AZTrailView.controller.setScore(
+                AZTrailView.controller.getName(0),
+                AZTrailView.controller.getScore()
+              );
+              AZTrailView.controller.saveTopTen();
+              AZTrailView.stage.setScene(new SplashMenu());
+            }
+          },
+          new String[]{
+            "Congratulations, you won!",
+            "Check the Top Ten to see\nif your name has been\nadded!",
+            "The software team responsible for the\ncreation of "
+              + "this product includes:\n\n Jordan Bridgewater\n Jared Grady\n "
+              + "David Najork\n Eric Najork"
+          },
+          true,
+          true
+        );
+      default:
+        return new StoreMenu(city, false);
     }
   }
 }

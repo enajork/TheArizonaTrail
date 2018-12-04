@@ -1,4 +1,4 @@
-ppackage model;
+package model;
 
 import javafx.util.*;
 import java.util.*;

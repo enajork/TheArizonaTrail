@@ -26,7 +26,7 @@ public class StoreClothesMenu extends Scene {
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
-  private final int INPUT_SIZE = 2;
+  private final int INPUT_SIZE = 1;
   private final int START_OPT = 0;
   private final int NUM_OPTS = 9;
   private String cost = new DecimalFormat("'$'###,##0.00")
@@ -38,12 +38,14 @@ public class StoreClothesMenu extends Scene {
     + "recommend\ntaking at least 2 sets of\nclothes per person. Each\nset "
     + "is $10.00.\n\nHow many sets of clothes do\nyou want? ";
   private String input = "_";
+  private String name;
+  private boolean start;
 
   /**
    * [StoreClothesMenu description]
    */
-  public StoreClothesMenu() {
-    this(new BorderPane());
+  public StoreClothesMenu(String name, boolean start) {
+    this(new BorderPane(), name, start);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
   }
@@ -52,8 +54,10 @@ public class StoreClothesMenu extends Scene {
    * [StoreClothesMenu description]
    * @param root [description]
    */
-  private StoreClothesMenu(BorderPane root) {
+  private StoreClothesMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    this.name = name;
+    this.start = start;
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane banner = new BorderPane();
@@ -92,7 +96,7 @@ public class StoreClothesMenu extends Scene {
     tile.setAlignment(decor2, Pos.CENTER);
 
     // Create the text for the menu options
-    Text header = new Text("Matt's General Store\n"
+    Text header = new Text(name + " General Store\n"
       + AZTrailView.controller.getCurrentCity()
       + ", Arizona");
     header.setId("text12");
@@ -182,6 +186,6 @@ public class StoreClothesMenu extends Scene {
   private Scene getNextView(int choice) {
     AZTrailView.controller.addClothes(choice);
     AZTrailView.controller.setCartClothes(choice * 10.0);
-    return new StoreMenu();
+    return new StoreMenu(name, start);
   }
 }

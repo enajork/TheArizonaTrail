@@ -11,6 +11,7 @@ public class Sounds {
   private static final HashMap<String, ObservableList<Media>> music = new HashMap<String, ObservableList<Media>>();
   private static final HashMap<String, AudioClip> sounds = new HashMap<String, AudioClip>();
   private static boolean isPlayingTheme;
+  private static boolean isPlayingHomeStretchTheme;
   private static boolean isPlayingBackgroundSFX;
   private static final double MAX_EFFECT_VOLUME = 0.4;
   private static final double MAX_MUSIC_VOLUME = 0.2;
@@ -18,6 +19,8 @@ public class Sounds {
   private static MediaPlayer musicPlayer;
   private static MediaPlayer sfxPlayer1;
   private static MediaPlayer sfxPlayer2;
+  private static Media gameOver;
+  private static Media gameOverHunted;
   private static Media huntedMenu;
   private static Media huntedTheme;
   private static Media huntedFinal;
@@ -30,6 +33,8 @@ public class Sounds {
   private static Media eagle;
 
   public Sounds() {
+    gameOver = new Media(getClass().getResource("assets/sounds/music/gameover.wav").toExternalForm());
+    gameOverHunted = new Media(getClass().getResource("assets/sounds/music/gameover-hunted.wav").toExternalForm());
     huntedMenu = new Media(getClass().getResource("assets/sounds/music/hunted-menu.wav").toExternalForm());
     huntedTheme = new Media(getClass().getResource("assets/sounds/music/hunted-theme.wav").toExternalForm());
     huntedFinal = new Media(getClass().getResource("assets/sounds/music/hunted-final-battle.wav").toExternalForm());
@@ -63,6 +68,19 @@ public class Sounds {
   }
 
   public static void startThemeLoop() {
+    if (!AZTrailView.controller.getNextCity().equals("Page")) {
+      AZTrailView.sounds.mainThemes();
+    } else {
+      if (isPlayingHomeStretchTheme) {
+        return;
+      }
+      isPlayingHomeStretchTheme = true;
+      AZTrailView.sounds.stopMusic();
+      AZTrailView.sounds.homeStretchTheme();
+    }
+  }
+
+  public static void mainThemes() {
     if (!isPlayingTheme) {
       isPlayingTheme = true;
       ObservableList<Media> themes = music.get("themes");
@@ -78,7 +96,7 @@ public class Sounds {
         @Override
         public void run() {
           isPlayingTheme = false;
-          startThemeLoop();
+          mainThemes();
         }
       });
     }
@@ -98,6 +116,27 @@ public class Sounds {
         public void run() {
           isPlayingTheme = false;
           huntedMenuTheme();
+        }
+      });
+    }
+  }
+
+  public static void gameOverTheme() {
+    stop();
+    if (!isPlayingTheme) {
+      isPlayingTheme = true;
+      musicPlayer = new MediaPlayer((AZTrailView.controller.getHunted()) ?
+          gameOverHunted : gameOver);
+      musicPlayer.setVolume(MAX_MUSIC_VOLUME);
+      if (!AZTrailController.sound) {
+        musicPlayer.setVolume(0);
+      }
+      musicPlayer.play();
+      musicPlayer.setOnEndOfMedia(new Runnable() {
+        @Override
+        public void run() {
+          isPlayingTheme = false;
+          gameOverTheme();
         }
       });
     }
@@ -141,10 +180,12 @@ public class Sounds {
     }
   }
 
-  public static void huntedCreditsTheme() {
+  public static void creditsTheme() {
+    stop();
     if (!isPlayingTheme) {
       isPlayingTheme = true;
-      musicPlayer = new MediaPlayer(huntedCredits);
+      musicPlayer = new MediaPlayer((AZTrailView.controller.getHunted()) ?
+          huntedCredits : gameOver);
       musicPlayer.setVolume(MAX_MUSIC_VOLUME);
       if (!AZTrailController.sound) {
         musicPlayer.setVolume(0);
@@ -154,14 +195,15 @@ public class Sounds {
         @Override
         public void run() {
           isPlayingTheme = false;
-          huntedCreditsTheme();
+          creditsTheme();
         }
       });
     }
   }
 
   public static void homeStretchTheme() {
-    if (!isPlayingTheme) {
+    if (!isPlayingTheme && !isPlayingHomeStretchTheme) {
+      isPlayingHomeStretchTheme = true;
       isPlayingTheme = true;
       musicPlayer = new MediaPlayer(homeStretch);
       musicPlayer.setVolume(MAX_MUSIC_VOLUME);
@@ -172,6 +214,7 @@ public class Sounds {
       musicPlayer.setOnEndOfMedia(new Runnable() {
         @Override
         public void run() {
+          isPlayingHomeStretchTheme = false;
           isPlayingTheme = false;
           homeStretchTheme();
         }
@@ -270,6 +313,14 @@ public class Sounds {
         eagleSFX();
       }
     });
+  }
+
+  public static void startBackgroundSFX() {
+    if (AZTrailView.controller.getHunted()) {
+      AZTrailView.sounds.nighttimeSFX();
+    } else {
+      AZTrailView.sounds.daytimeSFX();
+    }
   }
 
   public static void nighttimeSFX() {
@@ -394,10 +445,7 @@ public class Sounds {
   }
 
   public static void stop() {
-    if (musicPlayer != null) {
-      musicPlayer.stop();
-      isPlayingTheme = false;
-    }
+    stopMusic();
     if (sfxPlayer1 != null) {
       sfxPlayer1.stop();
       isPlayingBackgroundSFX = false;
@@ -412,6 +460,7 @@ public class Sounds {
     if (musicPlayer != null) {
       musicPlayer.stop();
       isPlayingTheme = false;
+      isPlayingHomeStretchTheme = false;
     }
   }
 }

@@ -26,7 +26,7 @@ public class StoreFoodMenu extends Scene {
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
-  private final int MAX_FOOD = 2000;
+  private final int MAX_FOOD = 1000;
   private final int INPUT_SIZE = 4;
   private final int NUM_OPTS = 9;
   private String cost = new DecimalFormat("'$'###,##0.00")
@@ -40,12 +40,14 @@ public class StoreFoodMenu extends Scene {
     + "You'll need\nflour, sugar, bacon, and\ncofee. My price is 20\ncents a "
     + "pound.\n\nHow many pounds of food do\nyou want? ";
   private String input = "_";
+  private String name;
+  private boolean start;
 
   /**
    * [StoreFoodMenu description]
    */
-  public StoreFoodMenu() {
-    this(new BorderPane());
+  public StoreFoodMenu(String name, boolean start) {
+    this(new BorderPane(), name, start);
     getStylesheets().add(AZTrailView.styleSheet);
     AZTrailController.escape = false;
   }
@@ -54,8 +56,10 @@ public class StoreFoodMenu extends Scene {
    * [StoreFoodMenu description]
    * @param root [description]
    */
-  private StoreFoodMenu(BorderPane root) {
+  private StoreFoodMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    this.name = name;
+    this.start = start;
     tile = new BorderPane();
     tile.setStyle("-fx-background-color: black;");
     BorderPane banner = new BorderPane();
@@ -93,7 +97,7 @@ public class StoreFoodMenu extends Scene {
     tile.setAlignment(decor2, Pos.CENTER);
 
     // Create the text for the menu options
-    Text header = new Text("Matt's General Store\n"
+    Text header = new Text(name + " General Store\n"
       + AZTrailView.controller.getCurrentCity()
       + ", Arizona");
     header.setId("text12");
@@ -126,7 +130,7 @@ public class StoreFoodMenu extends Scene {
           case SPACE:
             AZTrailController.escape = false;
             if (warn) {
-              AZTrailView.stage.setScene(new StoreFoodMenu());
+              AZTrailView.stage.setScene(new StoreFoodMenu(name, start));
             }
             break;
           case BACK_SPACE:
@@ -147,14 +151,14 @@ public class StoreFoodMenu extends Scene {
               return;
             }
             if (warn) {
-              AZTrailView.stage.setScene(new StoreFoodMenu());
+              AZTrailView.stage.setScene(new StoreFoodMenu(name, start));
             } else {
               int i = Integer.parseInt(input.replace("_", ""));
               if (i >= 0 && i <= MAX_FOOD) {
                 AZTrailView.stage.setScene(getNextView(i));
               }
               warn = true;
-              body.setText("Your wagon may only carry\n2000 pounds of food.");
+              body.setText("Your wagon may only carry\n1000 pounds of food.");
               footer.setText("Press SPACE BAR to continue");
             }
             break;
@@ -204,6 +208,6 @@ public class StoreFoodMenu extends Scene {
   private Scene getNextView(int choice) {
     AZTrailView.controller.addFood(choice);
     AZTrailView.controller.setCartFood(choice * 0.2);
-    return new StoreMenu();
+    return new StoreMenu(name, start);
   }
 }
