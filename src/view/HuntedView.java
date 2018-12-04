@@ -396,6 +396,8 @@ public class HuntedView extends Scene {
         true
       ));
     } else {
+      AZTrailView.sounds.stopMusic();
+      AZTrailView.sounds.startThemeLoop();
       AZTrailView.stage.setScene(new GameOver());
     }
   }
