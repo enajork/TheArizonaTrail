@@ -38,7 +38,6 @@ public class HuntedMenu extends Scene {
   */
   public HuntedMenu() {
     this(new BorderPane());
-    AZTrailView.sounds.huntedMenuTheme();
   }
 
   /**

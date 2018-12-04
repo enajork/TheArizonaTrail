@@ -233,6 +233,7 @@ public class StoreMenu extends Scene {
                 .getCartTotal());
               AZTrailView.controller.resetCart();
               AZTrailView.sounds.cashOutSFX();
+              AZTrailView.sounds.huntedMenuTheme();
               AZTrailView.stage.setScene(new ClerkInfoMenu(
                 new Runnable() {
                   @Override
@@ -249,7 +250,9 @@ public class StoreMenu extends Scene {
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
               AZTrailView.controller.resetCart();
-              AZTrailView.sounds.cashOutSFX();
+              if (AZTrailView.controller.getCartTotal() > 0) {
+                AZTrailView.sounds.cashOutSFX();
+              }
               AZTrailView.stage.setScene(new ClerkInfoMenu(
                 new Runnable() {
                   @Override

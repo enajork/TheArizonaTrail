@@ -26,19 +26,18 @@ import java.io.*;
 import controller.*;
 
 public class TrailTravelView extends Scene {
-  private static int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10); // 30 seems good
-  // private static int TIME_DILATION = 10;
+  private static int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10);
   private static int BACK_SPEED = 10000 * TIME_DILATION;
   private static int MID_SPEED = 5000 * TIME_DILATION;
   private static int FORE_SPEED = 3000 * TIME_DILATION;
-  private static int OXEN_SPEED = 50 * TIME_DILATION;
+  private static int OXEN_SPEED = 1500;
   private final int SCENE_WIDTH = AZTrailView.WIDTH;
+  private double backTimingRatio;
+  private double midTimingRatio;
+  private double foreTimingRatio;
   private boolean updatePace = false;
   private int ICON_WIDTH = 50;
   private int ICON_HEIGHT = 50;
-  // private TranslateTransition transBack[];
-  // private TranslateTransition transMid[];
-  // private TranslateTransition transFore[];
   private ParallelTransition movementBack;
   private ParallelTransition movementMid;
   private ParallelTransition movementFore;
@@ -408,20 +407,31 @@ public class TrailTravelView extends Scene {
     BACK_SPEED = 10000 * TIME_DILATION;
     MID_SPEED = 5000 * TIME_DILATION;
     FORE_SPEED = 3000 * TIME_DILATION;
-    movementBack.stop();
-    movementMid.stop();
-    movementFore.stop();
     List back = movementBack.getChildren();
     List mid = movementMid.getChildren();
     List fore = movementFore.getChildren();
+
+    backTimingRatio = movementBack.getCurrentTime().toMillis()
+      / movementBack.getCycleDuration().toMillis();
+    midTimingRatio = movementMid.getCurrentTime().toMillis()
+      / movementMid.getCycleDuration().toMillis();
+    foreTimingRatio = movementFore.getCurrentTime().toMillis()
+      / movementFore.getCycleDuration().toMillis();
+
+    movementBack.stop();
+    movementMid.stop();
+    movementFore.stop();
     for (int i = 0; i < back.size(); ++i) {
       ((TranslateTransition) back.get(i)).setDuration(Duration.millis(BACK_SPEED));
+      movementBack.jumpTo(Duration.millis(backTimingRatio * BACK_SPEED));
     }
     for (int i = 0; i < mid.size(); ++i) {
-      ((TranslateTransition)mid.get(i)).setDuration(Duration.millis(MID_SPEED));
+      ((TranslateTransition) mid.get(i)).setDuration(Duration.millis(MID_SPEED));
+      movementMid.jumpTo(Duration.millis(midTimingRatio * MID_SPEED));
     }
     for (int i = 0; i < fore.size(); ++i) {
-      ((TranslateTransition)fore.get(i)).setDuration(Duration.millis(FORE_SPEED));
+      ((TranslateTransition) fore.get(i)).setDuration(Duration.millis(FORE_SPEED));
+      movementFore.jumpTo(Duration.millis(foreTimingRatio * FORE_SPEED));
     }
   }
 
@@ -455,10 +465,6 @@ public class TrailTravelView extends Scene {
     }
 
     public void play() {
-      OXEN_SPEED = 50 * TIME_DILATION;
-      // this.animation.stop();
-      // this.animation.setCycleDuration(Duration.millis(OXEN_SPEED));
-      // this.animation.rate(1.0);
       this.animation.play();
     }
 
