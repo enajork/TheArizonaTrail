@@ -23,9 +23,18 @@ import javafx.util.Duration;
 import controller.*;
 
 public class HuntingView extends Scene {
+  private boolean wDown = false;
+  private boolean aDown = false;
+  private boolean sDown = false;
+  private boolean dDown = false;
+
   private final int COOLDOWN_TIME = 300;
+  private int i = 0;
+  private final int ACCEL_RATE = 50;
   private boolean cooldown = false;
-  private final int MOVESPEED = 40;
+  private final int MINSPEED = 1;
+  private final int MAXSPEED = 8;
+  private int movespeed = MINSPEED;
   private final int TERRAIN_DENSITY = 16 + (int) (Math.random() * 16);
   private static Canvas canvas = new Canvas(AZTrailView.WIDTH,
     AZTrailView.HEIGHT);
@@ -231,42 +240,22 @@ public class HuntingView extends Scene {
 
           case W:
             AZTrailController.escape = false;
-            if (y - MOVESPEED >= 0) {
-              y -= MOVESPEED;
-            } else {
-              y = 0;
-            }
+            wDown = true;
             break;
 
           case A:
             AZTrailController.escape = false;
-            if (x - MOVESPEED >= 0) {
-              x -= MOVESPEED;
-            } else {
-              x = 0;
-            }
+            aDown = true;
             break;
 
           case S:
             AZTrailController.escape = false;
-            if (event.isControlDown()) {
-              AZTrailView.sounds.mute();
-              break;
-            }
-            if (y + MOVESPEED + height <= CANVAS_HEIGHT) {
-              y += MOVESPEED;
-            } else {
-              y = CANVAS_HEIGHT - height;
-            }
+            sDown = true;
             break;
 
           case D:
             AZTrailController.escape = false;
-            if (x + MOVESPEED + width <= CANVAS_WIDTH) {
-              x += MOVESPEED;
-            } else {
-              x = CANVAS_WIDTH - width;
-            }
+            dDown = true;
             break;
 
           default:
@@ -275,6 +264,33 @@ public class HuntingView extends Scene {
         }
       }
     });
+    this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case W:
+            wDown = false;
+            resetSpeed();
+            break;
+
+          case A:
+            aDown = false;
+            resetSpeed();
+            break;
+
+          case S:
+            sDown = false;
+            resetSpeed();
+            break;
+
+          case D:
+            dDown = false;
+            resetSpeed();
+            break;
+        }
+      }
+    });
+
     this.setOnMouseMoved(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
@@ -315,6 +331,26 @@ public class HuntingView extends Scene {
   }
 
   private void tick() {
+    boolean accelerate = false;
+    if (wDown) {
+      wPress();
+      accelerate = true;
+    }
+    if (aDown) {
+      aPress();
+      accelerate = true;
+    }
+    if (sDown) {
+      sPress();
+      accelerate = true;
+    }
+    if (dDown) {
+      dPress();
+      accelerate = true;
+    }
+    if (accelerate) {
+      accel();
+    }
     redraw();
   }
 
@@ -350,6 +386,50 @@ public class HuntingView extends Scene {
       img = upright;
     } else if (angle >= 345 && angle <= 360) {
       img = right;
+    }
+  }
+
+  private void wPress() {
+    if (y - movespeed >= 0) {
+      y -= movespeed;
+    } else {
+      y = 0;
+    }
+  }
+
+  private void aPress() {
+    if (x - movespeed >= 0) {
+      x -= movespeed;
+    } else {
+      x = 0;
+    }
+  }
+
+  private void sPress() {
+    if (y + movespeed + height <= CANVAS_HEIGHT) {
+      y += movespeed;
+    } else {
+      y = CANVAS_HEIGHT - height;
+    }
+  }
+
+  private void dPress() {
+    if (x + movespeed + width <= CANVAS_WIDTH) {
+      x += movespeed;
+    } else {
+      x = CANVAS_WIDTH - width;
+    }
+  }
+
+  private void accel() {
+    if (i % ACCEL_RATE == 0 && movespeed < MAXSPEED) {
+      movespeed++;
+    }
+  }
+
+  private void resetSpeed() {
+    if (!wDown && !aDown && !sDown && !dDown) {
+      movespeed = MINSPEED;
     }
   }
 
