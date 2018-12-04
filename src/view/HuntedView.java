@@ -35,7 +35,8 @@ public class HuntedView extends Scene {
   private int health = START_HEALTH;
 
   private final boolean INFINITE_AMMO = false;
-  private final int COOLDOWN_TIME = 50;
+  private final int TIMEOUT = 15000;
+  private final int COOLDOWN_TIME = 300;
   private int shots = 0;
   private int hits = 0;
   private int i = 0;
@@ -188,7 +189,7 @@ public class HuntedView extends Scene {
     timer.start();
 
     SequentialTransition pause = new SequentialTransition (
-      new PauseTransition(Duration.millis(60000)));
+      new PauseTransition(Duration.millis(TIMEOUT)));
     pause.onFinishedProperty().set(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
