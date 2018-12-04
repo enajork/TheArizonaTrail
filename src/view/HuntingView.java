@@ -23,7 +23,9 @@ import javafx.util.Duration;
 import controller.*;
 
 public class HuntingView extends Scene {
-  private final int MOVESPEED = 20;
+  private final int COOLDOWN = 1;
+  private final int MOVESPEED = 40;
+  private int TERRAIN_DENSITY = 64;
   private static Canvas canvas = new Canvas(AZTrailView.WIDTH,
     AZTrailView.HEIGHT);
   private boolean hunted = AZTrailView.controller.getHunted();
@@ -52,14 +54,16 @@ public class HuntingView extends Scene {
   private int height = 46;
   private int mouseX = CANVAS_WIDTH / 2;
   private int mouseY = 0;
+  private AnchorPane bullets = new AnchorPane();
+  private Circle bullet;
   private static GraphicsContext gc = canvas.getGraphicsContext2D();
-  private StackPane root;
+  private BorderPane root;
 
   /**
    * [HuntingView description]
    */
   public HuntingView() {
-    this(new StackPane());
+    this(new BorderPane());
     getStylesheets().add(AZTrailView.styleSheet);
   }
 
@@ -67,11 +71,72 @@ public class HuntingView extends Scene {
    * [HuntingView description]
    * @param root [description]
    */
-  private HuntingView(StackPane root) {
+  private HuntingView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     this.root = root;
     root.setStyle("-fx-background-color: black;");
-    root.getChildren().add(canvas);
+    Image rock1 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/rock1-hunted.png"
+        : "file:view/assets/graphics/rock1.png",
+        60, 35, false, true);
+    Image rock2 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/rock2-hunted.png"
+        : "file:view/assets/graphics/rock2.png",
+        50, 50, false, true);
+    Image rock3 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/rock1-hunted.png"
+        : "file:view/assets/graphics/rock1.png",
+        50, 30, false, true);
+    Image rock4 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/rock2-hunted.png"
+        : "file:view/assets/graphics/rock2.png",
+        70, 70, false, true);
+    Image cactus1 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/cactus1-hunted.png"
+        : "file:view/assets/graphics/cactus1.png",
+        50, 70, false, true);
+    Image cactus2 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/cactus2-hunted.png"
+        : "file:view/assets/graphics/cactus2.png",
+        40, 68, false, true);
+    Image cactus3 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/cactus1-hunted.png"
+        : "file:view/assets/graphics/cactus1.png",
+        40, 56, false, true);
+    Image cactus4 = new Image((AZTrailView.controller.getHunted())
+        ? "file:view/assets/graphics/cactus2-hunted.png"
+        : "file:view/assets/graphics/cactus2.png",
+        50, 85, false, true);
+    ArrayList<Image> propList = new ArrayList<Image>();
+    propList.add(rock1);
+    propList.add(rock2);
+    propList.add(rock3);
+    propList.add(rock4);
+    propList.add(cactus1);
+    propList.add(cactus2);
+    propList.add(cactus3);
+    propList.add(cactus4);
+    ImageView[] props = new ImageView[64];
+    for (int i = 0; i < props.length; ++i) {
+      Random rand = new Random();
+      props[i] = new ImageView(propList.get(rand.nextInt(propList.size())));
+    }
+    AnchorPane positions[] = new AnchorPane[64];
+    for (int i = 0; i < positions.length; ++i) {
+      positions[i] = new AnchorPane(props[i]);
+    }
+    for (int i = 0; i < positions.length; ++i) {
+      double[] pos = getRandomPosition();
+      positions[i].setLeftAnchor(props[i], pos[0]);
+      positions[i].setTopAnchor(props[i], pos[1]);
+    }
+    StackPane layers = new StackPane();
+    for (int i = 0; i < positions.length; ++i) {
+      layers.getChildren().add(positions[i]);
+    }
+    layers.getChildren().add(bullets);
+    layers.getChildren().add(canvas);
+    root.setCenter(layers);
     gc.drawImage(img, 0, 0, width, height, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2,
       width, height);
 
@@ -86,8 +151,19 @@ public class HuntingView extends Scene {
     timer.start();
   }
 
+  private double[] getRandomPosition() {
+    double pos[] = new double[2];
+    pos[0] = 0;
+    pos[1] = 0;
+    while (pos[0] < 20 || pos[0] > AZTrailView.WIDTH - 80||
+           pos[1] < 5 || pos[1] > AZTrailView.HEIGHT - 90) {
+      pos[0] = Math.random() * AZTrailView.WIDTH;
+      pos[1] = Math.random() * AZTrailView.HEIGHT;
+    }
+    return pos;
+  }
+
   private void doneHunting() {
-    gc.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     AZTrailView.sounds.stopMusic();
     AZTrailView.sounds.startThemeLoop();
   }
@@ -167,13 +243,16 @@ public class HuntingView extends Scene {
     this.setOnMousePressed(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-        Circle bullet = new Circle(2, Color.WHITE);
+        bullet = new Circle(2, Color.WHITE);
+        bullets.getChildren().add(bullet);
+        bullets.setTopAnchor(bullet, (double) (y + height / 2));
+        bullets.setLeftAnchor(bullet,(double) (x + width / 2));
         TranslateTransition fire = new TranslateTransition();
         fire.setDuration(Duration.seconds(1));
         fire.setNode(bullet);
 
-        fire.setToX(100);
-        fire.setToY(100);
+        fire.setToX(mouseX);
+        fire.setToY(mouseY);
         fire.setCycleCount(1);
         fire.play();
       }
