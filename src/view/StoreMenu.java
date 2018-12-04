@@ -228,7 +228,7 @@ public class StoreMenu extends Scene {
               footer.setText("Press SPACE BAR to continue");
               warn = true;
             } else if (start) {
-              AZTrailView.controller.addWater(500);
+              AZTrailView.controller.addWater(200);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
               if (AZTrailView.controller.getCartTotal() > 0) {
@@ -248,7 +248,7 @@ public class StoreMenu extends Scene {
                  + " and\ndifficult journey ahead\nof you."
               }));
             } else if (!start) {
-              AZTrailView.controller.addWater(500);
+              AZTrailView.controller.addWater(200);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
               AZTrailView.controller.resetCart();

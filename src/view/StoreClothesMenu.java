@@ -26,7 +26,7 @@ public class StoreClothesMenu extends Scene {
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
-  private final int INPUT_SIZE = 2;
+  private final int INPUT_SIZE = 1;
   private final int START_OPT = 0;
   private final int NUM_OPTS = 9;
   private String cost = new DecimalFormat("'$'###,##0.00")

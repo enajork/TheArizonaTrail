@@ -81,6 +81,11 @@ public class MapModel implements Serializable {
 
   public void setCurrentCity(String city) {
     currentCity = city;
+    int i = getNextCityIndex(currentCity);
+    nextCity = citiesInOrder[i];
+    if (currentCity.equals("Page")) {
+      atDestination = true;
+    }
   }
 
   public int getTotalMiles() {
