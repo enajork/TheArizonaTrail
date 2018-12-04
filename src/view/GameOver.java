@@ -19,13 +19,18 @@ import java.util.*;
 import java.io.*;
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class GameOver extends Scene {
   private BorderPane root;
   private boolean released = false;
 
   /**
-   * [GameOver description]
+   * No arg constructor for the game over screen
    */
   public GameOver() {
     this(new BorderPane());
@@ -33,8 +38,9 @@ public class GameOver extends Scene {
   }
 
   /**
-   * [GameOver description]
-   * @param root [description]
+   * Constructs a new game over screen
+   *
+   * @param root   the root of the scene graph
    */
   private GameOver(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -73,7 +79,7 @@ public class GameOver extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {

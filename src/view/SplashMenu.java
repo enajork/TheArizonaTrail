@@ -19,6 +19,11 @@ import java.util.*;
 import java.io.*;
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class SplashMenu extends Scene {
   private final int NUM_OPTS = 6;
@@ -35,7 +40,7 @@ public class SplashMenu extends Scene {
   private String input = "_";
 
   /**
-   * [SplashMenu description]
+   * No arg constructor for the splash menu
    */
   public SplashMenu() {
     this(new BorderPane());
@@ -44,8 +49,9 @@ public class SplashMenu extends Scene {
   }
 
   /**
-   * [SplashMenu description]
-   * @param root [description]
+   * Constructs a splash menu view
+   *
+   * @param root   the root of the scene graph
    */
   private SplashMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -87,8 +93,8 @@ public class SplashMenu extends Scene {
   }
 
   /**
-   * [menuAccent description]
-   * @return [description]
+   * Creates a new menu accent node for the scene graph
+   * @return an imageview into the accent
    */
   private ImageView menuAccent() {
     return new ImageView(new Image("file:view/assets/graphics/menuaccent.png",
@@ -96,7 +102,7 @@ public class SplashMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -148,8 +154,8 @@ public class SplashMenu extends Scene {
   }
 
   /**
-   * [updateInputText description]
-   * @param num [description]
+   * updates the display when the user types in a selection the keyboard
+   * @param num the value inserted by the user
    */
   private void updateInputText(int num) {
     if (input.length() == 1 && num >= 1 && num <= NUM_OPTS) {
@@ -160,9 +166,9 @@ public class SplashMenu extends Scene {
   }
 
   /**
-   * [getNextView description]
-   * @param  choice [description]
-   * @return        [description]
+   * determines the next view to be scene by the player based on their choice
+   * @param  choice integer choice number
+   * @return        the next view to be staged
    */
   private Scene getNextView(int choice) {
     if (choice < 1 || choice > NUM_OPTS) {
@@ -209,17 +215,11 @@ public class SplashMenu extends Scene {
             }
           }, new String[]{
           "Try taking a journey by\ncovered wagon across 200\nmiles of desert, "
-            + "canyons,\nand mountains.Try! In the\ndesert, will you slosh "
+            + "canyons,\nand mountains. Try! In the\ndesert, will you slosh "
             + "your\noxen through dirt and\ntreacherous ruts or will\n"
             + "you plod through dust six\ninches deep?",
 
-          "How will you cross the\ncanyons? If you have\nmoney, you might hire "
-            + "\na guide (if there is a\nguide). Or, you can\ntry and cross it"
-            + "\nyourself and hope you\nand your wagon aren't\nlost forever!",
-
-          "What about supplies? Well, if\nyou're low on food you can\nhunt. You"
-            + "might get an Elk...\nyou might. And there are bears\nin the "
-            + "mountains.",
+          "What about supplies?\nWell, if you're low on food\nor cash you can hunt.",
 
           "If for some reason you don't\nsurvive -- your wagon burns,\nor "
             + "bandits steal your oxen, or\nyou run out of provisions, or\nyou"
@@ -228,16 +228,15 @@ public class SplashMenu extends Scene {
             + "Top Ten.",
 
           "You may turn the sound on or\noff during the program by\npressing "
-            + "Control-S.",
+            + "CONTROL-S.",
 
-          "You may want to quit in the\nmiddle of the program. If so,"
-            + "\npress the Escape (Esc) key\ntwice whenever the computer\nis "
-            + "waiting for a response.",
+          "You may want to save and quit\nin the middle of the game.\nIf so,"
+            + " press the ESC key twice.",
 
           "In Hunted Mode, the premise is\nthe same but you were somehow\n"
             + "sucked into an alternate reality.\nIn this universe, time "
             + "travel is\npossible. And, an evil Owen Wilson\nfrom the future "
-            + "is hunting you\ndown. Evade his capture at all\ncosts!",
+            + "is hunting you\ndown. Be ready to fight for\nyour life!",
 
           "The software team responsible for the\ncreation of "
             + "this product includes:\n\n Jordan Bridgewater\n Jared Grady\n "
@@ -248,7 +247,6 @@ public class SplashMenu extends Scene {
         return new TopTenMenu();
       case 4:
         // turn sound off
-        AZTrailController.sound = !AZTrailController.sound;
         return new GenericInfoMenu(
           new Runnable() {
             @Override
@@ -258,10 +256,10 @@ public class SplashMenu extends Scene {
             }
           },
           new String[]{
-            "The sound is now turned " + (AZTrailController.sound ? "on"
-              : "off") + ". \n"
+            "The sound is now turned " + (AZTrailController.sound ? "off"
+              : "on") + ". \n"
               + "You may turn sound on or off\n"
-              + "during the program by pressing\nControl-S."
+              + "during the program by pressing\nCONTROL-S."
           },
           true,
           true

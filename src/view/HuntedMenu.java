@@ -21,6 +21,11 @@ import java.util.*;
 import java.io.*;
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class HuntedMenu extends Scene {
   private final int CHAR_LIMIT = 4;
@@ -34,15 +39,16 @@ public class HuntedMenu extends Scene {
   private Text body;
 
   /**
-  * [HuntedMenu description]
-  */
+   * No arg constructor for the hunted menu
+   */
   public HuntedMenu() {
     this(new BorderPane());
   }
 
   /**
-   * [HuntedMenu description]
-   * @param root [description]
+   * Constructs the hunted menu
+   *
+   * @param root   the root of the scene graph
    */
   private HuntedMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -81,7 +87,7 @@ public class HuntedMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -182,6 +188,12 @@ public class HuntedMenu extends Scene {
     });
   }
 
+  /**
+   * fades the entire screen of the hunted menu to
+   * transition to the next view
+   *
+   * @param duration the rate of fading
+   */
   private void fadeOut(double duration) {
     FadeTransition trans = new FadeTransition();
     trans.setDuration(Duration.millis(duration));
@@ -198,6 +210,10 @@ public class HuntedMenu extends Scene {
     trans.play();
   }
 
+  /**
+   * updates the display when the user types in a selection the keyboard
+   * @param num the value inserted by the user
+   */
   private void updateInputText(KeyEvent event) {
     String letter = event.getText();
     if (letter.length() != 1) {

@@ -1,6 +1,11 @@
 package model;
 
 import java.io.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class AZTrailModel implements Serializable {
   private MapModel mapModel;
@@ -10,6 +15,10 @@ public class AZTrailModel implements Serializable {
   private Party party;
   private Cart cart;
 
+  /**
+   * Constructs a new AZTrailModel with the inital settings then builds
+   * the neccessary sub models
+   */
   public AZTrailModel() {
     this.hunted = true;
     this.calendar = new Calendar();
@@ -19,33 +28,63 @@ public class AZTrailModel implements Serializable {
     this.travelRate = 4;
   }
 
+  /**
+   * getter for map
+   *
+   * @return returns the map model
+   */
   public MapModel getMap() {
     return mapModel;
   }
 
+  /**
+   * sets the map model to a new one
+   *
+   * @param map the new map model to set
+   */
   public void setMap(MapModel map) {
     this.mapModel = map;
   }
 
+  /**
+   * getter for the calendar model
+   *
+   * @return the calendar model
+   */
   public Calendar getCalendar() {
     return calendar;
   }
 
+  /**
+   * sets the calendar to a new calendar model
+   *
+   * @param cal calendar model to add
+   */
   public void setCalendar(Calendar cal) {
     this.calendar = cal;
   }
 
+  /**
+   * getter for the party model
+   *
+   * @return the party model
+   */
   public Party getParty() {
     return party;
   }
 
+  /**
+   * sets the party to a new party model
+   *
+   * @param cal party model to add
+   */
   public void setParty(Party party) {
     this.party = party;
   }
 
   /**
-   * [getProf description]
-   * @return [description]
+   * returns the player's profession
+   * @return string representation of the player's profession
    */
   public String getProf() {
     switch(party.getProf()) {
@@ -61,41 +100,64 @@ public class AZTrailModel implements Serializable {
   }
 
   /**
-   * [getProf description]
-   * @return [description]
+   * sets the player's profession
+   * @return the profession name to set for the players
    */
   public void setProf(String name) {
     party.setProf(name);
   }
 
   /**
-   * [getNames description]
-   * @return [description]
+   * returns the name of a particular party member
+   *
+   * @param  i the index of the party member to get
+   *
+   * @return   the name of party member i
    */
   public String getName(int i) {
     return party.getName(i);
   }
 
+  /**
+   * sets the name of a party member
+   *
+   * @param i    index of the party member
+   * @param name name of the party member
+   */
   public void setName(int i, String name) {
     party.setName(i, name);
   }
 
+  /**
+   * removes a party member's name
+   *
+   * @return returns the name removed
+   */
   public String removeName() {
     return party.removeName();
   }
 
+  /**
+   * returns the total size of the party
+   *
+   * @return size of the party
+   */
   public int partySize() {
     return party.totalSize();
   }
 
+  /**
+   * returns the current party size
+   *
+   * @return current party size
+   */
   public int currPartySize() {
     return party.size();
   }
 
   /**
-   * [addMoney description]
-   * @param  amount [description]
-   * @return        [description]
+   * add's money to the party
+   * @param  amount amount of money to add
    */
   public void addMoney(double amount) {
     party.addMoney(amount);
