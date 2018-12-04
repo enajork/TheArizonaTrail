@@ -1,28 +1,33 @@
-package model;
+ppackage model;
 
+import javafx.util.*;
 import java.util.*;
 
 public class TopTen {
-  private final int SIZE = 10;
-  private String[] names;
-  private int[] score;
+  private static final int SIZE = 10;
+  private ArrayList<Pair<String, Integer>> scores;
 
   public TopTen() {
-    this.names = new String[SIZE];
-    this.score = new int[SIZE];
+    this.scores = new ArrayList<Pair<String, Integer>>();
+    for (int i = 0; i < SIZE; i++) {
+      scores.add(new Pair<String, Integer>("", 0));
+    }
   }
 
   public String getName(int i) {
-    return names[i];
+    return scores.get(i).getKey();
   }
 
   public int getScore(int i) {
-    return score[i];
+    return scores.get(i).getValue();
   }
 
-  public void setScore(int i, String name, int score) {
-    this.score[i] = score;
-    this.names[i] = name;
+  public void setScore(String name, int score) {
+    scores.add(new Pair<String, Integer>(name, score));
+    Collections.reverse(scores);
+    if (scores.size() > SIZE) {
+      scores.remove(SIZE);
+    }
   }
 
   public int size() {
