@@ -36,7 +36,7 @@ public class OptionsMenu extends Scene {
   private Text body;
 
   /**
-   * [OptionsMenu description]
+   * No arg constructor for the options menu
    */
   public OptionsMenu() {
     this(new BorderPane());
@@ -44,8 +44,9 @@ public class OptionsMenu extends Scene {
   }
 
   /**
-   * [OptionsMenu description]
-   * @param root [description]
+   * Constructs a options menu view
+   *
+   * @param root   the root of the scene graph
    */
   private OptionsMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -92,8 +93,8 @@ public class OptionsMenu extends Scene {
   }
 
   /**
-   * [menuAccent description]
-   * @return [description]
+   * Creates a new menu accent node for the scene graph
+   * @return an imageview into the accent
    */
   private ImageView menuAccent() {
     return new ImageView(new Image("file:view/assets/graphics/menuaccent.png",
@@ -101,7 +102,7 @@ public class OptionsMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -148,8 +149,8 @@ public class OptionsMenu extends Scene {
   }
 
   /**
-   * [updateInputText description]
-   * @param num [description]
+   * updates the display when the user types in a selection the keyboard
+   * @param num the value inserted by the user
    */
   private void updateInputText(int num) {
     if (input.length() == 1 && num >= 1 && num <= NUM_OPTS) {
@@ -160,9 +161,9 @@ public class OptionsMenu extends Scene {
   }
 
   /**
-   * [getSplashView description]
-   * @param  choice [description]
-   * @return        [description]
+   * returns the user to the splash view based on their current choice
+   * @param  choice the users selection
+   * @return        the scene to return to
    */
   private Scene getSplashView(int choice) {
     if (choice < 1 || choice > 6) {

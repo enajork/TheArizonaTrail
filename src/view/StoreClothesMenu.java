@@ -47,7 +47,10 @@ public class StoreClothesMenu extends Scene {
   private boolean start;
 
   /**
-   * [StoreClothesMenu description]
+   * Constructs a new store cloth4s menu view
+   *
+   * @param name  the store name
+   * @param start boolean
    */
   public StoreClothesMenu(String name, boolean start) {
     this(new BorderPane(), name, start);
@@ -56,8 +59,12 @@ public class StoreClothesMenu extends Scene {
   }
 
   /**
-   * [StoreClothesMenu description]
-   * @param root [description]
+   * Constructs a new store clothes menu view
+   *
+   * @param root  root of the scene graph
+   *
+   * @param name  the store name
+   * @param start boolean
    */
   private StoreClothesMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -124,7 +131,7 @@ public class StoreClothesMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to handle keyboard actions from the user
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -172,8 +179,8 @@ public class StoreClothesMenu extends Scene {
   }
 
   /**
-   * [updateInputText description]
-   * @param num [description]
+   * updates the display when the user types in a selection the keyboard
+   * @param num the value inserted by the user
    */
   private void updateInputText(int num) {
     if (input.length() <= INPUT_SIZE && num >= START_OPT && num <= NUM_OPTS) {
@@ -184,9 +191,9 @@ public class StoreClothesMenu extends Scene {
   }
 
   /**
-   * [getNextView description]
-   * @param  choice [description]
-   * @return        [description]
+   * determines the next view to be scene by the player based on their choice
+   * @param  choice integer choice number
+   * @return        the next view to be staged
    */
   private Scene getNextView(int choice) {
     AZTrailView.controller.addClothes(choice);

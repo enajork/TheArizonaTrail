@@ -36,7 +36,7 @@ public class MapView extends Scene {
   private BorderPane root;
 
   /**
-   * [MapView description]
+   * No arg constructor for the map menu
    */
   public MapView() {
     this(new BorderPane());
@@ -44,8 +44,9 @@ public class MapView extends Scene {
   }
 
   /**
-   * [MapView description]
-   * @param root [description]
+   * Constructs a map view
+   *
+   * @param root   the root of the scene graph
    */
   private MapView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
@@ -87,7 +88,7 @@ public class MapView extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -122,6 +123,11 @@ public class MapView extends Scene {
     });
   }
 
+  /**
+   * Gets the current progress of the user based on their position on the map
+   *
+   * @return returns an int with the users current progress
+   */
   private int getProgress() {
     int[] cities = {338, 318, 300, 240, 174, 158};
     int[] distances = {20, 18, 60, 66, 16, 87};

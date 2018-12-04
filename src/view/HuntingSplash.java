@@ -30,7 +30,7 @@ public class HuntingSplash extends Scene {
   private BorderPane root;
 
   /**
-   * [HuntingSplash description]
+   * No arg constructor for the hunting splash
    */
   public HuntingSplash() {
     this(new BorderPane());
@@ -39,8 +39,9 @@ public class HuntingSplash extends Scene {
   }
 
   /**
-   * [HuntingSplash description]
-   * @param root [description]
+   * Constructs the hunting splash
+   *
+   * @param root   the root of the scene graph
    */
   private HuntingSplash(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -96,7 +97,7 @@ public class HuntingSplash extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {

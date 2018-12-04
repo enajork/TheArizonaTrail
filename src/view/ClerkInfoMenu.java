@@ -33,15 +33,19 @@ public class ClerkInfoMenu extends Scene {
   private Text header;
 
   /**
-   * [ClerkInfoMenu description]
+   * No arg constructor for the clerk info menu view
    */
   public ClerkInfoMenu(Runnable call, String header, String[] text) {
     this(new BorderPane(), call, header, text);
   }
 
   /**
-   * [ClerkInfoMenu description]
-   * @param root [description]
+   * Constructs a new clerk info menu view with the given data
+   *
+   * @param root   the root of the scene graph
+   * @param call   metadata for the next thread
+   * @param header the header text for the clerk
+   * @param text   the description data
    */
   private ClerkInfoMenu(BorderPane root, Runnable call, String header,
       String[] text) {
@@ -66,7 +70,7 @@ public class ClerkInfoMenu extends Scene {
   }
 
   /**
-   * [learnTextBlock description]
+   * Builds the learn text node for the scene
    */
   private void learnTextBlock() {
     BorderPane tile = new BorderPane();
@@ -99,8 +103,8 @@ public class ClerkInfoMenu extends Scene {
   }
 
   /**
-   * [menuAccent description]
-   * @return [description]
+   * creates a menu accent for the view
+   * @return an imageview of the accent
    */
   private ImageView menuAccent() {
     return new ImageView(new Image("file:view/assets/graphics/menuaccent.png",
@@ -108,7 +112,7 @@ public class ClerkInfoMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {

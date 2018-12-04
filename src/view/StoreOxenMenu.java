@@ -45,7 +45,10 @@ public class StoreOxenMenu extends Scene {
   private boolean start;
 
   /**
-   * [StoreOxenMenu description]
+   * Constructs a new store oxen menu view
+   *
+   * @param name  the store name
+   * @param start boolean
    */
   public StoreOxenMenu(String name, boolean start) {
     this(new BorderPane(), name, start);
@@ -54,9 +57,13 @@ public class StoreOxenMenu extends Scene {
   }
 
   /**
-   * [StoreOxenMenu description]
-   * @param root [description]
-   */
+   * Constructs a new store oxen menu view
+   *
+   * @param root  root of the scene graph
+   *
+   * @param name  the store name
+   * @param start boolean
+   *//
   private StoreOxenMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     this.name = name;
@@ -122,7 +129,7 @@ public class StoreOxenMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to handle keyboard actions from the user
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -170,8 +177,8 @@ public class StoreOxenMenu extends Scene {
   }
 
   /**
-   * [updateInputText description]
-   * @param num [description]
+   * updates the display when the user types in a selection the keyboard
+   * @param num the value inserted by the user
    */
   private void updateInputText(int num) {
     if (input.length() <= INPUT_SIZE && num >= (start ? 1 : 0)
@@ -183,9 +190,9 @@ public class StoreOxenMenu extends Scene {
   }
 
   /**
-   * [getNextView description]
-   * @param  choice [description]
-   * @return        [description]
+   * determines the next view to be scene by the player based on their choice
+   * @param  choice integer choice number
+   * @return        the next view to be staged
    */
   private Scene getNextView(int choice) {
     if (choice < 0 || choice > NUM_OPTS) {

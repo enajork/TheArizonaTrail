@@ -38,7 +38,7 @@ public class ProfMenu extends Scene {
   private String input = "_";
 
   /**
-   * [ProfMenu description]
+   * No arg constructor for the prof menu
    */
   public ProfMenu() {
     this(new BorderPane());
@@ -46,8 +46,9 @@ public class ProfMenu extends Scene {
   }
 
   /**
-   * [ProfMenu description]
-   * @param root [description]
+   * Constructs a prof menu view
+   *
+   * @param root   the root of the scene graph
    */
   private ProfMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -80,8 +81,8 @@ public class ProfMenu extends Scene {
   }
 
   /**
-   * [menuAccent description]
-   * @return [description]
+   * Creates a new menu accent node for the scene graph
+   * @return an imageview into the accent
    */
   private ImageView menuAccent() {
     return new ImageView(new Image("file:view/assets/graphics/menuaccent.png",
@@ -89,7 +90,7 @@ public class ProfMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -136,8 +137,8 @@ public class ProfMenu extends Scene {
   }
 
   /**
-   * [updateInputText description]
-   * @param num [description]
+   * updates the display when the user types in a selection the keyboard
+   * @param num the value inserted by the user
    */
   private void updateInputText(int num) {
     if (input.length() == 1 && num >= 1 && num <= NUM_OPTS) {
@@ -148,9 +149,9 @@ public class ProfMenu extends Scene {
   }
 
   /**
-   * [getNextView description]
-   * @param  choice [description]
-   * @return        [description]
+   * determines the next view to be scene by the player based on their choice
+   * @param  choice integer choice number
+   * @return        the next view to be staged
    */
   private Scene getNextView(int choice) {
     if (choice < 1 || choice > NUM_OPTS) {

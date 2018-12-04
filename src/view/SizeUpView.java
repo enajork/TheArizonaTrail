@@ -42,7 +42,7 @@ public class SizeUpView extends Scene {
   private String input = "_";
 
   /**
-   * [SizeUpView description]
+   * No arg constructor for the size up menu
    */
   public SizeUpView() {
     this(new BorderPane());
@@ -50,8 +50,9 @@ public class SizeUpView extends Scene {
   }
 
   /**
-   * [SplashMenu description]
-   * @param root [description]
+   * Constructs a size up menu view
+   *
+   * @param root   the root of the scene graph
    */
   private SizeUpView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
@@ -93,7 +94,7 @@ public class SizeUpView extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -140,8 +141,8 @@ public class SizeUpView extends Scene {
   }
 
   /**
-   * [updateInputText description]
-   * @param num [description]
+   * updates the display when the user types in a selection the keyboard
+   * @param num the value inserted by the user
    */
    private void updateInputText(int num) {
     if (input.length() == 1 && (num >= MIN_INPUT && num <= MAX_INPUT)) {
@@ -152,9 +153,9 @@ public class SizeUpView extends Scene {
   }
 
   /**
-   * [getNextView description]
-   * @param  choice [description]
-   * @return        [description]
+   * determines the next view to be scene by the player based on their choice
+   * @param  choice integer choice number
+   * @return        the next view to be staged
    */
   private Scene getNextView(int choice) {
     if (choice < MIN_INPUT || choice > MAX_INPUT) {

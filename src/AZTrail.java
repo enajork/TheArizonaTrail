@@ -8,8 +8,10 @@ import view.*;
 
 public class AZTrail {
   /**
-   * [main description]
-   * @param args [description]
+   * Main entry point for The Arizona Trail
+   * Constructs the javafx application from AZTrailView
+   * and launches it
+   * @param args command line arguments
    */
   public static void main(String[] args) {
     Application.launch(AZTrailView.class, args);

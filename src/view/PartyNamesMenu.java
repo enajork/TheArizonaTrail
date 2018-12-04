@@ -43,7 +43,7 @@ public class PartyNamesMenu extends Scene {
   private int curr;
 
   /**
-   * [PartyNamesMenu description]
+   * No arg constructor for the party names menu
    */
   public PartyNamesMenu() {
     this(new BorderPane());
@@ -51,8 +51,9 @@ public class PartyNamesMenu extends Scene {
   }
 
   /**
-   * [PartyNamesMenu description]
-   * @param root [description]
+   * Constructs a party names menu view
+   *
+   * @param root   the root of the scene graph
    */
   private PartyNamesMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -104,7 +105,7 @@ public class PartyNamesMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -239,8 +240,8 @@ public class PartyNamesMenu extends Scene {
   }
 
   /**
-   * [updateInputText description]
-   * @param num [description]
+   * updates the display when the user types in a selection the keyboard
+   * @param num the value inserted by the user
    */
   private void updateInputText(KeyEvent event, int i) {
     String letter = event.getText();
@@ -281,6 +282,9 @@ public class PartyNamesMenu extends Scene {
     }
   }
 
+  /**
+   * prompts the user to confirm their
+   */
   private void confirm() {
     footer.setText(PROMPT1 + input);
     flow.setMargin(footer, new Insets(0, 0, 0, 0));
