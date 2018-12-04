@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.input.*;
 import javafx.application.*;
+import javafx.scene.canvas.*;
 import javafx.scene.input.*;
 import javafx.scene.image.*;
 import javafx.scene.paint.*;
@@ -22,7 +23,33 @@ import javafx.util.Duration;
 import controller.*;
 
 public class HuntingView extends Scene {
-  private Scene nextScene;
+  private final int MOVESPEED = 20;
+  private static Canvas canvas = new Canvas(AZTrailView.WIDTH,
+    AZTrailView.HEIGHT);
+  private Image img = new Image("file:view/assets/graphics/hunter/up.png");
+  private Image up = new Image("file:view/assets/graphics/hunter/up.png");
+  private Image down = new Image("file:view/assets/graphics/hunter/down.png");
+  private Image left = new Image("file:view/assets/graphics/hunter/left.png");
+  private Image right = new Image("file:view/assets/graphics/hunter/right.png");
+  private Image downleft = new Image("file:view/assets/graphics/hunter/downleft.png");
+  private Image downright = new Image("file:view/assets/graphics/hunter/downright.png");
+  private Image upleft = new Image("file:view/assets/graphics/hunter/upleft.png");
+  private Image upright = new Image("file:view/assets/graphics/hunter/upright.png");
+  private Image upHunted = new Image("file:view/assets/graphics/hunter/up-hunted.png");
+  private Image downHunted = new Image("file:view/assets/graphics/hunter/down-hunted.png");
+  private Image leftHunted = new Image("file:view/assets/graphics/hunter/left-hunted.png");
+  private Image rightHunted = new Image("file:view/assets/graphics/hunter/right-hunted.png");
+  private Image downleftHunted = new Image("file:view/assets/graphics/hunter/downleft-hunted.png");
+  private Image downrightHunted = new Image("file:view/assets/graphics/hunter/downright-hunted.png");
+  private Image upleftHunted = new Image("file:view/assets/graphics/hunter/upleft-hunted.png");
+  private Image uprightHunted = new Image("file:view/assets/graphics/hunter/upright-hunted.png");
+  private final int CANVAS_WIDTH = (int)canvas.getWidth();
+  private final int CANVAS_HEIGHT = (int)canvas.getHeight();
+  private int x = CANVAS_WIDTH / 2;
+  private int y = CANVAS_HEIGHT / 2;
+  private int width = 38;
+  private int height = 46;
+  private static GraphicsContext gc = canvas.getGraphicsContext2D();
   private BorderPane root;
   private String city;
 
@@ -40,15 +67,11 @@ public class HuntingView extends Scene {
    */
   private HuntingView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
-    this.nextScene = new SizeUpView();
     this.root = root;
     root.setStyle("-fx-background-color: black;");
-    // Text footer = new Text("Press SPACE BAR to continue");
-    // footer.setId("text12");
-    // footer.setFill(Color.WHITE);
-    // root.setBottom(footer);
-    // root.setAlignment(footer, Pos.CENTER);
-    // root.setMargin(footer, new Insets(0, 0, 20, 0));
+    root.setCenter(canvas);
+    gc.drawImage(img, 0, 0, width, height, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2,
+      width, height);
 
     addEventHandlers();
   }
@@ -68,27 +91,46 @@ public class HuntingView extends Scene {
         switch (event.getCode()) {
           case ENTER:
             AZTrailController.escape = false;
-            AZTrailView.stage.setScene(nextScene);
-            // VERY IMPORTANT! NEEDED TO STOP THEME AND START THE NEXT! DO NOT LEAVE THIS VIEW WITHOUT DOING THIS!!!
+            AZTrailView.stage.setScene(new SizeUpView());
             doneHunting();
             break;
 
           case ESCAPE:
-            AZTrailView.escapePressed(true);
+            AZTrailView.stage.setScene(new SizeUpView());
+            doneHunting();
             break;
 
           case W:
             AZTrailController.escape = false;
-
+            if (y - MOVESPEED >= 0) {
+              y -= MOVESPEED;
+              redraw();
+            } else {
+              y = 0;
+              redraw();
+            }
             break;
 
           case A:
             AZTrailController.escape = false;
-
+            if (x - MOVESPEED >= 0) {
+              x -= MOVESPEED;
+              redraw();
+            } else {
+              x = 0;
+              redraw();
+            }
             break;
 
           case S:
             AZTrailController.escape = false;
+            if (y + MOVESPEED + height <= CANVAS_HEIGHT) {
+              y += MOVESPEED;
+              redraw();
+            } else {
+              y = CANVAS_HEIGHT - height;
+              redraw();
+            }
             if (event.isControlDown()) {
               AZTrailView.sounds.mute();
             }
@@ -96,7 +138,13 @@ public class HuntingView extends Scene {
 
           case D:
             AZTrailController.escape = false;
-
+            if (x + MOVESPEED + width <= CANVAS_WIDTH) {
+              x += MOVESPEED;
+              redraw();
+            } else {
+              x = CANVAS_WIDTH - width;
+              redraw();
+            }
             break;
 
           default:
@@ -108,7 +156,7 @@ public class HuntingView extends Scene {
     this.setOnMouseMoved(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-
+        System.out.println("x=" + event.getX() + ", y=" + event.getY());
       }
     });
     this.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -117,6 +165,11 @@ public class HuntingView extends Scene {
 
       }
     });
+  }
+
+  private void redraw() {
+    gc.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    gc.drawImage(img, 0, 0, width, height, x, y, width, height);
   }
 
   private class HuntingSprite {
