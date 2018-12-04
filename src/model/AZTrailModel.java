@@ -6,9 +6,9 @@ public class AZTrailModel implements Serializable {
   private MapModel mapModel;
   private Calendar calendar;
   private boolean hunted;
+  private int travelRate;
   private Party party;
   private Cart cart;
-  private int travelRate;
 
   public AZTrailModel() {
     this.hunted = true;
@@ -16,7 +16,31 @@ public class AZTrailModel implements Serializable {
     this.mapModel = new MapModel();
     this.party = new Party();
     this.cart = new Cart();
-    this.travelRate = 6;
+    this.travelRate = 4;
+  }
+
+  public MapModel getMap() {
+    return mapModel;
+  }
+
+  public void setMap(MapModel map) {
+    this.mapModel = map;
+  }
+
+  public Calendar getCalendar() {
+    return calendar;
+  }
+
+  public void setCalendar(Calendar cal) {
+    this.calendar = cal;
+  }
+
+  public Party getParty() {
+    return party;
+  }
+
+  public void setParty(Party party) {
+    this.party = party;
   }
 
   /**
@@ -54,6 +78,10 @@ public class AZTrailModel implements Serializable {
 
   public void setName(int i, String name) {
     party.setName(i, name);
+  }
+
+  public String removeName() {
+    return party.removeName();
   }
 
   public int partySize() {
@@ -428,8 +456,17 @@ public class AZTrailModel implements Serializable {
     return mapModel.getCurrentCity();
   }
 
+
   public void setCurrentCity(String city) {
     mapModel.setCurrentCity(city);
+  }
+
+  public String getNextCity() {
+    return mapModel.getNextCity();
+  }
+
+  public double getDistRatio() {
+    return mapModel.getDistRatio();
   }
 
   public void setHunted(boolean value) {
@@ -475,15 +512,15 @@ public class AZTrailModel implements Serializable {
     calendar.setYear(year);
   }
 
-  public void advancePosition() {
-    mapModel.advancePosition(travelRate);
+  public boolean advancePosition() {
+    return mapModel.advancePosition(travelRate);
   }
 
   public int getTotalMiles() {
     return mapModel.getTotalMiles();
   }
 
-  public double milesToLandmark() {
+  public int milesToLandmark() {
     return mapModel.milesToLandmark();
   }
 
@@ -493,5 +530,9 @@ public class AZTrailModel implements Serializable {
 
   public void setTravelRate(int rate) {
     travelRate = rate;
+  }
+
+  public boolean getAtDestination() {
+    return mapModel.getAtDestination();
   }
 }

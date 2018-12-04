@@ -6,6 +6,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AZTrailModelTest {
 	@Test
+	public void testAdvancePosition() {
+		AZTrailModel model = new AZTrailModel();
+		model.advancePosition();
+		assertEquals(4, model.getTotalMiles());
+	}
+
+	@Test
+	public void testGetDistRatio() {
+		AZTrailModel model = new AZTrailModel();
+		MapModel map = new MapModel();
+		model.setMap(map);
+
+		map.advancePosition(35);
+		assertEquals(0.5, model.getDistRatio());
+	}
+
+	@Test
 	public void testToString() {
 		AZTrailModel model = new AZTrailModel();
 		model.toString();
@@ -54,7 +71,6 @@ public class AZTrailModelTest {
 	@Test
 	public void testResetCart() {
 		AZTrailModel model = new AZTrailModel();
-		Cart cart = model.getCart();
 		model.setCartAmmo(5.0);
 		model.setCartClothes(12.0);
 		model.setCartFood(1.0);
@@ -62,11 +78,11 @@ public class AZTrailModelTest {
 		model.setCartParts(1.0);
 
 		model.resetCart();
-		assertEquals(0.0, cart.getAmmo());
-		assertEquals(0.0, cart.getClothes());
-		assertEquals(0.0, cart.getFood());
-		assertEquals(0.0, cart.getOxen());
-		assertEquals(0.0, cart.getParts());
+		assertEquals(0.0, model.getCartAmmo());
+		assertEquals(0.0, model.getCartClothes());
+		assertEquals(0.0, model.getCartFood());
+		assertEquals(0.0, model.getCartOxen());
+		assertEquals(0.0, model.getCartParts());
 	}
 
 	@Test
@@ -339,10 +355,11 @@ public class AZTrailModelTest {
 		assertEquals(5, model.currPartySize());
 	}
 	@Test
-	public void testSetName() {
+	public void testNames() {
 		AZTrailModel model = new AZTrailModel();
 		model.setName(1, "Jordan");
 		assertEquals("Jordan", model.getName(1));
+		assertEquals("", model.removeName());
 	}
 	@Test
 	public void testGetProf() {
@@ -366,7 +383,7 @@ public class AZTrailModelTest {
 	public void testConstructors() {
 		AZTrailModel model = new AZTrailModel();
 		assertTrue(model.getHunted());
-		assertEquals(6, model.getTravelRate());
+		assertEquals(4, model.getTravelRate());
 	}
 
 }
