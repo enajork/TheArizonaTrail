@@ -57,7 +57,7 @@ public class AZTrailView extends Application {
     this.stage.setResizable(false);
     // stage.initStyle(StageStyle.UNDECORATED);
 
-    this.stage.setScene(new HuntedView());
+    this.stage.setScene(new HuntedSplash());
     this.stage.show();
   }
 
