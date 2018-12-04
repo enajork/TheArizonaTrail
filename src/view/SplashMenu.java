@@ -126,15 +126,6 @@ public class SplashMenu extends Scene {
             }
             break;
 
-          case ESCAPE:
-            if (AZTrailController.escape) {
-              System.exit(0);
-              // AZTrailView.stage.setScene(new SplashMenu());
-            } else {
-              AZTrailController.escape = true;
-            }
-            break;
-
           case S:
             AZTrailController.escape = false;
             if (event.isControlDown()) {
