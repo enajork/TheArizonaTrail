@@ -52,11 +52,7 @@ public class AZTrailView extends Application {
     this.stage.setResizable(false);
     stage.initStyle(StageStyle.UNDECORATED);
 
-<<<<<<< HEAD
     this.stage.setScene(new SplashMenu());
-=======
-    this.stage.setScene(new HuntedSplash());
->>>>>>> 61c65272bc4d80f7dcb958fe64e173dacd314751
     this.stage.show();
   }
 
