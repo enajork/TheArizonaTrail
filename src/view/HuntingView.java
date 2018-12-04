@@ -10,22 +10,36 @@ import javafx.scene.input.*;
 import javafx.scene.image.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
+import javafx.scene.text.*;
 import javafx.scene.*;
 import javafx.beans.value.*;
 import javafx.animation.*;
 import javafx.geometry.*;
 import javafx.stage.*;
 import javafx.event.*;
+import javafx.util.*;
 import java.util.*;
+import java.text.*;
 import java.io.*;
-import javafx.util.Duration;
 
 import controller.*;
 
 public class HuntingView extends Scene {
+  private boolean wDown = false;
+  private boolean aDown = false;
+  private boolean sDown = false;
+  private boolean dDown = false;
+
   private final int COOLDOWN_TIME = 300;
+  private final int MAX_SHOTS = 10;
+  private double score = 0.0;
+  private int shots = 0;
+  private int i = 0;
+  private final int ACCEL_RATE = 50;
   private boolean cooldown = false;
-  private final int MOVESPEED = 40;
+  private final int MINSPEED = 1;
+  private final int MAXSPEED = 8;
+  private int movespeed = MINSPEED;
   private final int TERRAIN_DENSITY = 16 + (int) (Math.random() * 16);
   private static Canvas canvas = new Canvas(AZTrailView.WIDTH,
     AZTrailView.HEIGHT);
@@ -59,6 +73,8 @@ public class HuntingView extends Scene {
   private Circle bullet;
   private GraphicsContext gc = canvas.getGraphicsContext2D();
   private BorderPane root;
+  private AnchorPane info;
+  private Text ammo = new Text(AZTrailView.controller.getBullets() + " bullets");
 
   /**
    * [HuntingView description]
@@ -182,6 +198,12 @@ public class HuntingView extends Scene {
     tumble.play();
     layers.getChildren().add(bullets);
     layers.getChildren().add(canvas);
+    ammo.setId("text10");
+    ammo.setFill(Color.BLACK);
+    info = new AnchorPane(ammo);
+    info.setTopAnchor(ammo, 380.0);
+    info.setLeftAnchor(ammo, 500.0);
+    layers.getChildren().add(info);
     root.setCenter(layers);
     gc.drawImage(img, 0, 0, width, height, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2,
       width, height);
@@ -209,11 +231,6 @@ public class HuntingView extends Scene {
     return pos;
   }
 
-  private void doneHunting() {
-    AZTrailView.sounds.stopMusic();
-    AZTrailView.sounds.startThemeLoop();
-  }
-
   /**
    * [addEventHandlers description]
    */
@@ -224,53 +241,31 @@ public class HuntingView extends Scene {
         switch (event.getCode()) {
           case ENTER:
             AZTrailController.escape = false;
-            AZTrailView.stage.setScene(new SizeUpView());
-            doneHunting();
+            gameOver();
             break;
 
           case ESCAPE:
-            AZTrailView.stage.setScene(new SizeUpView());
-            doneHunting();
+            gameOver();
             break;
 
           case W:
             AZTrailController.escape = false;
-            if (y - MOVESPEED >= 0) {
-              y -= MOVESPEED;
-            } else {
-              y = 0;
-            }
+            wDown = true;
             break;
 
           case A:
             AZTrailController.escape = false;
-            if (x - MOVESPEED >= 0) {
-              x -= MOVESPEED;
-            } else {
-              x = 0;
-            }
+            aDown = true;
             break;
 
           case S:
             AZTrailController.escape = false;
-            if (event.isControlDown()) {
-              AZTrailView.sounds.mute();
-              break;
-            }
-            if (y + MOVESPEED + height <= CANVAS_HEIGHT) {
-              y += MOVESPEED;
-            } else {
-              y = CANVAS_HEIGHT - height;
-            }
+            sDown = true;
             break;
 
           case D:
             AZTrailController.escape = false;
-            if (x + MOVESPEED + width <= CANVAS_WIDTH) {
-              x += MOVESPEED;
-            } else {
-              x = CANVAS_WIDTH - width;
-            }
+            dDown = true;
             break;
 
           default:
@@ -279,6 +274,33 @@ public class HuntingView extends Scene {
         }
       }
     });
+    this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case W:
+            wDown = false;
+            resetSpeed();
+            break;
+
+          case A:
+            aDown = false;
+            resetSpeed();
+            break;
+
+          case S:
+            sDown = false;
+            resetSpeed();
+            break;
+
+          case D:
+            dDown = false;
+            resetSpeed();
+            break;
+        }
+      }
+    });
+
     this.setOnMouseMoved(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
@@ -289,36 +311,85 @@ public class HuntingView extends Scene {
     this.setOnMousePressed(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-        if (!cooldown) {
-          cooldown = true;
-          bullet = new Circle(2, Color.BLACK);
-          bullets.getChildren().add(bullet);
-          bullets.setTopAnchor(bullet, (double) (y + height / 2));
-          bullets.setLeftAnchor(bullet,(double) (x + width / 2));
-          TranslateTransition fire = new TranslateTransition();
-          fire.setDuration(Duration.millis((int) ((double) COOLDOWN_TIME
-            * ((double) (Math.hypot(mouseX - x - width / 2,
-            mouseY - y - height / 2))
-            / (double) Math.hypot(CANVAS_WIDTH, CANVAS_HEIGHT)))));
-          fire.setNode(bullet);
-
-          fire.setToX(mouseX - x - width / 2);
-          fire.setToY(mouseY - y - height / 2);
-          fire.setCycleCount(1);
-          fire.onFinishedProperty().set(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-              bullets.getChildren().remove(bullet);
-              cooldown = false;
-            }
-          });
-          fire.play();
+        if (!cooldown && AZTrailView.controller.getBullets() != 0) {
+          fire();
         }
       }
     });
   }
 
+  private void fire() {
+    cooldown = true;
+    bullet = new Circle(2, Color.BLACK);
+    bullets.getChildren().add(bullet);
+    bullets.setTopAnchor(bullet, (double) (y + height / 2));
+    bullets.setLeftAnchor(bullet,(double) (x + width / 2));
+    TranslateTransition path = new TranslateTransition();
+    path.setDuration(Duration.millis((int) ((double) COOLDOWN_TIME
+      * ((double) (Math.hypot(mouseX - x - width / 2,
+      mouseY - y - height / 2))
+      / (double) Math.hypot(CANVAS_WIDTH, CANVAS_HEIGHT)))));
+    path.setNode(bullet);
+
+    path.setToX(mouseX - x - width / 2);
+    path.setToY(mouseY - y - height / 2);
+    path.setCycleCount(1);
+    path.onFinishedProperty().set(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent actionEvent) {
+        bullets.getChildren().remove(bullet);
+        cooldown = false;
+        if (shots == MAX_SHOTS) {
+          gameOver();
+        }
+      }
+    });
+    path.play();
+    shots++;
+    AZTrailView.controller.removeBullets(1);
+    ammo.setText(AZTrailView.controller.getBullets() + " bullets");
+  }
+
+  private void gameOver() {
+    AZTrailView.sounds.stopMusic();
+    AZTrailView.sounds.startThemeLoop();
+    AZTrailView.controller.addMoney(score);
+    AZTrailView.stage.setScene(
+      new GenericInfoMenu(new Runnable() {
+        @Override
+        public void run() {
+          AZTrailView.stage.setScene(new SizeUpView());
+        }
+      },
+      new String[]{
+        "You shot " + new DecimalFormat("'$'###,##0.00").format(score)
+        + " worth\nof tumbleweeds!\n"
+      },
+      true
+    ));
+  }
+
   private void tick() {
+    boolean accelerate = false;
+    if (wDown) {
+      wPress();
+      accelerate = true;
+    }
+    if (aDown) {
+      aPress();
+      accelerate = true;
+    }
+    if (sDown) {
+      sPress();
+      accelerate = true;
+    }
+    if (dDown) {
+      dPress();
+      accelerate = true;
+    }
+    if (accelerate) {
+      accel();
+    }
     redraw();
   }
 
@@ -354,6 +425,50 @@ public class HuntingView extends Scene {
       img = upright;
     } else if (angle >= 345 && angle <= 360) {
       img = right;
+    }
+  }
+
+  private void wPress() {
+    if (y - movespeed >= 0) {
+      y -= movespeed;
+    } else {
+      y = 0;
+    }
+  }
+
+  private void aPress() {
+    if (x - movespeed >= 0) {
+      x -= movespeed;
+    } else {
+      x = 0;
+    }
+  }
+
+  private void sPress() {
+    if (y + movespeed + height <= CANVAS_HEIGHT) {
+      y += movespeed;
+    } else {
+      y = CANVAS_HEIGHT - height;
+    }
+  }
+
+  private void dPress() {
+    if (x + movespeed + width <= CANVAS_WIDTH) {
+      x += movespeed;
+    } else {
+      x = CANVAS_WIDTH - width;
+    }
+  }
+
+  private void accel() {
+    if (i % ACCEL_RATE == 0 && movespeed < MAXSPEED) {
+      movespeed++;
+    }
+  }
+
+  private void resetSpeed() {
+    if (!wDown && !aDown && !sDown && !dDown) {
+      movespeed = MINSPEED;
     }
   }
 
@@ -425,6 +540,7 @@ public class HuntingView extends Scene {
         OFFSET_X, OFFSET_Y,
         WIDTH, HEIGHT
       );
+
       this.animation.setCycleCount(8);
     }
 
