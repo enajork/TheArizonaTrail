@@ -16,9 +16,10 @@ import javafx.animation.*;
 import javafx.geometry.*;
 import javafx.stage.*;
 import javafx.event.*;
+import javafx.util.*;
 import java.util.*;
+import java.text.*;
 import java.io.*;
-import javafx.util.Duration;
 
 import controller.*;
 
@@ -29,6 +30,9 @@ public class HuntingView extends Scene {
   private boolean dDown = false;
 
   private final int COOLDOWN_TIME = 300;
+  private final int MAX_SHOTS = 10;
+  private double score = 0.0;
+  private int shots = 0;
   private int i = 0;
   private final int ACCEL_RATE = 50;
   private boolean cooldown = false;
@@ -214,11 +218,6 @@ public class HuntingView extends Scene {
     return pos;
   }
 
-  private void doneHunting() {
-    AZTrailView.sounds.stopMusic();
-    AZTrailView.sounds.startThemeLoop();
-  }
-
   /**
    * [addEventHandlers description]
    */
@@ -229,13 +228,11 @@ public class HuntingView extends Scene {
         switch (event.getCode()) {
           case ENTER:
             AZTrailController.escape = false;
-            AZTrailView.stage.setScene(new SizeUpView());
-            doneHunting();
+            gameOver();
             break;
 
           case ESCAPE:
-            AZTrailView.stage.setScene(new SizeUpView());
-            doneHunting();
+            gameOver();
             break;
 
           case W:
@@ -301,33 +298,60 @@ public class HuntingView extends Scene {
     this.setOnMousePressed(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-        if (!cooldown) {
-          cooldown = true;
-          bullet = new Circle(2, Color.BLACK);
-          bullets.getChildren().add(bullet);
-          bullets.setTopAnchor(bullet, (double) (y + height / 2));
-          bullets.setLeftAnchor(bullet,(double) (x + width / 2));
-          TranslateTransition fire = new TranslateTransition();
-          fire.setDuration(Duration.millis((int) ((double) COOLDOWN_TIME
-            * ((double) (Math.hypot(mouseX - x - width / 2,
-            mouseY - y - height / 2))
-            / (double) Math.hypot(CANVAS_WIDTH, CANVAS_HEIGHT)))));
-          fire.setNode(bullet);
-
-          fire.setToX(mouseX - x - width / 2);
-          fire.setToY(mouseY - y - height / 2);
-          fire.setCycleCount(1);
-          fire.onFinishedProperty().set(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-              bullets.getChildren().remove(bullet);
-              cooldown = false;
-            }
-          });
-          fire.play();
+        if (!cooldown && AZTrailView.controller.getBullets() != 0) {
+          fire();
         }
       }
     });
+  }
+
+  private void fire() {
+    cooldown = true;
+    bullet = new Circle(2, Color.BLACK);
+    bullets.getChildren().add(bullet);
+    bullets.setTopAnchor(bullet, (double) (y + height / 2));
+    bullets.setLeftAnchor(bullet,(double) (x + width / 2));
+    TranslateTransition path = new TranslateTransition();
+    path.setDuration(Duration.millis((int) ((double) COOLDOWN_TIME
+      * ((double) (Math.hypot(mouseX - x - width / 2,
+      mouseY - y - height / 2))
+      / (double) Math.hypot(CANVAS_WIDTH, CANVAS_HEIGHT)))));
+    path.setNode(bullet);
+
+    path.setToX(mouseX - x - width / 2);
+    path.setToY(mouseY - y - height / 2);
+    path.setCycleCount(1);
+    path.onFinishedProperty().set(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent actionEvent) {
+        bullets.getChildren().remove(bullet);
+        cooldown = false;
+        if (shots == MAX_SHOTS) {
+          gameOver();
+        }
+      }
+    });
+    path.play();
+    shots++;
+  }
+
+  private void gameOver() {
+    AZTrailView.sounds.stopMusic();
+    AZTrailView.sounds.startThemeLoop();
+    AZTrailView.controller.addMoney(score);
+    AZTrailView.stage.setScene(
+      new GenericInfoMenu(new Runnable() {
+        @Override
+        public void run() {
+          AZTrailView.stage.setScene(new SizeUpView());
+        }
+      },
+      new String[]{
+        "You shot " + new DecimalFormat("'$'###,##0.00").format(score)
+        + " worth\nof tumbleweeds!\n"
+      },
+      true
+    ));
   }
 
   private void tick() {
