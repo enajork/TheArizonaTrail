@@ -365,6 +365,8 @@ public class StoreMenu extends Scene {
       case "Nogales":
         AZTrailView.controller.addBlankets(5);
         return new HuntedMenu();
+      case "Flagstaff":
+        return new HuntedSplash();
       default:
         return new SizeUpView();
     }
