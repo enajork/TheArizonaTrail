@@ -63,7 +63,7 @@ public class StoreOxenMenu extends Scene {
    *
    * @param name  the store name
    * @param start boolean
-   *//
+   */
   private StoreOxenMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     this.name = name;

@@ -207,7 +207,7 @@ public class StoreMenu extends Scene {
 
   /**
    * Adds event handlers to handle keyboard actions from the user
-   *//
+   */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override

@@ -23,11 +23,6 @@ import java.text.*;
 import java.io.*;
 
 import controller.*;
-/**
- * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
- * @version     1.0
- * @since       1.0
- */
 
 public class HuntingView extends Scene {
   private boolean wDown = false;
@@ -101,7 +96,7 @@ public class HuntingView extends Scene {
   private Text ammo = new Text(AZTrailView.controller.getBullets() + " bullets");
 
   /**
-   * No arg constructor for the hunting view
+   * [HuntingView description]
    */
   public HuntingView() {
     this(new BorderPane());
@@ -109,9 +104,8 @@ public class HuntingView extends Scene {
   }
 
   /**
-   * Constructs the hunting view
-   *
-   * @param root   the root of the scene graph
+   * [HuntingView description]
+   * @param root [description]
    */
   private HuntingView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -254,7 +248,6 @@ public class HuntingView extends Scene {
     timer.start();
   }
 
-<<<<<<< HEAD
   private double[] getRandomPosition() {
     double pos[] = new double[2];
     pos[0] = 0;
@@ -265,18 +258,10 @@ public class HuntingView extends Scene {
       pos[1] = Math.random() * AZTrailView.HEIGHT;
     }
     return pos;
-=======
-  /**
-   * called when hunting is finished to change the music
-   */
-  private void doneHunting() {
-    AZTrailView.sounds.stopMusic();
-    AZTrailView.sounds.startThemeLoop();
->>>>>>> javadoc
   }
 
   /**
-   * Adds event handlers to the view to handle keyboard actions
+   * [addEventHandlers description]
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -688,14 +673,7 @@ public class HuntingView extends Scene {
     private final Animation animation;
     private ImageView imageView;
 
-<<<<<<< HEAD
     public LargeTumbleweedSprite() {
-=======
-    /**
-     * private inner class for the hunter sprite and animation
-     */
-    public HuntingSprite() {
->>>>>>> javadoc
       this.imageView = new ImageView(IMAGE);
       this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH,
         HEIGHT));
@@ -711,23 +689,14 @@ public class HuntingView extends Scene {
       this.animation.setCycleCount(Animation.INDEFINITE);
     }
 
-    /**
-     * plays the animation
-     */
     public void play() {
       this.animation.play();
     }
 
-    /**
-     * pauses the animation
-     */
     public void pause() {
       this.animation.pause();
     }
 
-    /**
-     * returns the current sprite image
-     */
     public ImageView getSprite() {
       return this.imageView;
     }

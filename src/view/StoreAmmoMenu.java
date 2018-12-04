@@ -64,7 +64,7 @@ public class StoreAmmoMenu extends Scene {
    *
    * @param name  the store name
    * @param start boolean
-   *//
+   */
   private StoreAmmoMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
     this.name = name;
