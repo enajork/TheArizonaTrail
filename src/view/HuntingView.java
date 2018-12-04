@@ -25,7 +25,7 @@ import controller.*;
 public class HuntingView extends Scene {
   private final int COOLDOWN = 1;
   private final int MOVESPEED = 40;
-  private int TERRAIN_DENSITY = 64;
+  private final int TERRAIN_DENSITY = 16 + (int) (Math.random() * 16);
   private static Canvas canvas = new Canvas(AZTrailView.WIDTH,
     AZTrailView.HEIGHT);
   private boolean hunted = AZTrailView.controller.getHunted();
