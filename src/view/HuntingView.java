@@ -292,7 +292,10 @@ public class HuntingView extends Scene {
           bullets.setTopAnchor(bullet, (double) (y + height / 2));
           bullets.setLeftAnchor(bullet,(double) (x + width / 2));
           TranslateTransition fire = new TranslateTransition();
-          fire.setDuration(Duration.millis(COOLDOWN_TIME));
+          fire.setDuration(Duration.millis((int) ((double) COOLDOWN_TIME
+            * ((double) (Math.hypot(mouseX - x - width / 2,
+            mouseY - y - height / 2))
+            / (double) Math.hypot(CANVAS_WIDTH, CANVAS_HEIGHT)))));
           fire.setNode(bullet);
 
           fire.setToX(mouseX - x - width / 2);
