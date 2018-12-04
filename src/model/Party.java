@@ -19,8 +19,7 @@ public class Party implements Serializable {
   private Inventory inv;
 
   /**
-   * [Party description]
-   * @param prof [description]
+   * Constructs a new party model
    */
   public Party() {
     this.names = new ArrayList<String>();
@@ -32,16 +31,16 @@ public class Party implements Serializable {
   }
 
   /**
-   * [getProf description]
-   * @return [description]
+   * getter for Profession
+   * @return returns the players profession
    */
   public Profession getProf() {
     return this.prof;
   }
 
   /**
-   * [getProf description]
-   * @return [description]
+   * setter for prof
+   * @param the profession for the player
    */
   public void setProf(String name) {
     if (name.toLowerCase().equals("banker")) {
@@ -62,13 +61,19 @@ public class Party implements Serializable {
   }
 
   /**
-   * [getNames description]
-   * @return [description]
+   * get the ith party member's name
+   * @param i index of the party member's name
+   * @return the name of the party member
    */
   public String getName(int i) {
     return names.get(i);
   }
 
+  /**
+   * set the ith party member's name
+   * @param i the index of the party member
+   * @param name the name of the party member
+   */
   public void setName(int i, String name) {
     if (i >= 0 && i < SIZE) {
       names.set(i, name);
@@ -76,8 +81,8 @@ public class Party implements Serializable {
   }
 
   /**
-   * [getNames description]
-   * @return [description]
+   * removes a party members name
+   * @return the removed name
    */
   public String removeName() {
     if (names.size() > 0) {
@@ -88,44 +93,52 @@ public class Party implements Serializable {
     return "";
   }
 
+  /**
+   * returns the number of surviving party members
+   *
+   * @return the number of party members
+   */
   public int size() {
     return names.size();
   }
 
+  /**
+   * returns the total possible party size
+   *
+   * @return the max size of the party
+   */
   public int totalSize() {
     return SIZE;
   }
 
   /**
-   * [addMoney description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds money to the party
+   * @param  amount amount of money to add
    */
   public void addMoney(double amount) {
     inv.addMoney(amount);
   }
 
   /**
-   * [removeMoney description]
-   * @param  amount [description]
-   * @return        [description]
+   * removes money from the party
+   * @param  amount amount of money to add
+   * @return        true if all money is gone
    */
   public boolean removeMoney(double amount) {
     return inv.removeMoney(amount);
   }
 
   /**
-   * [getMoney description]
-   * @return [description]
+   * getter for the party's money
+   * @return amount of money the party has
    */
   public double getMoney() {
     return inv.getMoney();
   }
 
   /**
-   * [addOxen description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds oxen to the party
+   * @param  amount amount of oxen to add
    */
   public int addOxen(int amount) {
     return inv.addOxen(amount);
@@ -149,9 +162,8 @@ public class Party implements Serializable {
   }
 
   /**
-   * [addBlankets description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds clothes to the party
+   * @param  amount amount of clothes to add
    */
   public int addClothes(int amount) {
     return inv.addClothes(amount);
@@ -175,9 +187,8 @@ public class Party implements Serializable {
   }
 
   /**
-   * [addBlankets description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds blankets to the party
+   * @param  amount amount of blankets to add
    */
   public int addBlankets(int amount) {
     return inv.addBlankets(amount);
@@ -201,9 +212,8 @@ public class Party implements Serializable {
   }
 
   /**
-   * [addBullets description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds bullets to the party
+   * @param  amount amount of bullets to add
    */
   public int addBullets(int amount) {
     return inv.addBullets(amount);
@@ -227,9 +237,8 @@ public class Party implements Serializable {
   }
 
   /**
-   * [addFood description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds food to the party
+   * @param  amount amount of food to add
    */
   public int addFood(int amount) {
     return inv.addFood(amount);
@@ -253,9 +262,8 @@ public class Party implements Serializable {
   }
 
   /**
-   * [addWater description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds water to the party
+   * @param  amount amount of water to add
    */
   public int addWater(int amount) {
     return inv.addWater(amount);
