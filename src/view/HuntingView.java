@@ -520,15 +520,15 @@ public class HuntingView extends Scene {
 
   private class LargeTumbleweedSprite {
     private final Image IMAGE = new Image((AZTrailView.controller.getHunted())
-      ? "file:view/assets/graphics/tumbleweedmoving-hunted.png"
-      : "file:view/assets/graphics/tumbleweedmoving.png",
-      (int) (258), (int) (178), true, false);
+      ? "file:view/assets/graphics/tumbleweedlargemoving-hunted.png"
+      : "file:view/assets/graphics/tumbleweedlargemoving.png",
+      (int) (129 * 1.5), (int) (89 * 1.5), true, false);
     private static final int COLUMNS  =   3;
     private static final int COUNT    =   6;
     private static final int OFFSET_X =   0;
     private static final int OFFSET_Y =   0;
-    private static final int WIDTH    =  (int) (86);
-    private static final int HEIGHT   =  (int) (86);
+    private static final int WIDTH    =  (int) (43 * 1.5);
+    private static final int HEIGHT   =  (int) (43 * 1.5);
     private final Animation animation;
     private ImageView imageView;
 
