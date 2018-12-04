@@ -23,10 +23,11 @@ import javafx.util.Duration;
 import controller.*;
 
 public class HuntingView extends Scene {
-  private final int COOLDOWN = 1;
+  private final int COOLDOWN_TIME = 500;
+  private boolean cooldown = false;
   private final int MOVESPEED = 40;
   private int TERRAIN_DENSITY = 64;
-  private static Canvas canvas = new Canvas(AZTrailView.WIDTH,
+  private Canvas canvas = new Canvas(AZTrailView.WIDTH,
     AZTrailView.HEIGHT);
   private boolean hunted = AZTrailView.controller.getHunted();
   private Image up = new Image("file:view/assets/graphics/hunter/up"
@@ -56,7 +57,7 @@ public class HuntingView extends Scene {
   private int mouseY = 0;
   private AnchorPane bullets = new AnchorPane();
   private Circle bullet;
-  private static GraphicsContext gc = canvas.getGraphicsContext2D();
+  private GraphicsContext gc = canvas.getGraphicsContext2D();
   private BorderPane root;
 
   /**
@@ -243,18 +244,28 @@ public class HuntingView extends Scene {
     this.setOnMousePressed(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-        bullet = new Circle(2, Color.WHITE);
-        bullets.getChildren().add(bullet);
-        bullets.setTopAnchor(bullet, (double) (y + height / 2));
-        bullets.setLeftAnchor(bullet,(double) (x + width / 2));
-        TranslateTransition fire = new TranslateTransition();
-        fire.setDuration(Duration.seconds(1));
-        fire.setNode(bullet);
+        if (!cooldown) {
+          cooldown = true;
+          bullet = new Circle(2, Color.BLACK);
+          bullets.getChildren().add(bullet);
+          bullets.setTopAnchor(bullet, (double) (y + height / 2));
+          bullets.setLeftAnchor(bullet,(double) (x + width / 2));
+          TranslateTransition fire = new TranslateTransition();
+          fire.setDuration(Duration.millis(COOLDOWN_TIME));
+          fire.setNode(bullet);
 
-        fire.setToX(mouseX);
-        fire.setToY(mouseY);
-        fire.setCycleCount(1);
-        fire.play();
+          fire.setToX(mouseX - x - width / 2);
+          fire.setToY(mouseY - y - height / 2);
+          fire.setCycleCount(1);
+          fire.onFinishedProperty().set(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+              bullets.getChildren().remove(bullet);
+              cooldown = false;
+            }
+          });
+          fire.play();
+        }
       }
     });
   }
