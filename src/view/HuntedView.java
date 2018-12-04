@@ -31,13 +31,10 @@ public class HuntedView extends Scene {
   private boolean dDown = false;
 
   private static final int SIZE = 43;
-  private int owenX = 0;
-  private int owenY = 0;
-  private int health = 100;
+  private final int HEALTH = 50;
 
   private final boolean INFINITE_AMMO = false;
   private final int COOLDOWN_TIME = 50;
-  private final int MAX_SHOTS = 100;
   private int shots = 0;
   private int hits = 0;
   private int i = 0;
@@ -66,8 +63,10 @@ public class HuntedView extends Scene {
     + ((hunted) ? "-hunted" : "") + ".png");
   private Image upright = new Image("file:view/assets/graphics/hunter/upright"
     + ((hunted) ? "-hunted" : "") + ".png");
-  private Image owen = new Image("file:view/assets/graphics/hunter/wilson/undamaged/downleft.png");
+  private Image owenUnhurt = new Image("file:view/assets/graphics/hunter/wilson/undamaged/downleft.png");
   private Image owenHurt = new Image("file:view/assets/graphics/hunter/wilson/damaged/downleft.png");
+  private Image owen = owenUnhurt;
+  private ImageView owenView = new ImageView(owen);
   private Image img = up;
   private final int CANVAS_WIDTH = (int)canvas.getWidth();
   private final int CANVAS_HEIGHT = (int)canvas.getHeight();
@@ -82,6 +81,7 @@ public class HuntedView extends Scene {
   private GraphicsContext gc = canvas.getGraphicsContext2D();
   private BorderPane root;
   private AnchorPane info;
+  private AnchorPane owenAnchor;
   private Text ammo = new Text(AZTrailView.controller.getBullets() + " bullets");
 
   /**
@@ -209,8 +209,13 @@ public class HuntedView extends Scene {
     info.setLeftAnchor(ammo, 450.0);
     layers.getChildren().add(info);
     root.setCenter(layers);
-    gc.drawImage(img, 0, 0, width, height, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2,
+    gc.drawImage(img, 0, 0, width, height, 0, CANVAS_HEIGHT - height,
       width, height);
+    owenAnchor = new AnchorPane();
+    owenAnchor.getChildren().add(owenView);
+    owenAnchor.setTopAnchor(owenView, 0.0);
+    owenAnchor.setLeftAnchor(owenView, (double)(CANVAS_WIDTH - width));
+    layers.getChildren().add(owenAnchor);
 
     addEventHandlers();
 
@@ -344,12 +349,9 @@ public class HuntedView extends Scene {
       public void handle(ActionEvent actionEvent) {
         bullets.getChildren().remove(bullet);
         cooldown = false;
-        // if (bullet.getBoundsInParent().intersects(smallTumble.getBoundsInParent())) {
-        //   score += SMALL_PRICE;
-        //   smallSpawn = false;
-        //   resetTumbles();
-        // }
-        if (shots == MAX_SHOTS) {
+        if (bullet.getBoundsInParent().intersects(owenView.getBoundsInParent())) {
+        }
+        if (shots == HEALTH) {
           gameOver();
         }
       }
