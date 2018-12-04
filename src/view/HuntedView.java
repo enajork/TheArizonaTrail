@@ -342,6 +342,7 @@ public class HuntedView extends Scene {
     if (won) {
       AZTrailView.sounds.stopMusic();
       AZTrailView.sounds.startThemeLoop();
+      AZTrailView.sounds.wow1SFX();
       AZTrailView.stage.setScene(
         new GenericInfoMenu(new Runnable() {
           @Override
@@ -357,6 +358,7 @@ public class HuntedView extends Scene {
     } else {
       AZTrailView.sounds.stopMusic();
       AZTrailView.sounds.startThemeLoop();
+      AZTrailView.sounds.wow1SFX();
       AZTrailView.stage.setScene(
         new GenericInfoMenu(new Runnable() {
           @Override
