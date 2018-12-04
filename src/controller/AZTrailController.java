@@ -24,7 +24,7 @@ public class AZTrailController {
   // debug flag
   private static final boolean SAVE_DEBUG = false;
   private static final boolean SCORE_DEBUG = false;
-  private static final boolean DAMAGE = true;
+  private static final boolean DAMAGE = false;
 
   /**
    * [AZTrailController description]

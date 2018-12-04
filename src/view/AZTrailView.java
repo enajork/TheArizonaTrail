@@ -30,7 +30,7 @@ public class AZTrailView extends Application {
   protected static final int HEIGHT = 408;
   protected static final int WIDTH = 650;
   protected static String styleSheet;
-  protected static Scene travel;
+  protected static TrailTravelView travel;
   protected static Stage stage;
   protected static int time = 0;
 

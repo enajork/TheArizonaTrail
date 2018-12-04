@@ -26,8 +26,8 @@ import java.io.*;
 import controller.*;
 
 public class MapView extends Scene {
-  private final int SCENE_WIDTH = 650;
-  protected static final int SCENE_HEIGHT = 408;
+  private final int SCENE_WIDTH = AZTrailView.WIDTH;
+  private final int SCENE_HEIGHT = AZTrailView.HEIGHT;
   private BorderPane root;
 
   /**

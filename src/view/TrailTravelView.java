@@ -26,12 +26,16 @@ import java.io.*;
 import controller.*;
 
 public class TrailTravelView extends Scene {
-  private static final int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10); // 30 seems good
-  // private static final int TIME_DILATION = 10;
-  private static final int BACK_SPEED = 10000 * TIME_DILATION;
-  private static final int MID_SPEED = 5000 * TIME_DILATION;
-  private static final int FORE_SPEED = 3000 * TIME_DILATION;
-  private static final int OXEN_SPEED = 50 * TIME_DILATION;
+  private static int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10);
+  private static int BACK_SPEED = 10000 * TIME_DILATION;
+  private static int MID_SPEED = 5000 * TIME_DILATION;
+  private static int FORE_SPEED = 3000 * TIME_DILATION;
+  private static int OXEN_SPEED = 1500;
+  private final int SCENE_WIDTH = AZTrailView.WIDTH;
+  private double backTimingRatio;
+  private double midTimingRatio;
+  private double foreTimingRatio;
+  private boolean updatePace = false;
   private int ICON_WIDTH = 50;
   private int ICON_HEIGHT = 50;
   private ParallelTransition movementBack;
@@ -39,8 +43,6 @@ public class TrailTravelView extends Scene {
   private ParallelTransition movementFore;
   private StackPane city[] = {null, null};
   private ImageView view[] = {null, null};
-  Rectangle2D fore;
-  private final int SCENE_WIDTH = 650;
   private BorderPane root;
   private OxenSprite ox;
   private Text stats;
@@ -195,7 +197,7 @@ public class TrailTravelView extends Scene {
     ImageView sand[] = {null, null};
     TranslateTransition transFore[] = {null, null};
     for (int i = 0; i < 2; ++i) {
-      fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
+      Rectangle2D fore = new Rectangle2D(0, 0, SCENE_WIDTH, 50);
       sand[i] = new ImageView((AZTrailView.controller.getHunted())
         ? new Image("file:view/assets/graphics/sand-hunted.png", 1000, 50,
           false, true)
@@ -217,8 +219,7 @@ public class TrailTravelView extends Scene {
           false, true));
         city[i].getChildren().add(view[i]);
 
-        if (!AZTrailView.controller.getNextCity().equals("Flagstaff") &&
-            !AZTrailView.controller.getNextCity().equals("Tombstone")) {
+        if (!AZTrailView.controller.getNextCity().equals("Flagstaff")) {
           view[i].setViewport(fore);
         }
       }
@@ -399,6 +400,39 @@ public class TrailTravelView extends Scene {
       }
     }
     this.stats.setText(buildStatsString());
+  }
+
+  public void updatePace() {
+    TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10);
+    BACK_SPEED = 10000 * TIME_DILATION;
+    MID_SPEED = 5000 * TIME_DILATION;
+    FORE_SPEED = 3000 * TIME_DILATION;
+    List back = movementBack.getChildren();
+    List mid = movementMid.getChildren();
+    List fore = movementFore.getChildren();
+
+    backTimingRatio = movementBack.getCurrentTime().toMillis()
+      / movementBack.getCycleDuration().toMillis();
+    midTimingRatio = movementMid.getCurrentTime().toMillis()
+      / movementMid.getCycleDuration().toMillis();
+    foreTimingRatio = movementFore.getCurrentTime().toMillis()
+      / movementFore.getCycleDuration().toMillis();
+
+    movementBack.stop();
+    movementMid.stop();
+    movementFore.stop();
+    for (int i = 0; i < back.size(); ++i) {
+      ((TranslateTransition) back.get(i)).setDuration(Duration.millis(BACK_SPEED));
+      movementBack.jumpTo(Duration.millis(backTimingRatio * BACK_SPEED));
+    }
+    for (int i = 0; i < mid.size(); ++i) {
+      ((TranslateTransition) mid.get(i)).setDuration(Duration.millis(MID_SPEED));
+      movementMid.jumpTo(Duration.millis(midTimingRatio * MID_SPEED));
+    }
+    for (int i = 0; i < fore.size(); ++i) {
+      ((TranslateTransition) fore.get(i)).setDuration(Duration.millis(FORE_SPEED));
+      movementFore.jumpTo(Duration.millis(foreTimingRatio * FORE_SPEED));
+    }
   }
 
   private class OxenSprite {
