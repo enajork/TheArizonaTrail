@@ -320,6 +320,7 @@ public class HuntingView extends Scene {
 
   private void fire() {
     cooldown = true;
+    AZTrailView.sounds.musketSFX();
     bullet = new Circle(2, Color.BLACK);
     bullets.getChildren().add(bullet);
     bullets.setTopAnchor(bullet, (double) (y + height / 2));
