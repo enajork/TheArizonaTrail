@@ -518,6 +518,10 @@ public class HuntingView extends Scene {
     public ImageView getSprite() {
       return this.imageView;
     }
+
+    public Bounds getBoundsInParent() {
+      return imageView.getBoundsInParent();
+    }
   }
 
   private class LargeTumbleweedSprite {
