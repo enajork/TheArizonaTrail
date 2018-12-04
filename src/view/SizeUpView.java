@@ -31,7 +31,7 @@ public class SizeUpView extends Scene {
     + "  2. Check supplies\n"
     + "  3. Look at map\n"
     + "  4. Change pace\n"
-    + "  5. Hunt for food\n"
+    + "  5. Go hunting\n"
     + "What is your choice? ";
 
   private String input = "_";
