@@ -42,15 +42,15 @@ public class Party implements Serializable {
     if (name.toLowerCase().equals("banker")) {
       this.prof = Profession.BANKER;
       inv.removeMoney(inv.getMoney());
-      inv.addMoney(1600);
+      inv.addMoney(400);
     } else if (name.toLowerCase().equals("carpenter")) {
       this.prof = Profession.CARPENTER;
       inv.removeMoney(inv.getMoney());
-      inv.addMoney(800);
+      inv.addMoney(200);
     } else if (name.toLowerCase().equals("farmer")) {
       this.prof = Profession.FARMER;
       inv.removeMoney(inv.getMoney());
-      inv.addMoney(400);
+      inv.addMoney(100);
     } else {
       throw new IllegalStateException();
     }

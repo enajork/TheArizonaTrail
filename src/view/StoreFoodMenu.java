@@ -26,7 +26,7 @@ public class StoreFoodMenu extends Scene {
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
-  private final int MAX_FOOD = 2000;
+  private final int MAX_FOOD = 1000;
   private final int INPUT_SIZE = 4;
   private final int NUM_OPTS = 9;
   private String cost = new DecimalFormat("'$'###,##0.00")
@@ -158,7 +158,7 @@ public class StoreFoodMenu extends Scene {
                 AZTrailView.stage.setScene(getNextView(i));
               }
               warn = true;
-              body.setText("Your wagon may only carry\n2000 pounds of food.");
+              body.setText("Your wagon may only carry\n1000 pounds of food.");
               footer.setText("Press SPACE BAR to continue");
             }
             break;

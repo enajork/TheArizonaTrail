@@ -35,12 +35,16 @@ public class HuntingView extends Scene {
   private int smallY = 0;
   private int largeX = 0;
   private int largeY = 0;
-  private int SMALL_SPEED = 4;
-  private int LARGE_SPEED = 2;
+  private int SMALL_SPEED = 6;
+  private int LARGE_SPEED = 4;
+  private int smallSpeed = SMALL_SPEED;
+  private int largeSpeed = LARGE_SPEED;
   private boolean largeSpawn = true;
   private boolean smallSpawn = true;
   private final boolean INFINITE_AMMO = false;
   private final int COOLDOWN_TIME = 300;
+  private final double LARGE_PRICE = 0.1;
+  private final double SMALL_PRICE = 0.2;
   private final int MAX_SHOTS = 10;
   private double score = 0.0;
   private int shots = 0;
@@ -366,12 +370,12 @@ public class HuntingView extends Scene {
         bullets.getChildren().remove(bullet);
         cooldown = false;
         if (bullet.getBoundsInParent().intersects(smallTumble.getBoundsInParent())) {
-          score += 2.0;
+          score += SMALL_PRICE;
           smallSpawn = false;
           resetTumbles();
         }
         if (bullet.getBoundsInParent().intersects(largeTumble.getBoundsInParent())) {
-          score += 1.0;
+          score += LARGE_PRICE;
           largeSpawn = false;
           resetTumbles();
         }
@@ -513,76 +517,93 @@ public class HuntingView extends Scene {
   }
 
   private void resetTumbles() {
-    tumbles.getChildren().remove(small);
-    tumbles.getChildren().remove(large);
+    SequentialTransition pause = new SequentialTransition (
+      new PauseTransition(Duration.millis(3000)));
+    pause.play();
     if (!largeSpawn) {
-      largeSpawn = true;
-      largeTumble = new LargeTumbleweedSprite();
-      large = new AnchorPane(largeTumble.getSprite());
-      largeX = (int)(Math.random() * (300));
-      largeY = (int)(Math.random() * (300));
-      large.setLeftAnchor(largeTumble.getSprite(), (double)largeX);
-      large.setTopAnchor(largeTumble.getSprite(), (double)largeY);
+      tumbles.getChildren().remove(large);
     }
     if (!smallSpawn) {
-      smallSpawn = true;
-      smallTumble = new SmallTumbleweedSprite();
-      small = new AnchorPane(smallTumble.getSprite());
-      smallX = (int)(Math.random() * (300));
-      smallY = (int)(Math.random() * (300));
-      small.setLeftAnchor(smallTumble.getSprite(), (double)smallX);
-      small.setTopAnchor(smallTumble.getSprite(), (double)smallY);
+      tumbles.getChildren().remove(small);
     }
-    tumbles.getChildren().add(small);
-    tumbles.getChildren().add(large);
+    pause.onFinishedProperty().set(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent actionEvent) {
+        if (!largeSpawn) {
+          largeSpawn = true;
+          largeTumble = new LargeTumbleweedSprite();
+          large = new AnchorPane(largeTumble.getSprite());
+          largeX = (int)(Math.random() * (300));
+          largeY = (int)(Math.random() * (300));
+          large.setLeftAnchor(largeTumble.getSprite(), (double)largeX);
+          large.setTopAnchor(largeTumble.getSprite(), (double)largeY);
+          tumbles.getChildren().add(large);
+        }
+        if (!smallSpawn) {
+          smallSpawn = true;
+          smallTumble = new SmallTumbleweedSprite();
+          small = new AnchorPane(smallTumble.getSprite());
+          smallX = (int)(Math.random() * (300));
+          smallY = (int)(Math.random() * (300));
+          small.setLeftAnchor(smallTumble.getSprite(), (double)smallX);
+          small.setTopAnchor(smallTumble.getSprite(), (double)smallY);
+          tumbles.getChildren().add(small);
+        }
+      }
+    });
   }
 
   private void tumble() {
-    int rand = (int)(Math.random() * 2);
+    Random random = new Random(System.currentTimeMillis());
+    int rand = random.nextInt(SMALL_SPEED);
+    smallSpeed = rand;
+    rand = random.nextInt(LARGE_SPEED);
+    largeSpeed = rand;
+    rand = random.nextInt(2);
     if (rand == 0) {
-      rand = (int)Math.random() * 2;
+      rand = random.nextInt(2);
       if (rand == 0) {
         if (smallX > 0) {
           smallX -= SMALL_SPEED * 2;
         }
       } else if (rand == 1) {
-        if (smallX + SMALL_SPEED < CANVAS_WIDTH) {
-          smallX += SMALL_SPEED * 2;
+        if (smallX + smallSpeed < CANVAS_WIDTH) {
+          smallX += smallSpeed * 2;
         }
       }
     } else if (rand == 1) {
-      rand = (int)(Math.random() * 2);
+      rand = random.nextInt(2);
       if (rand == 0) {
         if (smallY > 0) {
-          smallY -= SMALL_SPEED;
+          smallY -= smallSpeed;
         }
       } else if (rand == 1) {
-        if (smallY + SMALL_SPEED < CANVAS_HEIGHT) {
-          smallY += SMALL_SPEED;
+        if (smallY + smallSpeed < CANVAS_HEIGHT) {
+          smallY += smallSpeed;
         }
       }
     }
-    rand = (int)(Math.random() * 2);
+    rand = random.nextInt(2);
     if (rand == 0) {
-      rand = (int)(Math.random() * 2);
+      rand = random.nextInt(2);
       if (rand == 0) {
         if (largeX > 0) {
-          largeX -= LARGE_SPEED;
+          largeX -= largeSpeed;
         }
       } else if (rand == 1) {
-        if (largeX + LARGE_SPEED < CANVAS_WIDTH) {
-          largeX += LARGE_SPEED;
+        if (largeX + largeSpeed < CANVAS_WIDTH) {
+          largeX += largeSpeed;
         }
       }
     } else if (rand == 1) {
-      rand = (int)(Math.random() * 2);
+      rand = random.nextInt(2);
       if (rand == 0) {
         if (largeY > 0) {
-          largeY -= LARGE_SPEED * 2;
+          largeY -= largeSpeed * 2;
         }
       } else if (rand == 1) {
-        if (largeY + LARGE_SPEED < CANVAS_HEIGHT) {
-          largeY += LARGE_SPEED * 2;
+        if (largeY + largeSpeed < CANVAS_HEIGHT) {
+          largeY += largeSpeed * 2;
         }
       }
     }

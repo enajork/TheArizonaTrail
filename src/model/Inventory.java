@@ -19,7 +19,7 @@ public class Inventory implements Serializable {
    * @param prof [description]
    */
   public Inventory() {
-    this.money = 1600;
+    this.money = 400;
     this.oxen = 0;
     this.water = 0;
     this.blankets = 0;

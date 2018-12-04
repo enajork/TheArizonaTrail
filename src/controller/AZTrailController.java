@@ -21,10 +21,10 @@ public class AZTrailController {
   private static Random rand;
   private TopTen topTen;
 
-  // debug flag
+  // debug flags
   private static final boolean SAVE_DEBUG = false;
   private static final boolean SCORE_DEBUG = false;
-  private static final boolean DAMAGE = false;
+  private static final boolean DAMAGE = true;
 
   /**
    * [AZTrailController description]
@@ -755,19 +755,21 @@ public class AZTrailController {
         consumption = 5;
         break;
     }
-    removeFood((getTravelRate() / 3) * (getOxen() + model.currPartySize()) / 2);
-    removeWater((getTravelRate() / 3) * (getOxen() + model.currPartySize()
-      + consumption) / 2);
-    if (getHunted() && ((getFood() == 0 && getWater() == 0)
-        || (getFood() == 0))) {
+    int eat = (getTravelRate() / 2) * (getOxen() + model.currPartySize()) / 2;
+    int drink = (getTravelRate() / 2) * (getOxen() + model.currPartySize()
+      + consumption) / 2;
+    if (getHunted() && ((getFood() <= eat && getWater() <= drink)
+        || (getFood() <= eat))) {
       return "Your party died from cannibalism.";
-    } else if (getFood() == 0 && getWater() == 0) {
+    } else if (getFood() <= eat && getWater() <= drink) {
       return "Your party died from starvation\nand dehydration.";
-    } else if (getFood() == 0) {
+    } else if (getFood() <= eat) {
       return "Your party died from starvation.";
-    } else if (getWater() == 0) {
+    } else if (getWater() <= drink) {
       return "Your party died from dehydration.";
     }
+    removeFood(eat);
+    removeWater(drink);
     return "";
   }
 
