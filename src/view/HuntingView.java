@@ -23,16 +23,11 @@ import javafx.util.Duration;
 import controller.*;
 
 public class HuntingView extends Scene {
-  private final int COOLDOWN_TIME = 500;
+  private final int COOLDOWN_TIME = 300;
   private boolean cooldown = false;
   private final int MOVESPEED = 40;
-<<<<<<< HEAD
-  private int TERRAIN_DENSITY = 64;
-  private Canvas canvas = new Canvas(AZTrailView.WIDTH,
-=======
   private final int TERRAIN_DENSITY = 16 + (int) (Math.random() * 16);
   private static Canvas canvas = new Canvas(AZTrailView.WIDTH,
->>>>>>> 95157d30fa4c971388e7b466f4e380917be19e76
     AZTrailView.HEIGHT);
   private boolean hunted = AZTrailView.controller.getHunted();
   private Image up = new Image("file:view/assets/graphics/hunter/up"
