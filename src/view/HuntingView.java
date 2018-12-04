@@ -35,11 +35,11 @@ public class HuntingView extends Scene {
   private int smallY = 0;
   private int largeX = 0;
   private int largeY = 0;
-  private int SMALL_SPEED = 6;
-  private int LARGE_SPEED = 12;
+  private int SMALL_SPEED = 4;
+  private int LARGE_SPEED = 2;
   private boolean largeSpawn = true;
   private boolean smallSpawn = true;
-  private final boolean INFINITE_AMMO = true;
+  private final boolean INFINITE_AMMO = false;
   private final int COOLDOWN_TIME = 300;
   private final int MAX_SHOTS = 10;
   private double score = 0.0;
@@ -88,6 +88,7 @@ public class HuntingView extends Scene {
   private GraphicsContext gc = canvas.getGraphicsContext2D();
   private BorderPane root;
   private AnchorPane info;
+  private StackPane tumbles;
   private Text ammo = new Text(AZTrailView.controller.getBullets() + " bullets");
 
   /**
@@ -206,14 +207,16 @@ public class HuntingView extends Scene {
     for (int i = 0; i < positions.length; ++i) {
       layers.getChildren().add(positions[i]);
     }
-    layers.getChildren().add(large);
-    layers.getChildren().add(small);
+    tumbles = new StackPane();
+    tumbles.getChildren().add(large);
+    tumbles.getChildren().add(small);
+    layers.getChildren().add(tumbles);
     smallTumble.play();
     largeTumble.play();
-    smallX = (int)(Math.random() * (AZTrailView.WIDTH - SIZE));
-    smallY = (int)(Math.random() * (AZTrailView.HEIGHT - SIZE));
-    largeX = (int)(Math.random() * (AZTrailView.WIDTH - (2 * SIZE)));
-    largeY = (int)(Math.random() * (AZTrailView.HEIGHT - (2 * SIZE)));
+    smallX = (int)(Math.random() * (300));
+    smallY = (int)(Math.random() * (300));
+    largeX = (int)(Math.random() * (300));
+    largeY = (int)(Math.random() * (300));
     small.setLeftAnchor(smallTumble.getSprite(), (double)smallX);
     small.setTopAnchor(smallTumble.getSprite(), (double)smallY);
     large.setLeftAnchor(largeTumble.getSprite(), (double)largeX);
@@ -342,6 +345,7 @@ public class HuntingView extends Scene {
 
   private void fire() {
     cooldown = true;
+    AZTrailView.sounds.musketSFX();
     bullet = new Circle(2, Color.BLACK);
     bullets.getChildren().add(bullet);
     bullets.setTopAnchor(bullet, (double) (y + height / 2));
@@ -362,10 +366,14 @@ public class HuntingView extends Scene {
         bullets.getChildren().remove(bullet);
         cooldown = false;
         if (bullet.getBoundsInParent().intersects(smallTumble.getBoundsInParent())) {
-          System.out.println("hit");
+          score += 2.0;
+          smallSpawn = false;
+          resetTumbles();
         }
         if (bullet.getBoundsInParent().intersects(largeTumble.getBoundsInParent())) {
-          System.out.println("hit");
+          score += 1.0;
+          largeSpawn = false;
+          resetTumbles();
         }
         if (shots == MAX_SHOTS) {
           gameOver();
@@ -505,22 +513,28 @@ public class HuntingView extends Scene {
   }
 
   private void resetTumbles() {
+    tumbles.getChildren().remove(small);
+    tumbles.getChildren().remove(large);
     if (!largeSpawn) {
+      largeSpawn = true;
       largeTumble = new LargeTumbleweedSprite();
       large = new AnchorPane(largeTumble.getSprite());
-      largeX = (int)(Math.random() * (AZTrailView.WIDTH - (2 * SIZE)));
-      largeY = (int)(Math.random() * (AZTrailView.HEIGHT - (2 * SIZE)));
-      large.setTopAnchor(largeTumble.getSprite(), (double)largeX);
-      large.setLeftAnchor(largeTumble.getSprite(), (double)largeY);
+      largeX = (int)(Math.random() * (300));
+      largeY = (int)(Math.random() * (300));
+      large.setLeftAnchor(largeTumble.getSprite(), (double)largeX);
+      large.setTopAnchor(largeTumble.getSprite(), (double)largeY);
     }
     if (!smallSpawn) {
+      smallSpawn = true;
       smallTumble = new SmallTumbleweedSprite();
       small = new AnchorPane(smallTumble.getSprite());
-      smallX = (int)(Math.random() * (AZTrailView.WIDTH - SIZE));
-      smallY = (int)(Math.random() * (AZTrailView.HEIGHT - SIZE));
-      small.setTopAnchor(smallTumble.getSprite(), (double)smallY);
+      smallX = (int)(Math.random() * (300));
+      smallY = (int)(Math.random() * (300));
       small.setLeftAnchor(smallTumble.getSprite(), (double)smallX);
+      small.setTopAnchor(smallTumble.getSprite(), (double)smallY);
     }
+    tumbles.getChildren().add(small);
+    tumbles.getChildren().add(large);
   }
 
   private void tumble() {
@@ -529,11 +543,11 @@ public class HuntingView extends Scene {
       rand = (int)Math.random() * 2;
       if (rand == 0) {
         if (smallX > 0) {
-          smallX -= SMALL_SPEED;
+          smallX -= SMALL_SPEED * 2;
         }
       } else if (rand == 1) {
-        if (smallX + SMALL_SPEED + SIZE < CANVAS_WIDTH) {
-          smallX += SMALL_SPEED;
+        if (smallX + SMALL_SPEED < CANVAS_WIDTH) {
+          smallX += SMALL_SPEED * 2;
         }
       }
     } else if (rand == 1) {
@@ -543,7 +557,7 @@ public class HuntingView extends Scene {
           smallY -= SMALL_SPEED;
         }
       } else if (rand == 1) {
-        if (smallY + SMALL_SPEED + SIZE < CANVAS_HEIGHT) {
+        if (smallY + SMALL_SPEED < CANVAS_HEIGHT) {
           smallY += SMALL_SPEED;
         }
       }
@@ -556,7 +570,7 @@ public class HuntingView extends Scene {
           largeX -= LARGE_SPEED;
         }
       } else if (rand == 1) {
-        if (largeX + LARGE_SPEED + (2 * SIZE) < CANVAS_WIDTH) {
+        if (largeX + LARGE_SPEED < CANVAS_WIDTH) {
           largeX += LARGE_SPEED;
         }
       }
@@ -564,11 +578,11 @@ public class HuntingView extends Scene {
       rand = (int)(Math.random() * 2);
       if (rand == 0) {
         if (largeY > 0) {
-          largeX -= LARGE_SPEED;
+          largeY -= LARGE_SPEED * 2;
         }
       } else if (rand == 1) {
-        if (largeY + LARGE_SPEED + (2 * SIZE) < CANVAS_HEIGHT) {
-          largeX += LARGE_SPEED;
+        if (largeY + LARGE_SPEED < CANVAS_HEIGHT) {
+          largeY += LARGE_SPEED * 2;
         }
       }
     }
@@ -626,15 +640,15 @@ public class HuntingView extends Scene {
 
   private class LargeTumbleweedSprite {
     private final Image IMAGE = new Image((AZTrailView.controller.getHunted())
-      ? "file:view/assets/graphics/tumbleweedmoving-hunted.png"
-      : "file:view/assets/graphics/tumbleweedmoving.png",
-      (int) (258), (int) (178), true, false);
+      ? "file:view/assets/graphics/tumbleweedlargemoving-hunted.png"
+      : "file:view/assets/graphics/tumbleweedlargemoving.png",
+      (int) (129 * 1.5), (int) (89 * 1.5), true, false);
     private static final int COLUMNS  =   3;
     private static final int COUNT    =   6;
     private static final int OFFSET_X =   0;
     private static final int OFFSET_Y =   0;
-    private static final int WIDTH    =  (int) ((2 * SIZE));
-    private static final int HEIGHT   =  (int) ((2 * SIZE));
+    private static final int WIDTH    =  (int)(1.5 * SIZE);
+    private static final int HEIGHT   =  (int)(1.5 * SIZE);
     private final Animation animation;
     private ImageView imageView;
 
