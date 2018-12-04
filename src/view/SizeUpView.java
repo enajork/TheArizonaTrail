@@ -63,8 +63,19 @@ public class SizeUpView extends Scene {
     locDate.setId("text12");
 
     HBox partyStats = new HBox();
-    // TODO get partyStats from controller
-    Text stats = new Text("Weather: cold\nHealth: good\nPace: steady\nRations: filling");
+    String pace = "A steady pace";
+    switch (AZTrailView.controller.getTravelRate() / 2) {
+      case 1:
+        pace = "A steady pace";
+        break;
+      case 2:
+        pace = "A streneous pace";
+        break;
+      case 3:
+        pace = "A grueling pace";
+        break;
+    }
+    Text stats = new Text("Weather: " + AZTrailView.controller.getWeather() + "\nHealth: " + AZTrailView.controller.getHealth() + "\nPace: " + pace);
     stats.setId("text12");
     partyStats.setStyle("-fx-background-color: white;");
     partyStats.getChildren().add(stats);
