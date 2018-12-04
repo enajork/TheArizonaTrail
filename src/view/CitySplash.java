@@ -32,7 +32,9 @@ public class CitySplash extends Scene {
   private boolean stop;
 
   /**
-   * [CitySplash description]
+   * No arg constructor for the city splash view
+   * @param city the city the player arrived in
+   * @param stop the stop field
    */
   public CitySplash(String city, boolean stop) {
     this(new BorderPane(), city, stop);
@@ -40,8 +42,11 @@ public class CitySplash extends Scene {
   }
 
   /**
-   * [CitySplash description]
-   * @param root [description]
+   * Constructs the city splash view which is shown
+   * when a player arrives in a new city
+   * @param root the root of the scene graph
+   * @param city the city the player arrived in
+   * @param stop the stop field
    */
   private CitySplash(BorderPane root, String city, boolean stop) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -91,7 +96,8 @@ public class CitySplash extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Creates event handlers to handle actions that
+   * the player can take from this view
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -139,6 +145,9 @@ public class CitySplash extends Scene {
     });
   }
 
+  /**
+   * Creates the imageview for the city splash
+   */
   private void setSplash() {
     Image img;
     ImageView splash;
@@ -168,6 +177,11 @@ public class CitySplash extends Scene {
     }
   }
 
+  /**
+   * determines the next scene that should be shown to the player
+   *
+   * @return the scene to be displayed
+   */
   private Scene getNextScene() {
     switch (city) {
       case "Nogales":

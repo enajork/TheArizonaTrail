@@ -29,15 +29,15 @@ public class TopTenMenu extends Scene {
   private BorderPane root;
 
   /**
-   * [TopTenMenu description]
+   * No arg constructor for the top ten menu
    */
   public TopTenMenu() {
     this(new BorderPane());
   }
 
   /**
-   * [TopTenMenu description]
-   * @param root [description]
+   * Constructs a new top ten menu view
+   * @param root the root node of the scene graph
    */
   private TopTenMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -79,7 +79,7 @@ public class TopTenMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to handle keyboard events from the player
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
