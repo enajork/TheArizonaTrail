@@ -31,7 +31,8 @@ public class HuntedView extends Scene {
   private boolean dDown = false;
 
   private static final int SIZE = 43;
-  private final int HEALTH = 50;
+  private final int START_HEALTH = 50;
+  private int health = START_HEALTH;
 
   private final boolean INFINITE_AMMO = false;
   private final int COOLDOWN_TIME = 50;
@@ -226,6 +227,16 @@ public class HuntedView extends Scene {
       }
     };
     timer.start();
+
+    SequentialTransition pause = new SequentialTransition (
+      new PauseTransition(Duration.millis(60000)));
+    pause.onFinishedProperty().set(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent actionEvent) {
+        gameOver(false);
+      }
+    });
+    pause.play();
   }
 
   private double[] getRandomPosition() {
@@ -248,15 +259,6 @@ public class HuntedView extends Scene {
       @Override
       public void handle(KeyEvent event) {
         switch (event.getCode()) {
-          case ENTER:
-            AZTrailController.escape = false;
-            gameOver();
-            break;
-
-          case ESCAPE:
-            gameOver();
-            break;
-
           case W:
             AZTrailController.escape = false;
             wDown = true;
@@ -350,9 +352,21 @@ public class HuntedView extends Scene {
         bullets.getChildren().remove(bullet);
         cooldown = false;
         if (bullet.getBoundsInParent().intersects(owenView.getBoundsInParent())) {
+          owenView.setImage(owenHurt);
+          AZTrailView.sounds.ow2SFX();
+          SequentialTransition pause = new SequentialTransition (
+            new PauseTransition(Duration.millis(700)));
+            pause.onFinishedProperty().set(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent actionEvent) {
+                owenView.setImage(owenUnhurt);
+              }
+            });
+            pause.play();
+          health--;
         }
-        if (shots == HEALTH) {
-          gameOver();
+        if (shots == START_HEALTH) {
+          gameOver(false);
         }
       }
     });
@@ -365,24 +379,31 @@ public class HuntedView extends Scene {
     ammo.setText(AZTrailView.controller.getBullets() + " bullets");
   }
 
-  private void gameOver() {
-    AZTrailView.sounds.stopMusic();
-    AZTrailView.sounds.startThemeLoop();
-    AZTrailView.stage.setScene(
-      new GenericInfoMenu(new Runnable() {
-        @Override
-        public void run() {
-          AZTrailView.stage.setScene(new SizeUpView());
-        }
-      },
-      new String[]{
-        ""
-      },
-      true
-    ));
+  private void gameOver(boolean won) {
+    if (won) {
+      AZTrailView.sounds.stopMusic();
+      AZTrailView.sounds.startThemeLoop();
+      AZTrailView.stage.setScene(
+        new GenericInfoMenu(new Runnable() {
+          @Override
+          public void run() {
+            AZTrailView.stage.setScene(new SizeUpView());
+          }
+        },
+        new String[]{
+          "You defeated Owen Wilson!\nTime to finish your\njourney..."
+        },
+        true
+      ));
+    } else {
+      AZTrailView.stage.setScene(new GameOver());
+    }
   }
 
   private void tick() {
+    if (health == 0) {
+      gameOver(true);
+    }
     boolean accelerate = false;
     if (wDown) {
       wPress();
