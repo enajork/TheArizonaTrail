@@ -21,6 +21,11 @@ import java.util.*;
 import java.io.*;
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class GenericYesNoMenu extends Scene {
   public static final int CHAR_LIMIT = 4;
@@ -39,15 +44,26 @@ public class GenericYesNoMenu extends Scene {
   private String img;
 
   /**
-  * [GenericYesNoMenu description]
-  */
+   * Constructor for the generic yes no menu
+   *
+   * @param yesCall thread for the user choosing yes
+   * @param noCall  thread for the user choosing no
+   * @param prompt  the question for the user
+   * @param header  the description of the prompt
+   */
   public GenericYesNoMenu(Runnable yesCall, Runnable noCall, String prompt,
       String header) {
     this(new BorderPane(), yesCall, noCall, prompt, header, "", false, false);
   }
 
   /**
-   * [GenericYesNoMenu description]
+   * constructor for the yes no menu with imgs
+   *
+   * @param yesCall thread for the user choosing yes
+   * @param noCall  thread for the user choosing no
+   * @param prompt  the question for the user
+   * @param img     the image to show the user
+   * @param header  the description of the prompt
    */
   public GenericYesNoMenu(Runnable yesCall, Runnable noCall, String prompt,
       String img, String header) {
@@ -55,7 +71,14 @@ public class GenericYesNoMenu extends Scene {
   }
 
   /**
-   * [GenericYesNoMenu description]
+   * constructor for the yes no menu with accents on
+   *
+   * @param yesCall thread for the user choosing yes
+   * @param noCall  thread for the user choosing no
+   * @param prompt  the question for the user
+   * @param img     the image to show the user
+   * @param header  the description of the prompt
+   * @param accentsOn whether or not to show accents
    */
   public GenericYesNoMenu(Runnable yesCall, Runnable noCall, String prompt,
       String header, String img, boolean accentsOn) {
@@ -64,7 +87,16 @@ public class GenericYesNoMenu extends Scene {
   }
 
   /**
-   * [GenericYesNoMenu description]
+   * Primary constructor for the yes no menu
+   *
+   * @param root   the root of the scene graph
+   * @param yesCall thread for the user choosing yes
+   * @param noCall  thread for the user choosing no
+   * @param prompt  the question for the user
+   * @param img     the image to show the user
+   * @param header  the description of the prompt
+   * @param accentsOn whether or not to show accents
+   * @param titleOn true if the title should be shown
    */
   public GenericYesNoMenu(Runnable yesCall, Runnable noCall, String prompt,
       String img, boolean accentsOn, boolean titleOn) {
@@ -74,7 +106,14 @@ public class GenericYesNoMenu extends Scene {
 
   /**
    * [GenericYesNoMenu description]
-   * @param root [description]
+   *
+   * @param yesCall thread for the user choosing yes
+   * @param noCall  thread for the user choosing no
+   * @param prompt  the question for the user
+   * @param img     the image to show the user
+   * @param header  the description of the prompt
+   * @param accentsOn whether or not to show accents
+   * @param titleOn true if the title should be shown
    */
   private GenericYesNoMenu(BorderPane root, Runnable yesCall, Runnable noCall,
       String prompt, String header, String img, boolean accentsOn,
@@ -158,8 +197,8 @@ public class GenericYesNoMenu extends Scene {
   }
 
   /**
-   * [menuAccent description]
-   * @return [description]
+   * Creates a new menu accent node for the scene graph
+   * @return an imageview into the accent
    */
   private ImageView menuAccent() {
     return new ImageView(new Image("file:view/assets/graphics/menuaccent.png",
@@ -167,7 +206,7 @@ public class GenericYesNoMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -241,6 +280,10 @@ public class GenericYesNoMenu extends Scene {
     });
   }
 
+  /**
+   * updates the display when the user types in a selection the keyboard
+   * @param num the value inserted by the user
+   */
   private void updateInputText(KeyEvent event) {
     String letter = event.getText();
     if (letter.length() != 1) {

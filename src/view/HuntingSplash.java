@@ -19,13 +19,18 @@ import java.util.*;
 import java.io.*;
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class HuntingSplash extends Scene {
   private Scene nextScene;
   private BorderPane root;
 
   /**
-   * [HuntingSplash description]
+   * No arg constructor for the hunting splash
    */
   public HuntingSplash() {
     this(new BorderPane());
@@ -34,8 +39,9 @@ public class HuntingSplash extends Scene {
   }
 
   /**
-   * [HuntingSplash description]
-   * @param root [description]
+   * Constructs the hunting splash
+   *
+   * @param root   the root of the scene graph
    */
   private HuntingSplash(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -91,7 +97,7 @@ public class HuntingSplash extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {

@@ -19,6 +19,11 @@ import java.util.*;
 import java.io.*;
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class PartyLeaderMenu extends Scene {
   private String contents = "What is the first name of the\nwagon leader? ";
@@ -27,7 +32,7 @@ public class PartyLeaderMenu extends Scene {
   private Text body;
 
   /**
-   * [PartyLeaderMenu description]
+   * No arg constructor for the party leader menu
    */
   public PartyLeaderMenu() {
     this(new BorderPane());
@@ -35,8 +40,9 @@ public class PartyLeaderMenu extends Scene {
   }
 
   /**
-   * [PartyLeaderMenu description]
-   * @param root [description]
+   * Constructs a party leader menu view
+   *
+   * @param root   the root of the scene graph
    */
   private PartyLeaderMenu(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -68,7 +74,7 @@ public class PartyLeaderMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -114,8 +120,8 @@ public class PartyLeaderMenu extends Scene {
   }
 
   /**
-   * [updateInputText description]
-   * @param num [description]
+   * updates the display when the user types in a selection the keyboard
+   * @param num the value inserted by the user
    */
   private void updateInputText(KeyEvent event) {
     String letter = event.getText();

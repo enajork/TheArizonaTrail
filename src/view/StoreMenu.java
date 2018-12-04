@@ -20,6 +20,11 @@ import java.util.*;
 import java.io.*;
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class StoreMenu extends Scene {
   private final Rectangle rect1 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
@@ -49,7 +54,9 @@ public class StoreMenu extends Scene {
   private String name;
 
   /**
-   * [StoreMenu description]
+   * Constructs a new store menu
+   *
+   * @param name  the store name
    */
   public StoreMenu(String name) {
     this(new BorderPane(), name, false);
@@ -58,7 +65,10 @@ public class StoreMenu extends Scene {
   }
 
   /**
-   * [StoreMenu description]
+   * Constructs a new store wheel menu view
+   *
+   * @param name  the store name
+   * @param start boolean
    */
   public StoreMenu(String name, boolean start) {
     this(new BorderPane(), name, start);
@@ -67,8 +77,12 @@ public class StoreMenu extends Scene {
   }
 
   /**
-   * [StoreMenu description]
-   * @param root [description]
+   * Constructs a new store menu
+   *
+   * @param root  root of the scene graph
+   *
+   * @param name  the store name
+   * @param start boolean
    */
   private StoreMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -192,8 +206,8 @@ public class StoreMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
-   */
+   * Adds event handlers to handle keyboard actions from the user
+   *//
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
@@ -310,8 +324,8 @@ public class StoreMenu extends Scene {
   }
 
   /**
-   * [updateInputText description]
-   * @param num [description]
+   * updates the display when the user types in a selection the keyboard
+   * @param num the value inserted by the user
    */
   private void updateInputText(int num) {
     if (input.length() == 1 && num >= 1 && num <= NUM_OPTS) {
@@ -322,9 +336,9 @@ public class StoreMenu extends Scene {
   }
 
   /**
-   * [getNextMenu description]
-   * @param  choice [description]
-   * @return        [description]
+   * determines the next view to be scene by the player based on their choice
+   * @param  choice integer choice number
+   * @return        the next view to be staged
    */
   private Scene getNextMenu(int choice) {
     if (choice < 1 || choice > NUM_OPTS) {

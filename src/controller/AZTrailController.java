@@ -3,6 +3,11 @@ package controller;
 import java.util.*;
 import java.io.*;
 import model.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class AZTrailController {
   private final int BREAK_TONGUE = 1;
@@ -27,7 +32,7 @@ public class AZTrailController {
   private static final boolean DAMAGE = true;
 
   /**
-   * [AZTrailController description]
+   * Constructs a new controller and loads a new or saved model
    */
   public AZTrailController() {
     this.rand = new Random(System.currentTimeMillis());
@@ -36,6 +41,9 @@ public class AZTrailController {
     this.topTen = new TopTen();
   }
 
+  /**
+   * Loads a saved game if a saved game file exists
+   */
   public void loadGame() {
     try {
       File file = new File(savePath);
@@ -66,6 +74,10 @@ public class AZTrailController {
     }
   }
 
+  /**
+   * Serializes the gameplay model and writes it to
+   * a saved game file in the model directory
+   */
   public void saveGame() {
     try {
       FileOutputStream save = new FileOutputStream(savePath);
@@ -85,6 +97,10 @@ public class AZTrailController {
     }
   }
 
+  /**
+   * Deletes the saved game file stored in the
+   * model directory if it exists
+   */
   public void deleteSave() {
     File save = new File(savePath);
     if (save.exists()) {
@@ -100,6 +116,10 @@ public class AZTrailController {
     }
   }
 
+  /**
+   * Starts a new game by initializing a new model and
+   * writes to standard out if save debug is enabled
+   */
   public void resetGame() {
     model = new AZTrailModel();
     if (SAVE_DEBUG) {
@@ -107,6 +127,10 @@ public class AZTrailController {
     }
   }
 
+  /**
+   * Creates a new trail model checkpoint with
+   * the data from the current model
+   */
   public void setCheckpoint() {
     checkpoint = new AZTrailModel();
     checkpoint.setMap(model.getMap());
@@ -116,6 +140,9 @@ public class AZTrailController {
     checkpoint.setTravelRate(model.getTravelRate());
   }
 
+  /**
+   * Retrieves the serialized leaderboard from disk
+   */
   public void loadTopTen() {
     try {
       File file = new File(scoresPath);
@@ -143,6 +170,10 @@ public class AZTrailController {
     }
   }
 
+  /**
+   * Serializes the top 10 players names and scores to disk
+   * for later retrievals
+   */
   public void saveTopTen() {
     try {
       FileOutputStream save = new FileOutputStream(scoresPath);
@@ -160,6 +191,9 @@ public class AZTrailController {
     }
   }
 
+  /**
+   * Clears the leaderboard from disk
+   */
   public void resetTopTen() {
     File save = new File(scoresPath);
     if (save.exists()) {
@@ -172,7 +206,8 @@ public class AZTrailController {
   }
 
   /**
-   * [advance description]
+   * Moves the model's calendar forward one day
+   * and advances the position of the player in the AZTrailModel
    */
   public boolean advance() {
     model.advanceCalendar();
@@ -180,7 +215,7 @@ public class AZTrailController {
   }
 
   /**
-   * [changePace description]
+   * Changes the pace the party is traveling at
    */
   public void changePace(int pace) {
     int rate;
@@ -206,8 +241,9 @@ public class AZTrailController {
   }
 
   /**
-   * [profMenu description]
-   * @param choice [description]
+   * Sets the chosen profession for the player based
+   * on the input parameter
+   * @param choice integer option for profession
    */
   public void profMenu(int choice) {
     if (choice < 1 || choice > 4) {
@@ -229,6 +265,11 @@ public class AZTrailController {
     }
   }
 
+  /**
+   * Serializes the model as a string and returns it
+   *
+   * @return the stringified model
+   */
   public String toString() {
     String result = "\n----------start-----------\n" + model.toString();
     result += "\nhasSave=" + hasSave;
@@ -238,382 +279,476 @@ public class AZTrailController {
   }
 
   /**
-   * [getNames description]
-   * @return [description]
+   * getter for the name field in the model
+   * @return the model's name field
    */
   public String getName(int i) {
     return model.getName(i);
   }
 
   /**
-   * [leaderNameMenu description]
-   * @param name [description]
+   * setter for the name field in the model
+   * @param name sets the models name field
    */
   public void setName(int i, String name) {
     model.setName(i, name);
   }
 
+  /**
+   * returns the current party size in the model
+   *
+   * @return party size
+   */
   public int partySize() {
     return model.currPartySize();
   }
 
   /**
-   * [setMonth description]
-   * @param  month [description]
-   * @return       [description]
+   * Sets the current month in the model
+   * @param  month the month to set
    */
   public void setMonth(String month) {
     model.setMonth(month);
   }
 
   /**
-   * [getMonth description]
-   * @return [description]
+   * gets the current month from the model
+   * @return the model's month field
    */
   public int getMonth() {
     return model.getMonth();
   }
 
   /**
-   * [getDateStr description]
-   * @return [description]
+   * gets the current date's date string
+   * @return the date string
    */
   public String getDateStr() {
     return model.getDateStr();
   }
 
   /**
-   * [addMoney description]
-   * @param  amount [description]
-   * @return        [description]
+   * add's money to the player's wallet
+   * @param  amount an integer amount of money
    */
   public void addMoney(double amount) {
     model.addMoney(amount);
   }
 
   /**
-   * [removeMoney description]
-   * @param  amount [description]
-   * @return        [description]
+   * removes's money to the player's wallet
+   * @param  amount an integer amount of money
+   * @return        true or false if successful
    */
   public boolean removeMoney(double amount) {
     return model.removeMoney(amount);
   }
 
   /**
-   * [getMoney description]
-   * @return [description]
+   * getter for the player's money amount
+   * @return player's remaining money
    */
   public double getMoney() {
     return model.getMoney();
   }
 
   /**
-   * [addOxen description]
-   * @param  amount [description]
-   * @return        [description]
+   * add's an oxen yoke to the party
+   * @param  amount the amount of oxen to add
+   * @return        the amount of oxen total
    */
   public int addOxen(int amount) {
     return model.addOxen(amount);
   }
 
   /**
-   * [removeOxen description]
-   * @param  amount [description]
-   * @return        [description]
+   * remove's a yoke of oxen from the party
+   * @param  amount the number of oxen to remove
+   * @return        true if there are no more oxen
    */
   public boolean removeOxen(int amount) {
     return model.removeOxen(amount);
   }
 
   /**
-   * [getOxen description]
-   * @return [description]
+   * returns the number of oxen in the party
+   * @return the number of oxen
    */
   public int getOxen() {
     return model.getOxen();
   }
 
   /**
-   * [addBlankets description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds clothing to the players party
+   * @param  amount the amount of clothes to add
+   * @return        the total amount of clothes
    */
   public int addClothes(int amount) {
     return model.addClothes(amount);
   }
 
   /**
-   * [removeBlankets description]
-   * @param  amount [description]
-   * @return        [description]
+   * removes clothing to the players party
+   * @param  amount the amount of clothes to remove
+   * @return        true if there are no clothes
    */
   public boolean removeClothes(int amount) {
     return model.removeClothes(amount);
   }
 
   /**
-   * [getBlankets description]
-   * @return [description]
+   * getter for clothes
+   * @return returns the number of clothes left
    */
   public int getClothes() {
     return model.getClothes();
   }
 
   /**
-   * [addBlankets description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds blankets to the party's store
+   * @param  amount amount of blankets to add
+   * @return        total amount of blankets
    */
   public int addBlankets(int amount) {
     return model.addBlankets(amount);
   }
 
   /**
-   * [removeBlankets description]
-   * @param  amount [description]
-   * @return        [description]
+   * removes blankets to the party's store
+   * @param  amount amount of blankets to removes
+   * @return        true if no blankets remain
    */
   public boolean removeBlankets(int amount) {
     return model.removeBlankets(amount);
   }
 
   /**
-   * [getBlankets description]
-   * @return [description]
+   * getter for blanket
+   * @return returns the number of blankets in the party
    */
   public int getBlankets() {
     return model.getBlankets();
   }
 
   /**
-   * [addBullets description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds bullets to the party's store
+   * @param  amount number of bullets to add
+   * @return        returns the total number of bullets
    */
   public int addBullets(int amount) {
     return model.addBullets(amount);
   }
 
   /**
-   * [removeBullets description]
-   * @param  amount [description]
-   * @return        [description]
+   * removes bullets to the party's store
+   * @param  amount number of bullets to remove
+   * @return        true if there are no more bullets
    */
   public boolean removeBullets(int amount) {
     return model.removeBullets(amount);
   }
 
   /**
-   * [getBullets description]
-   * @return [description]
+   * getter for the amount of bullets
+   * @return number of remaining bullets
    */
   public int getBullets() {
     return model.getBullets();
   }
 
   /**
-   * [addFood description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds food to the party's store
+   * @param  amount amount of food to add
+   * @return        returns the amount of food
    */
   public int addFood(int amount) {
     return model.addFood(amount);
   }
 
   /**
-   * [removeFood description]
-   * @param  amount [description]
-   * @return        [description]
+   * removes food to the party's store
+   * @param  amount amount of food to removes
+   * @return        true if no food remains
    */
   public boolean removeFood(int amount) {
     return model.removeFood(amount);
   }
 
   /**
-   * [getFood description]
-   * @return [description]
+   * getter for the amount of food
+   * @return amount of food remaining
    */
   public int getFood() {
     return model.getFood();
   }
 
   /**
-   * [addWater description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds water to the party's store
+   * @param  amount amount of water to add
+   * @return        total amount of water
    */
   public int addWater(int amount) {
     return model.addWater(amount);
   }
 
   /**
-   * [removeWater description]
-   * @param  amount [description]
-   * @return        [description]
+   * removes water to the party's store
+   * @param  amount amount of water to removes
+   * @return        true if no water remains
    */
   public boolean removeWater(int amount) {
     return model.removeWater(amount);
   }
 
   /**
-   * [getWater description]
-   * @return [description]
+   * getter for the amount of water
+   * @return amount of water remaining
    */
   public int getWater() {
     return model.getWater();
   }
 
   /**
-   * [addWheels description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds spare wheels to the party's store
+   * @param  amount amount of wheels to add
+   * @return        total number of wheels left
    */
   public int addWheels(int amount) {
     return model.addWheels(amount);
   }
 
   /**
-   * [removeWheels description]
-   * @param  amount [description]
-   * @return        [description]
+   * removes spare wheels to the party's store
+   * @param  amount amount of wheels to removes
+   * @return        true if no wheels remain
    */
   public boolean removeWheels(int amount) {
     return model.removeWheels(amount);
   }
 
   /**
-   * [getWheels description]
-   * @return [description]
+   * getter for the number of wheels
+   * @return the number of remaining wheels
    */
   public int getWheels() {
     return model.getWheels();
   }
 
   /**
-   * [addAxles description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds spare axles to the party's store
+   * @param  amount amount of axles to add
+   * @return        total number of axles
    */
   public int addAxles(int amount) {
     return model.addAxles(amount);
   }
 
   /**
-   * [removeAxles description]
-   * @param  amount [description]
-   * @return        [description]
+   * removes spare axles to the party's store
+   * @param  amount amount of axles to remove
+   * @return        true if no axles remain
    */
   public boolean removeAxles(int amount) {
     return model.removeAxles(amount);
   }
 
   /**
-   * [getAxles description]
-   * @return [description]
+   * getter for axles
+   * @return number of axles in the party's store
    */
   public int getAxles() {
     return model.getAxles();
   }
 
   /**
-   * [addTongues description]
-   * @param  amount [description]
-   * @return        [description]
+   * adds spare tongues to the party's store
+   * @param  amount amount of tongues to add
+   * @return        total number of tongues
    */
   public int addTongues(int amount) {
     return model.addTongues(amount);
   }
 
   /**
-   * [removeTongues description]
-   * @param  amount [description]
-   * @return        [description]
+   * remove spare tongues to the party's store
+   * @param  amount amount of tongues to remove
+   * @return        total number of tongues
    */
   public boolean removeTongues(int amount) {
     return model.removeTongues(amount);
   }
 
   /**
-   * [getTongues description]
-   * @return [description]
+   * getter for tongues
+   * @return number of tongues in the party's store
    */
   public int getTongues() {
     return model.getTongues();
   }
 
+  /**
+   * getter for cart clothes
+   * @return number of cart clothes in the party's store
+   */
   public double getCartClothes() {
     return model.getCartClothes();
   }
 
+  /**
+   * setter for cart clothes
+   *
+   * @param amount amount of cart clothes to add
+   */
   public void setCartClothes(double amount) {
     model.setCartClothes(amount);
   }
 
+  /**
+   * getter for cart parts
+   * @return number of cart parts in the party's store
+   */
   public double getCartParts() {
     return model.getCartParts();
   }
 
+  /**
+   * setter for cart parts
+   *
+   * @param amount amount of cart parts to add
+   */
   public void setCartParts(double amount) {
     model.setCartParts(amount);
   }
 
+  /**
+   * gets the total resources of the cart
+   *
+   * @return total cart resources as a double
+   */
   public double getCartTotal() {
     return model.getCartTotal();
   }
 
+  /**
+   * gets the amount of oxen on the cart
+   *
+   * @return amount of oxen on the cart
+   */
   public double getCartOxen() {
     return model.getCartOxen();
   }
 
+  /**
+   * sets the amount of oxen on the cart
+   *
+   * @param amount amount of oxen to set
+   */
   public void setCartOxen(double amount) {
     model.setCartOxen(amount);
   }
 
+  /**
+   * gets the amount of food on the cart
+   *
+   * @return amount of food on the cart
+   */
   public double getCartFood() {
     return model.getCartFood();
   }
 
+  /**
+   * sets the amount of food on the cart
+   *
+   * @param amount amount of food to set
+   */
   public void setCartFood(double amount) {
     model.setCartFood(amount);
   }
 
+  /**
+   * gets the amount of ammo on the cart
+   *
+   * @return amount of ammo on the cart
+   */
   public double getCartAmmo() {
     return model.getCartAmmo();
   }
 
+  /**
+   * sets the amount of ammo on the cart
+   *
+   * @param amount amount of amo to set
+   */
   public void setCartAmmo(double amount) {
     model.setCartAmmo(amount);
   }
 
+  /**
+   * resets the cart to the base stats
+   */
   public void resetCart() {
     model.resetCart();
   }
 
+  /**
+   * gets the current closest city to the player
+   *
+   * @return the string name of the city
+   */
   public String getCurrentCity() {
     return model.getCurrentCity();
   }
 
+  /**
+   * gets the distance ratio between the previous and next landmark
+   *
+   * @return the double distance ratio
+   */
   public double getDistRatio() {
     return model.getDistRatio();
   }
 
+  /**
+   * setter for the hunted field
+   *
+   * @param value true if the player should be hunted, false otherwise
+   */
   public void setHunted(boolean value) {
     model.setHunted(value);
   }
 
+  /**
+   * getter for the hunted field
+   *
+   * @return returns true if the player is being hunted
+   */
   public boolean getHunted() {
     return model.getHunted();
   }
 
+  /**
+   * getter for the total miles traveled by the wagon
+   *
+   * @return integer count of miles
+   */
   public int getTotalMiles() {
     return model.getTotalMiles();
   }
 
+  /**
+   * getter for the current distance to the next landmark
+   *
+   * @return the remaining distance till the next landmark
+   */
   public double milesToLandmark() {
     return model.milesToLandmark();
   }
 
+  /**
+   * calculates the current weather in the area
+   *
+   * @return a string representation of the current weather
+   */
   public String getWeather() {
     int p = rand.nextInt(9);
 
@@ -651,14 +786,30 @@ public class AZTrailController {
     }
   }
 
+  /**
+   * returns the next city on the map
+   *
+   * @return the name of the next city
+   */
   public String getNextCity() {
     return model.getNextCity();
   }
 
+  /**
+   * sets a player's final score after the game
+   *
+   * @param name  the player's name
+   * @param score the player's score
+   */
   public void setScore(String name, int score) {
     topTen.setScore(name, score);
   }
 
+  /**
+   * get's the names of the top ten players from the model
+   *
+   * @return a string representation of the players
+   */
   public String getTopTenNames() {
     String result = "";
     for (int i = 0; i < topTen.size(); i++) {
@@ -671,6 +822,11 @@ public class AZTrailController {
     return result;
   }
 
+  /**
+   * get's the top ten scores from the model
+   *
+   * @return the top ten scores as a string
+   */
   public String getTopTenScores() {
     String result = "";
     for (int i = 0; i < topTen.size(); i++) {
@@ -679,6 +835,11 @@ public class AZTrailController {
     return result;
   }
 
+  /**
+   * calculates the party's current health based on its size
+   *
+   * @return a string representation of the party's health
+   */
   public String getHealth() {
     switch(model.currPartySize()) {
       case 1:
@@ -696,18 +857,39 @@ public class AZTrailController {
     }
   }
 
+  /**
+   * getter for the current travel rate
+   *
+   * @return the integer current travel rate
+   */
   public int getTravelRate() {
     return model.getTravelRate();
   }
 
+  /**
+   * sets the current travel rate of the player
+   *
+   * @param rate the rate at which to travel
+   */
   public void setTravelRate(int rate) {
     model.setTravelRate(rate);
   }
 
+  /**
+   * getter for the getAtDestination field
+   *
+   * @return true if the player is at the end of the map
+   */
   public boolean getAtDestination() {
     return model.getAtDestination();
   }
 
+  /**
+   * calculates the player's score based on remaining items,
+   * party members and distance reached
+   *
+   * @return the player's score as an integer
+   */
   public int getScore() {
     setCartAmmo(getBullets());
     setCartFood(getFood());
@@ -733,6 +915,13 @@ public class AZTrailController {
     return result;
   }
 
+  /**
+   * depletes the player's resources as they travel the trail.
+   * resources deplete faster as the player's travel rate increases and
+   * the weather worsens
+   *
+   * @return a non empty string if the party dies
+   */
   public String deplete() {
     if (!DAMAGE) {
       return "";
@@ -773,6 +962,13 @@ public class AZTrailController {
     return "";
   }
 
+  /**
+   * Creates a new random event based on the player's luck stat
+   * If the player is not damaged, they will not be susceptible to
+   * these negative effects
+   *
+   * @return a string with the resulting event
+   */
   public String randomEvent() {
     if (!DAMAGE) {
       return "";
@@ -825,6 +1021,11 @@ public class AZTrailController {
     return "";
   }
 
+  /**
+   * randomly selects an illness from the given options
+   *
+   * @return a string containing the illness name
+   */
   private String randomIllness() {
     int p = rand.nextInt(2);
     if (p == 0) {

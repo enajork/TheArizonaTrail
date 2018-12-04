@@ -5,6 +5,11 @@ import javafx.collections.*;
 import java.util.*;
 import java.io.*;
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class Sounds {
   private static final ObservableList<Media> themes = FXCollections.observableArrayList();
@@ -32,6 +37,9 @@ public class Sounds {
   private static Media chirp;
   private static Media eagle;
 
+  /**
+   * loads all of the games sounds and stores them into the data structure for usage
+   */
   public Sounds() {
     gameOver = new Media(getClass().getResource("assets/sounds/music/gameover.wav").toExternalForm());
     gameOverHunted = new Media(getClass().getResource("assets/sounds/music/gameover-hunted.wav").toExternalForm());
@@ -67,6 +75,9 @@ public class Sounds {
     sounds.put("wow3", new AudioClip(getClass().getResource("assets/sounds/fx/wow3.wav").toExternalForm()));
   }
 
+  /**
+   * loads the main theme song and plays it
+   */
   public static void startThemeLoop() {
     if (!AZTrailView.controller.getNextCity().equals("Page")) {
       AZTrailView.sounds.mainThemes();
@@ -80,6 +91,9 @@ public class Sounds {
     }
   }
 
+  /**
+   * returns an ObservableList of all the main theme songs
+   */
   public static void mainThemes() {
     if (!isPlayingTheme) {
       isPlayingTheme = true;
@@ -102,6 +116,9 @@ public class Sounds {
     }
   }
 
+  /**
+   * plays the hunted menu theme song
+   */
   public static void huntedMenuTheme() {
     if (!isPlayingTheme) {
       isPlayingTheme = true;
@@ -121,6 +138,9 @@ public class Sounds {
     }
   }
 
+  /**
+   * plays the game over music
+   */
   public static void gameOverTheme() {
     stop();
     if (!isPlayingTheme) {
@@ -142,6 +162,9 @@ public class Sounds {
     }
   }
 
+  /**
+   * plays the hunted initial theme
+   */
   public static void huntedInitialTheme() {
     if (!isPlayingTheme) {
       isPlayingTheme = true;
@@ -161,6 +184,9 @@ public class Sounds {
     }
   }
 
+  /**
+   * plays the final hunted theme
+   */
   public static void huntedFinalTheme() {
     if (!isPlayingTheme) {
       isPlayingTheme = true;
@@ -180,6 +206,9 @@ public class Sounds {
     }
   }
 
+  /**
+   * plays the credit music
+   */
   public static void creditsTheme() {
     stop();
     if (!isPlayingTheme) {
@@ -201,6 +230,9 @@ public class Sounds {
     }
   }
 
+  /**
+   * plays the music when on the home stretch
+   */
   public static void homeStretchTheme() {
     if (!isPlayingTheme && !isPlayingHomeStretchTheme) {
       isPlayingHomeStretchTheme = true;
@@ -222,6 +254,9 @@ public class Sounds {
     }
   }
 
+  /**
+   * plays the hunting minigame music
+   */
   public static void huntingSong() {
     if (!isPlayingTheme) {
       isPlayingTheme = true;
@@ -241,18 +276,27 @@ public class Sounds {
     }
   }
 
+  /**
+   * runs the hunted mode sfx sounds
+   */
   public static void huntedModeSFX() {
     if (AZTrailController.sound) {
       sounds.get("hunted").play(MAX_EFFECT_VOLUME);
     }
   }
 
+  /**
+   * plays the cash register sfx
+   */
   public static void cashOutSFX() {
     if (AZTrailController.sound) {
       sounds.get("register").play(MAX_EFFECT_VOLUME);
     }
   }
 
+  /**
+   * plays the cricket sounds
+   */
   public static void cricketsSFX() {
     sfxPlayer1 = new MediaPlayer(crickets);
     sfxPlayer1.setVolume(MAX_EFFECT_VOLUME);
@@ -268,6 +312,9 @@ public class Sounds {
     });
   }
 
+  /**
+   * plays the coyote howl effect
+   */
   public static void coyotesSFX() {
     sfxPlayer2 = new MediaPlayer(coyote);
     sfxPlayer2.setVolume(MAX_EFFECT_VOLUME);
@@ -283,8 +330,9 @@ public class Sounds {
     });
   }
 
-
-
+  /**
+   * plays the chirps sfx
+   */
   public static void chirpSFX() {
     sfxPlayer1 = new MediaPlayer(chirp);
     sfxPlayer1.setVolume(MAX_EFFECT_VOLUME + 0.1);
@@ -300,6 +348,9 @@ public class Sounds {
     });
   }
 
+  /**
+   * plays the eagle sound fx
+   */
   public static void eagleSFX() {
     sfxPlayer2 = new MediaPlayer(eagle);
     sfxPlayer2.setVolume(MAX_EFFECT_VOLUME);
@@ -315,6 +366,9 @@ public class Sounds {
     });
   }
 
+  /**
+   * plays the start background music
+   */
   public static void startBackgroundSFX() {
     if (AZTrailView.controller.getHunted()) {
       AZTrailView.sounds.nighttimeSFX();
@@ -323,6 +377,9 @@ public class Sounds {
     }
   }
 
+  /**
+   * plays the nighttime sfx
+   */
   public static void nighttimeSFX() {
     if (!isPlayingBackgroundSFX) {
       isPlayingBackgroundSFX = true;
@@ -331,6 +388,9 @@ public class Sounds {
     }
   }
 
+  /**
+   * plays the daytime sfx
+   */
   public static void daytimeSFX() {
     if (!isPlayingBackgroundSFX) {
       isPlayingBackgroundSFX = true;
@@ -339,79 +399,117 @@ public class Sounds {
     }
   }
 
-
+  /**
+   * fires the musket special effect
+   */
   public static void musketSFX() {
     if (AZTrailController.sound) {
       sounds.get("musket").play(MAX_EFFECT_VOLUME);
     }
   }
 
+  /**
+   * plays the oxen sfx
+   */
   public static void oxenSFX() {
     if (AZTrailController.sound) {
       sounds.get("register").play(MAX_EFFECT_VOLUME);
     }
   }
 
+  /**
+   * plays the moving sound effect
+   */
   public static void movingSFX() {
     if (AZTrailController.sound && !sounds.get("moving").isPlaying()) {
       sounds.get("moving").play(MAX_EFFECT_VOLUME - 0.1);
     }
   }
 
+  /**
+   * plays the stop moving sound effect
+   */
   public static void stopMovingSFX() {
     if (sounds.get("moving").isPlaying()) {
       sounds.get("moving").stop();
     }
   }
 
+  /**
+   * plays the wagon breaking effect
+   */
   public static void breakdownSFX() {
     if (AZTrailController.sound) {
       sounds.get("breakdown").play(MAX_EFFECT_VOLUME);
     }
   }
 
+  /**
+   * plays the sizzle sound effect
+   */
   public static void sizzleSFX() {
     if (AZTrailController.sound) {
       sounds.get("sizzle").play(MAX_EFFECT_VOLUME);
     }
   }
 
+  /**
+   * plays the owl sound effect
+   */
   public static void ow1SFX() {
     if (AZTrailController.sound) {
       sounds.get("ow1").play(MAX_EFFECT_VOLUME);
     }
   }
 
+  /**
+   * plays the second owl sfx
+   */
   public static void ow2SFX() {
     if (AZTrailController.sound) {
       sounds.get("ow2").play(MAX_EFFECT_VOLUME);
     }
   }
 
+  /**
+   * plays the owXLSFX
+   */
   public static void owXLSFX() {
     if (AZTrailController.sound) {
       sounds.get("ow-xl").play(MAX_EFFECT_VOLUME);
     }
   }
 
+  /**
+   * plays the owen wilson 1 wow
+   */
   public static void wow1SFX() {
     if (AZTrailController.sound) {
       sounds.get("wow1").play(MAX_EFFECT_VOLUME);
     }
   }
 
+  /**
+   * plays the owen wilson 2 wow
+   */
   public static void wow2SFX() {
     if (AZTrailController.sound) {
       sounds.get("wow2").play(MAX_EFFECT_VOLUME);
     }
   }
 
+  /**
+   * plays the owen wilson 3 wow
+   */
   public static void wow3SFX() {
     if (AZTrailController.sound) {
       sounds.get("wow3").play(MAX_EFFECT_VOLUME);
     }
   }
 
+  /**
+   * mutes all sounds
+   */
   public static void mute() {
     if (AZTrailController.sound) {
       AZTrailController.sound = false;
@@ -444,6 +542,9 @@ public class Sounds {
     }
   }
 
+  /**
+   * stops all music from both player threads
+   */
   public static void stop() {
     stopMusic();
     if (sfxPlayer1 != null) {
@@ -456,6 +557,9 @@ public class Sounds {
     }
   }
 
+  /**
+   * stops a single music player
+   */
   public static void stopMusic() {
     if (musicPlayer != null) {
       musicPlayer.stop();

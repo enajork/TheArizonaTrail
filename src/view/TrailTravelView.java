@@ -24,6 +24,11 @@ import java.util.*;
 import java.io.*;
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class TrailTravelView extends Scene {
   private static int TIME_DILATION = 30 - ((AZTrailView.controller.getTravelRate() / 3) * 10);
@@ -49,7 +54,7 @@ public class TrailTravelView extends Scene {
   private static int time = 0;
 
   /**
-   * [TrailTravelView description]
+   * No arg constructor for the trail travel view
    */
   public TrailTravelView() {
     this(new BorderPane());
@@ -57,8 +62,8 @@ public class TrailTravelView extends Scene {
   }
 
   /**
-   * [TrailTravelView description]
-   * @param root [description]
+   * Constructs the trail travel view, the main gameplay view for the player
+   * @param root the root node of the scene graph
    */
   private TrailTravelView(BorderPane root) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT);
@@ -86,6 +91,11 @@ public class TrailTravelView extends Scene {
     addEventHandlers();
   }
 
+  /**
+   * Constructs the info area showing the players current stats
+   *
+   * @return the pane containing the stats
+   */
   private BorderPane infoPane() {
     BorderPane info = new BorderPane();
 
@@ -122,6 +132,12 @@ public class TrailTravelView extends Scene {
     return info;
   }
 
+  /**
+   * generates a stackpane with the graphics of the overworld and the
+   * traveling wagon
+   *
+   * @return the constructed stackpane with graphics
+   */
   private StackPane travelGraphics() {
     StackPane pane = new StackPane();
     TilePane tile = new TilePane(Orientation.VERTICAL);
@@ -241,7 +257,7 @@ public class TrailTravelView extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to the view to handle keyboard actions
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -318,7 +334,9 @@ public class TrailTravelView extends Scene {
   }
 
   /**
-   * [buildStatsString description]
+   * constructs a stats string showing all the players current information
+   *
+   * @return the constructed stats string
    */
   private String buildStatsString() {
     String res = "Date: %s\nWeather: %s\nHealth: %s\nFood: %d pounds\nWater: "
@@ -335,7 +353,7 @@ public class TrailTravelView extends Scene {
   }
 
   /**
-   * [updateStats description]
+   * moves the animation process tick forward and updates the view to matchs
    */
   private void tick() {
     if (time == Integer.MAX_VALUE) {
@@ -450,6 +468,9 @@ public class TrailTravelView extends Scene {
     private final Animation animation;
     private ImageView imageView;
 
+    /**
+     * private inner class for the oxen sprite
+     */
     public OxenSprite() {
       this.imageView = new ImageView(IMAGE);
       this.imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH,
@@ -465,14 +486,25 @@ public class TrailTravelView extends Scene {
       this.animation.setCycleCount(4);
     }
 
+    /**
+     * starts the animation
+     */
     public void play() {
       this.animation.play();
     }
 
+    /**
+     * pauses the animation
+     */
     public void pause() {
       this.animation.pause();
     }
 
+    /**
+     * returns the current sprite
+     *
+     * @return the imageview into the sprite
+     */
     public ImageView getSprite() {
       return this.imageView;
     }

@@ -3,6 +3,11 @@ package tests;
 import model.Calendar;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class CalendarTest {
   @Test

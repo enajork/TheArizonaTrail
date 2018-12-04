@@ -2,6 +2,11 @@ package model;
 
 import java.util.*;
 import java.io.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class MapModel implements Serializable {
   private boolean atDestination;
@@ -13,6 +18,10 @@ public class MapModel implements Serializable {
   private String[] citiesInOrder = {"Nogales", "Tombstone", "Tucson", "Phoenix",
     "Sedona", "Flagstaff", "Page"};
 
+  /**
+   * Constructor for the map model. Starts the map at Nogales
+   * and creates the miles to city mapping
+   */
   public MapModel() {
     currentCity = "Nogales";
     nextCity = "Tombstone";

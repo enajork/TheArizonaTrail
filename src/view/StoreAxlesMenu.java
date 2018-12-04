@@ -20,6 +20,11 @@ import java.util.*;
 import java.io.*;
 
 import controller.*;
+/**
+ * @author Jordan Bridgewater, Jared Grady, Eric Najork, David Najork
+ * @version     1.0
+ * @since       1.0
+ */
 
 public class StoreAxlesMenu extends Scene {
   private final Rectangle rect1 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
@@ -42,7 +47,10 @@ public class StoreAxlesMenu extends Scene {
   private boolean start;
 
   /**
-   * [StoreAxlesMenu description]
+   * Constructs a new store axle menu view
+   *
+   * @param name  the store name
+   * @param start boolean
    */
   public StoreAxlesMenu(int parts, String name, boolean start) {
     this(new BorderPane(), name, start);
@@ -52,8 +60,12 @@ public class StoreAxlesMenu extends Scene {
   }
 
   /**
-   * [StoreAxlesMenu description]
-   * @param root [description]
+   * Constructs a new store axle menu view
+   *
+   * @param root  root of the scene graph
+   *
+   * @param name  the store name
+   * @param start boolean
    */
   private StoreAxlesMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
@@ -148,7 +160,7 @@ public class StoreAxlesMenu extends Scene {
   }
 
   /**
-   * [addEventHandlers description]
+   * Adds event handlers to handle keyboard actions from the user
    */
   private void addEventHandlers() {
     this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -214,8 +226,8 @@ public class StoreAxlesMenu extends Scene {
   }
 
   /**
-   * [updateInputText description]
-   * @param num [description]
+   * updates the display when the user types in a selection the keyboard
+   * @param num the value inserted by the user
    */
   private void updateInputText(int num) {
     if (warn) {
@@ -229,9 +241,9 @@ public class StoreAxlesMenu extends Scene {
   }
 
   /**
-   * [getNextView description]
-   * @param  choice [description]
-   * @return        [description]
+   * determines the next view to be scene by the player based on their choice
+   * @param  choice integer choice number
+   * @return        the next view to be staged
    */
   private Scene getNextView(int choice) {
     parts += choice;
