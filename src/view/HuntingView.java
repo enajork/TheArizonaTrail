@@ -87,6 +87,7 @@ public class HuntingView extends Scene {
   }
 
   private void doneHunting() {
+    gc.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     AZTrailView.sounds.stopMusic();
     AZTrailView.sounds.startThemeLoop();
   }
