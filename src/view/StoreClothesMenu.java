@@ -40,7 +40,7 @@ public class StoreClothesMenu extends Scene {
   private Text footer;
   private Text body;
   private String prompt = "You'll need warm clothing in\nthe mountains. I "
-    + "recommend\ntaking at least 2 sets of\nclothes per person. Each\nset "
+    + "recommend\ntaking at least 1 sets of\nclothes per person. Each\nset "
     + "is $10.00.\n\nHow many sets of clothes do\nyou want? ";
   private String input = "_";
   private String name;
