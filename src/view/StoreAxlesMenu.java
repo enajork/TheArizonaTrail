@@ -247,7 +247,7 @@ public class StoreAxlesMenu extends Scene {
    * @return        the next view to be staged
    */
   private Scene getNextView(int choice) {
-    StoreMenu.tongues = choice;
+    StoreMenu.axles = choice;
     parts += choice;
     return new StoreTonguesMenu(parts, name, start);
   }
