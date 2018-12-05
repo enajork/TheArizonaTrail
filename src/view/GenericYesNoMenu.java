@@ -236,7 +236,7 @@ public class GenericYesNoMenu extends Scene {
                 yesTrue = false;
               }
               if (i < no.length() && input.toLowerCase().charAt(i)
-                  != no.charAt(i)) {
+                  != no.toLowerCase().charAt(i)) {
                 noTrue = false;
               }
               if (i > no.length()) {
