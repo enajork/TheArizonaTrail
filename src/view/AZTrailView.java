@@ -50,7 +50,7 @@ public class AZTrailView extends Application {
     controller.loadTopTen();
     this.stage.setTitle("Arizona Trail");
     this.stage.setResizable(false);
-    // stage.initStyle(StageStyle.UNDECORATED);
+    stage.initStyle(StageStyle.UNDECORATED);
 
     this.stage.setScene(new SplashMenu());
     this.stage.show();
@@ -59,6 +59,7 @@ public class AZTrailView extends Application {
   public static void escapePressed(boolean saveAllowed) {
     if (AZTrailController.escape) {
       AZTrailView.sounds.stopMovingSFX();
+      AZTrailView.sounds.stop();
       if (saveAllowed) {
         stage.setScene(new GenericYesNoMenu(
           new Runnable() {
@@ -91,7 +92,6 @@ public class AZTrailView extends Application {
           "",
           true
         ));
-        AZTrailView.sounds.stop();
       } else {
         stage.setScene(new SplashMenu());
       }
