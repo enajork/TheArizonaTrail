@@ -337,6 +337,15 @@ public class StoreMenu extends Scene {
             break;
 
           case ESCAPE:
+            if (AZTrailController.escape) {
+              wheels = 0;
+              axles = 0;
+              tongues = 0;
+              oxen = 0;
+              food = 0;
+              clothes = 0;
+              ammo = 0;
+            }
             AZTrailView.escapePressed(false);
             break;
 
