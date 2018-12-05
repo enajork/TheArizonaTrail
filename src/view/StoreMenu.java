@@ -410,7 +410,8 @@ public class StoreMenu extends Scene {
         AZTrailView.controller.addBlankets(5);
         return new HuntedMenu();
       case "Flagstaff":
-        return new HuntedSplash();
+        return (AZTrailView.controller.getHunted())
+          ? new HuntedSplash() : new SizeUpView();
       default:
         return new SizeUpView();
     }

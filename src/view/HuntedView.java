@@ -31,11 +31,12 @@ public class HuntedView extends Scene {
   private boolean dDown = false;
 
   private static final int SIZE = 43;
-  private final int START_HEALTH = 5;
+  private final int START_HEALTH = 20;
+  private final int MISSES_ALLOWED = 3;
   private int health = START_HEALTH;
 
   private final boolean INFINITE_AMMO = false;
-  private final int TIMEOUT = 15000;
+  private final int TIMEOUT = 20000;
   private final int COOLDOWN_TIME = 300;
   private int shots = 0;
   private int hits = 0;
@@ -74,11 +75,13 @@ public class HuntedView extends Scene {
   private int mouseY = 0;
   private AnchorPane bullets = new AnchorPane();
   private Circle bullet;
+  private static SequentialTransition pause;
   private GraphicsContext gc = canvas.getGraphicsContext2D();
   private BorderPane root;
   private AnchorPane info;
   private AnchorPane owenAnchor;
   private Text ammo = new Text(AZTrailView.controller.getBullets() + " bullets");
+  private boolean won = false;
 
   /**
    * [HuntedView description]
@@ -185,17 +188,21 @@ public class HuntedView extends Scene {
     AnimationTimer timer = new AnimationTimer() {
       @Override
       public void handle(long now) {
-        tick();
+        if (!won) {
+          tick();
+        }
       }
     };
     timer.start();
 
-    SequentialTransition pause = new SequentialTransition (
+    pause = new SequentialTransition (
       new PauseTransition(Duration.millis(TIMEOUT)));
     pause.onFinishedProperty().set(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        gameOver(false);
+        if (!won) {
+          gameOver(false);
+        }
       }
     });
     pause.play();
@@ -318,7 +325,14 @@ public class HuntedView extends Scene {
         cooldown = false;
         if (bullet.getBoundsInParent().intersects(owenView.getBoundsInParent())) {
           owenView.setImage(owenHurt);
-          AZTrailView.sounds.ow2SFX();
+          if (health == 4) {
+            AZTrailView.sounds.owXLSFX();
+          } else if (((int) Math.random() * 2) % 2 == 0) {
+            AZTrailView.sounds.ow2SFX();
+          } else {
+            AZTrailView.sounds.ow1SFX();
+          }
+
           owenX = (new Random().nextInt((400) + 1));
           owenY = (new Random().nextInt((400) + 1));
           owenAnchor.setTopAnchor(owenView, owenX);
@@ -335,7 +349,7 @@ public class HuntedView extends Scene {
             pause.play();
           health--;
         }
-        if (shots == START_HEALTH) {
+        if ((shots - MISSES_ALLOWED) == START_HEALTH) {
           gameOver(false);
         }
       }
@@ -350,10 +364,12 @@ public class HuntedView extends Scene {
   }
 
   private void gameOver(boolean won) {
+    pause.playFromStart();
+    pause.pause();
     if (won) {
       AZTrailView.sounds.stopMusic();
       AZTrailView.sounds.startThemeLoop();
-      AZTrailView.sounds.wow1SFX();
+      wow();
       AZTrailView.stage.setScene(
         new GenericInfoMenu(new Runnable() {
           @Override
@@ -368,8 +384,8 @@ public class HuntedView extends Scene {
       ));
     } else {
       AZTrailView.sounds.stopMusic();
-      AZTrailView.sounds.startThemeLoop();
-      AZTrailView.sounds.wow1SFX();
+      AZTrailView.sounds.gameOverTheme();
+      wow();
       AZTrailView.stage.setScene(
         new GenericInfoMenu(new Runnable() {
           @Override
@@ -385,9 +401,24 @@ public class HuntedView extends Scene {
     }
   }
 
+  private void wow() {
+    switch (((int) (Math.random() * 3)) % 3) {
+      case 0:
+        AZTrailView.sounds.wow1SFX();
+        return;
+      case 1:
+        AZTrailView.sounds.wow2SFX();
+        return;
+      case 2:
+        AZTrailView.sounds.wow3SFX();
+        return;
+    }
+  }
+
   private void tick() {
     if (health == 0) {
-      gameOver(true);
+      won = true;
+      gameOver(won);
     }
     boolean accelerate = false;
     if (wDown) {
