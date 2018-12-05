@@ -15,7 +15,7 @@ public class AZTrailController {
   private final int BREAK_AXLE = 1;
   private final int OXEN_DEATH = 1;
   private final int SICK = 1;
-  private final int LUCK = 100;
+  private final int LUCK = 300;
   private final String savePath = "model/save_game.dat";
   private final String scoresPath = "model/topten.dat";
   public static boolean hasSave = false;
@@ -987,7 +987,7 @@ public class AZTrailController {
       return "0" + getName(p) + " has " + randomIllness() + ".";
     }
     p = rand.nextInt(LUCK);
-    if (p >= 0 && p <= BREAK_WHEEL) {
+    if (p >= 0 && p <= (BREAK_WHEEL * (getTravelRate() / 2))) {
       removeWheels(1);
       if (getWheels() == 0) {
         return "1Your wagon wheel broke\nand you don't have\nany spares.";
@@ -995,7 +995,7 @@ public class AZTrailController {
       return "0One of your wheels broke.";
     }
     p = rand.nextInt(LUCK);
-    if (p >= 0 && p <= BREAK_AXLE) {
+    if (p >= 0 && p <= BREAK_AXLE * (getTravelRate() / 2)) {
       removeAxles(1);
       if (getAxles() == 0) {
         return "1Your wagon axle broke\nand you don't have\nany spares.";
@@ -1003,7 +1003,7 @@ public class AZTrailController {
       return "0One of your axles broke.";
     }
     p = rand.nextInt(LUCK);
-    if (p >= 0 && p <= BREAK_TONGUE) {
+    if (p >= 0 && p <= BREAK_TONGUE * (getTravelRate() / 2)) {
       removeTongues(1);
       if (getTongues() == 0) {
         return "1Your wagon tongue broke\nand you don't have\nany spares.";

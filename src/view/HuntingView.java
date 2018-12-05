@@ -43,8 +43,8 @@ public class HuntingView extends Scene {
   private boolean smallSpawn = true;
   private final boolean INFINITE_AMMO = false;
   private final int COOLDOWN_TIME = 300;
-  private final double LARGE_PRICE = 0.1;
-  private final double SMALL_PRICE = 0.2;
+  private final double LARGE_PRICE = 0.2;
+  private final double SMALL_PRICE = 0.4;
   private final int MAX_SHOTS = 10;
   private double score = 0.0;
   private int shots = 0;
