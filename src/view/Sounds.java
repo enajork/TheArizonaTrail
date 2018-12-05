@@ -2,6 +2,7 @@ package view;
 
 import javafx.scene.media.*;
 import javafx.collections.*;
+import javafx.util.*;
 import java.util.*;
 import java.io.*;
 import controller.*;
@@ -195,6 +196,7 @@ public class Sounds {
       if (!AZTrailController.sound) {
         musicPlayer.setVolume(0);
       }
+      musicPlayer.setStartTime(Duration.millis(10000));
       musicPlayer.play();
       musicPlayer.setOnEndOfMedia(new Runnable() {
         @Override
