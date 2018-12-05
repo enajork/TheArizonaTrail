@@ -31,7 +31,7 @@ public class HuntedView extends Scene {
   private boolean dDown = false;
 
   private static final int SIZE = 43;
-  private final int START_HEALTH = 10;
+  private final int START_HEALTH = 5;
   private int health = START_HEALTH;
 
   private final boolean INFINITE_AMMO = false;
@@ -66,8 +66,8 @@ public class HuntedView extends Scene {
   private final int CANVAS_HEIGHT = (int)canvas.getHeight();
   private int width = 38;
   private int height = 46;
-  private int owenX = 0;
-  private int owenY = CANVAS_HEIGHT - height;
+  private double owenX = 0.0;
+  private double owenY = (double) CANVAS_HEIGHT - height;
   private int x = 0;
   private int y = CANVAS_HEIGHT - height;
   private int mouseX = CANVAS_WIDTH / 2;
@@ -176,8 +176,8 @@ public class HuntedView extends Scene {
       width, height);
     owenAnchor = new AnchorPane();
     owenAnchor.getChildren().add(owenView);
-    owenAnchor.setTopAnchor(owenView, 0.0);
-    owenAnchor.setLeftAnchor(owenView, (double)(CANVAS_WIDTH - width));
+    owenAnchor.setTopAnchor(owenView, owenX);
+    owenAnchor.setLeftAnchor(owenView, owenY);
     layers.getChildren().add(owenAnchor);
 
     addEventHandlers();
@@ -319,6 +319,11 @@ public class HuntedView extends Scene {
         if (bullet.getBoundsInParent().intersects(owenView.getBoundsInParent())) {
           owenView.setImage(owenHurt);
           AZTrailView.sounds.ow2SFX();
+          owenX = (new Random().nextInt((400) + 1));
+          owenY = (new Random().nextInt((400) + 1));
+          owenAnchor.setTopAnchor(owenView, owenX);
+          owenAnchor.setLeftAnchor(owenView, owenY);
+
           SequentialTransition pause = new SequentialTransition (
             new PauseTransition(Duration.millis(700)));
             pause.onFinishedProperty().set(new EventHandler<ActionEvent>() {
