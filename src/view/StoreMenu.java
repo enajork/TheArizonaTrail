@@ -256,6 +256,13 @@ public class StoreMenu extends Scene {
               AZTrailView.controller.addWheels(wheels);
               AZTrailView.controller.addAxles(axles);
               AZTrailView.controller.addTongues(tongues);
+              wheels = 0;
+              axles = 0;
+              tongues = 0;
+              oxen = 0;
+              food = 0;
+              clothes = 0;
+              ammo = 0;
               AZTrailView.controller.addWater(300);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
@@ -283,6 +290,13 @@ public class StoreMenu extends Scene {
               AZTrailView.controller.addWheels(wheels);
               AZTrailView.controller.addAxles(axles);
               AZTrailView.controller.addTongues(tongues);
+              wheels = 0;
+              axles = 0;
+              tongues = 0;
+              oxen = 0;
+              food = 0;
+              clothes = 0;
+              ammo = 0;
               AZTrailView.controller.addWater(200);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
