@@ -68,6 +68,7 @@ public class StoreWheelMenu extends Scene {
    */
   private StoreWheelMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    StoreMenu.wheels = 0;
     this.name = name;
     this.start = start;
     tile = new BorderPane();
@@ -245,8 +246,8 @@ public class StoreWheelMenu extends Scene {
    * @return        the next view to be staged
    */
   private Scene getNextView(int choice) {
+    StoreMenu.wheels = choice;
     parts += choice;
-    AZTrailView.controller.addWheels(choice);
     return new StoreAxlesMenu(parts, name, start);
   }
 }

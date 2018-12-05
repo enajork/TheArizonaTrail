@@ -70,6 +70,7 @@ public class StoreFoodMenu extends Scene {
    */
   private StoreFoodMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    StoreMenu.food = 0;
     this.name = name;
     this.start = start;
     tile = new BorderPane();
@@ -218,7 +219,7 @@ public class StoreFoodMenu extends Scene {
    * @return        the next view to be staged
    */
   private Scene getNextView(int choice) {
-    AZTrailView.controller.addFood(choice);
+    StoreMenu.food = choice;
     AZTrailView.controller.setCartFood(choice * 0.2);
     return new StoreMenu(name, start);
   }

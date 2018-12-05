@@ -69,6 +69,7 @@ public class StoreTonguesMenu extends Scene {
    */
   private StoreTonguesMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    StoreMenu.tongues = 0;
     this.name = name;
     this.start = start;
     tile = new BorderPane();
@@ -248,8 +249,8 @@ public class StoreTonguesMenu extends Scene {
    * @return        the next view to be staged
    */
   private Scene getNextView(int choice) {
+    StoreMenu.tongues = choice;
     parts += choice;
-    AZTrailView.controller.addTongues(choice);
     AZTrailView.controller.setCartParts(parts * 10);
     return new StoreMenu(name, start);
   }

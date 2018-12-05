@@ -290,6 +290,9 @@ public class HuntingView extends Scene {
           case S:
             AZTrailController.escape = false;
             sDown = true;
+            if (event.isControlDown()) {
+              AZTrailView.sounds.mute();
+            }
             break;
 
           case D:
@@ -538,6 +541,7 @@ public class HuntingView extends Scene {
           large.setLeftAnchor(largeTumble.getSprite(), (double)largeX);
           large.setTopAnchor(largeTumble.getSprite(), (double)largeY);
           tumbles.getChildren().add(large);
+          largeTumble.play();
         }
         if (!smallSpawn) {
           smallSpawn = true;
@@ -548,6 +552,7 @@ public class HuntingView extends Scene {
           small.setLeftAnchor(smallTumble.getSprite(), (double)smallX);
           small.setTopAnchor(smallTumble.getSprite(), (double)smallY);
           tumbles.getChildren().add(small);
+          smallTumble.play();
         }
       }
     });

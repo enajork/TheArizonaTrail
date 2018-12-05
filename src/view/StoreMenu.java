@@ -27,6 +27,13 @@ import controller.*;
  */
 
 public class StoreMenu extends Scene {
+  public static int wheels = 0;
+  public static int axles = 0;
+  public static int tongues = 0;
+  public static int oxen = 0;
+  public static int food = 0;
+  public static int clothes = 0;
+  public static int ammo = 0;
   private final Rectangle rect1 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
@@ -217,7 +224,7 @@ public class StoreMenu extends Scene {
             AZTrailController.escape = false;
             if (warn) {
               AZTrailView.stage.setScene(new StoreMenu(name, start));
-            } else if (start && AZTrailView.controller.getOxen() == 0 && !warn) {
+            } else if (start && oxen == 0 && !warn) {
               Text warning = new Text("Don't forget, you'll need\noxen to pull "
                 + "your wagon.");
               warning.setId("text12");
@@ -242,6 +249,13 @@ public class StoreMenu extends Scene {
               footer.setText("Press SPACE BAR to continue");
               warn = true;
             } else if (start) {
+              AZTrailView.controller.addOxen(oxen);
+              AZTrailView.controller.addFood(food);
+              AZTrailView.controller.addClothes(clothes);
+              AZTrailView.controller.addBullets(ammo);
+              AZTrailView.controller.addWheels(wheels);
+              AZTrailView.controller.addAxles(axles);
+              AZTrailView.controller.addTongues(tongues);
               AZTrailView.controller.addWater(300);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());
@@ -262,6 +276,13 @@ public class StoreMenu extends Scene {
                  + " and\ndifficult journey ahead\nof you."
               }));
             } else if (!start) {
+              AZTrailView.controller.addOxen(oxen);
+              AZTrailView.controller.addFood(food);
+              AZTrailView.controller.addClothes(clothes);
+              AZTrailView.controller.addBullets(ammo);
+              AZTrailView.controller.addWheels(wheels);
+              AZTrailView.controller.addAxles(axles);
+              AZTrailView.controller.addTongues(tongues);
               AZTrailView.controller.addWater(200);
               AZTrailView.controller.removeMoney(AZTrailView.controller
                 .getCartTotal());

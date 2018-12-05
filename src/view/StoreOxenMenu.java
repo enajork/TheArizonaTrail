@@ -66,6 +66,7 @@ public class StoreOxenMenu extends Scene {
    */
   private StoreOxenMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    StoreMenu.oxen = 0;
     this.name = name;
     this.start = start;
     tile = new BorderPane();
@@ -198,7 +199,7 @@ public class StoreOxenMenu extends Scene {
     if (choice < 0 || choice > NUM_OPTS) {
       throw new IllegalStateException();
     }
-    AZTrailView.controller.addOxen(choice);
+    StoreMenu.oxen = choice;
     AZTrailView.controller.setCartOxen(choice * 40.0);
     return new StoreMenu(name, start);
   }

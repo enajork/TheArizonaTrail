@@ -81,7 +81,8 @@ public class SizeUpView extends Scene {
         pace = "A grueling pace";
         break;
     }
-    Text stats = new Text("Weather: " + AZTrailView.controller.getWeather() + "\nHealth: " + AZTrailView.controller.getHealth() + "\nPace: " + pace);
+    Text stats = new Text("Weather: " + AZTrailView.controller.getWeather()
+      + "\nHealth: " + AZTrailView.controller.getHealth() + "\nPace: " + pace);
     stats.setId("text12");
     partyStats.setStyle("-fx-background-color: white;");
     partyStats.getChildren().add(stats);
@@ -198,7 +199,11 @@ public class SizeUpView extends Scene {
           + "\n 8. Tongues - " + AZTrailView.controller.getTongues()
           + "\n 9. Food - " + AZTrailView.controller.getFood() + " lbs"
           + "\n 10. Water - " + AZTrailView.controller.getWater() + " gallons"
-        }
+        },
+        false,
+        false,
+        false,
+        true
       );
 
       case 3:

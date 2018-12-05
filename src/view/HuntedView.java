@@ -31,7 +31,7 @@ public class HuntedView extends Scene {
   private boolean dDown = false;
 
   private static final int SIZE = 43;
-  private final int START_HEALTH = 50;
+  private final int START_HEALTH = 10;
   private int health = START_HEALTH;
 
   private final boolean INFINITE_AMMO = false;
@@ -66,6 +66,8 @@ public class HuntedView extends Scene {
   private final int CANVAS_HEIGHT = (int)canvas.getHeight();
   private int width = 38;
   private int height = 46;
+  private int owenX = 0;
+  private int owenY = CANVAS_HEIGHT - height;
   private int x = 0;
   private int y = CANVAS_HEIGHT - height;
   private int mouseX = CANVAS_WIDTH / 2;
@@ -232,6 +234,9 @@ public class HuntedView extends Scene {
           case S:
             AZTrailController.escape = false;
             sDown = true;
+            if (event.isControlDown()) {
+              AZTrailView.sounds.mute();
+            }
             break;
 
           case D:

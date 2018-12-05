@@ -8,6 +8,11 @@ import java.io.*;
  */
 
 public class Cart implements Serializable {
+  private final double OXEN_PRICE = 40.0;
+  private final double FOOD_PRICE = 0.2;
+  private final double CLOTHES_PRICE = 10.0;
+  private final double AMMO_PRICE = 0.1;
+  private final double PARTS_PRICE = 10.0;
   private double clothes;
   private double parts;
   private double oxen;

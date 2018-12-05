@@ -67,6 +67,7 @@ public class StoreAmmoMenu extends Scene {
    */
   private StoreAmmoMenu(BorderPane root, String name, boolean start) {
     super(root, AZTrailView.WIDTH, AZTrailView.HEIGHT, Color.BLACK);
+    StoreMenu.ammo = 0;
     this.name = name;
     this.start = start;
     tile = new BorderPane();
@@ -195,7 +196,7 @@ public class StoreAmmoMenu extends Scene {
    * @return        the next view to be staged
    */
   private Scene getNextView(int choice) {
-    AZTrailView.controller.addBullets(choice * 5);
+    StoreMenu.ammo = choice * 5;
     AZTrailView.controller.setCartAmmo(choice * 2.0);
     return new StoreMenu(name, start);
   }
