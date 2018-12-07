@@ -31,7 +31,7 @@ public class StoreAmmoMenu extends Scene {
     AZTrailView.HEIGHT * 0.016, Color.RED);
   private final Rectangle rect2 = new Rectangle(AZTrailView.WIDTH * 0.77 ,
     AZTrailView.HEIGHT * 0.016, Color.RED);
-  private final int INPUT_SIZE = 1;
+  private final int INPUT_SIZE = 2;
   private final int START_OPT = 0;
   private final int NUM_OPTS = 9;
   private String cost = new DecimalFormat("'$'###,##0.00")
@@ -40,7 +40,7 @@ public class StoreAmmoMenu extends Scene {
   private Text footer;
   private Text body;
   private String prompt = "I sell ammunition in boxes\nof 5 bullets. Each box"
-    + "\ncosts $2.00.\n\nHow many boxes do you\nwant? ";
+    + "\ncosts $0.05.\n\nHow many boxes do you\nwant? ";
   private String input = "_";
   private String name;
   private boolean start;
@@ -197,7 +197,7 @@ public class StoreAmmoMenu extends Scene {
    */
   private Scene getNextView(int choice) {
     StoreMenu.ammo = choice * 5;
-    AZTrailView.controller.setCartAmmo(choice * 2.0);
+    AZTrailView.controller.setCartAmmo(choice * 0.01);
     return new StoreMenu(name, start);
   }
 }
