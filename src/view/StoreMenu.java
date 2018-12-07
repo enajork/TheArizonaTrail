@@ -346,7 +346,7 @@ public class StoreMenu extends Scene {
               clothes = 0;
               ammo = 0;
             }
-            AZTrailView.escapePressed(false);
+            AZTrailView.escapePressed((start) ? false : true);
             break;
 
           case S:
